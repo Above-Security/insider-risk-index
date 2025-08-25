@@ -46,8 +46,14 @@ export default function BenchmarksPage() {
             Industry Benchmarks
           </h1>
           <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            Compare your insider risk posture against industry peers and similar-sized organizations
+            Industry benchmarks derived from Ponemon Institute 2025 research, Verizon DBIR 2024 analysis, 
+            and Gartner Market Guide insights across financial services, healthcare, and other industries
           </p>
+          <div className="mt-6 flex items-center justify-center space-x-8 text-sm text-gray-500">
+            <span>• Ponemon Institute 2025 Cost Study</span>
+            <span>• Verizon DBIR 2024 Analysis</span>
+            <span>• Gartner Market Guide G00805757</span>
+          </div>
         </div>
 
         {/* Overview Stats */}

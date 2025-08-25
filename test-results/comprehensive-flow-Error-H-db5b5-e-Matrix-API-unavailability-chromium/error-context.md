@@ -1,0 +1,204 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - navigation "Global" [ref=e4]:
+        - link "Insider Risk Index" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e7] [cursor=pointer]
+          - generic [ref=e9] [cursor=pointer]: Insider Risk Index
+        - generic [ref=e10]:
+          - link "Assessment" [ref=e11] [cursor=pointer]:
+            - /url: /assessment
+          - link "Benchmarks" [ref=e12] [cursor=pointer]:
+            - /url: /benchmarks
+          - link "Matrix" [ref=e13] [cursor=pointer]:
+            - /url: /matrix
+          - link "Playbooks" [ref=e14] [cursor=pointer]:
+            - /url: /playbooks
+          - link "Research" [ref=e15] [cursor=pointer]:
+            - /url: /research
+          - link "Glossary" [ref=e16] [cursor=pointer]:
+            - /url: /glossary
+          - link "About" [ref=e17] [cursor=pointer]:
+            - /url: /about
+          - link "Contact" [ref=e18] [cursor=pointer]:
+            - /url: /contact
+        - link "Start Assessment" [ref=e20] [cursor=pointer]:
+          - /url: /assessment
+    - main [ref=e21]:
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - img [ref=e26]
+            - heading "Insider Threat Matrix" [level=1] [ref=e28]
+          - paragraph [ref=e29]: Comprehensive threat intelligence based on real-world insider threat techniques, prevention strategies, and detection methods from the cybersecurity community.
+          - generic [ref=e30]:
+            - img [ref=e31]
+            - generic [ref=e33]: "Last updated: 8/25/2025"
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - img [ref=e36]
+            - generic [ref=e40]: "5"
+            - generic [ref=e41]: Total Techniques
+          - generic [ref=e42]:
+            - generic [ref=e43]: "5"
+            - generic [ref=e44]: Motive Techniques
+          - generic [ref=e45]:
+            - generic [ref=e46]: "0"
+            - generic [ref=e47]: Coercion Techniques
+          - generic [ref=e48]:
+            - generic [ref=e49]: "0"
+            - generic [ref=e50]: Manipulation Techniques
+        - generic [ref=e52]:
+          - tablist [ref=e53]:
+            - tab "Overview" [selected] [ref=e54]:
+              - img [ref=e55]
+              - text: Overview
+            - tab "Visualization" [ref=e59]:
+              - img [ref=e60]
+              - text: Visualization
+            - tab "Risk Heatmap" [ref=e62]:
+              - img [ref=e63]
+              - text: Risk Heatmap
+            - tab "Network" [ref=e65]:
+              - img [ref=e66]
+              - text: Network
+            - tab "Compare" [ref=e71]:
+              - img [ref=e72]
+              - text: Compare
+          - tabpanel "Overview" [ref=e77]:
+            - generic [ref=e78]:
+              - heading "Threat Techniques Overview" [level=2] [ref=e79]
+              - generic [ref=e80]:
+                - generic [ref=e81]:
+                  - generic [ref=e83]:
+                    - heading "Motive" [level=3] [ref=e84]
+                    - generic [ref=e85]: Motive
+                  - paragraph [ref=e86]: The reason or underlying cause that prompts a subject to engage in an infringement.
+                - generic [ref=e87]:
+                  - generic [ref=e89]:
+                    - heading "Means" [level=3] [ref=e90]
+                    - generic [ref=e91]: Motive
+                  - paragraph [ref=e92]: The mechanisms or circumstances required for an infringement to occur.
+                - generic [ref=e93]:
+                  - generic [ref=e95]:
+                    - heading "Preparation" [level=3] [ref=e96]
+                    - generic [ref=e97]: Motive
+                  - paragraph [ref=e98]: The activities conducted by a subject to aid or enable an infringement.
+                - generic [ref=e99]:
+                  - generic [ref=e101]:
+                    - heading "Infringement" [level=3] [ref=e102]
+                    - generic [ref=e103]: Motive
+                  - paragraph [ref=e104]: The act that harms or undermines an organization.
+                - generic [ref=e105]:
+                  - generic [ref=e107]:
+                    - heading "Anti-Forensics" [level=3] [ref=e108]
+                    - generic [ref=e109]: Motive
+                  - paragraph [ref=e110]: The actions undertaken by a subject to frustrate any subsequent investigation.
+        - generic [ref=e111]:
+          - heading "Attribution & Contributors" [level=3] [ref=e112]:
+            - img [ref=e113]
+            - text: Attribution & Contributors
+          - generic [ref=e118]:
+            - generic [ref=e119]:
+              - paragraph [ref=e120]:
+                - strong [ref=e121]: "Data Source:"
+                - text: The Insider Threat Matrix is maintained by the ForScie community (
+                - link "forscie.org" [ref=e122] [cursor=pointer]:
+                  - /url: https://forscie.org/
+                - text: ), providing open-source threat intelligence for the cybersecurity community.
+              - paragraph [ref=e123]:
+                - strong [ref=e124]: "Integration:"
+                - text: This assessment platform integrates Matrix techniques with Ponemon Institute cost data and Gartner implementation insights to provide actionable recommendations.
+              - link "Visit ForScie Insider Threat Matrix" [ref=e126] [cursor=pointer]:
+                - /url: https://insiderthreatmatrix.org/
+                - text: Visit ForScie Insider Threat Matrix
+                - img [ref=e127] [cursor=pointer]
+            - generic [ref=e131]:
+              - heading "Contributors:" [level=4] [ref=e132]
+              - generic [ref=e133]:
+                - generic [ref=e134]: ForScie Community (https://forscie.org/)
+                - generic [ref=e135]: Global Security Research Community
+                - generic [ref=e136]: Insider Threat Matrix Contributors
+    - contentinfo [ref=e137]:
+      - generic [ref=e138]:
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - link "Insider Risk Index" [ref=e141] [cursor=pointer]:
+              - /url: /
+              - img [ref=e142] [cursor=pointer]
+              - generic [ref=e144] [cursor=pointer]: Insider Risk Index
+            - paragraph [ref=e145]: Measure and improve your organization's insider risk posture with our comprehensive assessment platform.
+            - generic [ref=e146]:
+              - link "Twitter" [ref=e147] [cursor=pointer]:
+                - /url: https://twitter.com/InsiderRiskIdx
+                - img [ref=e148] [cursor=pointer]
+              - link "LinkedIn" [ref=e150] [cursor=pointer]:
+                - /url: https://linkedin.com/company/insider-risk-index
+                - img [ref=e151] [cursor=pointer]
+              - link "Email" [ref=e155] [cursor=pointer]:
+                - /url: mailto:hello@insiderriskindex.com
+                - img [ref=e156] [cursor=pointer]
+          - generic [ref=e159]:
+            - heading "Navigation" [level=3] [ref=e160]
+            - list [ref=e161]:
+              - listitem [ref=e162]:
+                - link "Assessment" [ref=e163] [cursor=pointer]:
+                  - /url: /assessment
+              - listitem [ref=e164]:
+                - link "Benchmarks" [ref=e165] [cursor=pointer]:
+                  - /url: /benchmarks
+              - listitem [ref=e166]:
+                - link "Playbooks" [ref=e167] [cursor=pointer]:
+                  - /url: /playbooks
+              - listitem [ref=e168]:
+                - link "Research" [ref=e169] [cursor=pointer]:
+                  - /url: /research
+              - listitem [ref=e170]:
+                - link "About" [ref=e171] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e172]:
+                - link "Contact" [ref=e173] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e174]:
+            - heading "Resources" [level=3] [ref=e175]
+            - list [ref=e176]:
+              - listitem [ref=e177]:
+                - link "API Documentation" [ref=e178] [cursor=pointer]:
+                  - /url: /docs/api
+              - listitem [ref=e179]:
+                - link "RSS Feed" [ref=e180] [cursor=pointer]:
+                  - /url: /rss.xml
+              - listitem [ref=e181]:
+                - link "Sitemap" [ref=e182] [cursor=pointer]:
+                  - /url: /sitemap.xml
+          - generic [ref=e183]:
+            - heading "Legal" [level=3] [ref=e184]
+            - list [ref=e185]:
+              - listitem [ref=e186]:
+                - link "Privacy Policy" [ref=e187] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e188]:
+                - link "Terms of Service" [ref=e189] [cursor=pointer]:
+                  - /url: /terms
+        - generic [ref=e191]:
+          - generic [ref=e192]:
+            - heading "Stay Updated" [level=3] [ref=e193]
+            - paragraph [ref=e194]: Get the latest research and insights on insider threats.
+          - generic [ref=e195]:
+            - textbox "Enter your email" [ref=e196]
+            - button "Subscribe" [ref=e197]
+        - generic [ref=e198]:
+          - paragraph [ref=e199]: © 2025 Insider Risk Index. All rights reserved.
+          - generic [ref=e200]:
+            - generic [ref=e201]: Made with security in mind
+            - generic [ref=e202]: •
+            - link "humans.txt" [ref=e203] [cursor=pointer]:
+              - /url: /humans.txt
+  - button "Open Next.js Dev Tools" [ref=e209] [cursor=pointer]:
+    - img [ref=e210] [cursor=pointer]
+  - alert [ref=e213]
+```

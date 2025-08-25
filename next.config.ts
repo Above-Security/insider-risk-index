@@ -10,7 +10,97 @@ const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   experimental: {
     mdxRs: false,
-    optimizePackageImports: ['@radix-ui/react-icons', 'lucide-react'],
+    optimizePackageImports: [
+      '@radix-ui/react-icons', 
+      'lucide-react', 
+      '@prisma/client',
+      'recharts',
+      'next-mdx-remote',
+      '@next/mdx'
+    ],
+    // Improved caching for faster rebuilds
+    staleTimes: {
+      dynamic: 30,
+      static: 300,
+    },
+  },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
+  // Performance optimizations for faster compilation
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
+  // Advanced webpack optimizations for build speed
+  webpack: (config, { dev, isServer }) => {
+    // Development performance optimizations
+    if (dev) {
+      // Simplified chunk splitting for faster builds
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          maxInitialRequests: 4,
+          maxAsyncRequests: 6,
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            framework: {
+              chunks: 'all',
+              name: 'framework',
+              test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-subscription)[\\/]/,
+              priority: 40,
+              enforce: true,
+            },
+          },
+        },
+        removeAvailableModules: false,
+        removeEmptyChunks: false,
+      };
+
+      // Faster source maps
+      config.devtool = 'eval-cheap-module-source-map';
+      
+      // Optimize file watching
+      config.snapshot = {
+        managedPaths: [/^(.+?[\\/]node_modules[\\/])(?!@?[a-z]).*[\\/]$/],
+      };
+
+      // Cache configuration for faster rebuilds
+      config.cache = {
+        type: 'filesystem',
+        buildDependencies: {
+          config: [__filename],
+        },
+      };
+    }
+
+    // Production optimizations
+    if (!dev) {
+      config.optimization = {
+        ...config.optimization,
+        usedExports: true,
+        sideEffects: false,
+        providedExports: true,
+      };
+    }
+
+    // Module resolution optimizations
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve?.alias,
+        '@': require('path').resolve(__dirname),
+      },
+    };
+
+    return config;
   },
   eslint: {
     ignoreDuringBuilds: true,

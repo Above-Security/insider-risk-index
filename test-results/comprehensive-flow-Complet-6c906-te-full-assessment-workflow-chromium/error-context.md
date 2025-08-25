@@ -1,0 +1,169 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - navigation "Global" [ref=e4]:
+        - link "Insider Risk Index" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e7] [cursor=pointer]
+          - generic [ref=e9] [cursor=pointer]: Insider Risk Index
+        - generic [ref=e10]:
+          - link "Assessment" [active] [ref=e11] [cursor=pointer]:
+            - /url: /assessment
+          - link "Benchmarks" [ref=e12] [cursor=pointer]:
+            - /url: /benchmarks
+          - link "Matrix" [ref=e13] [cursor=pointer]:
+            - /url: /matrix
+          - link "Playbooks" [ref=e14] [cursor=pointer]:
+            - /url: /playbooks
+          - link "Research" [ref=e15] [cursor=pointer]:
+            - /url: /research
+          - link "Glossary" [ref=e16] [cursor=pointer]:
+            - /url: /glossary
+          - link "About" [ref=e17] [cursor=pointer]:
+            - /url: /about
+          - link "Contact" [ref=e18] [cursor=pointer]:
+            - /url: /contact
+        - link "Start Assessment" [ref=e20] [cursor=pointer]:
+          - /url: /assessment
+    - main [ref=e21]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - heading "Insider Risk Assessment" [level=1] [ref=e26]
+          - paragraph [ref=e27]: Research-backed assessment framework developed from analysis of $17.4M average annual insider threat costs and 48% increase in attack frequency
+          - generic [ref=e28]:
+            - paragraph [ref=e29]:
+              - strong [ref=e30]: "Methodology:"
+              - text: 20 questions across 5 pillars weighted by economic impact analysis
+            - generic [ref=e31]:
+              - generic [ref=e32]: • Ponemon Institute 2025
+              - generic [ref=e33]: • Gartner Market Guide G00805757
+              - generic [ref=e34]: • Verizon DBIR 2024
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - img [ref=e38]
+            - heading "Organization Information" [level=3] [ref=e40]
+            - paragraph [ref=e41]: Tell us about your organization to get personalized benchmark comparisons
+          - generic [ref=e42]:
+            - generic [ref=e43]:
+              - generic [ref=e44]:
+                - generic [ref=e45]:
+                  - img [ref=e46]
+                  - text: Organization Name *
+                - textbox "Organization Name *" [ref=e50]
+              - generic [ref=e51]:
+                - generic [ref=e52]: Industry *
+                - combobox [ref=e53]:
+                  - generic: Select your industry
+                  - img [ref=e54]
+                - combobox [ref=e56]
+              - generic [ref=e57]:
+                - generic [ref=e58]:
+                  - img [ref=e59]
+                  - text: Company Size *
+                - combobox [ref=e64]:
+                  - generic: Select company size
+                  - img [ref=e65]
+                - combobox [ref=e67]
+              - generic [ref=e68]:
+                - generic [ref=e69]:
+                  - img [ref=e70]
+                  - text: Contact Email (Optional)
+                - textbox "Contact Email (Optional)" [ref=e73]
+                - paragraph [ref=e74]: "Optional: Receive your detailed results and updates on new research"
+              - generic [ref=e75]:
+                - checkbox "Include in benchmarks"
+                - generic [ref=e76]:
+                  - generic [ref=e77] [cursor=pointer]: Include in benchmarks
+                  - paragraph [ref=e78]: Help improve industry benchmarks by anonymously including your results in our aggregate data. Your organization will never be identified.
+              - generic [ref=e80]:
+                - img [ref=e81]
+                - generic [ref=e83]:
+                  - paragraph [ref=e84]: Privacy Commitment
+                  - paragraph [ref=e85]:
+                    - text: Your data is encrypted and secure. We never share individual results or identify specific organizations. Read our
+                    - link "Privacy Policy" [ref=e86] [cursor=pointer]:
+                      - /url: /privacy
+                    - text: .
+            - button "Begin Assessment" [ref=e88]
+    - contentinfo [ref=e89]:
+      - generic [ref=e90]:
+        - generic [ref=e91]:
+          - generic [ref=e92]:
+            - link "Insider Risk Index" [ref=e93] [cursor=pointer]:
+              - /url: /
+              - img [ref=e94] [cursor=pointer]
+              - generic [ref=e96] [cursor=pointer]: Insider Risk Index
+            - paragraph [ref=e97]: Measure and improve your organization's insider risk posture with our comprehensive assessment platform.
+            - generic [ref=e98]:
+              - link "Twitter" [ref=e99] [cursor=pointer]:
+                - /url: https://twitter.com/InsiderRiskIdx
+                - img [ref=e100] [cursor=pointer]
+              - link "LinkedIn" [ref=e102] [cursor=pointer]:
+                - /url: https://linkedin.com/company/insider-risk-index
+                - img [ref=e103] [cursor=pointer]
+              - link "Email" [ref=e107] [cursor=pointer]:
+                - /url: mailto:hello@insiderriskindex.com
+                - img [ref=e108] [cursor=pointer]
+          - generic [ref=e111]:
+            - heading "Navigation" [level=3] [ref=e112]
+            - list [ref=e113]:
+              - listitem [ref=e114]:
+                - link "Assessment" [ref=e115] [cursor=pointer]:
+                  - /url: /assessment
+              - listitem [ref=e116]:
+                - link "Benchmarks" [ref=e117] [cursor=pointer]:
+                  - /url: /benchmarks
+              - listitem [ref=e118]:
+                - link "Playbooks" [ref=e119] [cursor=pointer]:
+                  - /url: /playbooks
+              - listitem [ref=e120]:
+                - link "Research" [ref=e121] [cursor=pointer]:
+                  - /url: /research
+              - listitem [ref=e122]:
+                - link "About" [ref=e123] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e124]:
+                - link "Contact" [ref=e125] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e126]:
+            - heading "Resources" [level=3] [ref=e127]
+            - list [ref=e128]:
+              - listitem [ref=e129]:
+                - link "API Documentation" [ref=e130] [cursor=pointer]:
+                  - /url: /docs/api
+              - listitem [ref=e131]:
+                - link "RSS Feed" [ref=e132] [cursor=pointer]:
+                  - /url: /rss.xml
+              - listitem [ref=e133]:
+                - link "Sitemap" [ref=e134] [cursor=pointer]:
+                  - /url: /sitemap.xml
+          - generic [ref=e135]:
+            - heading "Legal" [level=3] [ref=e136]
+            - list [ref=e137]:
+              - listitem [ref=e138]:
+                - link "Privacy Policy" [ref=e139] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e140]:
+                - link "Terms of Service" [ref=e141] [cursor=pointer]:
+                  - /url: /terms
+        - generic [ref=e143]:
+          - generic [ref=e144]:
+            - heading "Stay Updated" [level=3] [ref=e145]
+            - paragraph [ref=e146]: Get the latest research and insights on insider threats.
+          - generic [ref=e147]:
+            - textbox "Enter your email" [ref=e148]
+            - button "Subscribe" [ref=e149]
+        - generic [ref=e150]:
+          - paragraph [ref=e151]: © 2025 Insider Risk Index. All rights reserved.
+          - generic [ref=e152]:
+            - generic [ref=e153]: Made with security in mind
+            - generic [ref=e154]: •
+            - link "humans.txt" [ref=e155] [cursor=pointer]:
+              - /url: /humans.txt
+  - button "Open Next.js Dev Tools" [ref=e161] [cursor=pointer]:
+    - img [ref=e162] [cursor=pointer]
+  - alert [ref=e165]
+```

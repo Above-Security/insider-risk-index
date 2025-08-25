@@ -284,11 +284,6 @@ Organizations should prioritize building mature capabilities across all five pil
 
 ---
 
-**Report Authors:**
-- Dr. Sarah Chen, Chief Security Officer
-- Michael Rodriguez, Lead Security Researcher
-- Emily Thompson, Risk Assessment Expert
-
 **Published**: December 2024
 **Next Report**: Q4 2025
 

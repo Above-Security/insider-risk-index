@@ -75,4 +75,5 @@ const withMDX = createMDX({
   },
 });
 
-export default withBundleAnalyzer(withMDX(nextConfig));
+// Temporarily disable bundle analyzer for faster builds
+export default process.env.ANALYZE === 'true' ? withBundleAnalyzer(withMDX(nextConfig)) : withMDX(nextConfig);

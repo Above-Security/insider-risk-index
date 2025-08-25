@@ -7,8 +7,8 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './playwright-tests',
   
-  /* Maximum time one test can run for - increased for slow compilation */
-  timeout: 90 * 1000, // 90s to handle Next.js compilation delays
+  /* Maximum time one test can run for - CI optimized */
+  timeout: process.env.CI ? 120 * 1000 : 90 * 1000, // 2min in CI, 90s locally
 
   expect: {
     /* Maximum time expect() should wait for the condition to be met */
@@ -24,8 +24,8 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   
-  /* Reduced workers for faster individual test execution */
-  workers: process.env.CI ? 1 : 2, // Limit concurrent tests to reduce resource contention
+  /* Optimized workers - single worker in CI for resource efficiency */
+  workers: process.env.CI ? 1 : 2, // Single worker in CI prevents resource contention
   
   /* Optimized reporter configuration */
   reporter: process.env.CI ? [
@@ -104,8 +104,8 @@ export default defineConfig({
     command: 'npm run dev',
     url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
-    timeout: 180 * 1000, // 3 minutes for initial Next.js compilation
-    stdout: 'pipe',
-    stderr: 'pipe',
+    timeout: process.env.CI ? 300 * 1000 : 180 * 1000, // 5min in CI, 3min locally
+    stdout: process.env.CI ? 'ignore' : 'pipe', // Reduce CI noise
+    stderr: process.env.CI ? 'pipe' : 'pipe', // Keep errors visible
   },
 });

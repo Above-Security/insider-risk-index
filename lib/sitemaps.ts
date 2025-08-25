@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllContent, ContentItem } from "./mdx";
 import { seoConfig } from "./seo";
+import { PrismaClient } from "@prisma/client";
 
 interface ContentFrontmatter {
   title: string;
@@ -61,6 +62,18 @@ export async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: "monthly",
         priority: 0.5,
+      },
+      {
+        url: `${seoConfig.siteUrl}/matrix`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      },
+      {
+        url: `${seoConfig.siteUrl}/glossary`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
       },
       {
         url: `${seoConfig.siteUrl}/privacy`,
@@ -170,6 +183,8 @@ export function generateRobots(): MetadataRoute.Robots {
       `${seoConfig.siteUrl}/sitemap.xml`,
       `${seoConfig.siteUrl}/research-sitemap.xml`,
       `${seoConfig.siteUrl}/playbooks-sitemap.xml`,
+      `${seoConfig.siteUrl}/glossary-sitemap.xml`,
+      `${seoConfig.siteUrl}/matrix-sitemap.xml`,
     ],
     host: seoConfig.siteUrl,
   };
@@ -203,6 +218,83 @@ export async function generateResearchSitemap(): Promise<MetadataRoute.Sitemap> 
     return [
       {
         url: `${seoConfig.siteUrl}/research`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      },
+    ];
+  }
+}
+
+/**
+ * Generate glossary-specific sitemap
+ */
+export async function generateGlossarySitemap(): Promise<MetadataRoute.Sitemap> {
+  try {
+    const prisma = new PrismaClient();
+    const glossaryTerms = await prisma.glossaryTerm.findMany({
+      where: { published: true },
+      select: {
+        slug: true,
+        updatedAt: true,
+      },
+      take: 1000,
+    });
+
+    const routes: MetadataRoute.Sitemap = [
+      {
+        url: `${seoConfig.siteUrl}/glossary`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      },
+      ...glossaryTerms.map(term => ({
+        url: `${seoConfig.siteUrl}/glossary/${term.slug}`,
+        lastModified: term.updatedAt,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      })),
+    ];
+
+    await prisma.$disconnect();
+    return routes;
+  } catch (error) {
+    console.error("Error generating glossary sitemap:", error);
+    return [
+      {
+        url: `${seoConfig.siteUrl}/glossary`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      },
+    ];
+  }
+}
+
+/**
+ * Generate matrix-specific sitemap
+ */
+export async function generateMatrixSitemap(): Promise<MetadataRoute.Sitemap> {
+  try {
+    // Note: Matrix data comes from external API, so we'll generate a basic sitemap
+    // In a real implementation, you might cache technique IDs in the database
+    const routes: MetadataRoute.Sitemap = [
+      {
+        url: `${seoConfig.siteUrl}/matrix`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      },
+      // Add technique pages if available
+      // This would be populated from Matrix API data in a real implementation
+    ];
+
+    return routes;
+  } catch (error) {
+    console.error("Error generating matrix sitemap:", error);
+    return [
+      {
+        url: `${seoConfig.siteUrl}/matrix`,
         lastModified: new Date(),
         changeFrequency: "weekly",
         priority: 0.8,
@@ -325,6 +417,14 @@ export async function generateSitemapIndex(): Promise<string> {
     },
     {
       loc: `${seoConfig.siteUrl}/playbooks-sitemap.xml`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${seoConfig.siteUrl}/glossary-sitemap.xml`,
+      lastmod: new Date().toISOString(),
+    },
+    {
+      loc: `${seoConfig.siteUrl}/matrix-sitemap.xml`,
       lastmod: new Date().toISOString(),
     },
   ];

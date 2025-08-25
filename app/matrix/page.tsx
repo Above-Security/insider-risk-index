@@ -5,6 +5,7 @@ import { MatrixHeatmap } from '@/components/matrix/matrix-heatmap';
 import { MatrixNetwork } from '@/components/matrix/matrix-network';
 import { TechniqueComparison } from '@/components/matrix/technique-comparison';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { generateJsonLd } from '@/lib/seo';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
@@ -21,8 +22,19 @@ async function getMatrixData() {
 export async function generateMetadata() {
   return {
     title: 'Insider Threat Matrix - Comprehensive Threat Intelligence',
-    description: 'Explore the comprehensive Insider Threat Matrix with techniques, preventions, and detection methods based on real-world threat intelligence from the ForScie community.',
-    keywords: 'insider threat matrix, threat intelligence, security techniques, prevention strategies, detection methods',
+    description: 'Explore the comprehensive Insider Threat Matrix with 50+ techniques, preventions, and detection methods based on real-world threat intelligence from the ForScie community.',
+    keywords: ['insider threat matrix', 'threat intelligence', 'security techniques', 'prevention strategies', 'detection methods', 'ForScie', 'cybersecurity framework'],
+    openGraph: {
+      title: 'Insider Threat Matrix - Comprehensive Threat Intelligence',
+      description: 'Explore 50+ insider threat techniques with prevention and detection strategies',
+      type: 'website',
+      url: '/matrix',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Insider Threat Matrix',
+      description: 'Comprehensive threat intelligence framework with 50+ techniques',
+    },
   };
 }
 

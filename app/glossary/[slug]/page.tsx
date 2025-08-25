@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, Tag, Brain, Calendar, User, ExternalLink } from 'lucide-react';
 import { PrismaClient } from '@prisma/client';
+import { getGlossaryTermJsonLd } from '@/lib/seo';
 
 const prisma = new PrismaClient();
 
@@ -83,6 +84,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!data) {
     return {
       title: 'Term Not Found',
+      robots: 'noindex, nofollow',
     };
   }
 
@@ -90,8 +92,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   return {
     title: `${term.term} - Insider Risk Glossary`,
-    description: term.definition,
-    keywords: [term.term, ...term.tags, 'insider risk', 'cybersecurity', 'glossary'].join(', '),
+    description: term.definition.length > 160 ? `${term.definition.substring(0, 157)}...` : term.definition,
+    keywords: [term.term, ...term.tags, 'insider risk', 'cybersecurity', 'glossary'],
+    openGraph: {
+      title: `${term.term} - Security Glossary`,
+      description: term.definition.length > 160 ? `${term.definition.substring(0, 157)}...` : term.definition,
+      type: 'article',
+      url: `/glossary/${slug}`,
+      publishedTime: term.createdAt.toISOString(),
+      ...(term.updatedAt && { modifiedTime: term.updatedAt.toISOString() }),
+    },
+    twitter: {
+      card: 'summary',
+      title: `${term.term} - Security Glossary`,
+      description: term.definition.length > 160 ? `${term.definition.substring(0, 157)}...` : term.definition,
+    },
   };
 }
 
@@ -141,8 +156,23 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
     }).format(date);
   };
 
+  // Generate structured data for the glossary term
+  const termJsonLd = getGlossaryTermJsonLd({
+    term: term.term,
+    definition: term.definition,
+    category: term.category,
+    difficulty: term.difficulty,
+    pillarRelevance: term.pillarRelevance,
+    slug: term.slug,
+  });
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(termJsonLd) }}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Navigation */}
         <div className="mb-8">
@@ -306,6 +336,7 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

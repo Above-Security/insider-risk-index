@@ -1,20 +1,51 @@
 import { BookOpen } from 'lucide-react';
 import { getAllPlaybooks } from '@/lib/playbooks';
 import { PlaybookGrid } from '@/components/playbooks/playbook-grid';
+import { pageMetadata, generateJsonLd } from '@/lib/seo';
 
-export async function generateMetadata() {
-  return {
-    title: 'Implementation Playbooks - Insider Risk Index',
-    description: 'Comprehensive, step-by-step implementation guides for building effective insider risk management programs across all five pillars.',
-    keywords: 'insider risk playbooks, implementation guides, security playbooks, threat management, risk mitigation',
-  };
-}
+export const metadata = pageMetadata.playbooks();
 
 export default function PlaybooksPage() {
   const playbooks = getAllPlaybooks();
 
+  // Generate structured data for playbooks collection
+  const playbooksJsonLd = generateJsonLd({
+    "@type": "CreativeWorkSeries",
+    name: "Insider Risk Management Implementation Playbooks",
+    description: "Comprehensive collection of step-by-step implementation guides for building effective insider risk management programs across all security pillars.",
+    url: "https://insiderriskindex.com/playbooks",
+    inLanguage: "en-US",
+    audience: {
+      "@type": "Audience",
+      audienceType: "Security Professionals"
+    },
+    about: {
+      "@type": "Thing",
+      name: "Insider Risk Management",
+      description: "Comprehensive approach to managing insider threats through policy, technology, and process improvements"
+    },
+    hasPart: playbooks.map((playbook) => ({
+      "@type": "HowTo",
+      name: playbook.frontmatter.title,
+      description: playbook.frontmatter.description,
+      url: `https://insiderriskindex.com/playbooks/${playbook.slug}`,
+      educationalLevel: playbook.frontmatter.difficulty,
+      timeRequired: playbook.frontmatter.timeToImplement,
+    })),
+    publisher: {
+      "@type": "Organization",
+      name: "Insider Risk Index",
+      url: "https://insiderriskindex.com"
+    },
+  });
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(playbooksJsonLd) }}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -34,6 +65,7 @@ export default function PlaybooksPage() {
         {/* Playbook Grid with Advanced Filtering */}
         <PlaybookGrid playbooks={playbooks} />
       </div>
-    </div>
+      </div>
+    </>
   );
 }

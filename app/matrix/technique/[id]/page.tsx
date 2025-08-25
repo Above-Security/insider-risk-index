@@ -94,13 +94,43 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
     }
   };
 
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty?.toLowerCase()) {
+  const getDifficultyColor = (difficulty: string | number) => {
+    if (typeof difficulty !== 'string') {
+      return 'bg-gray-100 text-gray-800';
+    }
+    
+    switch (difficulty.toLowerCase()) {
       case 'easy':
         return 'bg-green-100 text-green-800';
       case 'moderate':
         return 'bg-yellow-100 text-yellow-800';
       case 'difficult':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getFalsePositiveColor = (rate: number | string) => {
+    const numRate = typeof rate === 'string' ? parseFloat(rate) : rate;
+    if (isNaN(numRate)) return 'bg-gray-100 text-gray-800';
+    
+    if (numRate <= 0.05) return 'bg-green-100 text-green-800'; // Low false positive rate
+    if (numRate <= 0.15) return 'bg-yellow-100 text-yellow-800'; // Medium false positive rate
+    return 'bg-red-100 text-red-800'; // High false positive rate
+  };
+
+  const getCostLevelColor = (costLevel: string | number) => {
+    if (typeof costLevel !== 'string') {
+      return 'bg-gray-100 text-gray-800';
+    }
+    
+    switch (costLevel.toLowerCase()) {
+      case 'low':
+        return 'bg-green-100 text-green-800';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'high':
         return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';
@@ -265,7 +295,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                       
                       <div className="flex items-center gap-4 mt-3">
                         {prevention.costLevel && (
-                          <Badge variant="outline" className={getDifficultyColor(prevention.costLevel)}>
+                          <Badge variant="outline" className={getCostLevelColor(prevention.costLevel)}>
                             Cost: {prevention.costLevel}
                           </Badge>
                         )}
@@ -339,8 +369,10 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                       
                       <div className="flex items-center gap-4 mt-3">
                         {detection.falsePositiveRate && (
-                          <Badge variant="outline" className={getDifficultyColor(detection.falsePositiveRate)}>
-                            False Positives: {detection.falsePositiveRate}
+                          <Badge variant="outline" className={getFalsePositiveColor(detection.falsePositiveRate)}>
+                            False Positives: {typeof detection.falsePositiveRate === 'number' 
+                              ? `${(detection.falsePositiveRate * 100).toFixed(1)}%` 
+                              : detection.falsePositiveRate}
                           </Badge>
                         )}
                         {detection.difficulty && (

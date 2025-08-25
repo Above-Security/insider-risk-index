@@ -17,47 +17,35 @@ import Link from "next/link";
 export const metadata = pageMetadata.about();
 
 export default function AboutPage() {
-  const teamMembers = [
+  // Research foundation rather than specific team members
+  const researchFoundation = [
     {
-      name: "Dr. Sarah Chen",
-      role: "Chief Security Officer",
-      bio: "Former CISO at Fortune 500 companies with 15+ years in cybersecurity",
-      image: "/team/sarah-chen.jpg"
-    },
-    {
-      name: "Michael Rodriguez",
-      role: "Lead Security Researcher", 
-      bio: "PhD in Computer Science, specializing in behavioral analytics",
-      image: "/team/michael-rodriguez.jpg"
-    },
-    {
-      name: "Emily Thompson",
-      role: "Risk Assessment Expert",
-      bio: "Certified risk management professional with insider threat expertise",
-      image: "/team/emily-thompson.jpg"
-    },
+      name: "Research-Based Methodology",
+      role: "Security Community Driven",
+      bio: "Assessment framework developed from analysis of authoritative security research and industry incident data"
+    }
   ];
 
   const methodology = [
     {
       icon: BookOpen,
       title: "Research-Based",
-      description: "Our framework is built on peer-reviewed research and industry best practices from leading security organizations."
+      description: "Built on analysis from Ponemon Institute 2025 ($17.4M cost study), Gartner Market Guide G00805757 (48% attack increase), and Verizon DBIR 2024 (68% breaches involve human element)."
     },
     {
       icon: Users,
       title: "Expert Validation", 
-      description: "Developed and validated by security professionals with decades of real-world insider threat experience."
+      description: "Methodology validated against ForScie Insider Threat Matrix community research covering 50+ documented attack techniques and patterns."
     },
     {
       icon: TrendingUp,
       title: "Data-Driven",
-      description: "Continuously refined using feedback from thousands of assessments across diverse industries."
+      description: "Framework weights derived from economic impact analysis: visibility and prevention (25% each), investigation (20%), identity and phishing defense (15% each)."
     },
     {
       icon: Globe,
       title: "Industry Benchmarks",
-      description: "Comprehensive benchmarking data helps you understand where you stand relative to peers."
+      description: "Industry benchmarks derived from Ponemon Institute research across financial services ($758K avg incident cost), healthcare (70% internal breaches), and other industries."
     },
   ];
 
@@ -91,7 +79,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <Badge variant="secondary" className="mb-4">
-              Trusted by 1,400+ Organizations
+              Research-Driven Assessment
             </Badge>
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               About Insider Risk Index
@@ -369,33 +357,46 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Team Section */}
+      {/* Research Foundation Section */}
       <div className="bg-gray-50 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Meet Our Team
+              Research Foundation
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Security experts dedicated to helping you manage insider risk
+              Built on authoritative security research and community-driven threat intelligence
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {teamMembers.map((member) => (
-              <Card key={member.name} className="text-center">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-1">
+            {researchFoundation.map((item) => (
+              <Card key={item.name} className="text-center">
                 <CardContent className="p-6">
-                  <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-10 w-10 text-gray-400" />
+                  <div className="w-20 h-20 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <BookOpen className="h-10 w-10 text-blue-600" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {member.name}
+                    {item.name}
                   </h3>
-                  <p className="text-blue-600 font-medium mb-3">{member.role}</p>
-                  <p className="text-gray-600 text-sm">{member.bio}</p>
+                  <p className="text-blue-600 font-medium mb-3">{item.role}</p>
+                  <p className="text-gray-600 text-sm">{item.bio}</p>
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-gray-600 text-sm mb-4">
+              This assessment framework synthesizes insights from multiple authoritative sources rather than proprietary research.
+              All data sources are properly attributed and citations are provided throughout the platform.
+            </p>
+            <div className="flex justify-center space-x-8 text-sm text-gray-500">
+              <span>• Ponemon Institute 2025</span>
+              <span>• Gartner Market Guide G00805757</span>
+              <span>• Verizon DBIR 2024</span>
+              <span>• ForScie Matrix Community</span>
+            </div>
           </div>
         </div>
       </div>

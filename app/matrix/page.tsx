@@ -268,8 +268,13 @@ export default async function MatrixPage() {
           <div className="space-y-4">
             <div>
               <p className="text-gray-600 dark:text-gray-300 mb-2">
-                This matrix is built and maintained by the cybersecurity community, 
-                with contributions from researchers, practitioners, and organizations worldwide.
+                <strong>Data Source:</strong> The Insider Threat Matrix is maintained by the ForScie community 
+                (<a href="https://forscie.org/" className="text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">forscie.org</a>), 
+                providing open-source threat intelligence for the cybersecurity community.
+              </p>
+              <p className="text-gray-600 dark:text-gray-300 mb-2">
+                <strong>Integration:</strong> This assessment platform integrates Matrix techniques with 
+                Ponemon Institute cost data and Gartner implementation insights to provide actionable recommendations.
               </p>
               <div className="flex items-center">
                 <Link

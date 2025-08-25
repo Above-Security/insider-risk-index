@@ -27,17 +27,17 @@ export default function HomePage() {
     {
       icon: Shield,
       title: "Comprehensive Assessment",
-      description: "20 expertly crafted questions across 5 critical pillars of insider threat management.",
+      description: "20 research-backed questions developed from Ponemon Institute 2025 and Gartner Market Guide analysis.",
     },
     {
       icon: TrendingUp,
       title: "Industry Benchmarks",
-      description: "Compare your results against peers in your industry and company size category.",
+      description: "Compare against industry benchmarks derived from Ponemon Institute 2025 and Verizon DBIR 2024 research.",
     },
     {
       icon: Users,
       title: "Actionable Insights",
-      description: "Get personalized recommendations and implementation roadmaps.",
+      description: "Receive Matrix-enhanced recommendations based on ForScie threat intelligence and expert analysis."
     },
     {
       icon: FileText,
@@ -54,7 +54,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-8">
               <Badge variant="secondary" className="mb-4">
-                Trusted by {OVERALL_BENCHMARKS.totalAssessments.toLocaleString()}+ organizations
+                Research-Based Assessment Framework
               </Badge>
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
                 Measure Your{" "}
@@ -62,8 +62,8 @@ export default function HomePage() {
                 Posture
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                Take our comprehensive assessment to understand your organization&apos;s 
-                insider threat vulnerabilities and get expert recommendations for improvement.
+                Developed from analysis of $17.4M average annual insider threat costs (Ponemon 2025) and 
+                48% increase in insider attacks (Gartner Market Guide G00805757). Get evidence-based insights.
               </p>
             </div>
             
@@ -174,7 +174,7 @@ export default function HomePage() {
               Why Choose Our Assessment?
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Built by security experts, backed by industry research
+              Based on Ponemon Institute, Gartner Market Guide G00805757, and Verizon DBIR research methodologies
             </p>
           </div>
           
@@ -201,45 +201,52 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Trusted by Organizations Worldwide
+              Research-Backed Industry Data
             </h2>
+            <p className="mt-4 text-lg text-blue-100 max-w-3xl mx-auto">
+              Our assessment framework is built on comprehensive analysis from leading security research organizations
+            </p>
           </div>
           
           <dl className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div className="flex flex-col items-center">
               <dt className="text-sm font-medium text-blue-200">
-                Assessments Completed
+                Annual Cost Impact
               </dt>
               <dd className="text-3xl font-bold text-white">
-                {OVERALL_BENCHMARKS.totalAssessments.toLocaleString()}+
+                $17.4M
               </dd>
+              <dd className="text-xs text-blue-200">Average per organization (Ponemon 2025)</dd>
             </div>
             
             <div className="flex flex-col items-center">
               <dt className="text-sm font-medium text-blue-200">
-                Average Score
+                Programs Ineffective
               </dt>
               <dd className="text-3xl font-bold text-white">
-                {OVERALL_BENCHMARKS.averageScore}
+                54%
               </dd>
+              <dd className="text-xs text-blue-200">Report less than effective results (Gartner)</dd>
             </div>
             
             <div className="flex flex-col items-center">
               <dt className="text-sm font-medium text-blue-200">
-                Industries Covered
+                Attack Frequency Increase
               </dt>
               <dd className="text-3xl font-bold text-white">
-                15+
+                48%
               </dd>
+              <dd className="text-xs text-blue-200">Organizations report more frequent attacks (Gartner)</dd>
             </div>
             
             <div className="flex flex-col items-center">
               <dt className="text-sm font-medium text-blue-200">
-                Score Improvement
+                Containment Time
               </dt>
               <dd className="text-3xl font-bold text-white">
-                +{OVERALL_BENCHMARKS.trends.scoreImprovement}%
+                81 days
               </dd>
+              <dd className="text-xs text-blue-200">Average incident containment (Ponemon 2025)</dd>
             </div>
           </dl>
         </div>

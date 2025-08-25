@@ -4,6 +4,7 @@ import { MatrixVisualization } from '@/components/matrix/matrix-visualization';
 import { MatrixHeatmap } from '@/components/matrix/matrix-heatmap';
 import { MatrixNetwork } from '@/components/matrix/matrix-network';
 import { TechniqueComparison } from '@/components/matrix/technique-comparison';
+import { MatrixTechniquesPaginated } from '@/components/matrix/matrix-techniques-paginated';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { generateJsonLd } from '@/lib/seo';
 import Link from 'next/link';
@@ -22,18 +23,18 @@ async function getMatrixData() {
 export async function generateMetadata() {
   return {
     title: 'Insider Threat Matrix - Comprehensive Threat Intelligence',
-    description: 'Explore the comprehensive Insider Threat Matrix with 50+ techniques, preventions, and detection methods based on real-world threat intelligence from the ForScie community.',
+    description: 'Explore the comprehensive Insider Threat Matrix with 350+ techniques, preventions, and detection methods based on real-world threat intelligence from the ForScie community.',
     keywords: ['insider threat matrix', 'threat intelligence', 'security techniques', 'prevention strategies', 'detection methods', 'ForScie', 'cybersecurity framework'],
     openGraph: {
       title: 'Insider Threat Matrix - Comprehensive Threat Intelligence',
-      description: 'Explore 50+ insider threat techniques with prevention and detection strategies',
+      description: 'Explore 350+ insider threat techniques with prevention and detection strategies',
       type: 'website',
       url: '/matrix',
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Insider Threat Matrix',
-      description: 'Comprehensive threat intelligence framework with 50+ techniques',
+      description: 'Comprehensive threat intelligence framework with 350+ techniques',
     },
   };
 }
@@ -162,94 +163,7 @@ export default async function MatrixPage() {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Threat Techniques Overview
                 </h2>
-                <div className="grid gap-6">
-                  {techniques.map((technique) => (
-                    <div
-                      key={technique.id}
-                      className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6"
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                            {technique.title}
-                          </h3>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            technique.category === 'Motive' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
-                            technique.category === 'Coercion' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200' :
-                            'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
-                          }`}>
-                            {technique.category}
-                          </span>
-                        </div>
-                      </div>
-
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">
-                        {technique.description}
-                      </p>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Preventions */}
-                        {technique.preventions.length > 0 && (
-                          <div>
-                            <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
-                              Prevention Strategies ({technique.preventions.length})
-                            </h4>
-                            <div className="space-y-2">
-                              {technique.preventions.slice(0, 2).map((prevention) => (
-                                <div key={prevention.id} className="text-sm text-gray-600 dark:text-gray-400">
-                                  • {prevention.description}
-                                </div>
-                              ))}
-                              {technique.preventions.length > 2 && (
-                                <div className="text-xs text-blue-600 dark:text-blue-400">
-                                  +{technique.preventions.length - 2} more strategies
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Detections */}
-                        {technique.detections.length > 0 && (
-                          <div>
-                            <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
-                              Detection Methods ({technique.detections.length})
-                            </h4>
-                            <div className="space-y-2">
-                              {technique.detections.slice(0, 2).map((detection) => (
-                                <div key={detection.id} className="text-sm text-gray-600 dark:text-gray-400">
-                                  • {detection.description}
-                                </div>
-                              ))}
-                              {technique.detections.length > 2 && (
-                                <div className="text-xs text-blue-600 dark:text-blue-400">
-                                  +{technique.detections.length - 2} more methods
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Tactics */}
-                      {technique.tactics.length > 0 && (
-                        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                          <div className="flex flex-wrap gap-2">
-                            <span className="text-xs text-gray-500 dark:text-gray-400">Tactics:</span>
-                            {technique.tactics.map((tactic, index) => (
-                              <span
-                                key={index}
-                                className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs"
-                              >
-                                {tactic}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+                <MatrixTechniquesPaginated techniques={techniques} itemsPerPage={20} />
               </div>
             </TabsContent>
             

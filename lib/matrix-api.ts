@@ -1,4 +1,4 @@
-import { MatrixApiResponse, MatrixData, CachedMatrixData } from './matrix-types';
+import { MatrixApiResponse, MatrixData, MatrixTechnique, CachedMatrixData } from './matrix-types';
 
 const MATRIX_API_URL = process.env.MATRIX_API_URL || 'https://raw.githubusercontent.com/forscie/insider-threat-matrix/refs/heads/main/insider-threat-matrix.json';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -12,10 +12,12 @@ export class MatrixAPI {
   static async getMatrixData(forceRefresh = false): Promise<MatrixData> {
     // Return cached data if valid and not forcing refresh
     if (cachedData && !forceRefresh && new Date() < new Date(cachedData.expiresAt)) {
+      console.log('Returning cached Matrix data');
       return cachedData.data;
     }
 
     try {
+      console.log('Fetching fresh Matrix data from API...');
       const response = await fetch(MATRIX_API_URL, {
         next: { 
           revalidate: 86400, // 24 hours
@@ -24,9 +26,7 @@ export class MatrixAPI {
         headers: {
           'Accept': 'application/json',
           'User-Agent': 'InsiderRiskIndex/1.0'
-        },
-        // Prevent caching large responses in Next.js cache
-        cache: 'no-store'
+        }
       });
 
       if (!response.ok) {
@@ -35,6 +35,8 @@ export class MatrixAPI {
 
       const apiData: MatrixApiResponse = await response.json();
       const processedData = this.processApiData(apiData);
+
+      console.log(`Successfully processed ${processedData.techniques.length} techniques from Matrix API`);
 
       // Cache the processed data
       const now = new Date();
@@ -54,7 +56,7 @@ export class MatrixAPI {
         return cachedData.data;
       }
 
-      // Fallback to mock data if no cache available
+      // Fallback to empty data if no cache available
       return this.getFallbackData();
     }
   }
@@ -63,22 +65,77 @@ export class MatrixAPI {
    * Process raw API data into our internal format
    */
   private static processApiData(apiData: MatrixApiResponse): MatrixData {
-    // Handle case where articles might be missing or null
-    const techniques = apiData?.articles && Array.isArray(apiData.articles) 
-      ? apiData.articles.map((article) => ({
-      id: article.id,
-      title: article.title,
-      description: this.stripHtmlTags(article.description || 'No description available'),
-      category: this.mapThemeToCategory(article.theme),
-      tactics: [], // Not available in current API structure
-      preventions: this.extractPreventionsFromSections(article.sections || [], article.id),
-      detections: this.extractDetectionsFromSections(article.sections || [], article.id),
-      contributors: ['ForScie Community'], // Static for now since not in API
-      lastUpdated: article.updated || new Date().toISOString(),
-      version: '1.0'
-    }))
-      : []; // Return empty array if articles is missing
+    const techniques: MatrixTechnique[] = [];
+    
+    // Process each article and its sections
+    if (apiData?.articles && Array.isArray(apiData.articles)) {
+      apiData.articles.forEach(article => {
+        // Each article represents a theme/category
+        const category = this.mapThemeToCategory(article.theme);
+        
+        // Add the main article as a technique if it has meaningful content
+        if (article.id && article.title) {
+          techniques.push({
+            id: article.id,
+            title: article.title,
+            description: this.stripHtmlTags(article.description || ''),
+            category: category,
+            tactics: [],
+            preventions: [],
+            detections: [],
+            contributors: ['ForScie Community'],
+            lastUpdated: article.updated || article.created || new Date().toISOString(),
+            version: '1.0'
+          });
+        }
+        
+        // Process each section as a separate technique
+        if (article.sections && Array.isArray(article.sections)) {
+          article.sections.forEach(section => {
+            if (section.id && section.title) {
+              // Extract preventions from the section
+              const preventions = this.extractPreventions(section);
+              const detections = this.extractDetections(section);
+              
+              techniques.push({
+                id: section.id,
+                title: section.title,
+                description: this.stripHtmlTags(section.description || ''),
+                category: category,
+                tactics: [],
+                preventions: preventions,
+                detections: detections,
+                contributors: this.extractContributors(section),
+                lastUpdated: section.updated || section.created || article.updated || new Date().toISOString(),
+                version: '1.0'
+              });
+              
+              // Process subsections as additional techniques if they exist
+              if (section.subsections && Array.isArray(section.subsections)) {
+                section.subsections.forEach((subsection: any) => {
+                  if (subsection.id && subsection.title) {
+                    techniques.push({
+                      id: subsection.id,
+                      title: subsection.title,
+                      description: this.stripHtmlTags(subsection.description || ''),
+                      category: category,
+                      tactics: [],
+                      preventions: this.extractPreventions(subsection),
+                      detections: this.extractDetections(subsection),
+                      contributors: this.extractContributors(subsection),
+                      lastUpdated: subsection.updated || subsection.created || section.updated || new Date().toISOString(),
+                      version: '1.0'
+                    });
+                  }
+                });
+              }
+            }
+          });
+        }
+      });
+    }
 
+    // Calculate category counts
     const categoryCounts = {
       motive: techniques.filter(t => t.category === 'Motive').length,
       coercion: techniques.filter(t => t.category === 'Coercion').length,
@@ -111,105 +168,209 @@ export class MatrixAPI {
   }
 
   /**
-   * Map theme to category
+   * Extract preventions from a section
    */
-  private static mapThemeToCategory(theme: string): 'Motive' | 'Coercion' | 'Manipulation' {
-    if (theme?.toLowerCase().includes('coercion')) return 'Coercion';
-    if (theme?.toLowerCase().includes('manipulation')) return 'Manipulation';
-    return 'Motive'; // Default fallback
-  }
-
-  /**
-   * Extract preventions from article sections
-   */
-  private static extractPreventionsFromSections(sections: any[], articleId: string) {
-    if (!sections || !Array.isArray(sections)) return [];
-    
+  private static extractPreventions(section: any): any[] {
     const preventions: any[] = [];
     
-    sections.forEach(section => {
-      if (section.title && section.title.toLowerCase().includes('prevention') ||
-          section.title && section.title.toLowerCase().includes('mitigation')) {
+    if (section.preventions && Array.isArray(section.preventions)) {
+      section.preventions.forEach((prevention: any) => {
         preventions.push({
-          id: `${articleId}-prevention-${preventions.length}`,
-          title: section.title,
-          description: this.stripHtmlTags(section.content || 'No description available'),
-          implementation: 'Implementation details extracted from ForScie Matrix',
-          costLevel: 'medium' as const,
-          difficulty: 'moderate' as const,
-          effectiveness: 8,
-          pillar: this.mapToPillar(section.content || section.title || ''),
-          primaryPillar: this.mapToPillar(section.content || section.title || ''),
+          id: prevention.id || `${section.id}-prevention-${preventions.length}`,
+          title: prevention.title || 'Prevention Strategy',
+          description: this.stripHtmlTags(prevention.description || ''),
+          implementation: this.extractImplementation(prevention.description),
+          costLevel: this.estimateCostLevel(prevention),
+          difficulty: this.estimateDifficulty(prevention),
+          effectiveness: this.estimateEffectiveness(prevention),
+          pillar: this.mapToPillar(prevention.title + ' ' + (prevention.description || '')),
+          primaryPillar: this.mapToPillar(prevention.title + ' ' + (prevention.description || '')),
           secondaryPillars: []
         });
-      }
-    });
+      });
+    }
     
     return preventions;
   }
 
   /**
-   * Extract detections from article sections
+   * Extract detections from a section
    */
-  private static extractDetectionsFromSections(sections: any[], articleId: string) {
-    if (!sections || !Array.isArray(sections)) return [];
-    
+  private static extractDetections(section: any): any[] {
     const detections: any[] = [];
     
-    sections.forEach(section => {
-      if (section.title && section.title.toLowerCase().includes('detection') ||
-          section.title && section.title.toLowerCase().includes('monitoring')) {
+    if (section.detections && Array.isArray(section.detections)) {
+      section.detections.forEach((detection: any) => {
         detections.push({
-          id: `${articleId}-detection-${detections.length}`,
-          title: section.title,
-          description: this.stripHtmlTags(section.content || 'No description available'),
-          dataSource: 'System logs',
-          alertSeverity: 'medium' as const,
-          confidence: 8,
-          falsePositiveRate: 0.05,
-          pillar: this.mapToPillar(section.content || section.title || ''),
-          primaryPillar: this.mapToPillar(section.content || section.title || ''),
-          tools: ['SIEM', 'Monitoring System']
+          id: detection.id || `${section.id}-detection-${detections.length}`,
+          title: detection.title || 'Detection Method',
+          description: this.stripHtmlTags(detection.description || ''),
+          dataSource: this.extractDataSource(detection),
+          alertSeverity: this.estimateSeverity(detection),
+          confidence: this.estimateConfidence(detection),
+          falsePositiveRate: 0.1, // Default estimate
+          pillar: this.mapToPillar(detection.title + ' ' + (detection.description || '')),
+          primaryPillar: this.mapToPillar(detection.title + ' ' + (detection.description || '')),
+          tools: this.extractTools(detection)
         });
-      }
-    });
+      });
+    }
     
     return detections;
   }
 
   /**
-   * Generate prevention strategies from API data
+   * Extract contributors from a section
    */
-  private static generatePreventions(mitigations: string[], techniqueId: string) {
-    return mitigations.map((mitigation, index) => ({
-      id: `${techniqueId}-prevention-${index}`,
-      title: `Prevention Strategy ${index + 1}`,
-      description: mitigation,
-      implementation: `Implement ${mitigation.toLowerCase()} to mitigate this insider threat technique.`,
-      costLevel: this.randomChoice(['low', 'medium', 'high']) as 'low' | 'medium' | 'high',
-      difficulty: this.randomChoice(['easy', 'moderate', 'difficult']) as 'easy' | 'moderate' | 'difficult',
-      effectiveness: Math.floor(Math.random() * 5) + 6, // 6-10
-      primaryPillar: this.mapToPillar(mitigation),
-      secondaryPillars: []
-    }));
+  private static extractContributors(section: any): string[] {
+    const contributors: string[] = ['ForScie Community'];
+    
+    if (section.contributors && Array.isArray(section.contributors)) {
+      section.contributors.forEach((contributor: any) => {
+        if (contributor.name) {
+          contributors.push(contributor.name);
+        }
+      });
+    }
+    
+    if (section.preventions && Array.isArray(section.preventions)) {
+      section.preventions.forEach((prevention: any) => {
+        if (prevention.contributors && Array.isArray(prevention.contributors)) {
+          prevention.contributors.forEach((contributor: any) => {
+            if (contributor.name && !contributors.includes(contributor.name)) {
+              contributors.push(contributor.name);
+            }
+          });
+        }
+      });
+    }
+    
+    return [...new Set(contributors)]; // Remove duplicates
   }
 
   /**
-   * Generate detection methods from API data
+   * Extract implementation details from description
    */
-  private static generateDetections(detections: string[], techniqueId: string) {
-    return detections.map((detection, index) => ({
-      id: `${techniqueId}-detection-${index}`,
-      title: `Detection Method ${index + 1}`,
-      description: detection,
-      dataSource: this.randomChoice(['logs', 'network', 'endpoint', 'email', 'database']),
-      queryExample: `// Detection query for ${detection}`,
-      falsePositiveRate: this.randomChoice(['low', 'medium', 'high']) as 'low' | 'medium' | 'high',
-      difficulty: this.randomChoice(['easy', 'moderate', 'difficult']) as 'easy' | 'moderate' | 'difficult',
-      requiredTools: ['SIEM', 'Log Analysis'],
-      alternativeTools: ['Custom Scripts', 'Manual Review'],
-      primaryPillar: this.mapToPillar(detection)
-    }));
+  private static extractImplementation(description: string): string {
+    const cleaned = this.stripHtmlTags(description || '');
+    // Extract implementation approaches if present
+    if (cleaned.includes('Implementation Approaches')) {
+      const parts = cleaned.split('Implementation Approaches');
+      if (parts[1]) {
+        return parts[1].split('Operational Principles')[0].trim();
+      }
+    }
+    return cleaned.substring(0, 200) + '...';
+  }
+
+  /**
+   * Extract data source from detection
+   */
+  private static extractDataSource(detection: any): string {
+    const description = this.stripHtmlTags(detection.description || '');
+    if (description.includes('log')) return 'System logs';
+    if (description.includes('network')) return 'Network traffic';
+    if (description.includes('endpoint')) return 'Endpoint data';
+    if (description.includes('email')) return 'Email systems';
+    if (description.includes('database')) return 'Database logs';
+    return 'Multiple sources';
+  }
+
+  /**
+   * Extract tools from detection
+   */
+  private static extractTools(detection: any): string[] {
+    const tools: string[] = ['SIEM'];
+    const description = this.stripHtmlTags(detection.description || '').toLowerCase();
+    
+    if (description.includes('splunk')) tools.push('Splunk');
+    if (description.includes('elastic')) tools.push('Elasticsearch');
+    if (description.includes('sentinel')) tools.push('Microsoft Sentinel');
+    if (description.includes('chronicle')) tools.push('Google Chronicle');
+    if (description.includes('crowdstrike')) tools.push('CrowdStrike');
+    
+    return [...new Set(tools)];
+  }
+
+  /**
+   * Estimate cost level based on content
+   */
+  private static estimateCostLevel(prevention: any): 'low' | 'medium' | 'high' {
+    const text = (prevention.title + ' ' + prevention.description).toLowerCase();
+    if (text.includes('enterprise') || text.includes('comprehensive') || text.includes('advanced')) return 'high';
+    if (text.includes('basic') || text.includes('simple') || text.includes('minimal')) return 'low';
+    return 'medium';
+  }
+
+  /**
+   * Estimate difficulty based on content
+   */
+  private static estimateDifficulty(prevention: any): 'easy' | 'moderate' | 'difficult' {
+    const text = (prevention.title + ' ' + prevention.description).toLowerCase();
+    if (text.includes('complex') || text.includes('advanced') || text.includes('sophisticated')) return 'difficult';
+    if (text.includes('basic') || text.includes('simple') || text.includes('straightforward')) return 'easy';
+    return 'moderate';
+  }
+
+  /**
+   * Estimate effectiveness (1-10 scale)
+   */
+  private static estimateEffectiveness(prevention: any): number {
+    const text = (prevention.title + ' ' + prevention.description).toLowerCase();
+    if (text.includes('highly effective') || text.includes('critical')) return 9;
+    if (text.includes('effective') || text.includes('strong')) return 8;
+    if (text.includes('moderate')) return 6;
+    return 7; // Default
+  }
+
+  /**
+   * Estimate severity for detections
+   */
+  private static estimateSeverity(detection: any): 'low' | 'medium' | 'high' | 'critical' {
+    const text = (detection.title + ' ' + detection.description).toLowerCase();
+    if (text.includes('critical') || text.includes('severe')) return 'critical';
+    if (text.includes('high') || text.includes('major')) return 'high';
+    if (text.includes('low') || text.includes('minor')) return 'low';
+    return 'medium';
+  }
+
+  /**
+   * Estimate confidence level (1-10)
+   */
+  private static estimateConfidence(detection: any): number {
+    const text = (detection.title + ' ' + detection.description).toLowerCase();
+    if (text.includes('definitive') || text.includes('certain')) return 10;
+    if (text.includes('high confidence') || text.includes('reliable')) return 9;
+    if (text.includes('moderate')) return 7;
+    return 8; // Default
+  }
+
+  /**
+   * Map theme to category
+   */
+  private static mapThemeToCategory(theme: string): 'Motive' | 'Coercion' | 'Manipulation' {
+    const lowerTheme = (theme || '').toLowerCase();
+    
+    // Map the actual API themes to our categories
+    if (lowerTheme === 'motive' || lowerTheme === 'means') {
+      return 'Motive';
+    }
+    if (lowerTheme === 'preparation' || lowerTheme === 'infringement') {
+      return 'Coercion';
+    }
+    if (lowerTheme === 'anti-forensics' || lowerTheme.includes('manipulation')) {
+      return 'Manipulation';
+    }
+    
+    // Additional keyword-based mapping
+    if (lowerTheme.includes('coercion') || lowerTheme.includes('threat') || lowerTheme.includes('force')) {
+      return 'Coercion';
+    }
+    if (lowerTheme.includes('manipulat') || lowerTheme.includes('deceive') || lowerTheme.includes('trick')) {
+      return 'Manipulation';
+    }
+    
+    return 'Motive'; // Default
   }
 
   /**
@@ -218,30 +379,23 @@ export class MatrixAPI {
   private static mapToPillar(text: string): string {
     const lowerText = text.toLowerCase();
     
-    if (lowerText.includes('monitor') || lowerText.includes('log') || lowerText.includes('detect')) {
+    if (lowerText.includes('monitor') || lowerText.includes('detect') || lowerText.includes('visibility') || lowerText.includes('log')) {
       return 'visibility';
     }
-    if (lowerText.includes('train') || lowerText.includes('aware') || lowerText.includes('education')) {
-      return 'coaching';
+    if (lowerText.includes('train') || lowerText.includes('aware') || lowerText.includes('education') || lowerText.includes('coach')) {
+      return 'prevention-coaching';
     }
-    if (lowerText.includes('evidence') || lowerText.includes('record') || lowerText.includes('document')) {
-      return 'evidence';
+    if (lowerText.includes('evidence') || lowerText.includes('investiga') || lowerText.includes('forensic') || lowerText.includes('audit')) {
+      return 'investigation-evidence';
     }
-    if (lowerText.includes('access') || lowerText.includes('identity') || lowerText.includes('auth')) {
-      return 'identity';
+    if (lowerText.includes('access') || lowerText.includes('identity') || lowerText.includes('auth') || lowerText.includes('privilege')) {
+      return 'identity-saas';
     }
-    if (lowerText.includes('phish') || lowerText.includes('email') || lowerText.includes('social')) {
-      return 'phishing';
+    if (lowerText.includes('phish') || lowerText.includes('email') || lowerText.includes('social') || lowerText.includes('engineer')) {
+      return 'phishing-resilience';
     }
     
     return 'visibility'; // Default
-  }
-
-  /**
-   * Get a random choice from array
-   */
-  private static randomChoice<T>(choices: T[]): T {
-    return choices[Math.floor(Math.random() * choices.length)];
   }
 
   /**
@@ -250,9 +404,9 @@ export class MatrixAPI {
   private static stripHtmlTags(html: string): string {
     if (!html || typeof html !== 'string') return '';
     
-    // Remove HTML tags
+    // Remove HTML tags and decode entities
     return html
-      .replace(/<[^>]*>/g, '')
+      .replace(/<[^>]*>/g, '') // Remove HTML tags
       .replace(/&nbsp;/g, ' ')
       .replace(/&amp;/g, '&')
       .replace(/&lt;/g, '<')
@@ -260,17 +414,18 @@ export class MatrixAPI {
       .replace(/&quot;/g, '"')
       .replace(/&#39;/g, "'")
       .replace(/&apos;/g, "'")
+      .replace(/\s+/g, ' ') // Normalize whitespace
       .trim();
   }
 
   /**
-   * Fallback data when API is unavailable - return empty structure
+   * Fallback data when API is unavailable
    */
   private static getFallbackData(): MatrixData {
     return {
-      version: '1.0-unavailable',
+      version: '1.0-fallback',
       lastUpdated: new Date().toISOString(),
-      contributors: [],
+      contributors: ['ForScie Community (https://forscie.org/)'],
       attribution: {
         source: 'ForScie Insider Threat Matrix',
         url: 'https://insiderthreatmatrix.org/',
@@ -278,7 +433,7 @@ export class MatrixAPI {
         license: 'Creative Commons Attribution 4.0 International',
         description: 'The ForScie Insider Threat Matrix is a community-driven knowledge base of insider threat techniques, tactics, and procedures.'
       },
-      techniques: [], // Empty - no fallback data
+      techniques: [],
       metadata: {
         totalTechniques: 0,
         categories: {
@@ -326,9 +481,25 @@ export class MatrixAPI {
   }
 
   /**
+   * Search techniques by keyword
+   */
+  static async searchTechniques(keyword: string) {
+    const data = await this.getMatrixData();
+    const lowerKeyword = keyword.toLowerCase();
+    
+    return data.techniques.filter(tech => 
+      tech.title.toLowerCase().includes(lowerKeyword) ||
+      tech.description.toLowerCase().includes(lowerKeyword) ||
+      tech.id.toLowerCase().includes(lowerKeyword)
+    );
+  }
+
+  /**
    * Force refresh cache
    */
   static async refreshCache(): Promise<MatrixData> {
+    console.log('Force refreshing Matrix cache...');
+    cachedData = null; // Clear existing cache
     return this.getMatrixData(true);
   }
 
@@ -343,8 +514,8 @@ export class MatrixAPI {
     }
     
     return data.techniques.filter(tech => {
-      return tech.preventions?.some(prev => prev.pillar === pillarName) ||
-             tech.detections?.some(det => det.pillar === pillarName);
+      return tech.preventions?.some(prev => prev.pillar === pillarName || prev.primaryPillar === pillarName) ||
+             tech.detections?.some(det => det.pillar === pillarName || det.primaryPillar === pillarName);
     });
   }
 
@@ -362,8 +533,8 @@ export class MatrixAPI {
         name: tech.title,
         description: tech.description,
         category: tech.category,
-        relevantPreventions: tech.preventions?.filter(p => p.pillar === pillarName) || [],
-        relevantDetections: tech.detections?.filter(d => d.pillar === pillarName) || []
+        relevantPreventions: tech.preventions?.filter(p => p.pillar === pillarName || p.primaryPillar === pillarName) || [],
+        relevantDetections: tech.detections?.filter(d => d.pillar === pillarName || d.primaryPillar === pillarName) || []
       })),
       recommendations: this.generatePillarRecommendations(techniques, pillarName)
     };
@@ -372,14 +543,28 @@ export class MatrixAPI {
   /**
    * Generate recommendations for a specific pillar
    */
-  private static generatePillarRecommendations(techniques: any[], pillarName: string) {
-    // Generate high-level recommendations based on techniques
-    const recommendations = techniques.flatMap(tech => 
-      tech.preventions?.filter((p: any) => p.pillar === pillarName)
-        .map((p: any) => p.description) || []
-    );
+  private static generatePillarRecommendations(techniques: MatrixTechnique[], pillarName: string): string[] {
+    const recommendations: string[] = [];
     
-    return [...new Set(recommendations)].slice(0, 5); // Top 5 unique recommendations
+    // Extract unique prevention strategies
+    techniques.forEach(tech => {
+      tech.preventions?.forEach(prevention => {
+        if ((prevention.pillar === pillarName || prevention.primaryPillar === pillarName) && prevention.title) {
+          recommendations.push(prevention.title);
+        }
+      });
+    });
+    
+    // Return top 5 unique recommendations
+    return [...new Set(recommendations)].slice(0, 5);
+  }
+
+  /**
+   * Get technique count by category
+   */
+  static async getCategoryCounts() {
+    const data = await this.getMatrixData();
+    return data.metadata.categories;
   }
 }
 

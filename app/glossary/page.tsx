@@ -59,8 +59,11 @@ export default function GlossaryPage() {
     { id: 'phishing', name: 'Phishing' },
   ];
 
+  const [error, setError] = useState<string | null>(null);
+
   const fetchGlossary = async () => {
     setLoading(true);
+    setError(null);
     try {
       const params = new URLSearchParams();
       if (searchQuery) params.set('q', searchQuery);
@@ -70,10 +73,21 @@ export default function GlossaryPage() {
       if (showFeaturedOnly) params.set('featured', 'true');
 
       const response = await fetch(`/api/glossary?${params}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
       const result = await response.json();
+      
+      if (result.error) {
+        throw new Error(result.error);
+      }
+      
       setData(result);
     } catch (error) {
       console.error('Error fetching glossary:', error);
+      setError(error instanceof Error ? error.message : 'Failed to load glossary data');
     } finally {
       setLoading(false);
     }
@@ -127,6 +141,58 @@ export default function GlossaryPage() {
               {[...Array(6)].map((_, i) => (
                 <div key={i} className="h-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-4">
+              <BookOpen className="h-8 w-8 text-blue-600 mr-3" />
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                Insider Risk Glossary
+              </h1>
+            </div>
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6 max-w-2xl mx-auto">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-red-100 dark:bg-red-900/40 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-red-900 dark:text-red-100 mb-2">
+                Database Connection Error
+              </h3>
+              <p className="text-red-700 dark:text-red-200 mb-4">
+                Unable to load glossary terms. The database may be unavailable or not properly configured.
+              </p>
+              <div className="bg-red-100 dark:bg-red-900/40 rounded p-3 mb-4">
+                <p className="text-sm font-mono text-red-800 dark:text-red-200">
+                  Error: {error}
+                </p>
+              </div>
+              <div className="space-y-2 text-sm text-red-700 dark:text-red-200">
+                <p><strong>For developers:</strong></p>
+                <ul className="text-left space-y-1 ml-4">
+                  <li>• Ensure PostgreSQL is running and accessible</li>
+                  <li>• Check DATABASE_URL environment variable</li>
+                  <li>• Run `npm run db:setup` to initialize the database</li>
+                  <li>• Verify Prisma client is properly generated</li>
+                </ul>
+              </div>
+              <button
+                onClick={() => window.location.reload()}
+                className="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
+              >
+                Retry
+              </button>
             </div>
           </div>
         </div>

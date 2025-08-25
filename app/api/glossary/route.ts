@@ -20,11 +20,34 @@ export async function GET(request: NextRequest) {
     };
 
     if (query) {
+      // Enhanced full-text search with multiple strategies
+      const searchTerms = query.toLowerCase().trim().split(/\s+/);
+      
       where.OR = [
+        // Exact term match (highest priority)
+        { term: { equals: query, mode: 'insensitive' } },
+        // Term contains search
         { term: { contains: query, mode: 'insensitive' } },
+        // Definition contains search
         { definition: { contains: query, mode: 'insensitive' } },
+        // Long explanation contains search
         { longExplanation: { contains: query, mode: 'insensitive' } },
-        { tags: { hasSome: [query.toLowerCase()] } },
+        // Tags array contains search term
+        { tags: { hasSome: searchTerms } },
+        // Related terms contain search
+        { relatedTerms: { hasSome: searchTerms } },
+        // Multiple word search in definition
+        ...searchTerms.length > 1 ? [
+          {
+            AND: searchTerms.map(term => ({
+              OR: [
+                { term: { contains: term, mode: 'insensitive' } },
+                { definition: { contains: term, mode: 'insensitive' } },
+                { tags: { has: term } }
+              ]
+            }))
+          }
+        ] : []
       ];
     }
 
@@ -116,9 +139,33 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error fetching glossary terms:', error);
+    
+    // Provide more specific error messages
+    let errorMessage = 'Failed to fetch glossary terms';
+    let statusCode = 500;
+    
+    if (error instanceof Error) {
+      if (error.message.includes('connect ECONNREFUSED') || 
+          error.message.includes('getaddrinfo ENOTFOUND')) {
+        errorMessage = 'Database connection failed - PostgreSQL server is not running or not accessible';
+        statusCode = 503;
+      } else if (error.message.includes('relation') && error.message.includes('does not exist')) {
+        errorMessage = 'Database schema is not initialized - run database migrations';
+        statusCode = 503;
+      } else if (error.message.includes('password authentication failed')) {
+        errorMessage = 'Database authentication failed - check credentials';
+        statusCode = 503;
+      } else {
+        errorMessage = `Database error: ${error.message}`;
+      }
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to fetch glossary terms' },
-      { status: 500 }
+      { 
+        error: errorMessage,
+        details: process.env.NODE_ENV === 'development' ? error?.toString() : undefined
+      },
+      { status: statusCode }
     );
   }
 }

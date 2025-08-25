@@ -108,15 +108,15 @@ export function MatrixTechniquesPaginated({
         {currentTechniques.map((technique) => (
           <div
             key={technique.id}
-            className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow"
+            className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-4 sm:p-6 hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white leading-tight">
                     {technique.title}
                   </h3>
-                  <span className="text-sm text-gray-500 dark:text-gray-400 font-mono">
+                  <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-mono self-start">
                     {technique.id}
                   </span>
                 </div>
@@ -124,38 +124,47 @@ export function MatrixTechniquesPaginated({
                   {technique.category}
                 </span>
               </div>
-              <Link href={`/matrix/technique/${technique.id}`}>
-                <Button variant="ghost" size="sm">
-                  View Details
-                  <Eye className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
+              <div className="flex-shrink-0">
+                <Link href={`/matrix/technique/${technique.id}`}>
+                  <Button variant="ghost" size="sm" className="h-8 text-sm">
+                    <span className="hidden sm:inline">View Details</span>
+                    <span className="sm:hidden">Details</span>
+                    <Eye className="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2" />
+                  </Button>
+                </Link>
+              </div>
             </div>
 
             <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
               {technique.description}
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-sm">
               {/* Preventions Count */}
               <div className="flex items-center gap-2">
-                <Shield className="h-4 w-4 text-green-600" />
+                <Shield className="h-4 w-4 text-green-600 flex-shrink-0" />
                 <span className="text-gray-600 dark:text-gray-400">
-                  {technique.preventions?.length || 0} Prevention Strategies
+                  {technique.preventions?.length || 0} Prevention{(technique.preventions?.length || 0) !== 1 ? 's' : ''}
                 </span>
               </div>
 
               {/* Detections Count */}
               <div className="flex items-center gap-2">
-                <AlertCircle className="h-4 w-4 text-blue-600" />
+                <AlertCircle className="h-4 w-4 text-blue-600 flex-shrink-0" />
                 <span className="text-gray-600 dark:text-gray-400">
-                  {technique.detections?.length || 0} Detection Methods
+                  {technique.detections?.length || 0} Detection{(technique.detections?.length || 0) !== 1 ? 's' : ''}
                 </span>
               </div>
 
               {/* Last Updated */}
-              <div className="text-gray-500 dark:text-gray-400">
-                Updated: {new Date(technique.lastUpdated).toLocaleDateString()}
+              <div className="flex items-center text-gray-500 dark:text-gray-400 sm:col-span-2 lg:col-span-1">
+                <span className="text-xs">
+                  Updated: {new Date(technique.lastUpdated).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric',
+                    year: '2-digit'
+                  })}
+                </span>
               </div>
             </div>
 
@@ -215,12 +224,13 @@ export function MatrixTechniquesPaginated({
       {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
               disabled={currentPage === 1}
+              className="w-full sm:w-auto h-10"
             >
               <ChevronLeft className="h-4 w-4 mr-1" />
               Previous
@@ -234,7 +244,7 @@ export function MatrixTechniquesPaginated({
                 value={currentPage.toString()}
                 onValueChange={(value) => setCurrentPage(parseInt(value))}
               >
-                <SelectTrigger className="w-20">
+                <SelectTrigger className="w-16 h-8">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -255,6 +265,7 @@ export function MatrixTechniquesPaginated({
               size="sm"
               onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
               disabled={currentPage === totalPages}
+              className="w-full sm:w-auto h-10"
             >
               Next
               <ChevronRight className="h-4 w-4 ml-1" />

@@ -27,19 +27,23 @@ export function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
-            <Shield className="h-8 w-8 text-blue-600" />
-            <span className="font-bold text-xl">Insider Risk Index</span>
+            <Shield className="h-7 w-7 sm:h-8 sm:w-8 text-blue-600" />
+            <span className="font-bold text-lg sm:text-xl truncate">
+              <span className="hidden sm:inline">Insider Risk Index</span>
+              <span className="sm:hidden">IRI</span>
+            </span>
           </Link>
         </div>
         
         <div className="flex lg:hidden">
           <Button
             variant="ghost"
-            className="-m-2.5 p-2.5"
+            size="sm"
+            className="h-10 w-10 p-0"
             onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open main menu"
           >
-            <span className="sr-only">Open main menu</span>
-            <Menu className="h-6 w-6" aria-hidden="true" />
+            <Menu className="h-6 w-6" />
           </Button>
         </div>
         
@@ -72,35 +76,46 @@ export function Header() {
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden" role="dialog" aria-modal="true">
-          <div className="fixed inset-0 z-50" />
-          <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-background px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <div 
+            className="fixed inset-0 z-50 bg-gray-600/75 backdrop-blur-sm" 
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-background px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-slate-900 dark:ring-slate-800 shadow-2xl">
             <div className="flex items-center justify-between">
-              <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
+              <Link 
+                href="/" 
+                className="-m-1.5 p-1.5 flex items-center gap-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 <Shield className="h-8 w-8 text-blue-600" />
-                <span className="font-bold text-xl">IRI</span>
+                <span className="font-bold text-xl">Insider Risk Index</span>
               </Link>
               <Button
                 variant="ghost"
-                className="-m-2.5 p-2.5"
+                size="sm"
+                className="h-10 w-10 p-0"
                 onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close menu"
               >
-                <span className="sr-only">Close menu</span>
-                <X className="h-6 w-6" aria-hidden="true" />
+                <X className="h-6 w-6" />
               </Button>
             </div>
             
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
+            <div className="mt-8 flow-root">
+              <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-700/20">
+                <div className="space-y-1 py-6">
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
                       href={item.href}
                       className={cn(
-                        "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-50",
+                        "-mx-3 block rounded-lg px-4 py-3 text-base font-medium leading-6 transition-colors",
+                        "hover:bg-gray-50 dark:hover:bg-slate-800 focus:bg-gray-50 dark:focus:bg-slate-800",
+                        "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900",
                         pathname === item.href 
-                          ? "text-blue-600 bg-blue-50" 
-                          : "text-gray-900"
+                          ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400" 
+                          : "text-gray-900 dark:text-gray-100"
                       )}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -110,7 +125,7 @@ export function Header() {
                 </div>
                 
                 <div className="py-6">
-                  <Button asChild className="w-full">
+                  <Button asChild className="w-full h-12 text-base">
                     <Link href="/assessment" onClick={() => setMobileMenuOpen(false)}>
                       Start Assessment
                     </Link>

@@ -118,13 +118,13 @@ export const MetadataSchema = z.object({
     creator: z.string(),
     images: z.array(z.string().url()),
   }).optional(),
-  jsonLd: z.record(z.any()).optional(),
+  jsonLd: z.record(z.string(), z.any()).optional(),
 });
 
 // Analytics schemas
 export const AnalyticsEventSchema = z.object({
   name: z.string(),
-  properties: z.record(z.any()).optional(),
+  properties: z.record(z.string(), z.any()).optional(),
   timestamp: z.date().optional(),
   userId: z.string().optional(),
   sessionId: z.string().optional(),

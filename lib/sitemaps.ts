@@ -1,14 +1,23 @@
 import { MetadataRoute } from "next";
-import { ContentDB } from "./db";
+import { getAllContent, ContentItem } from "./mdx";
 import { seoConfig } from "./seo";
+
+interface ContentFrontmatter {
+  title: string;
+  description?: string;
+  publishedAt?: string;
+  publishDate?: string;
+  updatedAt?: string;
+  lastUpdated?: string;
+}
 
 /**
  * Generate sitemap for Next.js
  */
 export async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-    const research = await ContentDB.getResearch({ limit: 1000 });
-    const playbooks = await ContentDB.getPlaybooks({ limit: 1000 });
+    const research = getAllContent('research').slice(0, 1000);
+    const playbooks = getAllContent('playbooks').slice(0, 1000);
 
     const staticRoutes: MetadataRoute.Sitemap = [
       {
@@ -67,16 +76,16 @@ export async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
       },
     ];
 
-    const researchRoutes: MetadataRoute.Sitemap = research.map(article => ({
+    const researchRoutes: MetadataRoute.Sitemap = research.map((article: ContentItem<ContentFrontmatter>) => ({
       url: `${seoConfig.siteUrl}/research/${article.slug}`,
-      lastModified: article.publishedAt,
+      lastModified: new Date(article.frontmatter.publishedAt || article.frontmatter.publishDate || Date.now()),
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }));
 
-    const playbookRoutes: MetadataRoute.Sitemap = playbooks.map(playbook => ({
+    const playbookRoutes: MetadataRoute.Sitemap = playbooks.map((playbook: ContentItem<ContentFrontmatter>) => ({
       url: `${seoConfig.siteUrl}/playbooks/${playbook.slug}`,
-      lastModified: playbook.updatedAt,
+      lastModified: new Date(playbook.frontmatter.updatedAt || playbook.frontmatter.lastUpdated || Date.now()),
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }));
@@ -171,7 +180,7 @@ export function generateRobots(): MetadataRoute.Robots {
  */
 export async function generateResearchSitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-    const research = await ContentDB.getResearch({ limit: 1000 });
+    const research = getAllContent('research').slice(0, 1000);
 
     const routes: MetadataRoute.Sitemap = [
       {
@@ -180,11 +189,11 @@ export async function generateResearchSitemap(): Promise<MetadataRoute.Sitemap> 
         changeFrequency: "weekly",
         priority: 0.8,
       },
-      ...research.map(article => ({
+      ...research.map((article: ContentItem<ContentFrontmatter>) => ({
         url: `${seoConfig.siteUrl}/research/${article.slug}`,
-        lastModified: article.publishedAt,
+        lastModified: new Date(article.frontmatter.publishedAt || article.frontmatter.publishDate || Date.now()),
         changeFrequency: "monthly" as const,
-        priority: article.featured ? 0.9 : 0.7,
+        priority: 0.7,
       })),
     ];
 
@@ -207,7 +216,7 @@ export async function generateResearchSitemap(): Promise<MetadataRoute.Sitemap> 
  */
 export async function generatePlaybooksSitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-    const playbooks = await ContentDB.getPlaybooks({ limit: 1000 });
+    const playbooks = getAllContent('playbooks').slice(0, 1000);
 
     const routes: MetadataRoute.Sitemap = [
       {
@@ -216,9 +225,9 @@ export async function generatePlaybooksSitemap(): Promise<MetadataRoute.Sitemap>
         changeFrequency: "weekly",
         priority: 0.8,
       },
-      ...playbooks.map(playbook => ({
+      ...playbooks.map((playbook: ContentItem<ContentFrontmatter>) => ({
         url: `${seoConfig.siteUrl}/playbooks/${playbook.slug}`,
-        lastModified: playbook.updatedAt,
+        lastModified: new Date(playbook.frontmatter.updatedAt || playbook.frontmatter.lastUpdated || Date.now()),
         changeFrequency: "monthly" as const,
         priority: 0.7,
       })),
@@ -341,16 +350,17 @@ export async function generateSitemapIndex(): Promise<string> {
  */
 export async function generateNewsSitemap(): Promise<string> {
   try {
-    const recentContent = await ContentDB.getResearch({ 
-      limit: 100,
-    });
+    const recentContent = getAllContent('research').slice(0, 100);
 
     // Filter for content from last 2 days for news sitemap
     const twoDaysAgo = new Date();
     twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
     
     const newsItems = recentContent
-      .filter(item => item.publishedAt >= twoDaysAgo)
+      .filter((item: ContentItem<ContentFrontmatter>) => {
+        const publishedAt = new Date(item.frontmatter.publishedAt || item.frontmatter.publishDate || 0);
+        return publishedAt >= twoDaysAgo;
+      })
       .slice(0, 1000); // Google News limit
 
     if (newsItems.length === 0) {
@@ -362,7 +372,9 @@ export async function generateNewsSitemap(): Promise<string> {
 
     const newsEntries = newsItems
       .map(
-        item => `
+        (item: ContentItem<ContentFrontmatter>) => {
+          const publishedAt = new Date(item.frontmatter.publishedAt || item.frontmatter.publishDate || Date.now());
+          return `
   <url>
     <loc>${seoConfig.siteUrl}/research/${item.slug}</loc>
     <news:news>
@@ -370,10 +382,11 @@ export async function generateNewsSitemap(): Promise<string> {
         <news:name>${seoConfig.siteName}</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>${item.publishedAt.toISOString()}</news:publication_date>
-      <news:title><![CDATA[${item.title}]]></news:title>
+      <news:publication_date>${publishedAt.toISOString()}</news:publication_date>
+      <news:title><![CDATA[${item.frontmatter.title}]]></news:title>
     </news:news>
-  </url>`
+  </url>`;
+        }
       )
       .join("");
 
@@ -436,6 +449,4 @@ export async function generateImageSitemap(): Promise<string> {
 
 export {
   generateSitemap as default,
-  generateRobots,
-  generateManifest,
 };

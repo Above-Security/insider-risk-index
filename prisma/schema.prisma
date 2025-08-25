@@ -80,6 +80,7 @@ enum Region {
   ASIA_PACIFIC
   MIDDLE_EAST
   AFRICA
+  GLOBAL
 }
 
 // Benchmark snapshot for aggregated data

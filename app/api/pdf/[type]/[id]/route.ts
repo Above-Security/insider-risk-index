@@ -5,7 +5,7 @@ import { generateBoardBriefHTML, generateDetailedPlanHTML } from "@/lib/pdf/gene
 import { getRiskLevel } from "@/lib/pillars";
 
 interface RouteParams {
-  type: "board-brief" | "detailed-plan";
+  type: string;
   id: string;
 }
 
@@ -118,7 +118,7 @@ export async function GET(
       await browser.close();
 
       // Return PDF
-      return new Response(pdf, {
+      return new Response(pdf as BodyInit, {
         headers: {
           'Content-Type': 'application/pdf',
           'Content-Disposition': `inline; filename="${filename}"`,

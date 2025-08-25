@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   experimental: {
     mdxRs: false,
+    optimizePackageImports: ['@radix-ui/react-icons', 'lucide-react'],
   },
   eslint: {
     ignoreDuringBuilds: true,

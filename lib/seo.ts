@@ -93,7 +93,7 @@ export function generateMetadata({
       canonical: url,
     },
     openGraph: {
-      type,
+      type: type as "website" | "article",
       title: fullTitle,
       description: fullDescription,
       url,
@@ -697,16 +697,16 @@ export function getAssessmentResultJsonLd({
         minValue: 1,
         maxValue: 5,
       },
-      ...(industry && [{
+      ...(industry ? [{
         "@type": "PropertyValue",
         name: "Industry",
         value: industry,
-      }]),
-      ...(companySize && [{
+      }] : []),
+      ...(companySize ? [{
         "@type": "PropertyValue",
         name: "Company Size",
         value: companySize,
-      }]),
+      }] : []),
     ],
     distribution: pillars.map(pillar => ({
       "@type": "DataDownload",

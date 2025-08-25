@@ -369,8 +369,8 @@ async function main() {
     },
     // Overall average (Global baseline from Ponemon 2025)
     {
-      industry: null,
-      region: null,
+      industry: Industry.OTHER,
+      region: Region.GLOBAL,
       avgAnnualCost: 17400000, // $17.4M global average
       avgIncidentCost: 676517, // $676,517 average per incident
       avgIncidentsPerYear: 13.5,

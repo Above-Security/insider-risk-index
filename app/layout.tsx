@@ -1,10 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { PostHogProvider } from "@/components/analytics/posthog-provider";
 import { seoConfig, getOrganizationJsonLd, getWebsiteJsonLd } from "@/lib/seo";
+import { SkipLink } from "@/components/skip-link";
+import { AccessibilityProvider } from "@/components/accessibility-provider";
+import { WebVitals } from "@/components/web-vitals";
+import { ErrorBoundary } from "@/components/error-boundary";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,6 +24,14 @@ export const metadata: Metadata = {
   publisher: seoConfig.publisher,
   robots: seoConfig.robots,
   metadataBase: new URL(seoConfig.siteUrl),
+  manifest: "/manifest.json",
+  alternates: {
+    canonical: seoConfig.siteUrl,
+    types: {
+      'application/rss+xml': `${seoConfig.siteUrl}/rss.xml`,
+      'application/atom+xml': `${seoConfig.siteUrl}/atom.xml`,
+    },
+  },
   openGraph: {
     type: "website",
     title: seoConfig.siteName,
@@ -45,7 +57,22 @@ export const metadata: Metadata = {
   },
   other: {
     "theme-color": seoConfig.themeColor,
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "apple-mobile-web-app-title": "InsiderRisk",
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+  ],
 };
 
 export default function RootLayout({
@@ -57,7 +84,7 @@ export default function RootLayout({
   const websiteJsonLd = getWebsiteJsonLd();
 
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
         {/* JSON-LD structured data */}
         <script
@@ -68,17 +95,28 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
+        {/* Preconnect to optimize font loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* DNS prefetch for analytics */}
+        <link rel="dns-prefetch" href="https://us.i.posthog.com" />
       </head>
-      <body className={`${inter.variable} font-sans antialiased min-h-screen bg-background text-foreground`}>
-        <PostHogProvider>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </PostHogProvider>
+      <body className="font-sans antialiased min-h-screen bg-background text-foreground">
+        <ErrorBoundary>
+          <AccessibilityProvider>
+            <PostHogProvider>
+              <SkipLink />
+              <WebVitals />
+              <div className="flex min-h-screen flex-col">
+                <Header />
+                <main id="main-content" className="flex-1">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+            </PostHogProvider>
+          </AccessibilityProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

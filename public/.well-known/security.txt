@@ -1,0 +1,12 @@
+Contact: mailto:security@insiderriskindex.com
+Expires: 2026-12-31T23:59:59.000Z
+Encryption: https://insiderriskindex.com/pgp-key.txt
+Acknowledgments: https://insiderriskindex.com/security/acknowledgments
+Preferred-Languages: en
+Canonical: https://insiderriskindex.com/.well-known/security.txt
+Policy: https://insiderriskindex.com/security-policy
+
+# Security Reporting
+# We take security seriously at Insider Risk Index.
+# If you discover a security vulnerability, please report it responsibly.
+# We appreciate your efforts to improve our security.

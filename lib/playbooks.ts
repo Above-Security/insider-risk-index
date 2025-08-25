@@ -5,32 +5,12 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const playbooksDirectory = path.join(process.cwd(), 'content/playbooks');
 
-export interface PlaybookFrontmatter {
-  title: string;
-  description: string;
-  pillar: string;
-  difficulty: string;
-  timeToImplement?: string;
-  estimatedTime?: string;
-  lastUpdated: string;
-  version: string;
-  author?: string;
-  maturityLevel?: number;
-  tags: string[];
-  prerequisites: string[];
-  outcomes: string[];
-  resources?: Array<{
-    title: string;
-    url: string;
-    type: string;
-  }>;
-}
+// Re-export types and constants from the shared constants file
+export type { PlaybookFrontmatter, Playbook } from './playbook-constants';
+export { PILLAR_NAMES, PILLAR_COLORS } from './playbook-constants';
 
-export interface Playbook {
-  slug: string;
-  frontmatter: PlaybookFrontmatter;
-  content: string;
-}
+// Import the types for local use
+import type { PlaybookFrontmatter, Playbook } from './playbook-constants';
 
 export function getAllPlaybooks(): Playbook[] {
   try {
@@ -107,18 +87,3 @@ export function getPlaybooksByTag(tag: string): Playbook[] {
   );
 }
 
-export const PILLAR_NAMES = {
-  visibility: 'Visibility',
-  'prevention-coaching': 'Prevention & Coaching',
-  'investigation-evidence': 'Investigation & Evidence', 
-  'identity-saas': 'Identity & SaaS',
-  'phishing-resilience': 'Phishing Resilience'
-} as const;
-
-export const PILLAR_COLORS = {
-  visibility: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-  'prevention-coaching': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-  'investigation-evidence': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-  'identity-saas': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-  'phishing-resilience': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-} as const;

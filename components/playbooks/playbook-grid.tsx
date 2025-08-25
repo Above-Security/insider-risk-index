@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Clock, Target, Star, ArrowRight, BookOpen, Tag, Users, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { PILLAR_NAMES, PILLAR_COLORS, type Playbook } from '@/lib/playbooks';
+import { PILLAR_NAMES, PILLAR_COLORS, type Playbook } from '@/lib/playbook-constants';
 import { PlaybookFilters, PlaybookFilters as PlaybookFiltersComponent } from './playbook-filters';
 
 interface PlaybookGridProps {

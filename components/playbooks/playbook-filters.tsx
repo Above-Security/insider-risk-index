@@ -5,7 +5,7 @@ import { Filter, Search, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { PILLAR_NAMES, PILLAR_COLORS } from '@/lib/playbooks';
+import { PILLAR_NAMES, PILLAR_COLORS } from '@/lib/playbook-constants';
 
 export interface PlaybookFilters {
   search: string;

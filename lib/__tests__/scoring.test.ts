@@ -196,26 +196,30 @@ describe('Scoring Engine', () => {
   });
 
   describe('Industry and Size Context', () => {
-    it('should include industry and size in result context', () => {
+    it('should use industry and size for benchmarking', () => {
       const result = calculateInsiderRiskIndex({
         answers: mockAnswers,
         industry: 'HEALTHCARE',
-        companySize: 'LARGE_1001_5000'
+        companySize: '1001-5000'
       });
 
-      expect(result.industry).toBe('HEALTHCARE');
-      expect(result.companySize).toBe('LARGE_1001_5000');
+      // Industry and size are used for benchmarking but not included in result
+      expect(result.benchmark).toBeDefined();
+      expect(result.benchmark.industry).toBeGreaterThan(0);
+      expect(result.benchmark.companySize).toBeGreaterThan(0);
+      expect(result.benchmark.overall).toBeGreaterThan(0);
     });
 
     it('should handle optional industry and size', () => {
       const result = calculateInsiderRiskIndex({
         answers: mockAnswers,
-        industry: undefined,
-        companySize: undefined
+        industry: '',
+        companySize: ''
       });
 
-      expect(result.industry).toBeUndefined();
-      expect(result.companySize).toBeUndefined();
+      // Should still provide benchmark data (overall benchmark as fallback)
+      expect(result.benchmark).toBeDefined();
+      expect(result.benchmark.overall).toBeGreaterThan(0);
       expect(result.totalScore).toBeGreaterThan(0); // Should still calculate score
     });
   });

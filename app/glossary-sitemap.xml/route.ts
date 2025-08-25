@@ -9,7 +9,7 @@ ${sitemap
   .map(
     (entry) => `  <url>
     <loc>${entry.url}</loc>
-    <lastmod>${entry.lastModified?.toISOString()}</lastmod>
+    <lastmod>${entry.lastModified instanceof Date ? entry.lastModified.toISOString() : new Date(entry.lastModified || Date.now()).toISOString()}</lastmod>
     <changefreq>${entry.changeFrequency}</changefreq>
     <priority>${entry.priority}</priority>
   </url>`

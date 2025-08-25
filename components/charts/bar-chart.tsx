@@ -34,7 +34,7 @@ export function PillarBarChart({
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-background border rounded-lg p-3 shadow-md">
+        <div className="bg-above-white border-above-blue-200 rounded-lg p-3 shadow-md">
           <p className="font-medium">{label.replace("\n", " ")}</p>
           <div className="space-y-1 mt-1">
             {payload.map((entry: any, index: number) => (
@@ -55,7 +55,7 @@ export function PillarBarChart({
   };
 
   return (
-    <Card className={className}>
+    <Card className={`bg-above-white border-above-rose-100/30 shadow-soft ${className}`}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
@@ -83,14 +83,14 @@ export function PillarBarChart({
               <Tooltip content={<CustomTooltip />} />
               <Bar 
                 dataKey="score" 
-                fill="#3B82F6"
+                fill="#7AB7FF"
                 radius={[4, 4, 0, 0]}
                 name="Your Score"
               />
               {benchmarkData && (
                 <Bar 
                   dataKey="benchmark" 
-                  fill="#94A3B8"
+                  fill="#C8B3FF"
                   radius={[4, 4, 0, 0]}
                   name="Industry Avg"
                 />
@@ -102,12 +102,12 @@ export function PillarBarChart({
         {/* Color-coded legend */}
         <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-blue-500 rounded-full" />
+            <div className="w-3 h-3 bg-above-blue-800 rounded-full" />
             <span>Your Score</span>
           </div>
           {benchmarkData && (
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-slate-400 rounded-full" />
+              <div className="w-3 h-3 bg-above-lavender-700 rounded-full" />
               <span>Industry Average</span>
             </div>
           )}

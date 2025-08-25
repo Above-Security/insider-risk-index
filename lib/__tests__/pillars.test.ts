@@ -235,7 +235,7 @@ describe('Pillar System', () => {
     });
 
     it('should return correct pillar colors and weights', () => {
-      expect(getPillarColor('visibility')).toBe('#3B82F6'); // blue-500
+      expect(getPillarColor('visibility')).toBe('#7AB7FF'); // above-blue-800
       expect(getPillarWeight('visibility')).toBe(0.25);
       
       expect(getPillarColor('nonexistent')).toBe('#6B7280'); // default gray

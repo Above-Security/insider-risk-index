@@ -65,23 +65,23 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
   }
 
   const pillars = [
-    { id: 'visibility', name: 'Visibility', icon: Eye, color: '#3B82F6' },
-    { id: 'prevention-coaching', name: 'Prevention & Coaching', icon: Users, color: '#10B981' },
-    { id: 'investigation-evidence', name: 'Investigation & Evidence', icon: Search, color: '#F59E0B' },
-    { id: 'identity-saas', name: 'Identity & SaaS', icon: Key, color: '#8B5CF6' },
-    { id: 'phishing-resilience', name: 'Phishing Resilience', icon: ShieldAlert, color: '#EF4444' }
+    { id: 'visibility', name: 'Visibility', icon: Eye, color: '#7AB7FF' },
+    { id: 'prevention-coaching', name: 'Prevention & Coaching', icon: Users, color: '#FF89A1' },
+    { id: 'investigation-evidence', name: 'Investigation & Evidence', icon: Search, color: '#FF9C7A' },
+    { id: 'identity-saas', name: 'Identity & SaaS', icon: Key, color: '#C8B3FF' },
+    { id: 'phishing-resilience', name: 'Phishing Resilience', icon: ShieldAlert, color: '#FF5D78' }
   ];
 
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'Motive':
-        return 'bg-red-100 text-red-800 border-red-300';
+        return 'bg-above-rose-100 text-above-rose-800 border-above-rose-200';
       case 'Coercion':
-        return 'bg-orange-100 text-orange-800 border-orange-300';
+        return 'bg-above-peach-100 text-above-peach-800 border-above-peach-200';
       case 'Manipulation':
-        return 'bg-purple-100 text-purple-800 border-purple-300';
+        return 'bg-above-lavender-100 text-above-lavender-800 border-above-lavender-200';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-300';
+        return 'bg-above-blue-100 text-above-blue-800 border-above-blue-200';
     }
   };
 
@@ -96,44 +96,44 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
 
   const getDifficultyColor = (difficulty: string | number) => {
     if (typeof difficulty !== 'string') {
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-above-blue-100 text-above-blue-800';
     }
     
     switch (difficulty.toLowerCase()) {
       case 'easy':
-        return 'bg-green-100 text-green-800';
+        return 'bg-above-blue-100 text-above-blue-800';
       case 'moderate':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-above-peach-100 text-above-peach-800';
       case 'difficult':
-        return 'bg-red-100 text-red-800';
+        return 'bg-above-rose-100 text-above-rose-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-above-blue-100 text-above-blue-800';
     }
   };
 
   const getFalsePositiveColor = (rate: number | string) => {
     const numRate = typeof rate === 'string' ? parseFloat(rate) : rate;
-    if (isNaN(numRate)) return 'bg-gray-100 text-gray-800';
+    if (isNaN(numRate)) return 'bg-above-blue-100 text-above-blue-800';
     
-    if (numRate <= 0.05) return 'bg-green-100 text-green-800'; // Low false positive rate
-    if (numRate <= 0.15) return 'bg-yellow-100 text-yellow-800'; // Medium false positive rate
-    return 'bg-red-100 text-red-800'; // High false positive rate
+    if (numRate <= 0.05) return 'bg-above-blue-100 text-above-blue-800'; // Low false positive rate
+    if (numRate <= 0.15) return 'bg-above-peach-100 text-above-peach-800'; // Medium false positive rate
+    return 'bg-above-rose-100 text-above-rose-800'; // High false positive rate
   };
 
   const getCostLevelColor = (costLevel: string | number) => {
     if (typeof costLevel !== 'string') {
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-above-blue-100 text-above-blue-800';
     }
     
     switch (costLevel.toLowerCase()) {
       case 'low':
-        return 'bg-green-100 text-green-800';
+        return 'bg-above-blue-100 text-above-blue-800';
       case 'medium':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-above-peach-100 text-above-peach-800';
       case 'high':
-        return 'bg-red-100 text-red-800';
+        return 'bg-above-rose-100 text-above-rose-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-above-blue-100 text-above-blue-800';
     }
   };
 
@@ -160,11 +160,11 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
   ]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
+    <div className="min-h-screen bg-above-gradient-subtle py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Navigation */}
         <div className="mb-8">
-          <Button asChild variant="outline" className="mb-4">
+          <Button asChild variant="outline" className="mb-4 border-above-blue-200 text-slate-700 hover:bg-above-blue-50">
             <Link href="/matrix" className="inline-flex items-center">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Matrix
@@ -177,8 +177,8 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
           <div className="flex items-start justify-between mb-6">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-4">
-                <CategoryIcon className="h-8 w-8 text-gray-600" />
-                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                <CategoryIcon className="h-8 w-8 text-above-rose-700" />
+                <h1 className="text-4xl font-bold text-slate-900">
                   {technique.title}
                 </h1>
               </div>
@@ -188,13 +188,13 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                   {technique.category}
                 </Badge>
                 {technique.lastUpdated && (
-                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center text-sm text-slate-600">
                     <Calendar className="h-4 w-4 mr-1" />
                     Updated {new Date(technique.lastUpdated).toLocaleDateString()}
                   </div>
                 )}
               </div>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-4xl">
+              <p className="text-lg text-slate-700 max-w-4xl">
                 {technique.description}
               </p>
             </div>
@@ -202,58 +202,58 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
 
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <Card>
+            <Card className="bg-above-white border-above-blue-100/50 shadow-soft">
               <CardContent className="pt-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-2xl font-bold text-blue-600">
+                    <div className="text-2xl font-bold text-above-blue-700">
                       {technique.preventions?.length || 0}
                     </div>
-                    <div className="text-sm text-gray-600">Prevention Strategies</div>
+                    <div className="text-sm text-slate-700">Prevention Strategies</div>
                   </div>
-                  <Shield className="h-8 w-8 text-blue-600" />
+                  <Shield className="h-8 w-8 text-above-blue-700" />
                 </div>
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="bg-above-white border-above-peach-100/50 shadow-soft">
               <CardContent className="pt-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-2xl font-bold text-green-600">
+                    <div className="text-2xl font-bold text-above-peach-700">
                       {technique.detections?.length || 0}
                     </div>
-                    <div className="text-sm text-gray-600">Detection Methods</div>
+                    <div className="text-sm text-slate-700">Detection Methods</div>
                   </div>
-                  <Search className="h-8 w-8 text-green-600" />
+                  <Search className="h-8 w-8 text-above-peach-700" />
                 </div>
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="bg-above-white border-above-lavender-100/50 shadow-soft">
               <CardContent className="pt-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-2xl font-bold text-purple-600">
+                    <div className="text-2xl font-bold text-above-lavender-700">
                       {technique.tactics?.length || 0}
                     </div>
-                    <div className="text-sm text-gray-600">Tactics</div>
+                    <div className="text-sm text-slate-700">Tactics</div>
                   </div>
-                  <Target className="h-8 w-8 text-purple-600" />
+                  <Target className="h-8 w-8 text-above-lavender-700" />
                 </div>
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="bg-above-white border-above-rose-100/50 shadow-soft">
               <CardContent className="pt-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-2xl font-bold text-orange-600">
+                    <div className="text-2xl font-bold text-above-rose-700">
                       {technique.contributors?.length || 0}
                     </div>
-                    <div className="text-sm text-gray-600">Contributors</div>
+                    <div className="text-sm text-slate-700">Contributors</div>
                   </div>
-                  <Users className="h-8 w-8 text-orange-600" />
+                  <Users className="h-8 w-8 text-above-rose-700" />
                 </div>
               </CardContent>
             </Card>
@@ -265,29 +265,29 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
           <div className="lg:col-span-2 space-y-8">
             {/* Prevention Strategies */}
             {technique.preventions && technique.preventions.length > 0 && (
-              <Card>
+              <Card className="bg-above-white border-above-blue-100/50 shadow-soft">
                 <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Shield className="h-5 w-5 mr-2 text-blue-600" />
+                  <CardTitle className="flex items-center text-slate-900">
+                    <Shield className="h-5 w-5 mr-2 text-above-blue-700" />
                     Prevention Strategies ({technique.preventions.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {technique.preventions.map((prevention, index) => (
-                    <div key={prevention.id || index} className="border-l-4 border-blue-500 pl-4">
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                    <div key={prevention.id || index} className="border-l-4 border-above-blue-700 pl-4">
+                      <h4 className="font-semibold text-slate-900 mb-2">
                         {prevention.title}
                       </h4>
-                      <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      <p className="text-slate-700 mb-3">
                         {prevention.description}
                       </p>
                       
                       {prevention.implementation && (
-                        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded">
-                          <h5 className="text-sm font-medium text-blue-900 dark:text-blue-100 mb-1">
+                        <div className="bg-above-blue-50 p-3 rounded">
+                          <h5 className="text-sm font-medium text-above-blue-900 mb-1">
                             Implementation:
                           </h5>
-                          <p className="text-sm text-blue-800 dark:text-blue-200">
+                          <p className="text-sm text-above-blue-800">
                             {prevention.implementation}
                           </p>
                         </div>
@@ -305,7 +305,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                           </Badge>
                         )}
                         {prevention.effectiveness && (
-                          <div className="flex items-center text-sm text-gray-600">
+                          <div className="flex items-center text-sm text-slate-600">
                             <TrendingUp className="h-4 w-4 mr-1" />
                             Effectiveness: {prevention.effectiveness}/10
                           </div>
@@ -314,7 +314,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                       
                       {prevention.primaryPillar && (
                         <div className="mt-2">
-                          <span className="text-xs text-gray-500">Primary Pillar: </span>
+                          <span className="text-xs text-slate-500">Primary Pillar: </span>
                           <Badge variant="outline">
                             {pillars.find(p => p.id === prevention.primaryPillar)?.name || prevention.primaryPillar}
                           </Badge>
@@ -328,40 +328,40 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
 
             {/* Detection Methods */}
             {technique.detections && technique.detections.length > 0 && (
-              <Card>
+              <Card className="bg-above-white border-above-peach-100/50 shadow-soft">
                 <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Search className="h-5 w-5 mr-2 text-green-600" />
+                  <CardTitle className="flex items-center text-slate-900">
+                    <Search className="h-5 w-5 mr-2 text-above-peach-700" />
                     Detection Methods ({technique.detections.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {technique.detections.map((detection, index) => (
-                    <div key={detection.id || index} className="border-l-4 border-green-500 pl-4">
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                    <div key={detection.id || index} className="border-l-4 border-above-peach-700 pl-4">
+                      <h4 className="font-semibold text-slate-900 mb-2">
                         {detection.title}
                       </h4>
-                      <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      <p className="text-slate-700 mb-3">
                         {detection.description}
                       </p>
                       
                       {detection.dataSource && (
-                        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded mb-3">
-                          <h5 className="text-sm font-medium text-green-900 dark:text-green-100 mb-1">
+                        <div className="bg-above-peach-50 p-3 rounded mb-3">
+                          <h5 className="text-sm font-medium text-above-peach-900 mb-1">
                             Data Source:
                           </h5>
-                          <p className="text-sm text-green-800 dark:text-green-200">
+                          <p className="text-sm text-above-peach-800">
                             {detection.dataSource}
                           </p>
                         </div>
                       )}
                       
                       {detection.queryExample && (
-                        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded mb-3">
-                          <h5 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
+                        <div className="bg-above-blue-100 p-3 rounded mb-3">
+                          <h5 className="text-sm font-medium text-above-blue-900 mb-1">
                             Query Example:
                           </h5>
-                          <code className="text-sm text-gray-800 dark:text-gray-200 block whitespace-pre-wrap">
+                          <code className="text-sm text-above-blue-800 block whitespace-pre-wrap">
                             {detection.queryExample}
                           </code>
                         </div>
@@ -386,7 +386,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                         <div className="mt-3 space-y-2">
                           {(detection.requiredTools?.length || 0) > 0 && (
                             <div>
-                              <span className="text-xs text-gray-500">Required Tools: </span>
+                              <span className="text-xs text-slate-500">Required Tools: </span>
                               {detection.requiredTools?.map(tool => (
                                 <Badge key={tool} variant="outline" className="mr-1">
                                   {tool}
@@ -396,7 +396,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                           )}
                           {(detection.alternativeTools?.length || 0) > 0 && (
                             <div>
-                              <span className="text-xs text-gray-500">Alternative Tools: </span>
+                              <span className="text-xs text-slate-500">Alternative Tools: </span>
                               {detection.alternativeTools?.map(tool => (
                                 <Badge key={tool} variant="secondary" className="mr-1">
                                   {tool}
@@ -414,17 +414,17 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
 
             {/* Tactics */}
             {technique.tactics && technique.tactics.length > 0 && (
-              <Card>
+              <Card className="bg-above-white border-above-lavender-100/50 shadow-soft">
                 <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Target className="h-5 w-5 mr-2 text-purple-600" />
+                  <CardTitle className="flex items-center text-slate-900">
+                    <Target className="h-5 w-5 mr-2 text-above-lavender-700" />
                     Tactics & Techniques
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
                     {technique.tactics.map((tactic, index) => (
-                      <Badge key={index} variant="outline" className="text-purple-700 border-purple-300">
+                      <Badge key={index} variant="outline" className="text-above-lavender-700 border-above-lavender-300">
                         {tactic}
                       </Badge>
                     ))}
@@ -438,10 +438,10 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
           <div className="space-y-6">
             {/* Contributors */}
             {technique.contributors && technique.contributors.length > 0 && (
-              <Card>
+              <Card className="bg-above-white border-above-rose-100/50 shadow-soft">
                 <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Users className="h-5 w-5 mr-2" />
+                  <CardTitle className="flex items-center text-slate-900">
+                    <Users className="h-5 w-5 mr-2 text-above-rose-700" />
                     Contributors
                   </CardTitle>
                 </CardHeader>
@@ -458,10 +458,10 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
             )}
 
             {/* Pillar Mapping */}
-            <Card>
+            <Card className="bg-above-white border-above-blue-100/50 shadow-soft">
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <BookOpen className="h-5 w-5 mr-2" />
+                <CardTitle className="flex items-center text-slate-900">
+                  <BookOpen className="h-5 w-5 mr-2 text-above-blue-700" />
                   Pillar Relevance
                 </CardTitle>
               </CardHeader>
@@ -487,10 +487,10 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                           {totalCount > 0 ? (
                             <>
                               <span className="text-sm font-semibold">{totalCount}</span>
-                              <CheckCircle className="h-4 w-4 text-green-600" />
+                              <CheckCircle className="h-4 w-4 text-above-blue-700" />
                             </>
                           ) : (
-                            <XCircle className="h-4 w-4 text-gray-400" />
+                            <XCircle className="h-4 w-4 text-slate-400" />
                           )}
                         </div>
                       </div>
@@ -501,20 +501,20 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
             </Card>
 
             {/* Attribution */}
-            <Card>
+            <Card className="bg-above-white border-above-peach-100/50 shadow-soft">
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <ExternalLink className="h-5 w-5 mr-2" />
+                <CardTitle className="flex items-center text-slate-900">
+                  <ExternalLink className="h-5 w-5 mr-2 text-above-peach-700" />
                   Attribution
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-slate-600">
                     This technique is part of the ForScie Insider Threat Matrix, 
                     a community-driven knowledge base for insider threat intelligence.
                   </p>
-                  <Button asChild variant="outline" size="sm" className="w-full">
+                  <Button asChild variant="outline" size="sm" className="w-full border-above-peach-200 text-above-peach-700 hover:bg-above-peach-50">
                     <Link
                       href="https://insiderthreatmatrix.org/"
                       target="_blank"

@@ -25,7 +25,7 @@ export function InsiderRiskRadarChart({ pillarBreakdown, title = "Risk Assessmen
   });
 
   return (
-    <Card className={className}>
+    <Card className={`bg-above-white border-above-rose-100/30 shadow-soft ${className}`}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
@@ -49,8 +49,8 @@ export function InsiderRiskRadarChart({ pillarBreakdown, title = "Risk Assessmen
               <Radar
                 name="Score"
                 dataKey="score"
-                stroke="#3B82F6"
-                fill="#3B82F6"
+                stroke="#7AB7FF"
+                fill="#7AB7FF"
                 fillOpacity={0.1}
                 strokeWidth={2}
               />

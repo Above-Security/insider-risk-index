@@ -19,7 +19,7 @@ export function ScoreGauge({ score, size = "md", showLabel = true, className }: 
   // Create gauge data - we show the score and the remainder
   const gaugeData = [
     { name: "Score", value: score, color: riskLevel.color },
-    { name: "Remaining", value: 100 - score, color: "#E5E7EB" }, // gray-200
+    { name: "Remaining", value: 100 - score, color: "#F8FBFF" }, // above-blue-50
   ];
 
   const sizeConfig = {
@@ -31,7 +31,7 @@ export function ScoreGauge({ score, size = "md", showLabel = true, className }: 
   const config = sizeConfig[size];
 
   return (
-    <Card className={className}>
+    <Card className={`bg-above-white border-above-rose-100/30 shadow-soft ${className}`}>
       <CardContent className="p-6 flex flex-col items-center">
         <div className="relative" style={{ width: config.width, height: config.height }}>
           <ResponsiveContainer width="100%" height="100%">
@@ -108,7 +108,7 @@ export function SimpleScoreGauge({
           <path
             d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
             fill="none"
-            stroke="#E5E7EB"
+            stroke="#F8FBFF"
             strokeWidth="2"
           />
           {/* Progress circle */}

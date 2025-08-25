@@ -34,7 +34,7 @@ export const PILLARS: Pillar[] = [
     name: "Visibility",
     description: "Comprehensive monitoring and detection of insider activities across your organization. Gartner's 'Rule of Three' framework identifies visibility as the foundation for detecting the three threat types (careless users, malicious users, compromised credentials) through comprehensive monitoring capabilities. 85% of effective programs utilize User Behavior Analytics (UBA) for baseline establishment (Gartner G00805757, 2024).",
     weight: 0.25,
-    color: "#3B82F6", // blue-500
+    color: "#7AB7FF", // above-blue-800
     icon: "Eye",
     order: 1,
   },
@@ -43,7 +43,7 @@ export const PILLARS: Pillar[] = [
     name: "Prevention & Coaching",
     description: "Proactive measures and training to prevent insider threats before they occur. Aligns with Gartner's 'Rule of Three' mitigation goal to 'Deter' threats by addressing the root causes. Since more than 50% of insider incidents lack malicious intent, prevention and coaching programs are essential. Organizations with comprehensive prevention programs reduce incident costs by 31% and experience 27% fewer insider threat events (Ponemon Institute, 2025; Gartner G00805757, 2024).",
     weight: 0.25,
-    color: "#10B981", // emerald-500
+    color: "#FF89A1", // above-rose-700
     icon: "Shield",
     order: 2,
   },
@@ -52,7 +52,7 @@ export const PILLARS: Pillar[] = [
     name: "Investigation & Evidence",
     description: "Robust capabilities for investigating incidents and preserving digital evidence. Supports Gartner's 'Rule of Three' mitigation goal to 'Disrupt' threats through rapid response and forensic analysis. Critical as Gartner notes that 70% of organizations face technical challenges in insider threat management. Organizations with mature investigation capabilities reduce average containment time from 81 days to 52 days, saving an average of $2.1M per incident (Ponemon Institute, 2025; Gartner G00805757, 2024).",
     weight: 0.2,
-    color: "#F59E0B", // amber-500
+    color: "#FF9C7A", // above-peach-700
     icon: "Search",
     order: 3,
   },
@@ -61,7 +61,7 @@ export const PILLARS: Pillar[] = [
     name: "Identity & SaaS/OAuth",
     description: "Strong identity management and secure access controls for cloud applications. Gartner's 2024 research shows that 92% of insider incidents involve identity-related vulnerabilities, making robust IAM controls essential for risk reduction (Gartner G00805757, 2024).",
     weight: 0.15,
-    color: "#8B5CF6", // violet-500
+    color: "#C8B3FF", // above-lavender-700
     icon: "Key",
     order: 4,
   },
@@ -70,7 +70,7 @@ export const PILLARS: Pillar[] = [
     name: "Phishing Resilience",
     description: "Advanced protection against phishing attacks and social engineering. Verizon's 2024 DBIR identifies phishing as the enabler for 68% of breaches with human elements, making comprehensive phishing resilience critical for insider risk prevention (Verizon DBIR, 2024).",
     weight: 0.15,
-    color: "#EF4444", // red-500
+    color: "#FF5D78", // above-rose-900
     icon: "ShieldAlert",
     order: 5,
   },
@@ -83,7 +83,7 @@ export const RISK_LEVELS = [
     name: "Critical Risk",
     description: "Immediate action required. Significant gaps in insider risk management.",
     range: [0, 20],
-    color: "#DC2626", // red-600
+    color: "#FF5D78", // above-rose-900
     priority: "urgent",
   },
   {
@@ -91,7 +91,7 @@ export const RISK_LEVELS = [
     name: "High Risk",
     description: "Major vulnerabilities present. Comprehensive improvements needed.",
     range: [21, 40],
-    color: "#EA580C", // orange-600
+    color: "#FF7E54", // above-peach-900
     priority: "high",
   },
   {
@@ -99,7 +99,7 @@ export const RISK_LEVELS = [
     name: "Moderate Risk",
     description: "Some gaps identified. Targeted improvements recommended.",
     range: [41, 60],
-    color: "#D97706", // amber-600
+    color: "#FF9C7A", // above-peach-700
     priority: "medium",
   },
   {
@@ -107,7 +107,7 @@ export const RISK_LEVELS = [
     name: "Low Risk",
     description: "Good baseline security. Minor enhancements suggested.",
     range: [61, 80],
-    color: "#16A34A", // green-600
+    color: "#8CC1FF", // above-blue-700
     priority: "low",
   },
   {
@@ -115,7 +115,7 @@ export const RISK_LEVELS = [
     name: "Minimal Risk",
     description: "Excellent insider risk management. Maintain current practices.",
     range: [81, 100],
-    color: "#059669", // emerald-600
+    color: "#68ADFF", // above-blue-900
     priority: "maintenance",
   },
 ];

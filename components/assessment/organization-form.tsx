@@ -115,13 +115,13 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
   };
 
   return (
-    <Card className={`w-full max-w-2xl mx-auto ${className}`}>
+    <Card className={`w-full max-w-2xl mx-auto bg-above-white border-above-rose-100/30 shadow-soft ${className}`}>
       <CardHeader className="text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-          <Shield className="h-6 w-6 text-blue-600" />
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-above-rose-100">
+          <Shield className="h-6 w-6 text-above-rose-700" />
         </div>
-        <CardTitle className="text-2xl">Organization Information</CardTitle>
-        <p className="text-muted-foreground">
+        <CardTitle className="text-2xl text-slate-900">Organization Information</CardTitle>
+        <p className="text-slate-700">
           Tell us about your organization to get personalized benchmark comparisons
         </p>
       </CardHeader>
@@ -140,10 +140,10 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               placeholder="Enter your organization name"
               value={formData.organizationName}
               onChange={(e) => updateField("organizationName", e.target.value)}
-              className={errors.organizationName ? "border-red-500" : ""}
+              className={errors.organizationName ? "border-above-rose-500" : ""}
             />
             {errors.organizationName && (
-              <p className="text-sm text-red-600">{errors.organizationName}</p>
+              <p className="text-sm text-above-rose-600">{errors.organizationName}</p>
             )}
           </div>
 
@@ -151,7 +151,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
           <div className="space-y-2">
             <Label htmlFor="industry">Industry *</Label>
             <Select value={formData.industry} onValueChange={(value) => updateField("industry", value)}>
-              <SelectTrigger className={errors.industry ? "border-red-500" : ""}>
+              <SelectTrigger className={errors.industry ? "border-above-rose-500" : ""}>
                 <SelectValue placeholder="Select your industry" />
               </SelectTrigger>
               <SelectContent>
@@ -165,7 +165,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               </SelectContent>
             </Select>
             {errors.industry && (
-              <p className="text-sm text-red-600">{errors.industry}</p>
+              <p className="text-sm text-above-rose-600">{errors.industry}</p>
             )}
           </div>
 
@@ -176,7 +176,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               Company Size *
             </Label>
             <Select value={formData.employeeCount} onValueChange={(value) => updateField("employeeCount", value)}>
-              <SelectTrigger className={errors.employeeCount ? "border-red-500" : ""}>
+              <SelectTrigger className={errors.employeeCount ? "border-above-rose-500" : ""}>
                 <SelectValue placeholder="Select company size" />
               </SelectTrigger>
               <SelectContent>
@@ -188,7 +188,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               </SelectContent>
             </Select>
             {errors.employeeCount && (
-              <p className="text-sm text-red-600">{errors.employeeCount}</p>
+              <p className="text-sm text-above-rose-600">{errors.employeeCount}</p>
             )}
           </div>
 
@@ -204,10 +204,10 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               placeholder="your.email@company.com"
               value={formData.contactEmail}
               onChange={(e) => updateField("contactEmail", e.target.value)}
-              className={errors.contactEmail ? "border-red-500" : ""}
+              className={errors.contactEmail ? "border-above-rose-500" : ""}
             />
             {errors.contactEmail && (
-              <p className="text-sm text-red-600">{errors.contactEmail}</p>
+              <p className="text-sm text-above-rose-600">{errors.contactEmail}</p>
             )}
             <p className="text-xs text-muted-foreground">
               Optional: Receive your detailed results and updates on new research
@@ -236,15 +236,15 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
           </div>
 
           {/* Privacy note */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="bg-above-blue-50 border border-above-blue-200 rounded-lg p-4">
             <div className="flex gap-2">
-              <Shield className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
+              <Shield className="h-4 w-4 text-above-blue-700 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-sm font-medium text-blue-900">Privacy Commitment</p>
-                <p className="text-xs text-blue-700 mt-1">
+                <p className="text-sm font-medium text-above-blue-900">Privacy Commitment</p>
+                <p className="text-xs text-above-blue-800 mt-1">
                   Your data is encrypted and secure. We never share individual results 
                   or identify specific organizations. Read our{" "}
-                  <a href="/privacy" className="underline font-medium">
+                  <a href="/privacy" className="underline font-medium text-above-rose-700 hover:text-above-rose-800">
                     Privacy Policy
                   </a>
                   .
@@ -255,7 +255,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
         </CardContent>
 
         <CardFooter>
-          <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+          <Button type="submit" className="w-full bg-above-rose-700 hover:bg-above-rose-800 text-white shadow-soft-rose" size="lg" disabled={isSubmitting}>
             {isSubmitting ? (
               <>
                 <LoadingSpinner size="sm" className="mr-2" />

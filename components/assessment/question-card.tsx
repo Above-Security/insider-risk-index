@@ -56,7 +56,7 @@ export function QuestionCard({
   const selectedOption = question.options.find(opt => opt.value === selectedValue);
 
   return (
-    <Card className={cn("w-full max-w-4xl mx-auto", className)}>
+    <Card className={cn("w-full max-w-4xl mx-auto bg-above-white border-above-rose-100/30 shadow-soft", className)}>
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
@@ -86,10 +86,10 @@ export function QuestionCard({
         </div>
         
         {showExplanation && question.explanation && (
-          <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-md">
+          <div className="mt-3 p-3 bg-above-blue-50 border border-above-blue-200 rounded-md">
             <div className="flex gap-2">
-              <Info className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
-              <p className="text-sm text-blue-900">{question.explanation}</p>
+              <Info className="h-4 w-4 text-above-blue-700 mt-0.5 flex-shrink-0" />
+              <p className="text-sm text-above-blue-900">{question.explanation}</p>
             </div>
           </div>
         )}
@@ -131,7 +131,7 @@ export function QuestionCard({
 
         {selectedValue !== undefined && selectedOption && (
           <div className="border-t pt-4 space-y-4">
-            <div className="p-3 bg-gray-50 rounded-md">
+            <div className="p-3 bg-above-blue-50 rounded-md">
               <p className="text-sm font-medium mb-1">Selected: {selectedOption.label}</p>
               {selectedOption.description && (
                 <p className="text-xs text-muted-foreground">
@@ -169,9 +169,9 @@ export function QuestionCard({
             <div className="text-sm text-muted-foreground">
               Progress: {questionNumber}/{totalQuestions}
             </div>
-            <div className="w-64 h-2 bg-gray-200 rounded-full mx-auto mt-1">
+            <div className="w-64 h-2 bg-above-blue-100 rounded-full mx-auto mt-1">
               <div 
-                className="h-full bg-blue-600 rounded-full transition-all duration-300"
+                className="h-full bg-above-rose-700 rounded-full transition-all duration-300"
                 style={{ width: `${(questionNumber / totalQuestions) * 100}%` }}
               />
             </div>
@@ -180,6 +180,7 @@ export function QuestionCard({
           <Button
             onClick={onNext}
             disabled={selectedValue === undefined}
+            className="bg-above-rose-700 hover:bg-above-rose-800 text-white"
           >
             {isLast ? "Complete Assessment" : "Next"}
           </Button>

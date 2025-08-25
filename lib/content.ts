@@ -38,7 +38,7 @@ export async function getContentBySlug(type: 'research' | 'playbooks', slug: str
     const fileContent = fs.readFileSync(filePath, 'utf8');
     
     // Extract frontmatter and content
-    const frontmatterRegex = /^---\s*\n(.*?)\n---\s*\n(.*)$/s;
+    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
     const match = fileContent.match(frontmatterRegex);
     
     if (!match) {

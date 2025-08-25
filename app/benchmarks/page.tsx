@@ -27,7 +27,7 @@ export default function BenchmarksPage() {
   const industryChartData = PILLARS.map(pillar => ({
     pillarId: pillar.id,
     score: Object.values(INDUSTRY_BENCHMARKS).reduce((sum, industry) => 
-      sum + (industry.pillarAverages[pillar.id] || 0), 0
+      sum + ((industry.pillarAverages as Record<string, number>)[pillar.id] || 0), 0
     ) / Object.values(INDUSTRY_BENCHMARKS).length,
     maxScore: 100,
     weight: pillar.weight,
@@ -158,7 +158,7 @@ export default function BenchmarksPage() {
                     <div className="space-y-2">
                       <p className="text-sm font-medium text-gray-700">Pillar Breakdown:</p>
                       {PILLARS.map(pillar => {
-                        const score = industry.pillarAverages[pillar.id] || 0;
+                        const score = (industry.pillarAverages as Record<string, number>)[pillar.id] || 0;
                         return (
                           <div key={pillar.id} className="flex items-center justify-between text-sm">
                             <span className="text-gray-600">{pillar.name.split(' ')[0]}</span>
@@ -221,7 +221,7 @@ export default function BenchmarksPage() {
                     <div className="space-y-2">
                       <p className="text-sm font-medium text-gray-700">Pillar Breakdown:</p>
                       {PILLARS.map(pillar => {
-                        const score = sizeData.pillarAverages[pillar.id] || 0;
+                        const score = (sizeData.pillarAverages as Record<string, number>)[pillar.id] || 0;
                         return (
                           <div key={pillar.id} className="flex items-center justify-between text-sm">
                             <span className="text-gray-600">{pillar.name.split(' ')[0]}</span>

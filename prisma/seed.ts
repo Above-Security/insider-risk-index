@@ -271,6 +271,9 @@ async function main() {
   for (const source of dataSources) {
     await prisma.dataSource.create({ data: source });
   }
+  } catch (e) { 
+    console.log('DataSource model not available, skipping data sources seed');
+  }
 
   console.log('🏭 Seeding industry benchmarks with real research data...');
   

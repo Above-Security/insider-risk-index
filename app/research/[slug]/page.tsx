@@ -136,7 +136,7 @@ export default async function ResearchArticlePage({ params }: Props) {
             {/* Tags */}
             {frontmatter.tags && (
               <div className="mt-4 flex flex-wrap gap-2">
-                {frontmatter.tags.map((tag, index) => (
+                {frontmatter.tags.map((tag: string, index: number) => (
                   <Badge key={index} variant="outline">
                     {tag}
                   </Badge>
@@ -195,16 +195,16 @@ export default async function ResearchArticlePage({ params }: Props) {
                     <CardHeader>
                       <Badge variant="secondary" className="w-fit mb-2">Research</Badge>
                       <CardTitle className="text-lg group-hover:text-blue-600 transition-colors line-clamp-2">
-                        {article.title}
+                        {article.frontmatter.title}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                        {article.description}
+                        {article.frontmatter.description}
                       </p>
                       <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
-                        <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
-                        <span>{article.readingTime} min read</span>
+                        <span>{new Date(article.frontmatter.publishDate || article.frontmatter.publishedAt || Date.now()).toLocaleDateString()}</span>
+                        <span>{article.frontmatter.readingTime || '5'} min read</span>
                       </div>
                       <Link href={`/research/${article.slug}`}>
                         <Button variant="outline" size="sm" className="w-full">

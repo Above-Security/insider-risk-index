@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = params;
+    const { slug } = await params;
 
     const term = await prisma.glossaryTerm.findUnique({
       where: {
@@ -43,7 +43,13 @@ export async function GET(
     }
 
     // Get related terms if they exist
-    let relatedTermsData = [];
+    let relatedTermsData: Array<{
+      term: string;
+      slug: string;
+      definition: string;
+      category: string;
+      difficulty: string;
+    }> = [];
     if (term.relatedTerms && term.relatedTerms.length > 0) {
       relatedTermsData = await prisma.glossaryTerm.findMany({
         where: {

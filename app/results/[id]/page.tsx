@@ -47,7 +47,7 @@ export default async function ResultsPage({ params }: Props) {
   const { id } = await params;
   const response = await getAssessmentResults(id);
   
-  if (!response.success) {
+  if (!response.success || !response.assessment || !response.benchmarks) {
     notFound();
   }
 

@@ -10,10 +10,20 @@ export async function POST(request: NextRequest) {
       clearMatrixCache();
     }
 
-    const result = await syncMatrixData();
+    const matrixData = await syncMatrixData();
+    
+    const result = {
+      success: true,
+      data: matrixData,
+      lastSync: new Date().toISOString(),
+      techniquesCount: matrixData.techniques.length,
+      preventionsCount: matrixData.techniques.reduce((sum, t) => sum + (t.preventions?.length || 0), 0),
+      detectionsCount: matrixData.techniques.reduce((sum, t) => sum + (t.detections?.length || 0), 0),
+      version: matrixData.version
+    };
     
     return NextResponse.json(result, {
-      status: result.success ? 200 : 500,
+      status: 200,
       headers: {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
       }
@@ -38,7 +48,17 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const result = await syncMatrixData();
+    const matrixData = await syncMatrixData();
+    
+    const result = {
+      success: true,
+      data: matrixData,
+      lastSync: new Date().toISOString(),
+      techniquesCount: matrixData.techniques.length,
+      preventionsCount: matrixData.techniques.reduce((sum, t) => sum + (t.preventions?.length || 0), 0),
+      detectionsCount: matrixData.techniques.reduce((sum, t) => sum + (t.detections?.length || 0), 0),
+      version: matrixData.version
+    };
     
     return NextResponse.json(result, {
       headers: {

@@ -76,8 +76,9 @@ async function getGlossaryTerm(slug: string): Promise<{
   }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const data = await getGlossaryTerm(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const data = await getGlossaryTerm(slug);
   
   if (!data) {
     return {
@@ -94,8 +95,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function GlossaryTermPage({ params }: { params: { slug: string } }) {
-  const data = await getGlossaryTerm(params.slug);
+export default async function GlossaryTermPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const data = await getGlossaryTerm(slug);
 
   if (!data) {
     notFound();

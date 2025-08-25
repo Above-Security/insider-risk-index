@@ -445,7 +445,7 @@ export class AnalyticsReporting {
       const contentCounts: Record<string, number> = {};
       
       events.forEach(event => {
-        const contentId = event.properties?.contentId as string;
+        const contentId = event.properties && typeof event.properties === 'object' && 'contentId' in event.properties ? (event.properties.contentId as string) : undefined;
         if (contentId) {
           contentCounts[contentId] = (contentCounts[contentId] || 0) + 1;
         }

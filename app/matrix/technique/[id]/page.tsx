@@ -118,8 +118,8 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
     preventions: (technique.preventions || []).map(p => p.title),
     detections: (technique.detections || []).map(d => d.title),
     contributors: (technique.contributors || []).map(c => ({
-      name: typeof c === 'string' ? c : c.name || 'Unknown',
-      affiliation: typeof c === 'object' && c.affiliation ? c.affiliation : undefined
+      name: c,
+      affiliation: undefined
     }))
   });
 
@@ -285,7 +285,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                       {prevention.primaryPillar && (
                         <div className="mt-2">
                           <span className="text-xs text-gray-500">Primary Pillar: </span>
-                          <Badge variant="outline" size="sm">
+                          <Badge variant="outline">
                             {pillars.find(p => p.id === prevention.primaryPillar)?.name || prevention.primaryPillar}
                           </Badge>
                         </div>
@@ -350,23 +350,23 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                         )}
                       </div>
                       
-                      {(detection.requiredTools?.length > 0 || detection.alternativeTools?.length > 0) && (
+                      {((detection.requiredTools?.length || 0) > 0 || (detection.alternativeTools?.length || 0) > 0) && (
                         <div className="mt-3 space-y-2">
-                          {detection.requiredTools?.length > 0 && (
+                          {(detection.requiredTools?.length || 0) > 0 && (
                             <div>
                               <span className="text-xs text-gray-500">Required Tools: </span>
-                              {detection.requiredTools.map(tool => (
-                                <Badge key={tool} variant="outline" size="sm" className="mr-1">
+                              {detection.requiredTools?.map(tool => (
+                                <Badge key={tool} variant="outline" className="mr-1">
                                   {tool}
                                 </Badge>
                               ))}
                             </div>
                           )}
-                          {detection.alternativeTools?.length > 0 && (
+                          {(detection.alternativeTools?.length || 0) > 0 && (
                             <div>
                               <span className="text-xs text-gray-500">Alternative Tools: </span>
-                              {detection.alternativeTools.map(tool => (
-                                <Badge key={tool} variant="secondary" size="sm" className="mr-1">
+                              {detection.alternativeTools?.map(tool => (
+                                <Badge key={tool} variant="secondary" className="mr-1">
                                   {tool}
                                 </Badge>
                               ))}
@@ -417,7 +417,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                   <div className="space-y-2">
                     {technique.contributors.map((contributor, index) => (
                       <div key={index} className="text-sm">
-                        {typeof contributor === 'string' ? contributor : contributor.name || 'Unknown'}
+                        {contributor}
                       </div>
                     ))}
                   </div>

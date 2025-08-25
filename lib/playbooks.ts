@@ -36,8 +36,8 @@ export function getAllPlaybooks(): Playbook[] {
         if (a.frontmatter.pillar !== b.frontmatter.pillar) {
           return a.frontmatter.pillar.localeCompare(b.frontmatter.pillar);
         }
-        const difficultyOrder = { beginner: 1, intermediate: 2, advanced: 3 };
-        return difficultyOrder[a.frontmatter.difficulty] - difficultyOrder[b.frontmatter.difficulty];
+        const difficultyOrder: Record<string, number> = { beginner: 1, intermediate: 2, advanced: 3 };
+        return (difficultyOrder[a.frontmatter.difficulty] || 1) - (difficultyOrder[b.frontmatter.difficulty] || 1);
       });
 
     return playbooks;

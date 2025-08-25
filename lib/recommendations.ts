@@ -1,6 +1,6 @@
 import { getMatrixData, generatePillarMatrixAnalysis } from './matrix-api';
 import { getAllPillars, getPillarById } from './pillars';
-import { MatrixData, PillarMatrixAnalysis } from './matrix-types';
+import { MatrixData } from './matrix-types';
 
 export interface AssessmentScore {
   pillarId: string;
@@ -174,7 +174,7 @@ function generateCriticalRecommendations(
   return [{
     id: `critical-${pillarId}-${Date.now()}`,
     pillarId,
-    matrixTechniques: analysis.techniques.map(t => t.techniqueId).slice(0, 5),
+    matrixTechniques: analysis.techniques.map((t: { techniqueId: string }) => t.techniqueId).slice(0, 5),
     preventionStrategies: analysis.preventionStrategies.slice(0, 3),
     detectionMethods: analysis.detectionMethods.slice(0, 3),
     resources: [
@@ -245,7 +245,7 @@ function generateModerateRecommendations(
       difficulty: action.difficulty,
       timeToImplement: action.timeToImplement,
       estimatedImpact: action.estimatedImpact,
-      matrixTechniques: analysis.techniques.map(t => t.techniqueId).slice(0, 3),
+      matrixTechniques: analysis.techniques.map((t: { techniqueId: string }) => t.techniqueId).slice(0, 3),
       preventionStrategies: analysis.preventionStrategies.slice(0, 2),
       detectionMethods: analysis.detectionMethods.slice(0, 2),
       playbooks: [pillarId.replace('-', '-')],
@@ -279,7 +279,7 @@ function generateOptimizationRecommendations(
     difficulty: 'hard',
     timeToImplement: '4-8 weeks',
     estimatedImpact: 5,
-    matrixTechniques: analysis.techniques.map(t => t.techniqueId).slice(0, 2),
+    matrixTechniques: analysis.techniques.map((t: { techniqueId: string }) => t.techniqueId).slice(0, 2),
     preventionStrategies: analysis.preventionStrategies.slice(0, 1),
     detectionMethods: analysis.detectionMethods.slice(0, 1),
     playbooks: [pillarId],

@@ -4,14 +4,14 @@ import { getAssessmentResults } from "@/app/actions/assessment";
 import { generateBoardBriefHTML, generateDetailedPlanHTML } from "@/lib/pdf/generators";
 import { getRiskLevel } from "@/lib/pillars";
 
-interface Params {
+interface RouteParams {
   type: "board-brief" | "detailed-plan";
   id: string;
 }
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<Params> }
+  { params }: { params: Promise<RouteParams> }
 ) {
   try {
     const { type, id } = await params;
@@ -118,7 +118,7 @@ export async function GET(
       await browser.close();
 
       // Return PDF
-      return new Response(pdf.buffer, {
+      return new Response(pdf, {
         headers: {
           'Content-Type': 'application/pdf',
           'Content-Disposition': `inline; filename="${filename}"`,

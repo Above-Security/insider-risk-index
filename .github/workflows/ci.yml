@@ -164,5 +164,5 @@ jobs:
             http://localhost:3000/assessment
             http://localhost:3000/benchmarks
           budgetPath: ./lighthouse-budget.json
-          uploadArtifacts: true
-          temporaryPublicStorage: true
+          uploadArtifacts: false
+          temporaryPublicStorage: false

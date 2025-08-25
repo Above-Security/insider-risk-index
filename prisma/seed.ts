@@ -509,7 +509,35 @@ async function main() {
       difficulty: 'advanced',
       relatedTerms: ['Behavioral Analytics', 'Anomaly Detection', 'Machine Learning'],
       pillarRelevance: ['visibility'],
-      sources: ['NIST Cybersecurity Framework', 'Industry Standards'],
+      sources: ['NIST Cybersecurity Framework', 'Gartner Market Guide G00805757'],
+      lastReviewed: now,
+      published: true
+    },
+    {
+      term: 'Data Loss Prevention (DLP)',
+      slug: 'data-loss-prevention-dlp',
+      definition: 'Security technology that identifies, monitors, and protects sensitive data in use, in motion, and at rest.',
+      longExplanation: 'DLP solutions help prevent unauthorized access, use, and transmission of sensitive information. According to Gartner\'s Market Guide (G00805757, 2025), DLP convergence with insider risk management is a major market trend, with organizations implementing integrated solutions to detect both external and internal threats to data.',
+      category: 'technical',
+      tags: ['data-protection', 'monitoring', 'compliance'],
+      difficulty: 'intermediate',
+      relatedTerms: ['Data Classification', 'Endpoint Protection', 'Email Security'],
+      pillarRelevance: ['visibility', 'evidence'],
+      sources: ['Gartner Market Guide G00805757', 'Industry Best Practices'],
+      lastReviewed: now,
+      published: true
+    },
+    {
+      term: 'Behavioral Analytics',
+      slug: 'behavioral-analytics',
+      definition: 'The use of machine learning and statistical analysis to understand normal user behavior patterns and identify deviations that may indicate insider threats.',
+      longExplanation: 'Behavioral analytics establishes baselines of normal user activity and flags anomalies. Research from Ponemon Institute 2025 shows organizations with comprehensive behavioral analytics reduce average containment time from 81 days to 45 days. Gartner reports that 85% of effective insider threat programs utilize behavioral analytics for baseline establishment.',
+      category: 'technical',
+      tags: ['analytics', 'machine-learning', 'detection', 'baseline'],
+      difficulty: 'advanced',
+      relatedTerms: ['UEBA', 'Anomaly Detection', 'User Monitoring'],
+      pillarRelevance: ['visibility'],
+      sources: ['Ponemon Institute 2025', 'Gartner Market Guide G00805757'],
       lastReviewed: now,
       published: true
     }

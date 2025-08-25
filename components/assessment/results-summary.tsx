@@ -114,7 +114,7 @@ export function ResultsSummary({
                   {benchmarkComparison.industry >= 0 ? '+' : ''}{formatPercentage(benchmarkComparison.industry, 1)}
                 </p>
               </div>
-              <p className="text-xs text-muted-foreground">vs industry average</p>
+              <p className="text-xs text-muted-foreground">vs industry average (Ponemon 2025)</p>
             </div>
           </CardContent>
         </Card>
@@ -134,7 +134,7 @@ export function ResultsSummary({
                   {benchmarkComparison.companySize >= 0 ? '+' : ''}{formatPercentage(benchmarkComparison.companySize, 1)}
                 </p>
               </div>
-              <p className="text-xs text-muted-foreground">vs similar companies</p>
+              <p className="text-xs text-muted-foreground">vs similar companies (size-based analysis)</p>
             </div>
           </CardContent>
         </Card>

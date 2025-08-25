@@ -113,8 +113,19 @@ export default function AssessmentPage() {
                 Insider Risk Assessment
               </h1>
               <p className="mt-4 text-xl text-gray-600">
-                Get a comprehensive evaluation of your organization&apos;s insider threat posture
+                Research-backed assessment framework developed from analysis of $17.4M average annual 
+                insider threat costs and 48% increase in attack frequency
               </p>
+              <div className="mt-6 text-sm text-gray-500">
+                <p className="mb-2">
+                  <strong>Methodology:</strong> 20 questions across 5 pillars weighted by economic impact analysis
+                </p>
+                <div className="flex items-center justify-center space-x-6">
+                  <span>• Ponemon Institute 2025</span>
+                  <span>• Gartner Market Guide G00805757</span>
+                  <span>• Verizon DBIR 2024</span>
+                </div>
+              </div>
             </div>
             
             <OrganizationForm onSubmit={handleOrganizationSubmit} />

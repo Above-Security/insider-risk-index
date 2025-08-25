@@ -1,5 +1,18 @@
-import { getAllContent } from "./mdx";
+import { getAllContent, ContentItem } from "./mdx";
 import { seoConfig } from "./seo";
+
+interface ContentFrontmatter {
+  title: string;
+  description?: string;
+  abstract?: string;
+  publishedAt?: string;
+  publishDate?: string;
+  updatedAt?: string;
+  lastUpdated?: string;
+  author?: string;
+  authors?: string[];
+  tags?: string[];
+}
 
 /**
  * Generate RSS feed for research articles and blog posts
@@ -11,21 +24,21 @@ export async function generateRSSFeed(): Promise<string> {
 
     // Combine and sort by date
     const allContent = [
-      ...research.map(r => ({
-        title: r.title,
-        description: r.abstract,
+      ...research.map((r: ContentItem<ContentFrontmatter>) => ({
+        title: r.frontmatter.title,
+        description: r.frontmatter.description || r.frontmatter.abstract,
         url: `${seoConfig.siteUrl}/research/${r.slug}`,
-        date: r.publishedAt,
+        date: new Date(r.frontmatter.publishedAt || r.frontmatter.publishDate || Date.now()),
         category: "Research",
-        authors: r.authors,
+        authors: r.frontmatter.authors || [r.frontmatter.author || "Insider Risk Index Team"],
       })),
-      ...playbooks.map(p => ({
-        title: p.title,
-        description: p.description,
+      ...playbooks.map((p: ContentItem<ContentFrontmatter>) => ({
+        title: p.frontmatter.title,
+        description: p.frontmatter.description,
         url: `${seoConfig.siteUrl}/playbooks/${p.slug}`,
-        date: p.updatedAt,
+        date: new Date(p.frontmatter.updatedAt || p.frontmatter.lastUpdated || Date.now()),
         category: "Playbook",
-        authors: ["Insider Risk Index Team"],
+        authors: [p.frontmatter.author || "Insider Risk Index Team"],
       })),
     ].sort((a, b) => b.date.getTime() - a.date.getTime());
 
@@ -39,7 +52,7 @@ export async function generateRSSFeed(): Promise<string> {
       <guid>${item.url}</guid>
       <pubDate>${item.date.toUTCString()}</pubDate>
       <category>${item.category}</category>
-      ${item.authors.map(author => `<author>${author}</author>`).join("")}
+      ${item.authors.map((author: string) => `<author>${author}</author>`).join("")}
     </item>`
       )
       .join("");
@@ -68,27 +81,23 @@ export async function generateRSSFeed(): Promise<string> {
  */
 export async function generateAtomFeed(): Promise<string> {
   try {
-    const research = process.env.DATABASE_URL ? 
-      await ContentDB.getResearch({ limit: 50 }).catch(() => []) : 
-      [];
-    const playbooks = process.env.DATABASE_URL ? 
-      await ContentDB.getPlaybooks({ limit: 50 }).catch(() => []) : 
-      [];
+    const research = getAllContent('research').slice(0, 50);
+    const playbooks = getAllContent('playbooks').slice(0, 50);
 
     const allContent = [
-      ...research.map(r => ({
-        title: r.title,
-        description: r.abstract,
+      ...research.map((r: ContentItem<ContentFrontmatter>) => ({
+        title: r.frontmatter.title,
+        description: r.frontmatter.description || r.frontmatter.abstract,
         url: `${seoConfig.siteUrl}/research/${r.slug}`,
-        date: r.publishedAt,
+        date: new Date(r.frontmatter.publishedAt || r.frontmatter.publishDate || Date.now()),
         category: "Research",
         id: `research-${r.slug}`,
       })),
-      ...playbooks.map(p => ({
-        title: p.title,
-        description: p.description,
+      ...playbooks.map((p: ContentItem<ContentFrontmatter>) => ({
+        title: p.frontmatter.title,
+        description: p.frontmatter.description,
         url: `${seoConfig.siteUrl}/playbooks/${p.slug}`,
-        date: p.updatedAt,
+        date: new Date(p.frontmatter.updatedAt || p.frontmatter.lastUpdated || Date.now()),
         category: "Playbook",
         id: `playbook-${p.slug}`,
       })),
@@ -102,7 +111,7 @@ export async function generateAtomFeed(): Promise<string> {
     <link href="${item.url}" />
     <id>${seoConfig.siteUrl}/${item.id}</id>
     <updated>${item.date.toISOString()}</updated>
-    <summary type="html">${escapeXml(item.description)}</summary>
+    <summary type="html">${escapeXml(item.description || '')}</summary>
     <category term="${item.category}" />
   </entry>`
       )
@@ -133,30 +142,26 @@ export async function generateAtomFeed(): Promise<string> {
  */
 export async function generateJSONFeed(): Promise<object> {
   try {
-    const research = process.env.DATABASE_URL ? 
-      await ContentDB.getResearch({ limit: 50 }).catch(() => []) : 
-      [];
-    const playbooks = process.env.DATABASE_URL ? 
-      await ContentDB.getPlaybooks({ limit: 50 }).catch(() => []) : 
-      [];
+    const research = getAllContent('research').slice(0, 50);
+    const playbooks = getAllContent('playbooks').slice(0, 50);
 
     const allContent = [
-      ...research.map(r => ({
+      ...research.map((r: ContentItem<ContentFrontmatter>) => ({
         id: `research-${r.slug}`,
-        title: r.title,
-        content_text: r.abstract,
+        title: r.frontmatter.title,
+        content_text: r.frontmatter.description || r.frontmatter.abstract || '',
         url: `${seoConfig.siteUrl}/research/${r.slug}`,
-        date_published: r.publishedAt.toISOString(),
-        tags: r.tags,
-        authors: r.authors.map(name => ({ name })),
+        date_published: new Date(r.frontmatter.publishedAt || r.frontmatter.publishDate || Date.now()).toISOString(),
+        tags: r.frontmatter.tags || [],
+        authors: (r.frontmatter.authors || [r.frontmatter.author || 'Insider Risk Index Team']).map(name => ({ name })),
       })),
-      ...playbooks.map(p => ({
+      ...playbooks.map((p: ContentItem<ContentFrontmatter>) => ({
         id: `playbook-${p.slug}`,
-        title: p.title,
-        content_text: p.description,
+        title: p.frontmatter.title,
+        content_text: p.frontmatter.description || '',
         url: `${seoConfig.siteUrl}/playbooks/${p.slug}`,
-        date_published: p.updatedAt.toISOString(),
-        tags: p.tags,
+        date_published: new Date(p.frontmatter.updatedAt || p.frontmatter.lastUpdated || Date.now()).toISOString(),
+        tags: p.frontmatter.tags || [],
         authors: [{ name: "Insider Risk Index Team" }],
       })),
     ].sort((a, b) => new Date(b.date_published).getTime() - new Date(a.date_published).getTime());
@@ -194,23 +199,20 @@ export async function generateJSONFeed(): Promise<object> {
  */
 export async function generateResearchFeed(): Promise<string> {
   try {
-    const research = process.env.DATABASE_URL ? 
-      await ContentDB.getResearch({ limit: 50 }).catch(() => []) : 
-      [];
+    const research = getAllContent('research').slice(0, 50);
 
     const rssItems = research
       .map(
-        item => `
+        (item: ContentItem<ContentFrontmatter>) => `
     <item>
-      <title><![CDATA[${item.title}]]></title>
-      <description><![CDATA[${item.abstract}]]></description>
+      <title><![CDATA[${item.frontmatter.title}]]></title>
+      <description><![CDATA[${item.frontmatter.description || item.frontmatter.abstract || ''}]]></description>
       <link>${seoConfig.siteUrl}/research/${item.slug}</link>
       <guid>${seoConfig.siteUrl}/research/${item.slug}</guid>
-      <pubDate>${item.publishedAt.toUTCString()}</pubDate>
-      <category>${item.category}</category>
-      ${item.authors.map(author => `<author>${author}</author>`).join("")}
-      ${item.tags.map(tag => `<category>${tag}</category>`).join("")}
-      ${item.downloadUrl ? `<enclosure url="${item.downloadUrl}" type="application/pdf" />` : ""}
+      <pubDate>${new Date(item.frontmatter.publishedAt || item.frontmatter.publishDate || Date.now()).toUTCString()}</pubDate>
+      <category>Research</category>
+      ${(item.frontmatter.authors || [item.frontmatter.author || "Insider Risk Index Team"]).map((author: string) => `<author>${author}</author>`).join("")}
+      ${(item.frontmatter.tags || []).map((tag: string) => `<category>${tag}</category>`).join("")}
     </item>`
       )
       .join("");
@@ -239,22 +241,20 @@ export async function generateResearchFeed(): Promise<string> {
  */
 export async function generatePlaybooksFeed(): Promise<string> {
   try {
-    const playbooks = process.env.DATABASE_URL ? 
-      await ContentDB.getPlaybooks({ limit: 50 }).catch(() => []) : 
-      [];
+    const playbooks = getAllContent('playbooks').slice(0, 50);
 
     const rssItems = playbooks
       .map(
-        item => `
+        (item: ContentItem<ContentFrontmatter>) => `
     <item>
-      <title><![CDATA[${item.title}]]></title>
-      <description><![CDATA[${item.description}]]></description>
+      <title><![CDATA[${item.frontmatter.title}]]></title>
+      <description><![CDATA[${item.frontmatter.description || ''}]]></description>
       <link>${seoConfig.siteUrl}/playbooks/${item.slug}</link>
       <guid>${seoConfig.siteUrl}/playbooks/${item.slug}</guid>
-      <pubDate>${item.updatedAt.toUTCString()}</pubDate>
+      <pubDate>${new Date(item.frontmatter.updatedAt || item.frontmatter.lastUpdated || Date.now()).toUTCString()}</pubDate>
       <category>Playbook</category>
-      <author>Insider Risk Index Team</author>
-      ${item.tags.map(tag => `<category>${tag}</category>`).join("")}
+      <author>${item.frontmatter.author || "Insider Risk Index Team"}</author>
+      ${(item.frontmatter.tags || []).map((tag: string) => `<category>${tag}</category>`).join("")}
     </item>`
       )
       .join("");
@@ -283,13 +283,9 @@ export async function generatePlaybooksFeed(): Promise<string> {
  */
 export async function generateSitemapFeed(): Promise<string> {
   try {
-    // During build time, ContentDB may not be available
-    const research = process.env.DATABASE_URL ? 
-      await ContentDB.getResearch({ limit: 1000 }).catch(() => []) : 
-      [];
-    const playbooks = process.env.DATABASE_URL ? 
-      await ContentDB.getPlaybooks({ limit: 1000 }).catch(() => []) : 
-      [];
+    // During build time, use static content
+    const research = getAllContent('research').slice(0, 1000);
+    const playbooks = getAllContent('playbooks').slice(0, 1000);
 
     const staticPages = [
       { url: "", priority: "1.0", changefreq: "weekly" },
@@ -304,17 +300,17 @@ export async function generateSitemapFeed(): Promise<string> {
     ];
 
     const dynamicPages = [
-      ...research.map(r => ({
+      ...research.map((r: ContentItem<ContentFrontmatter>) => ({
         url: `/research/${r.slug}`,
         priority: "0.7",
         changefreq: "monthly",
-        lastmod: r.publishedAt.toISOString().split("T")[0],
+        lastmod: new Date(r.frontmatter.publishedAt || r.frontmatter.publishDate || Date.now()).toISOString().split('T')[0],
       })),
-      ...playbooks.map(p => ({
+      ...playbooks.map((p: ContentItem<ContentFrontmatter>) => ({
         url: `/playbooks/${p.slug}`,
         priority: "0.7",
         changefreq: "monthly",
-        lastmod: p.updatedAt.toISOString().split("T")[0],
+        lastmod: new Date(p.frontmatter.updatedAt || p.frontmatter.lastUpdated || Date.now()).toISOString().split('T')[0],
       })),
     ];
 
@@ -327,7 +323,7 @@ export async function generateSitemapFeed(): Promise<string> {
     <loc>${seoConfig.siteUrl}${page.url}</loc>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
-    ${page.lastmod ? `<lastmod>${page.lastmod}</lastmod>` : ""}
+    ${('lastmod' in page && page.lastmod) ? `<lastmod>${page.lastmod}</lastmod>` : ""}
   </url>`
       )
       .join("");

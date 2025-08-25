@@ -2,6 +2,20 @@ import { getMatrixData, generatePillarMatrixAnalysis } from './matrix-api';
 import { getAllPillars, getPillarById } from './pillars';
 import { MatrixData } from './matrix-types';
 
+interface PillarMatrixAnalysis {
+  pillarName: string;
+  relatedTechniques: number;
+  techniques: Array<{
+    techniqueId: string;
+    id: string;
+    name: string;
+    description: string;
+    category: string;
+  }>;
+  preventionStrategies: string[];
+  detectionMethods: string[];
+}
+
 export interface AssessmentScore {
   pillarId: string;
   score: number;

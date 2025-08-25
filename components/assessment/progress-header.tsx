@@ -29,7 +29,7 @@ export function ProgressHeader({
 
   // Calculate pillar progress
   const pillarProgress = PILLARS.map(pillar => {
-    const pillarQuestions = ASSESSMENT_QUESTIONS.filter(q => q.pillar === pillar.id);
+    const pillarQuestions = ASSESSMENT_QUESTIONS.filter(q => q.pillarId === pillar.id);
     const answeredPillarQuestions = pillarQuestions.filter(q => answeredQuestions.has(q.id));
     const progress = pillarQuestions.length > 0 ? (answeredPillarQuestions.length / pillarQuestions.length) * 100 : 0;
     

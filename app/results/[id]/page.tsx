@@ -105,8 +105,8 @@ export default async function ResultsPage({ params }: Props) {
     id: id,
     score: assessment.iri,
     level: assessment.level,
-    industry: assessment.industry,
-    companySize: assessment.size,
+    industry: assessment.industry?.toString(),
+    companySize: assessment.size?.toString(),
     pillars: assessment.pillarBreakdown.map(pb => ({
       pillarId: pb.pillar,
       score: pb.score,

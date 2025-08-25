@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { AssessmentSubmission, AssessmentResult, BenchmarkData } from "./zod-schemas";
+import { AssessmentSubmission, AssessmentResult } from "./zod-schemas";
 import { Industry, CompanySize, Region } from "@prisma/client";
 
 // Global PrismaClient instance with connection pooling
@@ -91,7 +91,11 @@ export class AssessmentDB {
   }: {
     industry?: string;
     companySize?: string;
-  }): Promise<BenchmarkData> {
+  }): Promise<{
+    industry: { iriAverage: number; pillarAverages: Record<string, number>; sampleSize: number } | null;
+    size: { iriAverage: number; pillarAverages: Record<string, number>; sampleSize: number } | null;
+    overall: { iriAverage: number; pillarAverages: Record<string, number>; sampleSize: number } | null;
+  }> {
     try {
       const benchmarks = {
         industry: null as any,
@@ -176,19 +180,14 @@ export class AssessmentDB {
       });
 
       if (overallStats._avg.iri !== null && overallStats._count.id > 0) {
-        await prisma.benchmarkSnapshot.upsert({
-          where: {
-            id: 'overall-benchmark',
-          },
-          create: {
-            id: 'overall-benchmark',
+        const now = new Date();
+        await prisma.benchmarkSnapshot.create({
+          data: {
             iriAverage: overallStats._avg.iri,
             sampleSize: overallStats._count.id,
             pillarAverages: {},
-          },
-          update: {
-            iriAverage: overallStats._avg.iri,
-            sampleSize: overallStats._count.id,
+            periodStart: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
+            periodEnd: now,
           },
         });
       }
@@ -203,20 +202,15 @@ export class AssessmentDB {
 
       for (const industryGroup of industries) {
         if (industryGroup.industry && industryGroup._avg.iri !== null) {
-          await prisma.benchmarkSnapshot.upsert({
-            where: {
-              id: `industry-${industryGroup.industry}`,
-            },
-            create: {
-              id: `industry-${industryGroup.industry}`,
+          const now = new Date();
+          await prisma.benchmarkSnapshot.create({
+            data: {
               industry: industryGroup.industry,
               iriAverage: industryGroup._avg.iri,
               sampleSize: industryGroup._count.id,
               pillarAverages: {},
-            },
-            update: {
-              iriAverage: industryGroup._avg.iri,
-              sampleSize: industryGroup._count.id,
+              periodStart: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
+              periodEnd: now,
             },
           });
         }

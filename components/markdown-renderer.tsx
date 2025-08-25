@@ -24,7 +24,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
     html = html.replace(/^\d+\. (.*$)/gm, '<li>$1</li>');
     
     // Wrap consecutive list items in ul/ol tags
-    html = html.replace(/(<li>.*<\/li>)/gs, (match) => {
+    html = html.replace(/(<li>[\s\S]*<\/li>)/g, (match) => {
       if (match.includes('<li>')) {
         return '<ul>' + match + '</ul>';
       }

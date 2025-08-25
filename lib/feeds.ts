@@ -1,4 +1,4 @@
-import { ContentDB } from "./db";
+import { getAllContent } from "./mdx";
 import { seoConfig } from "./seo";
 
 /**
@@ -6,12 +6,8 @@ import { seoConfig } from "./seo";
  */
 export async function generateRSSFeed(): Promise<string> {
   try {
-    const research = process.env.DATABASE_URL ? 
-      await ContentDB.getResearch({ limit: 50 }).catch(() => []) : 
-      [];
-    const playbooks = process.env.DATABASE_URL ? 
-      await ContentDB.getPlaybooks({ limit: 50 }).catch(() => []) : 
-      [];
+    const research = getAllContent('research').slice(0, 50);
+    const playbooks = getAllContent('playbooks').slice(0, 50);
 
     // Combine and sort by date
     const allContent = [

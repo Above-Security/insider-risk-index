@@ -55,30 +55,30 @@ export function MatrixTechniquesPaginated({
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'Motive':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+        return 'bg-above-rose-100 text-above-rose-800 border border-above-rose-200';
       case 'Coercion':
-        return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+        return 'bg-above-peach-100 text-above-peach-800 border border-above-peach-200';
       case 'Manipulation':
-        return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
+        return 'bg-above-lavender-100 text-above-lavender-800 border border-above-lavender-200';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+        return 'bg-above-blue-100 text-above-blue-800 border border-above-blue-200';
     }
   };
 
   return (
     <div className="space-y-6">
       {/* Search and Filter Controls */}
-      <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-4">
+      <div className="bg-above-white rounded-lg shadow-soft p-4 border border-above-rose-100/20">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 h-4 w-4" />
               <Input
                 type="text"
                 placeholder="Search techniques by name, ID, or description..."
                 value={searchTerm}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className="pl-10"
+                className="pl-10 border-above-blue-200 focus:border-above-rose-400 focus:ring-above-rose-200"
               />
             </div>
           </div>
@@ -96,7 +96,7 @@ export function MatrixTechniquesPaginated({
         </div>
         
         {/* Results count */}
-        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+        <div className="mt-4 text-sm text-slate-600">
           Showing {startIndex + 1}-{Math.min(endIndex, filteredTechniques.length)} of {filteredTechniques.length} techniques
           {searchTerm && ` matching "${searchTerm}"`}
           {categoryFilter !== 'all' && ` in ${categoryFilter} category`}
@@ -108,15 +108,15 @@ export function MatrixTechniquesPaginated({
         {currentTechniques.map((technique) => (
           <div
             key={technique.id}
-            className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-4 sm:p-6 hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700"
+            className="bg-above-white rounded-lg shadow-soft p-4 sm:p-6 hover:shadow-soft-lg transition-all duration-300 border border-above-rose-100/30"
           >
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white leading-tight">
+                  <h3 className="text-lg sm:text-xl font-semibold text-slate-900 leading-tight">
                     {technique.title}
                   </h3>
-                  <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-mono self-start">
+                  <span className="text-xs sm:text-sm text-slate-600 font-mono self-start">
                     {technique.id}
                   </span>
                 </div>
@@ -135,29 +135,29 @@ export function MatrixTechniquesPaginated({
               </div>
             </div>
 
-            <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+            <p className="text-slate-700 mb-4 line-clamp-3">
               {technique.description}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-sm">
               {/* Preventions Count */}
               <div className="flex items-center gap-2">
-                <Shield className="h-4 w-4 text-green-600 flex-shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400">
+                <Shield className="h-4 w-4 text-above-blue-700 flex-shrink-0" />
+                <span className="text-slate-700">
                   {technique.preventions?.length || 0} Prevention{(technique.preventions?.length || 0) !== 1 ? 's' : ''}
                 </span>
               </div>
 
               {/* Detections Count */}
               <div className="flex items-center gap-2">
-                <AlertCircle className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400">
+                <AlertCircle className="h-4 w-4 text-above-peach-700 flex-shrink-0" />
+                <span className="text-slate-700">
                   {technique.detections?.length || 0} Detection{(technique.detections?.length || 0) !== 1 ? 's' : ''}
                 </span>
               </div>
 
               {/* Last Updated */}
-              <div className="flex items-center text-gray-500 dark:text-gray-400 sm:col-span-2 lg:col-span-1">
+              <div className="flex items-center text-slate-600 sm:col-span-2 lg:col-span-1">
                 <span className="text-xs">
                   Updated: {new Date(technique.lastUpdated).toLocaleDateString('en-US', { 
                     month: 'short', 

@@ -75,21 +75,21 @@ export default async function MatrixPage() {
   const { techniques, metadata, contributors, lastUpdated } = matrixData;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
+    <div className="min-h-screen bg-above-gradient-subtle py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
-            <Shield className="h-8 w-8 text-blue-600 mr-3" />
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+            <Shield className="h-8 w-8 text-above-rose-700 mr-3" />
+            <h1 className="text-4xl font-bold text-slate-900">
               Insider Threat Matrix
             </h1>
           </div>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-6">
+          <p className="text-lg text-slate-700 max-w-3xl mx-auto mb-6">
             Comprehensive threat intelligence based on real-world insider threat techniques, 
             prevention strategies, and detection methods from the cybersecurity community.
           </p>
-          <div className="flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center justify-center text-sm text-slate-600">
             <Calendar className="h-4 w-4 mr-1" />
             <span>Last updated: {new Date(lastUpdated).toLocaleDateString()}</span>
           </div>

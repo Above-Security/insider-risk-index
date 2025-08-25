@@ -49,40 +49,40 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-blue-50 to-white py-16 sm:py-24">
+      <section className="bg-above-gradient py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-8">
-              <Badge variant="secondary" className="mb-4">
+              <Badge variant="secondary" className="mb-4 bg-above-lavender-100 text-slate-800 border-above-lavender-200">
                 Research-Based Assessment Framework
               </Badge>
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
                 Measure Your{" "}
-                <span className="text-blue-600">Insider Risk</span>{" "}
+                <span className="text-above-rose-700">Insider Risk</span>{" "}
                 Posture
               </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
+              <p className="mt-6 text-lg leading-8 text-slate-700">
                 Developed from analysis of $17.4M average annual insider threat costs (Ponemon 2025) and 
                 48% increase in insider attacks (Gartner Market Guide G00805757). Get evidence-based insights.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8">
+              <Button asChild size="lg" className="text-lg px-8 bg-above-rose-700 hover:bg-above-rose-800 text-white shadow-soft-rose">
                 <Link href="/assessment">
                   Start Free Assessment
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               
-              <Button variant="outline" size="lg" asChild className="text-lg px-8">
+              <Button variant="outline" size="lg" asChild className="text-lg px-8 border-above-blue-300 text-slate-700 hover:bg-above-blue-50">
                 <Link href="/benchmarks">
                   View Benchmarks
                 </Link>
               </Button>
             </div>
             
-            <p className="mt-4 text-sm text-gray-500">
+            <p className="mt-4 text-sm text-slate-600">
               ✓ No registration required  ✓ Takes 5-10 minutes  ✓ Immediate results
             </p>
           </div>
@@ -90,19 +90,19 @@ export default function HomePage() {
       </section>
 
       {/* The 5 Pillars */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-16 sm:py-24 bg-above-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               The 5 Pillars of Insider Risk
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-slate-700">
               Our assessment evaluates your organization across these critical areas
             </p>
           </div>
           
           <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {PILLARS.map((pillar) => {
+            {PILLARS.map((pillar, index) => {
               const IconComponent = {
                 Eye,
                 Shield,
@@ -111,23 +111,30 @@ export default function HomePage() {
                 ShieldAlert,
               }[pillar.icon] || Shield;
               
+              // Assign Above brand colors to pillars
+              const pillarColors = [
+                { bg: 'bg-above-rose-50', border: 'border-t-above-rose-400', icon: 'text-above-rose-700', accent: 'bg-above-rose-100' },
+                { bg: 'bg-above-blue-50', border: 'border-t-above-blue-400', icon: 'text-above-blue-700', accent: 'bg-above-blue-100' },
+                { bg: 'bg-above-peach-50', border: 'border-t-above-peach-400', icon: 'text-above-peach-700', accent: 'bg-above-peach-100' },
+                { bg: 'bg-above-lavender-50', border: 'border-t-above-lavender-400', icon: 'text-above-lavender-700', accent: 'bg-above-lavender-100' },
+                { bg: 'bg-above-rose-50', border: 'border-t-above-rose-500', icon: 'text-above-rose-800', accent: 'bg-above-rose-200' },
+              ];
+              const colors = pillarColors[index % pillarColors.length];
+              
               return (
-                <Card key={pillar.id} className="border-t-4 hover:shadow-md transition-shadow" style={{ borderTopColor: pillar.color }}>
+                <Card key={pillar.id} className={`${colors.bg} ${colors.border} border-t-4 hover:shadow-soft transition-all duration-300`}>
                   <CardHeader>
                     <div className="flex items-center gap-3">
-                      <div 
-                        className="p-2 rounded-lg"
-                        style={{ backgroundColor: `${pillar.color}20` }}
-                      >
-                        <IconComponent className="h-6 w-6" style={{ color: pillar.color }} />
+                      <div className={`p-2 rounded-lg ${colors.accent}`}>
+                        <IconComponent className={`h-6 w-6 ${colors.icon}`} />
                       </div>
-                      <CardTitle className="text-lg">{pillar.name}</CardTitle>
+                      <CardTitle className="text-lg text-slate-900">{pillar.name}</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600">{pillar.description}</p>
+                    <p className="text-slate-700">{pillar.description}</p>
                     <div className="mt-4">
-                      <Badge variant="outline" style={{ color: pillar.color, borderColor: pillar.color }}>
+                      <Badge variant="outline" className={`border-current ${colors.icon} bg-white/50`}>
                         {Math.round(pillar.weight * 100)}% Weight
                       </Badge>
                     </div>

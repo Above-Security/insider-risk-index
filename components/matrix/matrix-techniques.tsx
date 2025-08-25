@@ -1,10 +1,10 @@
-&apos;use client&apos;;
+'use client';
 
-import { useEffect, useState } from &apos;react&apos;;
-import { Card, CardContent, CardHeader, CardTitle } from &apos;@/components/ui/card&apos;;
-import { Badge } from &apos;@/components/ui/badge&apos;;
-import { Button } from &apos;@/components/ui/button&apos;;
-import { Input } from &apos;@/components/ui/input&apos;;
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { 
   AlertTriangle, 
   Shield, 
@@ -13,7 +13,7 @@ import {
   Users,
   Calendar,
   Globe
-} from &apos;lucide-react&apos;;
+} from 'lucide-react';
 
 interface MatrixTechnique {
   id: string;
@@ -42,16 +42,16 @@ interface MatrixTechnique {
 export function MatrixTechniques() {
   const [techniques, setTechniques] = useState<MatrixTechnique[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(&apos;&apos;);
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedTechnique, setSelectedTechnique] = useState<MatrixTechnique | null>(null);
 
   const fetchTechniques = async () => {
     try {
-      const response = await fetch(&apos;/api/matrix/techniques?limit=100&apos;);
+      const response = await fetch('/api/matrix/techniques?limit=100');
       const data = await response.json();
       setTechniques(data.techniques || []);
     } catch (error) {
-      console.error(&apos;Failed to fetch techniques:&apos;, error);
+      console.error('Failed to fetch techniques:', error);
       setTechniques([]);
     } finally {
       setLoading(false);
@@ -71,10 +71,10 @@ export function MatrixTechniques() {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case &apos;motive&apos;: return &apos;bg-red-100 text-red-800 border-red-200&apos;;
-      case &apos;coercion&apos;: return &apos;bg-orange-100 text-orange-800 border-orange-200&apos;;
-      case &apos;manipulation&apos;: return &apos;bg-purple-100 text-purple-800 border-purple-200&apos;;
-      default: return &apos;bg-gray-100 text-gray-800 border-gray-200&apos;;
+      case 'motive': return 'bg-red-100 text-red-800 border-red-200';
+      case 'coercion': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'manipulation': return 'bg-purple-100 text-purple-800 border-purple-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
@@ -121,7 +121,7 @@ export function MatrixTechniques() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-gray-900">
-            {filteredTechniques.length} Technique{filteredTechniques.length !== 1 ? &apos;s&apos; : &apos;&apos;}
+            {filteredTechniques.length} Technique{filteredTechniques.length !== 1 ? 's' : ''}
             {searchTerm && ` matching "${searchTerm}"`}
           </h3>
         </div>
@@ -154,25 +154,25 @@ export function MatrixTechniques() {
                   {technique.preventions.length > 0 && (
                     <div className="flex items-center gap-1">
                       <Shield className="h-3 w-3 text-green-600" />
-                      {technique.preventions.length} prevention{technique.preventions.length !== 1 ? &apos;s&apos; : &apos;&apos;}
+                      {technique.preventions.length} prevention{technique.preventions.length !== 1 ? 's' : ''}
                     </div>
                   )}
                   {technique.detections.length > 0 && (
                     <div className="flex items-center gap-1">
                       <Search className="h-3 w-3 text-blue-600" />
-                      {technique.detections.length} detection{technique.detections.length !== 1 ? &apos;s&apos; : &apos;&apos;}
+                      {technique.detections.length} detection{technique.detections.length !== 1 ? 's' : ''}
                     </div>
                   )}
                   {technique.contributors.length > 0 && (
                     <div className="flex items-center gap-1">
                       <Users className="h-3 w-3" />
-                      {technique.contributors.length} contributor{technique.contributors.length !== 1 ? &apos;s&apos; : &apos;&apos;}
+                      {technique.contributors.length} contributor{technique.contributors.length !== 1 ? 's' : ''}
                     </div>
                   )}
                   {technique.platforms.length > 0 && (
                     <div className="flex items-center gap-1">
                       <Globe className="h-3 w-3" />
-                      {technique.platforms.length} platform{technique.platforms.length !== 1 ? &apos;s&apos; : &apos;&apos;}
+                      {technique.platforms.length} platform{technique.platforms.length !== 1 ? 's' : ''}
                     </div>
                   )}
                 </div>
@@ -192,7 +192,7 @@ export function MatrixTechniques() {
                 <p className="text-gray-500">
                   {searchTerm 
                     ? `No techniques match "${searchTerm}". Try a different search term.`
-                    : &apos;No techniques are currently available.&apos;
+                    : 'No techniques are currently available.'
                   }
                 </p>
               </div>
@@ -213,10 +213,10 @@ function TechniqueDetail({
 }) {
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case &apos;motive&apos;: return &apos;bg-red-100 text-red-800 border-red-200&apos;;
-      case &apos;coercion&apos;: return &apos;bg-orange-100 text-orange-800 border-orange-200&apos;;
-      case &apos;manipulation&apos;: return &apos;bg-purple-100 text-purple-800 border-purple-200&apos;;
-      default: return &apos;bg-gray-100 text-gray-800 border-gray-200&apos;;
+      case 'motive': return 'bg-red-100 text-red-800 border-red-200';
+      case 'coercion': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'manipulation': return 'bg-purple-100 text-purple-800 border-purple-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 

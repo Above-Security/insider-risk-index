@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from &apos;react&apos;;
-import { Card, CardContent } from &apos;@/components/ui/card&apos;;
-import { Badge } from &apos;@/components/ui/badge&apos;;
-import { Button } from &apos;@/components/ui/button&apos;;
+import { useEffect, useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { 
   AlertTriangle, 
   Shield, 
@@ -12,7 +12,7 @@ import {
   CheckCircle, 
   XCircle,
   Clock 
-} from &apos;lucide-react&apos;;
+} from 'lucide-react';
 
 interface MatrixStats {
   success: boolean;
@@ -31,19 +31,19 @@ export function MatrixOverview() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch(&apos;/api/matrix/sync&apos;);
+      const response = await fetch('/api/matrix/sync');
       const data = await response.json();
       setStats(data);
     } catch (error) {
-      console.error(&apos;Failed to fetch matrix stats:&apos;, error);
+      console.error('Failed to fetch matrix stats:', error);
       setStats({
         success: false,
         lastSync: new Date().toISOString(),
-        version: &apos;unknown&apos;,
+        version: 'unknown',
         techniquesCount: 0,
         preventionsCount: 0,
         detectionsCount: 0,
-        error: &apos;Failed to load data&apos;
+        error: 'Failed to load data'
       });
     } finally {
       setLoading(false);
@@ -53,15 +53,15 @@ export function MatrixOverview() {
   const handleSync = async () => {
     setSyncing(true);
     try {
-      const response = await fetch(&apos;/api/matrix/sync&apos;, {
-        method: &apos;POST&apos;,
-        headers: { &apos;Content-Type&apos;: &apos;application/json&apos; },
+      const response = await fetch('/api/matrix/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ clearCache: true })
       });
       const data = await response.json();
       setStats(data);
     } catch (error) {
-      console.error(&apos;Sync failed:&apos;, error);
+      console.error('Sync failed:', error);
     } finally {
       setSyncing(false);
     }
@@ -112,22 +112,22 @@ export function MatrixOverview() {
 
   const formatDate = (dateString: string) => {
     try {
-      return new Date(dateString).toLocaleDateString(&apos;en-US&apos;, {
-        year: &apos;numeric&apos;,
-        month: &apos;short&apos;,
-        day: &apos;numeric&apos;,
-        hour: &apos;2-digit&apos;,
-        minute: &apos;2-digit&apos;
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
       });
     } catch {
-      return &apos;Unknown&apos;;
+      return 'Unknown';
     }
   };
 
   return (
     <div className="space-y-6">
       {/* Status Bar */}
-      <Card className={stats.success ? &apos;border-green-200 bg-green-50&apos; : &apos;border-red-200 bg-red-50&apos;}>
+      <Card className={stats.success ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'}>
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -137,10 +137,10 @@ export function MatrixOverview() {
                 <XCircle className="h-5 w-5 text-red-600" />
               )}
               <div>
-                <p className={`font-medium ${stats.success ? &apos;text-green-900&apos; : &apos;text-red-900&apos;}`}>
-                  Matrix {stats.success ? &apos;Connected&apos; : &apos;Disconnected&apos;}
+                <p className={`font-medium ${stats.success ? 'text-green-900' : 'text-red-900'}`}>
+                  Matrix {stats.success ? 'Connected' : 'Disconnected'}
                 </p>
-                <p className={`text-sm ${stats.success ? &apos;text-green-700&apos; : &apos;text-red-700&apos;}`}>
+                <p className={`text-sm ${stats.success ? 'text-green-700' : 'text-red-700'}`}>
                   Last updated: {formatDate(stats.lastSync)}
                 </p>
               </div>
@@ -158,8 +158,8 @@ export function MatrixOverview() {
                 size="sm"
                 className="flex items-center gap-2"
               >
-                <RefreshCw className={`h-4 w-4 ${syncing ? &apos;animate-spin&apos; : &apos;&apos;}`} />
-                {syncing ? &apos;Syncing...&apos; : &apos;Sync&apos;}
+                <RefreshCw className={`h-4 w-4 ${syncing ? 'animate-spin' : ''}`} />
+                {syncing ? 'Syncing...' : 'Sync'}
               </Button>
             </div>
           </div>

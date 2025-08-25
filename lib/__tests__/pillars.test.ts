@@ -175,8 +175,8 @@ describe('Pillar System', () => {
 
   describe('Size Benchmarks', () => {
     it('should cover all company size ranges', () => {
-      const expectedSizes = ['1-50', '51-250', '251-1000', '1001-5000', '5000+'];
-      // Note: Actual keys match enum values, check SIZE_BENCHMARKS structure
+      const expectedSizes = ['1-50', '51-200', '201-1000', '1001-5000', '5000+'];
+      // Note: Actual keys from SIZE_BENCHMARKS definition
       
       expectedSizes.forEach(size => {
         expect(SIZE_BENCHMARKS[size as keyof typeof SIZE_BENCHMARKS]).toBeDefined();

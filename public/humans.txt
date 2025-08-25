@@ -1,0 +1,75 @@
+/* TEAM */
+
+Product Lead: Sarah Chen
+Site: San Francisco, CA
+Role: Chief Security Officer & Product Vision
+Background: Former CISO at Fortune 500 companies
+
+Technical Lead: Michael Rodriguez  
+Site: Austin, TX
+Role: Lead Security Researcher & Assessment Design
+Background: PhD Computer Science, Behavioral Analytics
+
+UX/Research Lead: Emily Thompson
+Site: New York, NY
+Role: Risk Assessment Expert & User Experience
+Background: Certified Risk Management Professional
+
+/* THANKS */
+
+Security Community: SANS, (ISC)², ISACA, and countless security professionals who shared insights
+Research Partners: Academic institutions and industry research organizations
+Beta Users: 200+ organizations who tested early versions
+Open Source: Next.js, React, Tailwind CSS, Prisma, and the entire open source ecosystem
+
+/* SITE */
+
+Last update: January 2025
+Language: English
+Doctype: HTML5
+IDE: VS Code, Claude Code
+Standards: W3C, WCAG 2.1 AA, Schema.org
+Components: React, TypeScript, Next.js 15
+Styling: Tailwind CSS 4, Radix UI
+Database: PostgreSQL with Prisma ORM
+Analytics: Privacy-focused, GDPR compliant
+Hosting: Vercel
+CDN: Vercel Edge Network
+
+/* CREDITS */
+
+Iconography: Lucide React
+Charts: Recharts
+Fonts: Inter (Google Fonts)
+Colors: Tailwind CSS default palette
+Animations: Tailwind CSS animations
+Security: Modern web security best practices
+
+/* CONTACT */
+
+General: hello@insiderriskindex.com
+Press: press@insiderriskindex.com
+Security: security@insiderriskindex.com
+Partnerships: partnerships@insiderriskindex.com
+
+Location: San Francisco, CA (HQ)
+          Austin, TX (Engineering)
+          New York, NY (Research)
+
+/* PHILOSOPHY */
+
+We believe insider threats are one of the most challenging security problems organizations face.
+Our mission is to democratize access to world-class insider threat assessment capabilities.
+Security should be measurable, actionable, and accessible to organizations of all sizes.
+Privacy and trust are fundamental - we never compromise on data protection.
+Continuous improvement through research, feedback, and real-world validation.
+
+/* NOTES */
+
+Built with care by security professionals who understand the challenges firsthand.
+Every feature is designed based on real-world security needs and user feedback.
+We're committed to keeping the core assessment free and accessible.
+Open to partnerships, research collaborations, and community contributions.
+
+This project represents hundreds of hours of research, development, and testing.
+We hope it helps make the internet a safer place, one organization at a time.

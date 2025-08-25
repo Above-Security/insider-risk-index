@@ -1,0 +1,572 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Assessment-related models
+model Assessment {
+  id                    String              @id @default(cuid())
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  
+  // Organization information (optional)
+  industry              Industry?
+  size                  CompanySize?
+  region                Region?
+  orgMetaHash           String?             // Hashed industry+size for anonymous benchmarking
+  
+  // Assessment data
+  answers               Json                // {questionId: value} map
+  pillarScores          Json                // {pillar: score} map
+  
+  // Results
+  iri                   Float               // Insider Risk Index (0-100)
+  level                 Int                 // 1-5
+  
+  // Optional contact
+  emailOptIn            Boolean             @default(false)
+  contactEmail          String?
+  
+  // Related data
+  pillarBreakdown       PillarScore[]
+  
+  @@index([createdAt])
+  @@index([industry])
+  @@index([size])
+  @@index([region])
+  @@index([level])
+  @@index([iri])
+  @@index([orgMetaHash])
+}
+
+enum Industry {
+  TECHNOLOGY
+  FINANCIAL_SERVICES
+  HEALTHCARE
+  RETAIL
+  MANUFACTURING
+  GOVERNMENT
+  EDUCATION
+  ENERGY
+  TELECOMMUNICATIONS
+  MEDIA_ENTERTAINMENT
+  TRANSPORTATION
+  HOSPITALITY
+  REAL_ESTATE
+  PROFESSIONAL_SERVICES
+  NON_PROFIT
+  OTHER
+}
+
+enum CompanySize {
+  STARTUP_1_50
+  SMALL_51_250
+  MID_251_1000
+  LARGE_1001_5000
+  ENTERPRISE_5000_PLUS
+}
+
+enum Region {
+  NORTH_AMERICA
+  SOUTH_AMERICA
+  EUROPE
+  ASIA_PACIFIC
+  MIDDLE_EAST
+  AFRICA
+}
+
+// Benchmark snapshot for aggregated data
+model BenchmarkSnapshot {
+  id             String       @id @default(cuid())
+  createdAt      DateTime     @default(now())
+  
+  // Dimensions
+  industry       Industry?
+  size           CompanySize?
+  region         Region?
+  
+  // Aggregated data
+  pillarAverages Json         // {pillar: avgScore} map
+  iriAverage     Float        // Average IRI score
+  sampleSize     Int          // Number of assessments
+  
+  // Time period
+  periodStart    DateTime
+  periodEnd      DateTime
+  
+  @@index([industry])
+  @@index([size])
+  @@index([region])
+  @@index([periodStart])
+}
+
+model PillarScore {
+  id                   String      @id @default(cuid())
+  assessmentId         String
+  assessment           Assessment  @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  
+  pillar               String      // visibility, coaching, evidence, identity, phishing
+  score                Float       // 0-100
+  weight               Float       // Contribution weight
+  contributionToTotal  Float       // Weighted contribution to IRI
+  
+  @@index([assessmentId])
+  @@index([pillar])
+}
+
+// Content management models
+model Playbook {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  slug        String    @unique
+  title       String
+  description String
+  content     String    @db.Text
+  
+  pillarId    String
+  difficulty  String    // beginner, intermediate, advanced
+  estimatedTime String
+  tags        String[]
+  
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  
+  @@index([pillarId])
+  @@index([published])
+  @@index([difficulty])
+}
+
+model Research {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  slug        String    @unique
+  title       String
+  abstract    String    @db.Text
+  content     String    @db.Text
+  authors     String[]
+  
+  category    String    // whitepaper, case-study, survey, analysis
+  tags        String[]
+  downloadUrl String?
+  featured    Boolean   @default(false)
+  
+  publishedAt DateTime
+  
+  @@index([category])
+  @@index([featured])
+  @@index([publishedAt])
+}
+
+// Analytics and tracking
+model AnalyticsEvent {
+  id         String    @id @default(cuid())
+  timestamp  DateTime  @default(now())
+  
+  name       String
+  properties Json      @default("{}")
+  userId     String?
+  sessionId  String?
+  
+  @@index([timestamp])
+  @@index([name])
+  @@index([userId])
+  @@index([sessionId])
+}
+
+// User management (for future use)
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  email     String   @unique
+  name      String?
+  role      String   @default("user") // user, admin, etc.
+  
+  // Subscription preferences
+  newsletterSubscribed Boolean @default(false)
+  preferences          Json    @default("{}")
+  
+  @@index([email])
+  @@index([role])
+}
+
+// Newsletter subscriptions
+model NewsletterSubscription {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  
+  email       String   @unique
+  preferences String[] @default([])
+  active      Boolean  @default(true)
+  
+  @@index([email])
+  @@index([active])
+}
+
+// Insider Threat Matrix Models
+model MatrixTechnique {
+  id                    String                  @id @default(cuid())
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  
+  // Matrix data
+  techniqueId           String                  @unique  // From ForScie Matrix JSON
+  name                  String
+  description           String                  @db.Text
+  category              MatrixCategory
+  tactics               String[]                // MITRE ATT&CK style tactics
+  
+  // Metadata
+  version               String                  @default("1.0")
+  lastSyncAt            DateTime                @default(now())
+  
+  // Relationships
+  preventions           MatrixPrevention[]
+  detections            MatrixDetection[]
+  pillarMappings        MatrixPillarMapping[]
+  caseStudies          MatrixCaseStudy[]
+  
+  @@index([category])
+  @@index([techniqueId])
+  @@index([lastSyncAt])
+}
+
+enum MatrixCategory {
+  MOTIVE
+  COERCION  
+  MANIPULATION
+}
+
+model MatrixPrevention {
+  id                    String           @id @default(cuid())
+  techniqueId           String
+  technique             MatrixTechnique  @relation(fields: [techniqueId], references: [id], onDelete: Cascade)
+  
+  title                 String
+  description           String           @db.Text
+  implementation        String           @db.Text
+  costLevel             String           // low, medium, high
+  difficulty            String           // easy, moderate, difficult
+  effectiveness         Int              // 1-10 scale
+  
+  // Pillar association
+  primaryPillar         String           // visibility, coaching, evidence, identity, phishing
+  secondaryPillars      String[]         @default([])
+  
+  @@index([techniqueId])
+  @@index([primaryPillar])
+  @@index([effectiveness])
+}
+
+model MatrixDetection {
+  id                    String           @id @default(cuid())
+  techniqueId           String
+  technique             MatrixTechnique  @relation(fields: [techniqueId], references: [id], onDelete: Cascade)
+  
+  title                 String
+  description           String           @db.Text
+  dataSource            String
+  queryExample          String?          @db.Text
+  falsePositiveRate     String           // low, medium, high
+  difficulty            String           // easy, moderate, difficult
+  
+  // Tools and technologies
+  requiredTools         String[]         @default([])
+  alternativeTools      String[]         @default([])
+  
+  // Pillar association
+  primaryPillar         String           // visibility, coaching, evidence, identity, phishing
+  
+  @@index([techniqueId])
+  @@index([primaryPillar])
+  @@index([dataSource])
+}
+
+model MatrixPillarMapping {
+  id                    String           @id @default(cuid())
+  techniqueId           String
+  technique             MatrixTechnique  @relation(fields: [techniqueId], references: [id], onDelete: Cascade)
+  
+  pillarId              String           // visibility, coaching, evidence, identity, phishing
+  relevanceScore        Float            // 0.0-1.0 how relevant this technique is to the pillar
+  impactWeight          Float            // 0.0-1.0 weight in scoring calculations
+  
+  @@unique([techniqueId, pillarId])
+  @@index([pillarId])
+  @@index([relevanceScore])
+}
+
+model MatrixCaseStudy {
+  id                    String           @id @default(cuid())
+  createdAt             DateTime         @default(now())
+  
+  techniqueId           String
+  technique             MatrixTechnique  @relation(fields: [techniqueId], references: [id], onDelete: Cascade)
+  
+  title                 String
+  summary               String           @db.Text
+  industry              Industry
+  companySize           CompanySize
+  impactDescription     String           @db.Text
+  costEstimate          String?          // "high", "medium", "low" or specific amount
+  timelineDays          Int?             // Days from initial to resolution
+  
+  // Prevention/Detection analysis
+  missedControls        String[]         @default([])
+  effectiveControls     String[]         @default([])
+  lessonsLearned        String           @db.Text
+  
+  published             Boolean          @default(false)
+  anonymous             Boolean          @default(true)
+  
+  @@index([techniqueId])
+  @@index([industry])
+  @@index([published])
+}
+
+// Industry Benchmarking Models
+model IndustryBenchmark {
+  id                    String           @id @default(cuid())
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  
+  industry              Industry
+  region                Region?
+  
+  // Risk metrics (from industry reports)
+  avgAnnualCost         Float            // Average annual cost of insider threats
+  avgIncidentCost       Float            // Average cost per incident
+  avgIncidentsPerYear   Float            // Average incidents per organization per year
+  avgContainmentDays    Int              // Average days to contain
+  
+  // Pillar maturity averages
+  avgVisibilityScore    Float
+  avgCoachingScore      Float
+  avgEvidenceScore      Float
+  avgIdentityScore      Float
+  avgPhishingScore      Float
+  avgIRI                Float
+  
+  // Data source
+  sourceStudy           String           // "Ponemon 2025", "Verizon DBIR 2024", etc
+  sampleSize            Int
+  confidenceLevel       Float?           // 0.9, 0.95, 0.99
+  marginOfError         Float?           // ±% 
+  
+  // Time period
+  reportYear            Int
+  dataCollectionStart   DateTime
+  dataCollectionEnd     DateTime
+  
+  @@unique([industry, region, sourceStudy, reportYear])
+  @@index([industry])
+  @@index([reportYear])
+  @@index([sourceStudy])
+}
+
+// Content and Educational Models
+model GlossaryTerm {
+  id                    String           @id @default(cuid())
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  
+  term                  String           @unique
+  slug                  String           @unique
+  definition            String           @db.Text
+  longExplanation       String?          @db.Text
+  
+  category              String           // "technical", "regulatory", "business", etc
+  tags                  String[]         @default([])
+  difficulty            String           @default("intermediate") // beginner, intermediate, advanced
+  
+  // Relationships
+  relatedTerms          String[]         @default([])
+  matrixTechniques      String[]         @default([])  // Related Matrix technique IDs
+  pillarRelevance       String[]         @default([])  // Which pillars this term is most relevant to
+  
+  // Sources and references
+  sources               String[]         @default([])
+  lastReviewed          DateTime?
+  reviewedBy            String?
+  
+  published             Boolean          @default(true)
+  featured              Boolean          @default(false)
+  
+  @@index([category])
+  @@index([published])
+  @@index([featured])
+  @@index([term])
+}
+
+model TrainingModule {
+  id                    String           @id @default(cuid())
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  
+  title                 String
+  slug                  String           @unique
+  description           String           @db.Text
+  
+  // Content
+  objectives            String[]         @default([])
+  content               String           @db.Text
+  duration              Int              // Minutes
+  difficulty            String           // beginner, intermediate, advanced
+  
+  // Organization
+  category              String           // "awareness", "technical", "management", etc
+  pillarFocus           String           // Primary pillar this module addresses
+  prerequisites         String[]         @default([])
+  
+  // Matrix integration
+  coversTechniques      String[]         @default([])  // Matrix technique IDs
+  simulationScenarios   String[]         @default([])  // Scenario descriptions
+  
+  // Tracking
+  published             Boolean          @default(false)
+  publishedAt           DateTime?
+  featured              Boolean          @default(false)
+  
+  @@index([category])
+  @@index([pillarFocus])
+  @@index([published])
+  @@index([difficulty])
+}
+
+// Advanced Analytics Models
+model RiskProfile {
+  id                    String           @id @default(cuid())
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  
+  // Organization identifier (hashed for privacy)
+  orgHash               String           @unique
+  
+  // Risk characteristics
+  industry              Industry
+  size                  CompanySize
+  region                Region
+  
+  // Historical assessments
+  initialIRI            Float
+  currentIRI            Float
+  improvementTrend      Float            // Rate of improvement
+  lastAssessmentDate    DateTime
+  assessmentCount       Int              @default(1)
+  
+  // Risk factors
+  riskFactors           Json             // Dynamic risk indicators
+  maturityProgression   Json             // Pillar-wise maturity over time
+  
+  // Predictive scoring
+  projectedIRI          Float?           // ML-predicted future score
+  riskTrendDirection    String?          // "improving", "stable", "declining"
+  
+  @@index([industry])
+  @@index([size])
+  @@index([currentIRI])
+  @@index([lastAssessmentDate])
+}
+
+// API and Integration Models
+model APIKey {
+  id                    String           @id @default(cuid())
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  
+  keyHash               String           @unique  // Hashed API key
+  name                  String           // Human-readable name
+  organization          String?          // Organization using this key
+  
+  // Permissions
+  permissions           String[]         @default([])  // ["read:benchmarks", "write:assessments"]
+  rateLimitRpm          Int              @default(60)  // Requests per minute
+  rateLimitDaily        Int              @default(1000)
+  
+  // Usage tracking
+  lastUsed              DateTime?
+  totalRequests         Int              @default(0)
+  active                Boolean          @default(true)
+  
+  // Expiration
+  expiresAt             DateTime?
+  
+  // Relations
+  usageRecords          APIUsage[]
+  
+  @@index([active])
+  @@index([keyHash])
+}
+
+model APIUsage {
+  id                    String           @id @default(cuid())
+  timestamp             DateTime         @default(now())
+  
+  apiKeyId              String?
+  apiKey                APIKey?          @relation(fields: [apiKeyId], references: [id])
+  
+  endpoint              String
+  method                String           // GET, POST, etc
+  responseStatus        Int
+  responseTime          Int              // Milliseconds
+  
+  // Request context
+  userAgent             String?
+  ipAddress             String?
+  requestSize           Int?             // Bytes
+  responseSize          Int?             // Bytes
+  
+  @@index([timestamp])
+  @@index([apiKeyId])
+  @@index([endpoint])
+  @@index([responseStatus])
+}
+
+// Data Source and Attribution Models
+model DataSource {
+  id                    String           @id @default(cuid())
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  
+  name                  String           @unique  // "Ponemon Institute", "Verizon DBIR", etc
+  organization          String           // "Ponemon Institute", "Verizon", "ForScie"
+  type                  String           // "research_report", "community", "commercial"
+  
+  description           String           @db.Text
+  url                   String?
+  contactEmail          String?
+  licenseType           String           // "open", "attribution", "commercial"
+  
+  // Attribution requirements
+  attributionText       String           @db.Text
+  requiredCitation      String           @db.Text
+  logoUrl               String?
+  
+  // Data freshness
+  updateFrequency       String           // "annual", "quarterly", "monthly", "continuous"
+  lastUpdated           DateTime
+  nextExpectedUpdate    DateTime?
+  
+  // Reliability metrics
+  reliabilityScore      Float            @default(0.8)  // 0.0-1.0
+  peerReviewed          Boolean          @default(false)
+  industryRecognized    Boolean          @default(false)
+  
+  active                Boolean          @default(true)
+  
+  @@index([type])
+  @@index([active])
+  @@index([lastUpdated])
+}

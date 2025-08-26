@@ -9,7 +9,7 @@ interface PillarMatrixAnalysis {
     id: string;
     name: string;
     description: string;
-    category: 'Motive' | 'Coercion' | 'Manipulation';
+    category: 'Motive' | 'Means' | 'Preparation' | 'Infringement' | 'Anti-forensics';
     relevantPreventions: Array<{
       id: string;
       title: string;

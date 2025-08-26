@@ -444,8 +444,10 @@ export class MatrixAPI {
         totalTechniques: 0,
         categories: {
           motive: 0,
-          coercion: 0,
-          manipulation: 0
+          means: 0,
+          preparation: 0,
+          infringement: 0,
+          antiForensics: 0
         },
         lastSync: new Date().toISOString(),
         apiSource: 'ForScie GitHub Repository (unavailable)'

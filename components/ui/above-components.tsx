@@ -126,9 +126,23 @@ export interface AboveButtonProps
 export const AboveButton = React.forwardRef<HTMLButtonElement, AboveButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
+    const variantClassName = aboveButtonVariants({ variant, size, className });
+    const resolvedClassName = cn(variantClassName);
+    
+    // DEBUG: Log what's happening
+    console.log("🔍 ABOVE BUTTON DEBUG:", {
+      variant,
+      size,
+      className,
+      asChild,
+      variantClassName,
+      resolvedClassName,
+      Comp: Comp === Slot ? 'Slot' : 'button'
+    });
+    
     return (
       <Comp
-        className={cn(aboveButtonVariants({ variant, size, className }))}
+        className={resolvedClassName}
         ref={ref}
         {...props}
       />

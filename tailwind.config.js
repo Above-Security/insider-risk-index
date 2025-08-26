@@ -7,6 +7,11 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+  safelist: [
+    'bg-above-rose-950',
+    'hover:bg-above-rose-900',
+    'focus-visible:ring-above-rose-800',
+  ],
   prefix: "",
   theme: {
     container: {

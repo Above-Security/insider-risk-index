@@ -3,7 +3,7 @@ import { Metadata } from "next";
 // Base SEO configuration
 export const seoConfig = {
   siteName: "Insider Risk Index",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://insiderriskindex.com",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://insiderisk.io",
   description: "Measure and improve your organization's insider risk posture with our comprehensive assessment tool. Get actionable insights across 5 critical pillars of insider threat management.",
   keywords: [
     "insider threat",
@@ -28,7 +28,7 @@ export const seoConfig = {
     linkedin: "company/insider-risk-index",
   },
   contact: {
-    email: "hello@insiderriskindex.com",
+    email: "hello@insiderisk.io",
   },
 };
 

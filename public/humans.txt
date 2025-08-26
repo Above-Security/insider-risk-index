@@ -47,10 +47,10 @@ Security: Modern web security best practices
 
 /* CONTACT */
 
-General: hello@insiderriskindex.com
-Press: press@insiderriskindex.com
-Security: security@insiderriskindex.com
-Partnerships: partnerships@insiderriskindex.com
+General: hello@insiderisk.io
+Press: press@insiderisk.io
+Security: security@insiderisk.io
+Partnerships: partnerships@insiderisk.io
 
 Location: San Francisco, CA (HQ)
           Austin, TX (Engineering)

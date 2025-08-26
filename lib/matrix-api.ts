@@ -1,4 +1,4 @@
-import { MatrixApiResponse, MatrixData, MatrixTechnique, CachedMatrixData } from './matrix-types';
+import { MatrixApiResponse, MatrixData, MatrixElement, CachedMatrixData } from './matrix-types';
 
 const MATRIX_API_URL = process.env.MATRIX_API_URL || 'https://raw.githubusercontent.com/forscie/insider-threat-matrix/refs/heads/main/insider-threat-matrix.json';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -65,7 +65,7 @@ export class MatrixAPI {
    * Process raw API data into our internal format
    */
   private static processApiData(apiData: MatrixApiResponse): MatrixData {
-    const techniques: MatrixTechnique[] = [];
+    const elements: MatrixElement[] = [];
     
     // Process each article and its sections
     if (apiData?.articles && Array.isArray(apiData.articles)) {
@@ -425,7 +425,7 @@ export class MatrixAPI {
         license: 'Creative Commons Attribution 4.0 International',
         description: 'The ForScie Insider Threat Matrix is a community-driven knowledge base of insider threat techniques, tactics, and procedures.'
       },
-      techniques: [],
+      elements: [],
       metadata: {
         totalTechniques: 0,
         categories: {
@@ -522,7 +522,7 @@ export class MatrixAPI {
     return {
       pillarName,
       relatedTechniques: techniques.length,
-      techniques: techniques.map(tech => ({
+      elements: elements.map(element => ({
         id: tech.id,
         name: tech.title,
         description: tech.description,
@@ -537,7 +537,7 @@ export class MatrixAPI {
   /**
    * Generate recommendations for a specific pillar
    */
-  private static generatePillarRecommendations(techniques: MatrixTechnique[], pillarName: string): string[] {
+  private static generatePillarRecommendations(elements: MatrixElement[], pillarName: string): string[] {
     const recommendations: string[] = [];
     
     // Extract unique prevention strategies

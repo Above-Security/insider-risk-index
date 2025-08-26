@@ -1,4 +1,4 @@
-export interface MatrixTechnique {
+export interface MatrixElement {
   id: string;
   title: string;
   name?: string;
@@ -55,15 +55,15 @@ export interface MatrixData {
   lastUpdated: string;
   contributors: string[];
   attribution?: MatrixAttribution;
-  techniques: MatrixTechnique[];
+  elements: MatrixElement[];
   metadata: {
-    totalTechniques: number;
+    totalElements: number;
     categories: {
-      motive: number;
-      means: number;
-      preparation: number;
-      infringement: number;
-      antiForensics: number;
+      motive: number; // motivations
+      means: number; // capabilities
+      preparation: number; // activities
+      infringement: number; // techniques
+      antiForensics: number; // techniques
     };
     lastSync: string;
     apiSource?: string;

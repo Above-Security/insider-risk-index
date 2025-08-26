@@ -19,22 +19,22 @@ export default function ResearchPage() {
   const researchArticles = getAllContent('research').filter(article => 
     article && article.frontmatter && article.frontmatter.title
   );
-  
+
   return (
     <div className="min-h-screen bg-above-gradient-light">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-above-rose-900 via-above-rose-800 to-above-lavender-800 text-above-white">
+      <div className="grainy-gradient-hero text-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <div className="rounded-full bg-above-white/10 p-3">
+              <div className="rounded-full bg-white/10 p-3">
                 <TrendingUp className="h-8 w-8" />
               </div>
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               Research & Insights
             </h1>
-            <p className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-above-rose-100">
+            <p className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-white/90">
               Industry-leading research on insider threat trends, costs, and mitigation strategies. 
               Our analysis is based on comprehensive data from thousands of organizations worldwide.
             </p>
@@ -213,15 +213,15 @@ export default function ResearchPage() {
         </div>
 
         {/* Call to Action */}
-        <div className="mt-16 bg-gradient-to-r from-above-rose-700 to-above-lavender-700 rounded-2xl p-8 text-white text-center">
-          <h3 className="text-2xl font-bold mb-4">Get Your Organization's Risk Assessment</h3>
-          <p className="text-xl text-above-blue-100 mb-6">
+        <div className="mt-16 grainy-gradient-cta rounded-2xl p-8 text-center">
+          <h3 className="text-2xl font-bold mb-4 text-white">Get Your Organization's Risk Assessment</h3>
+          <p className="text-xl mb-6 text-white/90">
             See how your insider risk posture compares to industry benchmarks with our comprehensive assessment.
           </p>
           <Link href="/assessment">
-            <AboveButton size="lg" variant="secondary" className="bg-white text-above-rose-700 hover:bg-above-rose-50">
+            <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors h-10 px-8 bg-white text-above-rose-700 hover:bg-above-rose-50 shadow-sm">
               Start Free Assessment
-            </AboveButton>
+            </button>
           </Link>
         </div>
       </div>

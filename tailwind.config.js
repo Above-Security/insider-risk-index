@@ -7,11 +7,7 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
-  safelist: [
-    'bg-above-rose-950',
-    'hover:bg-above-rose-900',
-    'focus-visible:ring-above-rose-800',
-  ],
+  // Safelist removed in Tailwind v4 - now using @source inline() in globals.css
   prefix: "",
   theme: {
     container: {

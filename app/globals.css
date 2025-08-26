@@ -1,10 +1,78 @@
 @import "tailwindcss";
 
+/* Force generate essential Above brand classes only (Tailwind v4) */
+@source inline('grainy-gradient-hero grainy-gradient-cta grainy-gradient-subtle text-above-rose-700 text-above-lavender-700 text-above-blue-800 text-above-peach-700 bg-above-rose-50 bg-above-peach-50 bg-above-blue-100 bg-above-lavender-50 hover:bg-above-rose-50 text-white text-white/{90,80} bg-white/{10,20} border-white/{20,30}');
+
 @theme {
   --default-transition-duration: 150ms;
   
   /* Performance optimizations */
   --font-display: swap;
+  
+  /* Above brand colors - v4 CSS-first definition */
+  --color-above-rose-50: #FFF5F8;
+  --color-above-rose-100: #FFE8F0;
+  --color-above-rose-200: #FFE0EC;
+  --color-above-rose-300: #FFD1E3;
+  --color-above-rose-400: #FFC4D6;
+  --color-above-rose-500: #FFB5CA;
+  --color-above-rose-600: #FF9FB5;
+  --color-above-rose-700: #FF89A1;
+  --color-above-rose-800: #FF738C;
+  --color-above-rose-900: #FF5D78;
+  --color-above-rose-950: #D13366;
+  
+  --color-above-peach-50: #FFF8F5;
+  --color-above-peach-100: #FFEEE8;
+  --color-above-peach-200: #FFE0D4;
+  --color-above-peach-300: #FFD4C4;
+  --color-above-peach-400: #FFC8B3;
+  --color-above-peach-500: #FFBAA0;
+  --color-above-peach-600: #FFAB8D;
+  --color-above-peach-700: #FF9C7A;
+  --color-above-peach-800: #FF8D67;
+  --color-above-peach-900: #FF7E54;
+  
+  --color-above-blue-50: #F8FBFF;
+  --color-above-blue-100: #F0F7FF;
+  --color-above-blue-200: #E6F3FF;
+  --color-above-blue-300: #D4E9FF;
+  --color-above-blue-400: #C2DFFF;
+  --color-above-blue-500: #B0D5FF;
+  --color-above-blue-600: #9ECBFF;
+  --color-above-blue-700: #8CC1FF;
+  --color-above-blue-800: #7AB7FF;
+  --color-above-blue-900: #68ADFF;
+  
+  --color-above-lavender-50: #FAF8FF;
+  --color-above-lavender-100: #F5F0FF;
+  --color-above-lavender-200: #F0E6FF;
+  --color-above-lavender-300: #E8D9FF;
+  --color-above-lavender-400: #E0D4FF;
+  --color-above-lavender-500: #D8C9FF;
+  --color-above-lavender-600: #D0BEFF;
+  --color-above-lavender-700: #C8B3FF;
+  --color-above-lavender-800: #C0A8FF;
+  --color-above-lavender-900: #B89DFF;
+  
+  /* Grainy Gradient Utilities - Using Above brand colors */
+  --gradient-primary: radial-gradient(at 40% 20%, var(--color-above-peach-50) 0px, transparent 50%),
+                      radial-gradient(at 80% 0%, var(--color-above-blue-100) 0px, transparent 50%),
+                      radial-gradient(at 0% 50%, var(--color-above-lavender-50) 0px, transparent 50%),
+                      radial-gradient(at 80% 50%, var(--color-above-rose-50) 0px, transparent 50%),
+                      radial-gradient(at 0% 100%, var(--color-above-blue-100) 0px, transparent 50%),
+                      radial-gradient(at 80% 100%, var(--color-above-peach-50) 0px, transparent 50%);
+                      
+  --gradient-hero: linear-gradient(135deg, 
+                                  var(--color-above-rose-700) 0%,
+                                  var(--color-above-lavender-700) 35%,
+                                  var(--color-above-blue-800) 100%);
+                                  
+  --gradient-cta: linear-gradient(135deg,
+                                 var(--color-above-rose-700) 0%,
+                                 var(--color-above-peach-700) 100%);
+                                 
+  --noise-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
   
   /* Above brand colors as CSS variables */
   --color-border: #FFE0EC; /* above-rose-200 */
@@ -100,6 +168,53 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Grainy Gradient Utilities */
+.grainy-gradient-hero {
+  background: var(--gradient-hero);
+  background-attachment: fixed;
+  position: relative;
+}
+
+.grainy-gradient-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise-texture);
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.grainy-gradient-cta {
+  background: var(--gradient-cta);
+  position: relative;
+}
+
+.grainy-gradient-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise-texture);
+  mix-blend-mode: soft-light;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.grainy-gradient-subtle {
+  background: var(--gradient-primary);
+  position: relative;
+}
+
+.grainy-gradient-subtle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise-texture);
+  mix-blend-mode: multiply;
+  opacity: 0.2;
+  pointer-events: none;
 }
 
 /* Critical above-the-fold optimizations */

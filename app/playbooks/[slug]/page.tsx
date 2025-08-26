@@ -116,7 +116,7 @@ export default async function PlaybookPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-above-gradient-light">
       {/* Enhanced Header with Gradient */}
-      <div className="bg-gradient-to-r from-above-rose-900 via-above-rose-800 to-above-lavender-800 text-white">
+      <div className="grainy-gradient-hero text-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center mb-8">
             <Link 

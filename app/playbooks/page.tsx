@@ -45,7 +45,7 @@ export default function PlaybooksPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(playbooksJsonLd) }}
       />
-      <div className="min-h-screen bg-above-gradient-subtle py-12">
+      <div className="min-h-screen grainy-gradient-subtle py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">

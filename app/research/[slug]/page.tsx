@@ -66,6 +66,7 @@ export default async function ResearchArticlePage({ params }: Props) {
 
   const { frontmatter, content: articleContent } = article;
   const relatedArticles = getRelatedContent(slug, 'research', 3);
+  
 
   // Generate JSON-LD for the article
   const articleUrl = `https://insiderriskindex.com/research/${slug}`;
@@ -88,7 +89,7 @@ export default async function ResearchArticlePage({ params }: Props) {
       
       <div className="min-h-screen bg-above-gradient-light">
         {/* Hero Section with Gradient */}
-        <div className="bg-gradient-to-r from-above-rose-900 via-above-rose-800 to-above-lavender-800 text-white">
+        <div className="grainy-gradient-hero text-white">
           <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <Link href="/research">
@@ -102,17 +103,17 @@ export default async function ResearchArticlePage({ params }: Props) {
                 <div className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold mb-2 bg-white/20 text-white border-white/30">
                   Research
                 </div>
-                <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+                <h1 className="text-4xl font-bold tracking-tight sm:text-5xl text-white">
                   {frontmatter.title}
                 </h1>
               </div>
               
-              <p className="text-xl leading-relaxed mb-6 text-above-rose-100">
+              <p className="text-xl leading-relaxed mb-6 text-white/90">
                 {frontmatter.description}
               </p>
               
               {/* Article Meta */}
-              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-above-rose-100">
+              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/80">
                 {frontmatter.author && (
                   <div className="flex items-center gap-1">
                     <User className="h-4 w-4" />
@@ -221,19 +222,19 @@ export default async function ResearchArticlePage({ params }: Props) {
           )}
 
           {/* Call to Action */}
-          <Card className="mt-16 bg-gradient-to-r from-above-rose-700 to-above-lavender-700 text-white">
+          <Card className="mt-16 grainy-gradient-cta">
             <CardContent className="p-8 text-center">
               <div className="flex justify-center mb-4">
-                <TrendingUp className="h-12 w-12" />
+                <TrendingUp className="h-12 w-12 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">Assess Your Organization's Risk</h3>
-              <p className="text-above-rose-100 text-lg mb-6">
+              <h3 className="text-2xl font-bold mb-4 text-white">Assess Your Organization's Risk</h3>
+              <p className="text-lg mb-6 text-white/90">
                 Get a comprehensive evaluation of your insider threat posture and compare against industry benchmarks.
               </p>
               <Link href="/assessment">
-                <AboveButton size="lg" variant="secondary" className="bg-white text-above-rose-600 hover:bg-above-rose-50">
+                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-lg font-medium transition-colors h-10 px-8 bg-white text-above-rose-700 hover:bg-above-rose-50 shadow-sm">
                   Start Free Assessment
-                </AboveButton>
+                </button>
               </Link>
             </CardContent>
           </Card>

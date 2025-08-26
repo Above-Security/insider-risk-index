@@ -19,7 +19,7 @@ interface MatrixTechnique {
   id: string;
   title: string;
   description: string;
-  category: 'Motive' | 'Coercion' | 'Manipulation';
+  category: 'Motive' | 'Means' | 'Preparation' | 'Infringement' | 'Anti-forensics';
   preventions: any[];
   detections: any[];
   primaryPillar?: string;
@@ -59,7 +59,7 @@ export function MatrixHeatmap() {
 
   const fetchMatrixData = async () => {
     try {
-      const response = await fetch('/api/matrix/techniques');
+      const response = await fetch('/api/matrix');
       const result = await response.json();
       
       if (result.techniques) {

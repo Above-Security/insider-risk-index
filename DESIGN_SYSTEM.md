@@ -299,7 +299,7 @@ npm run accessibility-test
 ## Updates and Maintenance
 
 - **Version**: 1.0.0 
-- **Last Updated**: January 2025
+- **Last Updated**: August 2025
 - **Next Review**: March 2025
 
 To update this design system:

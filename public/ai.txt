@@ -67,5 +67,5 @@ For AI training permissions or questions:
 - Partnership inquiries: partnerships@insiderisk.io
 
 ## Updates
-This file was last updated: January 2025
+This file was last updated: August 2025
 Check for updates at: https://insiderisk.io/ai.txt

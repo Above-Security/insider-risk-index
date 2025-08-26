@@ -2,7 +2,7 @@
 title: "Insider Threat Landscape Report 2024"
 description: "Comprehensive analysis of insider threat trends, costs, and mitigation strategies based on data from over 1,400 organizations across 15 industries."
 author: "Insider Risk Index Team"
-publishedAt: "2024-12-01"
+publishedAt: "2025-08-26"
 category: "research"
 tags: ["insider threats", "cybersecurity", "risk management", "industry trends"]
 methodology: "Survey and statistical analysis"
@@ -284,7 +284,7 @@ Organizations should prioritize building mature capabilities across all five pil
 
 ---
 
-**Published**: December 2024
+**Published**: August 2025
 **Next Report**: Q4 2025
 
 **Methodology Note**: This report synthesizes data from the Insider Risk Index assessment platform, Ponemon Institute 2024/2025 Cost of Insider Threats Global Report, Verizon 2024 Data Breach Investigations Report, industry surveys, and expert interviews. All individual organization data has been anonymized and aggregated to protect participant confidentiality.

@@ -24,7 +24,7 @@ Open Source: Next.js, React, Tailwind CSS, Prisma, and the entire open source ec
 
 /* SITE */
 
-Last update: January 2025
+Last update: August 2025
 Language: English
 Doctype: HTML5
 IDE: VS Code, Claude Code

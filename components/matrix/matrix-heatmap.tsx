@@ -74,9 +74,9 @@ export function MatrixHeatmap() {
       const response = await fetch('/api/matrix');
       const result = await response.json();
       
-      if (result.techniques) {
+      if (result.elements) {
         // Process data for heatmap visualization
-        const techniques = result.techniques.map((tech: any) => ({
+        const techniques = result.elements.map((tech: MatrixElement) => ({
           ...tech,
           riskLevel: calculateRiskLevel(tech),
           primaryPillar: determinePrimaryPillar(tech)

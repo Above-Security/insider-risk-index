@@ -1,10 +1,9 @@
 import { getAllContent } from "@/lib/mdx";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { AboveButton, AboveBadge } from "@/components/ui/above-components";
 import { Calendar, Clock, User, TrendingUp, FileText, BarChart3 } from "lucide-react";
 import Link from "next/link";
-import { LAYOUT_CONSTANTS, getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
+import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
 
 export const metadata = {
   title: "Research & Insights | Insider Risk Index",
@@ -179,7 +178,7 @@ export default function ResearchPage() {
                       <div className="mb-4">
                         <p className="text-sm font-medium text-slate-700 mb-2">Data Sources:</p>
                         <div className="flex flex-wrap gap-1">
-                          {article.frontmatter.dataSources.map((source, i) => (
+                          {article.frontmatter.dataSources.map((source: string, i: number) => (
                             <AboveBadge key={i} variant="outline" className="text-xs">
                               {source}
                             </AboveBadge>
@@ -191,7 +190,7 @@ export default function ResearchPage() {
                     {article.frontmatter.tags && (
                       <div className="mb-4">
                         <div className="flex flex-wrap gap-1">
-                          {article.frontmatter.tags.map((tag, i) => (
+                          {article.frontmatter.tags.map((tag: string, i: number) => (
                             <AboveBadge key={i} variant="secondary" className="text-xs">
                               {tag}
                             </AboveBadge>

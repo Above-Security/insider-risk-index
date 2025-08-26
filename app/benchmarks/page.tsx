@@ -18,6 +18,7 @@ import {
   Zap,
   Target
 } from "lucide-react";
+import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
 import { formatDate } from "@/lib/utils";
 
 export const metadata = pageMetadata.benchmarks();

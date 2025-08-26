@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { AboveButton } from "@/components/ui/above-components";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,11 +15,11 @@ import {
   CheckCircle,
   PlayCircle
 } from "lucide-react";
-import { PILLARS, OVERALL_BENCHMARKS } from "@/lib/pillars";
+import { PILLARS } from "@/lib/pillars";
 import { pageMetadata } from "@/lib/seo";
 import { AssessmentPreview } from "@/components/home/assessment-preview";
 import { ResultsPreview } from "@/components/home/results-preview";
-import { LAYOUT_CONSTANTS, getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
+import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
 
 export const metadata = pageMetadata.home();
 

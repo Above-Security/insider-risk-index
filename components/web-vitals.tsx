@@ -8,7 +8,7 @@ export function WebVitals() {
     const logMetric = (metric: any) => {
       // Log to console in development
       if (process.env.NODE_ENV === 'development') {
-        console.log(`[Web Vital] ${metric.name}:`, metric.value);
+        // Web Vital metric collected
       }
 
       // Send to analytics

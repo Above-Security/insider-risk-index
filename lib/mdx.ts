@@ -163,7 +163,7 @@ export function generateContentSitemap(): { url: string; lastModified: Date }[] 
     research.forEach((article) => {
       sitemap.push({
         url: `${baseUrl}/research/${article.slug}`,
-        lastModified: new Date(article.frontmatter.lastUpdated),
+        lastModified: new Date(article.frontmatter.lastUpdated || new Date()),
       });
     });
 

@@ -12,12 +12,12 @@ export class MatrixAPI {
   static async getMatrixData(forceRefresh = false): Promise<MatrixData> {
     // Return cached data if valid and not forcing refresh
     if (cachedData && !forceRefresh && new Date() < new Date(cachedData.expiresAt)) {
-      console.log('Returning cached Matrix data');
+      // Using cached Matrix data
       return cachedData.data;
     }
 
     try {
-      console.log('Fetching fresh Matrix data from API...');
+      // Fetching fresh Matrix data from API
       const response = await fetch(MATRIX_API_URL, {
         next: { 
           revalidate: 86400, // 24 hours
@@ -36,7 +36,7 @@ export class MatrixAPI {
       const apiData: MatrixApiResponse = await response.json();
       const processedData = this.processApiData(apiData);
 
-      console.log(`Successfully processed ${processedData.techniques.length} techniques from Matrix API`);
+      // Successfully processed Matrix API data
 
       // Cache the processed data
       const now = new Date();
@@ -498,7 +498,7 @@ export class MatrixAPI {
    * Force refresh cache
    */
   static async refreshCache(): Promise<MatrixData> {
-    console.log('Force refreshing Matrix cache...');
+    // Force refreshing Matrix cache
     cachedData = null; // Clear existing cache
     return this.getMatrixData(true);
   }

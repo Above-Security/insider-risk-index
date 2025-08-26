@@ -6,9 +6,8 @@ import { MatrixNetwork } from '@/components/matrix/matrix-network';
 import { TechniqueComparison } from '@/components/matrix/technique-comparison';
 import { MatrixTechniquesPaginated } from '@/components/matrix/matrix-techniques-paginated';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { generateJsonLd } from '@/lib/seo';
 import Link from 'next/link';
-import { LAYOUT_CONSTANTS, getPageLayout, getSectionLayout, getGridClass } from '@/lib/layout-utils';
+import { getPageLayout, getSectionLayout, getGridClass } from '@/lib/layout-utils';
 
 export const dynamic = 'force-dynamic';
 

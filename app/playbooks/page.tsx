@@ -2,7 +2,7 @@ import { BookOpen } from 'lucide-react';
 import { getAllPlaybooks } from '@/lib/playbooks';
 import { PlaybookGrid } from '@/components/playbooks/playbook-grid';
 import { pageMetadata, generateJsonLd } from '@/lib/seo';
-import { LAYOUT_CONSTANTS, getPageLayout, getSectionLayout } from '@/lib/layout-utils';
+import { getPageLayout, getSectionLayout } from '@/lib/layout-utils';
 
 export const metadata = pageMetadata.playbooks();
 

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { AboveBadge, AboveButton, AboveSkeleton, getCategoryColors } from '@/components/ui/above-components';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
@@ -76,13 +77,10 @@ export function MatrixVisualization() {
     { value: 'phishing-resilience', label: 'Phishing Resilience', icon: ShieldAlert }
   ];
 
-  const getCategoryColor = (category: string) => {
-    switch (category.toLowerCase()) {
-      case 'motive': return 'bg-above-rose-100 text-above-rose-800 border-above-rose-200';
-      case 'coercion': return 'bg-above-peach-100 text-above-peach-800 border-above-peach-200';
-      case 'manipulation': return 'bg-above-lavender-100 text-above-lavender-800 border-above-lavender-200';
-      default: return 'bg-above-blue-100 text-slate-800 border-slate-200';
-    }
+  // Using centralized color utility
+  const getCategoryColorClass = (category: string) => {
+    const colors = getCategoryColors(category);
+    return `${colors.bg} ${colors.text} ${colors.border}`;
   };
 
   const getCategoryIcon = (category: string) => {
@@ -99,7 +97,7 @@ export function MatrixVisualization() {
       <Card>
         <CardContent className="pt-6">
           <div className="animate-pulse">
-            <div className="h-96 bg-slate-200 rounded"></div>
+            <AboveSkeleton className="h-96 w-full" />
           </div>
         </CardContent>
       </Card>
@@ -146,20 +144,20 @@ export function MatrixVisualization() {
             </div>
 
             <div className="flex items-center gap-2">
-              <Button
+              <AboveButton
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('grid')}
               >
                 <Grid3X3 className="h-4 w-4" />
-              </Button>
-              <Button
+              </AboveButton>
+              <AboveButton
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('list')}
               >
                 <List className="h-4 w-4" />
-              </Button>
+              </AboveButton>
             </div>
           </div>
         </CardContent>
@@ -181,13 +179,13 @@ export function MatrixVisualization() {
       {viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {techniques.map(technique => (
-            <TechniqueCard key={technique.id} technique={technique} getCategoryColor={getCategoryColor} getCategoryIcon={getCategoryIcon} />
+            <TechniqueCard key={technique.id} technique={technique} getCategoryColor={getCategoryColorClass} getCategoryIcon={getCategoryIcon} />
           ))}
         </div>
       ) : (
         <div className="space-y-4">
           {techniques.map(technique => (
-            <TechniqueListItem key={technique.id} technique={technique} getCategoryColor={getCategoryColor} getCategoryIcon={getCategoryIcon} />
+            <TechniqueListItem key={technique.id} technique={technique} getCategoryColor={getCategoryColorClass} getCategoryIcon={getCategoryIcon} />
           ))}
         </div>
       )}
@@ -229,10 +227,10 @@ function TechniqueCard({
           <CardTitle className="text-lg leading-tight line-clamp-2">
             {technique.title}
           </CardTitle>
-          <Badge className={getCategoryColor(technique.category)}>
+          <AboveBadge variant={technique.category.toLowerCase() as any}>
             <CategoryIcon className="h-3 w-3 mr-1" />
             {technique.category}
-          </Badge>
+          </AboveBadge>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -241,9 +239,9 @@ function TechniqueCard({
         </p>
         
         {technique.subcategory && (
-          <Badge variant="outline" className="text-xs">
+          <AboveBadge variant="outline" className="text-xs">
             {technique.subcategory}
-          </Badge>
+          </AboveBadge>
         )}
 
         <div className="space-y-2">
@@ -268,7 +266,7 @@ function TechniqueCard({
         <div className="mt-4 pt-3 border-t border-slate-100">
           <a 
             href={`/matrix/technique/${technique.id}`}
-            className="text-xs text-above-blue-800 hover:text-above-blue-800 font-medium transition-colors"
+            className="text-xs text-above-rose-700 hover:text-above-rose-900 font-medium transition-colors"
           >
             View Details →
           </a>
@@ -305,14 +303,14 @@ function TechniqueListItem({
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               <h3 className="font-semibold text-slate-900">{technique.title}</h3>
-              <Badge className={getCategoryColor(technique.category)}>
+              <AboveBadge variant={technique.category.toLowerCase() as any}>
                 <CategoryIcon className="h-3 w-3 mr-1" />
                 {technique.category}
-              </Badge>
+              </AboveBadge>
               {technique.subcategory && (
-                <Badge variant="outline" className="text-xs">
+                <AboveBadge variant="outline" className="text-xs">
                   {technique.subcategory}
-                </Badge>
+                </AboveBadge>
               )}
             </div>
             <p className="text-sm text-slate-600 mb-3">{technique.description}</p>
@@ -339,7 +337,7 @@ function TechniqueListItem({
               </div>
               <a 
                 href={`/matrix/technique/${technique.id}`}
-                className="text-above-blue-800 hover:text-above-blue-800 font-medium transition-colors"
+                className="text-above-rose-700 hover:text-above-rose-900 font-medium transition-colors"
               >
                 Details →
               </a>

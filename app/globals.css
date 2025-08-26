@@ -34,17 +34,17 @@
   --color-card: #FFFFFF; /* white */
   --color-card-foreground: #0F172A; /* slate-900 */;
   
-  /* Pillar colors */
-  --color-visibility: hsl(217 91% 60%);
-  --color-visibility-foreground: hsl(0 0% 100%);
-  --color-coaching: hsl(174 72% 56%);
-  --color-coaching-foreground: hsl(0 0% 100%);
-  --color-evidence: hsl(271 91% 65%);
-  --color-evidence-foreground: hsl(0 0% 100%);
-  --color-identity: hsl(43 96% 56%);
-  --color-identity-foreground: hsl(0 0% 100%);
-  --color-phishing: hsl(0 84% 60%);
-  --color-phishing-foreground: hsl(0 0% 100%);
+  /* Above brand pillar colors */
+  --color-visibility: #7AB7FF; /* above-blue-800 */
+  --color-visibility-foreground: #FFFFFF; /* white */
+  --color-coaching: #FF89A1; /* above-rose-700 */
+  --color-coaching-foreground: #FFFFFF; /* white */
+  --color-evidence: #FF9C7A; /* above-peach-700 */
+  --color-evidence-foreground: #FFFFFF; /* white */
+  --color-identity: #C8B3FF; /* above-lavender-700 */
+  --color-identity-foreground: #FFFFFF; /* white */
+  --color-phishing: #FF5D78; /* above-rose-900 */
+  --color-phishing-foreground: #FFFFFF; /* white */
   
   --radius: 0.5rem;
   --radius-lg: var(--radius);
@@ -246,12 +246,14 @@ img {
 }
 
 .prose a {
-  color: #7AB7FF; /* above-blue-800 */
+  color: #FF89A1; /* above-rose-700 */
   text-decoration: underline;
   text-underline-offset: 2px;
+  transition: color 0.15s ease;
 }
 
 .prose a:hover {
+  color: #FF5D78; /* above-rose-900 */
   text-decoration-thickness: 2px;
 }
 

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { AboveBadge, AboveButton, AboveSkeleton, AboveAlert, AboveCard, getPriorityColors, getDifficultyColors } from "@/components/ui/above-components";
 import { Button } from "@/components/ui/button";
 import { 
   AlertTriangle,
@@ -56,9 +57,9 @@ export function MatrixRecommendations({ context }: MatrixRecommendationsProps) {
           <div className="space-y-4">
             {[1, 2, 3].map(i => (
               <div key={i} className="animate-pulse">
-                <div className="h-4 bg-slate-200 rounded mb-2"></div>
-                <div className="h-6 bg-slate-200 rounded mb-2"></div>
-                <div className="h-4 bg-slate-200 rounded w-3/4"></div>
+                <AboveSkeleton className="h-4 w-full mb-2" />
+                <AboveSkeleton className="h-6 w-full mb-2" />
+                <AboveSkeleton className="h-4 w-3/4" />
               </div>
             ))}
           </div>

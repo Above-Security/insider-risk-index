@@ -46,12 +46,12 @@ function PlaybookCard({ playbook }: { playbook: Playbook }) {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-8 border border-slate-200 dark:border-slate-700">
+    <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-6 sm:p-8 border border-above-rose-200">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-3">
-            <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
+            <h2 className="text-xl sm:text-2xl font-semibold text-slate-900">
               {playbook.frontmatter.title}
             </h2>
             <Badge 
@@ -67,14 +67,14 @@ function PlaybookCard({ playbook }: { playbook: Playbook }) {
               {playbook.frontmatter.difficulty}
             </Badge>
           </div>
-          <p className="text-slate-600 dark:text-gray-300 text-lg leading-relaxed">
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
             {playbook.frontmatter.description}
           </p>
         </div>
       </div>
 
       {/* Metadata Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 text-sm text-slate-500 dark:text-slate-400">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 text-sm text-slate-500">
         <div className="flex items-center">
           <Clock className="h-4 w-4 mr-2 text-above-blue-800" />
           <span>Time: {playbook.frontmatter.timeToImplement || playbook.frontmatter.estimatedTime}</span>
@@ -96,11 +96,11 @@ function PlaybookCard({ playbook }: { playbook: Playbook }) {
       {/* Prerequisites */}
       {playbook.frontmatter.prerequisites && playbook.frontmatter.prerequisites.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-2 flex items-center">
+          <h4 className="text-sm font-semibold text-slate-900 mb-2 flex items-center">
             <Users className="h-4 w-4 mr-2" />
             Prerequisites:
           </h4>
-          <ul className="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+          <ul className="text-sm text-slate-600 space-y-1">
             {playbook.frontmatter.prerequisites.slice(0, 3).map((prereq, index) => (
               <li key={index} className="flex items-start">
                 <span className="mr-2 text-above-blue-800">•</span>
@@ -119,10 +119,10 @@ function PlaybookCard({ playbook }: { playbook: Playbook }) {
       {/* Expected Outcomes */}
       {playbook.frontmatter.outcomes && playbook.frontmatter.outcomes.length > 0 && (
         <div className="mb-6">
-          <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-2">
+          <h4 className="text-sm font-semibold text-slate-900 mb-2">
             Expected Outcomes:
           </h4>
-          <ul className="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+          <ul className="text-sm text-slate-600 space-y-1">
             {playbook.frontmatter.outcomes.slice(0, 3).map((outcome, index) => (
               <li key={index} className="flex items-start">
                 <span className="mr-2 text-above-blue-800">•</span>
@@ -142,8 +142,8 @@ function PlaybookCard({ playbook }: { playbook: Playbook }) {
       {playbook.frontmatter.tags && playbook.frontmatter.tags.length > 0 && (
         <div className="mb-6">
           <div className="flex items-center mb-2">
-            <Tag className="h-4 w-4 mr-2 text-slate-500 dark:text-slate-400" />
-            <span className="text-sm font-medium text-slate-900 dark:text-white">Tags:</span>
+            <Tag className="h-4 w-4 mr-2 text-slate-500" />
+            <span className="text-sm font-medium text-slate-900">Tags:</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {playbook.frontmatter.tags.slice(0, 6).map((tag) => (
@@ -161,7 +161,7 @@ function PlaybookCard({ playbook }: { playbook: Playbook }) {
       )}
 
       {/* Action Button */}
-      <div className="flex justify-end pt-4 border-t border-slate-200 dark:border-slate-700">
+      <div className="flex justify-end pt-4 border-t border-above-rose-200">
         <Link href={`/playbooks/${playbook.slug}`}>
           <AboveButton variant="secondary">
             View Playbook
@@ -249,20 +249,20 @@ export function PlaybookGrid({ playbooks }: PlaybookGridProps) {
       {/* Results Summary */}
       <div className="mb-8">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
+          <h2 className="text-xl font-semibold text-slate-900">
             {filteredPlaybooks.length === playbooks.length 
               ? `All Playbooks (${playbooks.length})`
               : `${filteredPlaybooks.length} of ${playbooks.length} playbooks`}
           </h2>
           {filters.search && (
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-slate-500">
               Search results for "{filters.search}"
             </p>
           )}
         </div>
 
         {/* Pillar Statistics */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 mt-4">
           {pillarStats.map((pillar) => (
             <div key={pillar.pillar} className="text-center">
               <div className={`inline-flex items-center px-3 py-2 rounded-full text-sm font-medium ${pillar.color}`}>
@@ -280,10 +280,10 @@ export function PlaybookGrid({ playbooks }: PlaybookGridProps) {
       {filteredPlaybooks.length === 0 ? (
         <div className="text-center py-12">
           <BookOpen className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">
+          <h3 className="text-lg font-medium text-slate-900 mb-2">
             {playbooks.length === 0 ? "No playbooks available yet" : "No playbooks match your filters"}
           </h3>
-          <p className="text-slate-500 dark:text-slate-400 mb-4">
+          <p className="text-slate-500 mb-4">
             {playbooks.length === 0 
               ? "Playbooks are currently being developed. Check back soon for comprehensive implementation guides."
               : "Try adjusting your search terms or filters to find relevant playbooks."
@@ -302,7 +302,7 @@ export function PlaybookGrid({ playbooks }: PlaybookGridProps) {
           )}
         </div>
       ) : (
-        <div className="grid gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {filteredPlaybooks.map((playbook) => (
             <PlaybookCard key={playbook.slug} playbook={playbook} />
           ))}

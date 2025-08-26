@@ -1,4 +1,4 @@
-import { pageMetadata, getAssessmentJsonLd } from "@/lib/seo";
+import { pageMetadata, getAssessmentToolJsonLd } from "@/lib/seo";
 
 export const metadata = pageMetadata.assessment();
 
@@ -7,13 +7,13 @@ export default function AssessmentLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const assessmentJsonLd = getAssessmentJsonLd();
+  const assessmentJsonLd = getAssessmentToolJsonLd();
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(assessmentJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: assessmentJsonLd }}
       />
       {children}
     </>

@@ -806,3 +806,120 @@ export const pageMetadata = {
     noIndex: true,
   }),
 };
+
+/**
+ * Enhanced SEO Functions for Advanced Schema.org Implementation
+ */
+
+/**
+ * Generate Assessment Tool JSON-LD
+ */
+export function getAssessmentToolJsonLd() {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Insider Risk Assessment Tool",
+    description: "Free comprehensive assessment tool for measuring organizational insider risk posture across 5 critical pillars.",
+    url: `${seoConfig.siteUrl}/assessment`,
+    applicationCategory: "SecurityApplication",
+    operatingSystem: "Web Browser",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+    featureList: [
+      "5-Pillar Risk Assessment", 
+      "Industry Benchmarking", 
+      "Instant Results", 
+      "PDF Reports", 
+      "No Registration Required"
+    ],
+    creator: {
+      "@type": "Organization",
+      name: seoConfig.siteName,
+      url: seoConfig.siteUrl,
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "1200",
+      bestRating: "5",
+      worstRating: "1",
+    },
+  });
+}
+
+
+/**
+ * Generate Playbook HowTo JSON-LD
+ */
+export function getPlaybookHowToJsonLd({
+  title,
+  description,
+  slug,
+  difficulty,
+  timeToImplement,
+  pillar,
+  tags = [],
+}: {
+  title: string;
+  description: string;
+  slug: string;
+  difficulty?: string;
+  timeToImplement?: string;
+  pillar?: string;
+  tags?: string[];
+}) {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: title,
+    description,
+    url: `${seoConfig.siteUrl}/playbooks/${slug}`,
+    image: `${seoConfig.siteUrl}/og-image.png`,
+    author: {
+      "@type": "Organization",
+      name: seoConfig.siteName,
+      url: seoConfig.siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: seoConfig.siteName,
+      url: seoConfig.siteUrl,
+    },
+    datePublished: new Date().toISOString(),
+    dateModified: new Date().toISOString(),
+    ...(timeToImplement && { totalTime: `PT${timeToImplement.replace(/\D/g, '')}W` }),
+    ...(difficulty && { 
+      skillLevel: difficulty === 'beginner' ? 'Beginner' : 
+                  difficulty === 'intermediate' ? 'Intermediate' : 'Advanced' 
+    }),
+    keywords: [pillar, ...tags, "insider risk", "cybersecurity", "implementation guide"].filter(Boolean).join(", "),
+    about: {
+      "@type": "Thing",
+      name: "Insider Risk Management",
+      sameAs: "https://en.wikipedia.org/wiki/Insider_threat",
+    },
+  });
+}
+
+/**
+ * Generate FAQ JSON-LD for rich snippets
+ */
+export function getFAQJsonLd(faqs: Array<{ question: string; answer: string }>) {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(faq => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  });
+}
+

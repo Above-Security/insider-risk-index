@@ -11,12 +11,34 @@ import {
   Globe,
   Lock
 } from "lucide-react";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, getFAQJsonLd } from "@/lib/seo";
 import Link from "next/link";
 
 export const metadata = pageMetadata.about();
 
 export default function AboutPage() {
+  // FAQ data for rich snippets
+  const faqs = [
+    {
+      question: "What is the Insider Risk Index?",
+      answer: "The Insider Risk Index is a comprehensive assessment tool that measures organizational insider risk posture across 5 critical pillars: Visibility, Prevention & Coaching, Investigation & Evidence, Identity & SaaS, and Phishing Resilience. Based on industry research from Ponemon Institute 2025 and Gartner Market Guide G00805757.",
+    },
+    {
+      question: "How is the assessment scored?",
+      answer: "Our scoring uses research-validated weights: Visibility (25%), Prevention & Coaching (25%), Investigation & Evidence (20%), Identity & SaaS (15%), and Phishing Resilience (15%). Scores are mapped to 5 maturity levels from Ad Hoc to Optimized.",
+    },
+    {
+      question: "Is the assessment free?",
+      answer: "Yes, the Insider Risk Assessment is completely free with no registration required. You get immediate results with detailed analysis and recommendations.",
+    },
+    {
+      question: "What research is this based on?",
+      answer: "Our framework is built on the Ponemon Institute 2025 Cost of Insider Threats Report ($17.4M average annual cost), Gartner Market Guide for Insider Risk Management Solutions (G00805757), and Verizon 2024 DBIR analysis.",
+    },
+  ];
+
+  const faqJsonLd = getFAQJsonLd(faqs);
+
   // Research foundation rather than specific team members
   const researchFoundation = [
     {

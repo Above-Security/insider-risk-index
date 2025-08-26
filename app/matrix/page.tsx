@@ -6,6 +6,7 @@ import { MatrixNetwork } from '@/components/matrix/matrix-network';
 import { TechniqueComparison } from '@/components/matrix/technique-comparison';
 import { MatrixTechniquesPaginated } from '@/components/matrix/matrix-techniques-paginated';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { getPageLayout, getSectionLayout, getGridClass } from '@/lib/layout-utils';
 
@@ -44,22 +45,22 @@ export default async function MatrixPage() {
 
   if (!matrixData || !matrixData.techniques || matrixData.techniques.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div className={`min-h-screen bg-above-blue-50 ${getSectionLayout('md')}`}>
+        <div className={getPageLayout()}>
           <div className="text-center">
             <Shield className="h-12 w-12 text-above-rose-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+            <h1 className="text-2xl font-bold text-slate-900 mb-2">
               Matrix Data Unavailable
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 mb-4">
+            <p className="text-slate-600 mb-4">
               The ForScie Insider Threat Matrix data is currently unavailable. This could be due to:
             </p>
-            <ul className="text-left text-slate-600 dark:text-slate-400 max-w-md mx-auto mb-6">
+            <ul className="text-left text-slate-600 max-w-md mx-auto mb-6">
               <li>• Network connectivity issues</li>
               <li>• External API service downtime</li>
               <li>• Rate limiting on the data source</li>
             </ul>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-slate-600">
               Please try again later or visit{' '}
               <a href="https://insiderthreatmatrix.org/" className="text-above-blue-800 hover:text-above-blue-800" target="_blank" rel="noopener noreferrer">
                 insiderthreatmatrix.org
@@ -97,45 +98,56 @@ export default async function MatrixPage() {
 
         {/* Statistics */}
         <div className={`${getGridClass('metrics', '2-4')} mb-12`}>
-          <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 text-center">
-            <Database className="h-8 w-8 text-above-blue-800 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-slate-900 dark:text-white">
-              {metadata.totalTechniques}
-            </div>
-            <div className="text-sm text-slate-600 dark:text-slate-400">
-              Total Techniques
-            </div>
-          </div>
-          <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 text-center">
-            <div className="text-2xl font-bold text-above-rose-800 mb-1">
-              {metadata.categories.motive}
-            </div>
-            <div className="text-sm text-slate-600 dark:text-slate-400">
-              Motive Techniques
-            </div>
-          </div>
-          <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 text-center">
-            <div className="text-2xl font-bold text-above-peach-800 mb-1">
-              {metadata.categories.coercion}
-            </div>
-            <div className="text-sm text-slate-600 dark:text-slate-400">
-              Coercion Techniques
-            </div>
-          </div>
-          <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 text-center">
-            <div className="text-2xl font-bold text-above-lavender-800 mb-1">
-              {metadata.categories.manipulation}
-            </div>
-            <div className="text-sm text-slate-600 dark:text-slate-400">
-              Manipulation Techniques
-            </div>
-          </div>
+          <Card>
+            <CardContent className="p-6 text-center">
+              <Database className="h-8 w-8 text-above-blue-800 mx-auto mb-2" />
+              <div className="text-3xl font-bold text-slate-900">
+                {metadata.totalTechniques}
+              </div>
+              <div className="text-sm font-medium text-slate-600">
+                Total Techniques
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-6 text-center">
+              <Shield className="h-8 w-8 text-above-rose-700 mx-auto mb-2" />
+              <div className="text-3xl font-bold text-above-rose-700">
+                {metadata.categories.motive}
+              </div>
+              <div className="text-sm font-medium text-slate-600">
+                Motive Techniques
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-6 text-center">
+              <Users className="h-8 w-8 text-above-peach-700 mx-auto mb-2" />
+              <div className="text-3xl font-bold text-above-peach-700">
+                {metadata.categories.coercion}
+              </div>
+              <div className="text-sm font-medium text-slate-600">
+                Coercion Techniques
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-6 text-center">
+              <Network className="h-8 w-8 text-above-lavender-700 mx-auto mb-2" />
+              <div className="text-3xl font-bold text-above-lavender-700">
+                {metadata.categories.manipulation}
+              </div>
+              <div className="text-sm font-medium text-slate-600">
+                Manipulation Techniques
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Interactive Matrix Visualizations */}
         <div className="mb-12">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
               <TabsTrigger value="overview" className="flex items-center gap-2">
                 <Database className="h-4 w-4" />
                 Overview

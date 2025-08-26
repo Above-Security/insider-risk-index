@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { OrganizationForm } from "@/components/assessment/organization-form";
 import { QuestionCard } from "@/components/assessment/question-card";
 import { ProgressHeader } from "@/components/assessment/progress-header";
@@ -80,21 +80,7 @@ export default function AssessmentPage() {
     setAnsweredQuestions(newAnsweredQuestions);
   };
 
-  const handleNext = () => {
-    if (currentQuestionIndex < ASSESSMENT_QUESTIONS.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      handleCompleteAssessment();
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-    }
-  };
-
-  const handleCompleteAssessment = async () => {
+  const handleCompleteAssessment = useCallback(async () => {
     if (!organizationData) return;
 
     try {
@@ -133,7 +119,21 @@ export default function AssessmentPage() {
       console.error("Error completing assessment:", error);
       // Handle error - could show an error message
     }
-  };
+  }, [organizationData, answers, router]);
+
+  const handleNext = useCallback(() => {
+    if (currentQuestionIndex < ASSESSMENT_QUESTIONS.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      handleCompleteAssessment();
+    }
+  }, [currentQuestionIndex, handleCompleteAssessment]);
+
+  const handlePrevious = useCallback(() => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  }, [currentQuestionIndex]);
 
   if (currentStep === "organization") {
     return (

@@ -169,7 +169,6 @@ export function ProgressHeader({
               ))}
             </div>
           </div>
-          </div>
         </CardContent>
       </Card>
     </div>

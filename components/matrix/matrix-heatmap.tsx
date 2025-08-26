@@ -15,7 +15,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 
-interface MatrixTechnique {
+interface MatrixElement {
   id: string;
   title: string;
   description: string;
@@ -26,8 +26,20 @@ interface MatrixTechnique {
   riskLevel?: number; // 1-5 scale
 }
 
+// Helper function to get correct terminology for each theme
+const getCategoryTerminology = (category: string): string => {
+  switch (category) {
+    case 'Motive': return 'motivations';
+    case 'Means': return 'capabilities'; 
+    case 'Preparation': return 'activities';
+    case 'Infringement': return 'techniques';
+    case 'Anti-forensics': return 'techniques';
+    default: return 'elements';
+  }
+};
+
 interface HeatmapData {
-  techniques: MatrixTechnique[];
+  elements: MatrixElement[];
   pillarCoverage: Record<string, number>;
   categoryDistribution: Record<string, number>;
 }
@@ -337,7 +349,7 @@ export function MatrixHeatmap() {
                   <div key={category.id} className="space-y-2">
                     <div className="flex items-center justify-between">
                       <h4 className={`font-medium ${category.textColor}`}>
-                        {category.name} ({total} techniques)
+                        {category.name} ({total} {getCategoryTerminology(category.id)})
                       </h4>
                     </div>
                     <div className="flex gap-1 h-8">

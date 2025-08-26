@@ -26,6 +26,18 @@ import { Button } from '@/components/ui/button';
 import { getMatrixTechniqueJsonLd, getBreadcrumbJsonLd } from '@/lib/seo';
 import Script from 'next/script';
 
+// Helper function to get correct element type terminology
+const getElementType = (category: string): string => {
+  switch (category) {
+    case 'Motive': return 'motivation';
+    case 'Means': return 'capability'; 
+    case 'Preparation': return 'activity';
+    case 'Infringement': return 'technique';
+    case 'Anti-forensics': return 'technique';
+    default: return 'element';
+  }
+};
+
 interface TechniquePageProps {
   params: Promise<{ id: string }>;
 }
@@ -183,10 +195,15 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                 </h1>
               </div>
               <div className="flex items-center gap-4 mb-4">
-                <Badge className={`${getCategoryColor(technique.category)} border`}>
-                  <CategoryIcon className="h-3 w-3 mr-1" />
-                  {technique.category}
-                </Badge>
+                <div className="flex flex-col gap-1">
+                  <Badge className={`${getCategoryColor(technique.category)} border`}>
+                    <CategoryIcon className="h-3 w-3 mr-1" />
+                    {technique.category}
+                  </Badge>
+                  <div className="text-xs text-slate-500 ml-1">
+                    {getElementType(technique.category)}
+                  </div>
+                </div>
                 {technique.lastUpdated && (
                   <div className="flex items-center text-sm text-slate-600">
                     <Calendar className="h-4 w-4 mr-1" />

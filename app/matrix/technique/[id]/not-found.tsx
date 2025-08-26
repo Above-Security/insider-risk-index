@@ -9,11 +9,11 @@ export default function TechniqueNotFound() {
         <div className="text-center">
           <Search className="h-16 w-16 text-slate-400 mx-auto mb-4" />
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
-            Technique Not Found
+            Matrix Element Not Found
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
-            The insider threat technique you're looking for doesn't exist or may have been moved.
-            Please check the technique ID or browse our complete matrix.
+            The Matrix element you're looking for doesn't exist or may have been moved.
+            Please check the element ID or browse our complete Matrix.
           </p>
           <div className="flex items-center justify-center gap-4">
             <Button asChild>

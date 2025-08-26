@@ -15,7 +15,6 @@ import {
   ExternalLink,
   BookOpen,
   Target,
-  Zap,
   CheckCircle,
   XCircle,
   TrendingUp

@@ -55,7 +55,7 @@ export default function AssessmentPage() {
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentStep, currentQuestionIndex, answers]);
+  }, [currentStep, currentQuestionIndex, answers, handleNext, handlePrevious]);
   
   const handleOrganizationSubmit = async (data: OrganizationData) => {
     setOrganizationData(data);

@@ -37,7 +37,6 @@ export default function AboutPage() {
     },
   ];
 
-  const faqJsonLd = getFAQJsonLd(faqs);
 
   // Research foundation rather than specific team members
   const researchFoundation = [

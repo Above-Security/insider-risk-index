@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import { Search, Filter, BookOpen, Tag, Brain, Star } from 'lucide-react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import { Search, Tag, Brain, Star } from 'lucide-react';
 import { AboveButton } from '@/components/ui/above-components';
 import Link from 'next/link';
 
@@ -62,7 +62,7 @@ export default function GlossaryPage() {
 
   const [error, setError] = useState<string | null>(null);
 
-  const fetchGlossary = async () => {
+  const fetchGlossary = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -92,11 +92,11 @@ export default function GlossaryPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchQuery, selectedCategory, selectedDifficulty, selectedPillar, showFeaturedOnly]);
 
   useEffect(() => {
     fetchGlossary();
-  }, [searchQuery, selectedCategory, selectedDifficulty, selectedPillar, showFeaturedOnly]);
+  }, [searchQuery, selectedCategory, selectedDifficulty, selectedPillar, showFeaturedOnly, fetchGlossary]);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {

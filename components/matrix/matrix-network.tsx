@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,7 +13,6 @@ import {
   ShieldAlert,
   AlertTriangle,
   Shield,
-  Zap,
   RefreshCw
 } from 'lucide-react';
 
@@ -61,29 +60,30 @@ export function MatrixNetwork() {
   ];
 
   useEffect(() => {
+    const fetchNetworkData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/matrix/techniques');
+        const data = await response.json();
+        
+        if (data.techniques) {
+          const { networkNodes, networkLinks } = buildNetworkData(data.techniques);
+          setNodes(networkNodes);
+          setLinks(networkLinks);
+          
+          // Initialize positions
+          initializePositions(networkNodes);
+        }
+      } catch (error) {
+        console.error('Failed to fetch network data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchNetworkData();
   }, [viewMode]);
 
-  const fetchNetworkData = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('/api/matrix/techniques');
-      const data = await response.json();
-      
-      if (data.techniques) {
-        const { networkNodes, networkLinks } = buildNetworkData(data.techniques);
-        setNodes(networkNodes);
-        setLinks(networkLinks);
-        
-        // Initialize positions
-        initializePositions(networkNodes);
-      }
-    } catch (error) {
-      console.error('Failed to fetch network data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const buildNetworkData = (techniques: any[]) => {
     const networkNodes: NetworkNode[] = [];

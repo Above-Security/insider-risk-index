@@ -94,7 +94,7 @@ const aboveButtonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-above-rose-950 text-white shadow hover:bg-above-rose-900 focus-visible:ring-above-rose-800",
+        default: "bg-[#D13366] text-white shadow hover:bg-above-rose-900 focus-visible:ring-above-rose-800",
         destructive: "bg-above-rose-900 text-white shadow-sm hover:bg-above-rose-800 focus-visible:ring-above-rose-700",
         outline: "border border-above-rose-300 bg-transparent text-above-rose-800 shadow-sm hover:bg-above-rose-50 hover:text-above-rose-900 focus-visible:ring-above-rose-700",
         secondary: "bg-above-blue-100 text-above-blue-900 shadow-sm hover:bg-above-blue-200 focus-visible:ring-above-blue-700",
@@ -129,16 +129,7 @@ export const AboveButton = React.forwardRef<HTMLButtonElement, AboveButtonProps>
     const variantClassName = aboveButtonVariants({ variant, size, className });
     const resolvedClassName = cn(variantClassName);
     
-    // DEBUG: Log what's happening
-    console.log("🔍 ABOVE BUTTON DEBUG:", {
-      variant,
-      size,
-      className,
-      asChild,
-      variantClassName,
-      resolvedClassName,
-      Comp: Comp === Slot ? 'Slot' : 'button'
-    });
+    // Component is working - classes are being applied correctly
     
     return (
       <Comp

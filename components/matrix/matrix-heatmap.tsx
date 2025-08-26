@@ -47,8 +47,10 @@ export function MatrixHeatmap() {
 
   const categories = [
     { id: 'Motive', name: 'Motive', color: 'bg-above-rose-100 border-above-rose-300', textColor: 'text-above-rose-800' },
-    { id: 'Coercion', name: 'Coercion', color: 'bg-above-peach-100 border-above-peach-300', textColor: 'text-above-peach-800' },
-    { id: 'Manipulation', name: 'Manipulation', color: 'bg-above-lavender-100 border-above-lavender-300', textColor: 'text-above-lavender-800' }
+    { id: 'Means', name: 'Means', color: 'bg-above-peach-100 border-above-peach-300', textColor: 'text-above-peach-800' },
+    { id: 'Preparation', name: 'Preparation', color: 'bg-above-lavender-100 border-above-lavender-300', textColor: 'text-above-lavender-800' },
+    { id: 'Infringement', name: 'Infringement', color: 'bg-above-blue-100 border-above-blue-300', textColor: 'text-above-blue-800' },
+    { id: 'Anti-forensics', name: 'Anti-forensics', color: 'bg-gray-100 border-gray-300', textColor: 'text-gray-800' }
   ];
 
   useEffect(() => {

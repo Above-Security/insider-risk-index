@@ -55,8 +55,10 @@ export function MatrixNetwork() {
 
   const categories = [
     { id: 'Motive', name: 'Motive', color: '#FF89A1' },
-    { id: 'Coercion', name: 'Coercion', color: '#FF9C7A' },
-    { id: 'Manipulation', name: 'Manipulation', color: '#C8B3FF' }
+    { id: 'Means', name: 'Means', color: '#FF9C7A' },
+    { id: 'Preparation', name: 'Preparation', color: '#C8B3FF' },
+    { id: 'Infringement', name: 'Infringement', color: '#FFB366' },
+    { id: 'Anti-forensics', name: 'Anti-forensics', color: '#B3A1FF' }
   ];
 
   useEffect(() => {

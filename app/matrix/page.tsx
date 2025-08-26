@@ -1,4 +1,4 @@
-import { Shield, ExternalLink, Users, Calendar, Database, BarChart3, Network, GitCompare } from 'lucide-react';
+import { Shield, ExternalLink, Users, Calendar, Database, BarChart3, Network, GitCompare, AlertTriangle, Eye } from 'lucide-react';
 import { MatrixAPI } from '@/lib/matrix-api';
 import { MatrixVisualization } from '@/components/matrix/matrix-visualization';
 import { MatrixHeatmap } from '@/components/matrix/matrix-heatmap';
@@ -99,7 +99,7 @@ export default async function MatrixPage() {
         </div>
 
         {/* Statistics */}
-        <div className={`${getGridClass('metrics', '2-4')} mb-12`}>
+        <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6 mb-12">
           <Card>
             <CardContent className="p-6 text-center">
               <Database className="h-8 w-8 text-above-blue-800 mx-auto mb-2" />
@@ -118,7 +118,7 @@ export default async function MatrixPage() {
                 {metadata.categories.motive}
               </div>
               <div className="text-sm font-medium text-slate-600">
-                Motive Techniques
+                Motive
               </div>
             </CardContent>
           </Card>
@@ -126,10 +126,10 @@ export default async function MatrixPage() {
             <CardContent className="p-6 text-center">
               <Users className="h-8 w-8 text-above-peach-700 mx-auto mb-2" />
               <div className="text-3xl font-bold text-above-peach-700">
-                {metadata.categories.coercion}
+                {metadata.categories.means}
               </div>
               <div className="text-sm font-medium text-slate-600">
-                Coercion Techniques
+                Means
               </div>
             </CardContent>
           </Card>
@@ -137,10 +137,32 @@ export default async function MatrixPage() {
             <CardContent className="p-6 text-center">
               <Network className="h-8 w-8 text-above-lavender-700 mx-auto mb-2" />
               <div className="text-3xl font-bold text-above-lavender-700">
-                {metadata.categories.manipulation}
+                {metadata.categories.preparation}
               </div>
               <div className="text-sm font-medium text-slate-600">
-                Manipulation Techniques
+                Preparation
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-6 text-center">
+              <AlertTriangle className="h-8 w-8 text-amber-600 mx-auto mb-2" />
+              <div className="text-3xl font-bold text-amber-600">
+                {metadata.categories.infringement}
+              </div>
+              <div className="text-sm font-medium text-slate-600">
+                Infringement
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-6 text-center">
+              <Eye className="h-8 w-8 text-gray-600 mx-auto mb-2" />
+              <div className="text-3xl font-bold text-gray-600">
+                {metadata.categories.antiForensics}
+              </div>
+              <div className="text-sm font-medium text-slate-600">
+                Anti-forensics
               </div>
             </CardContent>
           </Card>

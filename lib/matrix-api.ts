@@ -135,11 +135,13 @@ export class MatrixAPI {
       });
     }
 
-    // Calculate category counts
+    // Calculate category counts for all 5 themes
     const categoryCounts = {
       motive: techniques.filter(t => t.category === 'Motive').length,
-      coercion: techniques.filter(t => t.category === 'Coercion').length,
-      manipulation: techniques.filter(t => t.category === 'Manipulation').length
+      means: techniques.filter(t => t.category === 'Means').length,
+      preparation: techniques.filter(t => t.category === 'Preparation').length,
+      infringement: techniques.filter(t => t.category === 'Infringement').length,
+      antiForensics: techniques.filter(t => t.category === 'Anti-forensics').length
     };
 
     return {
@@ -346,31 +348,35 @@ export class MatrixAPI {
   }
 
   /**
-   * Map theme to category
+   * Map theme to category - preserving the original Matrix taxonomy
+   * 
+   * The Insider Threat Matrix has 5 main themes:
+   * 1. Motive - Why insiders act (financial, ideological, revenge, etc.)
+   * 2. Means - Methods and access used (credentials, privileges, etc.)
+   * 3. Preparation - Planning and reconnaissance activities
+   * 4. Infringement - Actual malicious actions (data theft, sabotage, etc.)
+   * 5. Anti-forensics - Covering tracks and avoiding detection
    */
-  private static mapThemeToCategory(theme: string): 'Motive' | 'Coercion' | 'Manipulation' {
+  private static mapThemeToCategory(theme: string): 'Motive' | 'Means' | 'Preparation' | 'Infringement' | 'Anti-forensics' {
     const lowerTheme = (theme || '').toLowerCase();
     
-    // Map the actual API themes to our categories
-    if (lowerTheme === 'motive' || lowerTheme === 'means') {
-      return 'Motive';
+    // Direct mapping preserving the original ForScie Matrix themes
+    switch (lowerTheme) {
+      case 'motive':
+        return 'Motive';
+      case 'means':
+        return 'Means';
+      case 'preparation':
+        return 'Preparation';
+      case 'infringement':
+        return 'Infringement';
+      case 'anti-forensics':
+        return 'Anti-forensics';
+      default:
+        // Log unknown theme for debugging
+        console.warn(`Unknown Matrix theme: ${theme}, defaulting to Motive`);
+        return 'Motive';
     }
-    if (lowerTheme === 'preparation' || lowerTheme === 'infringement') {
-      return 'Coercion';
-    }
-    if (lowerTheme === 'anti-forensics' || lowerTheme.includes('manipulation')) {
-      return 'Manipulation';
-    }
-    
-    // Additional keyword-based mapping
-    if (lowerTheme.includes('coercion') || lowerTheme.includes('threat') || lowerTheme.includes('force')) {
-      return 'Coercion';
-    }
-    if (lowerTheme.includes('manipulat') || lowerTheme.includes('deceive') || lowerTheme.includes('trick')) {
-      return 'Manipulation';
-    }
-    
-    return 'Motive'; // Default
   }
 
   /**

@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { pageMetadata, getAssessmentToolJsonLd } from "@/lib/seo";
 
 export const metadata = pageMetadata.assessment();
@@ -11,8 +12,10 @@ export default function AssessmentLayout({
 
   return (
     <>
-      <script
+      <Script
+        id="assessment-layout-jsonld"
         type="application/ld+json"
+        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: assessmentJsonLd }}
       />
       {children}

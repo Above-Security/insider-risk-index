@@ -41,6 +41,7 @@ export function QuestionCard({
   const [questionRationale, setQuestionRationale] = useState(rationale || "");
   const [showExplanation, setShowExplanation] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
+  const [pulseOption, setPulseOption] = useState<number | null>(null);
   
   // Refs for focus management
   const cardRef = useRef<HTMLDivElement>(null);
@@ -62,6 +63,14 @@ export function QuestionCard({
 
   const handleValueChange = (newValue: string) => {
     const numValue = parseInt(newValue, 10);
+    
+    // If clicking the same option, provide visual feedback
+    if (selectedValue === numValue) {
+      setPulseOption(numValue);
+      setTimeout(() => setPulseOption(null), 600);
+      return;
+    }
+    
     setSelectedValue(numValue);
     onAnswer(numValue, questionRationale);
     
@@ -152,13 +161,23 @@ export function QuestionCard({
         >
           <div className="space-y-3">
             {question.options.map((option) => (
-              <div key={option.value} className="flex items-start space-x-3 group">
+              <div 
+                key={option.value} 
+                className={cn(
+                  "flex items-start space-x-3 group cursor-pointer rounded-lg p-3 -mx-3 transition-all duration-200",
+                  selectedValue === option.value 
+                    ? "bg-above-rose-50 border border-above-rose-200" 
+                    : "hover:bg-slate-50 border border-transparent",
+                  pulseOption === option.value && "animate-pulse-confirm ring-2 ring-above-rose-400"
+                )}
+                onClick={() => handleValueChange(option.value.toString())}
+              >
                 <RadioGroupItem 
                   value={option.value.toString()} 
                   id={`option-${option.value}`}
-                  className="mt-1 focus:ring-above-rose-500 focus:ring-offset-2 transition-all duration-200"
+                  className="mt-1 focus:ring-above-rose-500 focus:ring-offset-2 transition-all duration-200 pointer-events-none"
                 />
-                <div className="grid gap-1.5 leading-none flex-1">
+                <div className="grid gap-1.5 leading-none flex-1 pointer-events-none">
                   <Label 
                     htmlFor={`option-${option.value}`}
                     className="text-sm font-medium cursor-pointer transition-colors duration-200 group-hover:text-above-rose-700 group-focus-within:text-above-rose-700"
@@ -174,7 +193,7 @@ export function QuestionCard({
                 <Badge 
                   variant={selectedValue === option.value ? "default" : "outline"}
                   className={cn(
-                    "text-xs px-2 py-0.5 transition-all duration-200",
+                    "text-xs px-2 py-0.5 transition-all duration-200 pointer-events-none",
                     selectedValue === option.value 
                       ? "bg-above-rose-700 text-white shadow-sm" 
                       : "hover:bg-above-rose-50 hover:border-above-rose-300 group-hover:bg-above-rose-50 group-hover:border-above-rose-300"

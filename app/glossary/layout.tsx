@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { generateMetadata, generateJsonLd } from "@/lib/seo";
 
 export const metadata = generateMetadata({
@@ -62,8 +63,10 @@ export default function GlossaryLayout({
 
   return (
     <>
-      <script
+      <Script
+        id="glossary-layout-jsonld"
         type="application/ld+json"
+        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(glossaryJsonLd) }}
       />
       {children}

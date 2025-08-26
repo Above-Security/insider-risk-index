@@ -46,9 +46,26 @@
 @keyframes pulse-subtle {
   0%, 100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.8;
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes pulse-confirm {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.03);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  75% {
+    transform: scale(1.02);
   }
 }
 
@@ -73,6 +90,10 @@
 
 .animate-pulse-subtle {
   animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.animate-pulse-confirm {
+  animation: pulse-confirm 0.6s ease-out;
 }
 
 /* Force generate essential Above brand classes only (Tailwind v4) */

@@ -73,21 +73,7 @@ export class MatrixAPI {
         // Each article represents a theme/category
         const category = this.mapThemeToCategory(article.theme);
         
-        // Add the main article as a technique if it has meaningful content
-        if (article.id && article.title) {
-          techniques.push({
-            id: article.id,
-            title: article.title,
-            description: this.stripHtmlTags(article.description || ''),
-            category: category,
-            tactics: [],
-            preventions: [],
-            detections: [],
-            contributors: ['ForScie Community'],
-            lastUpdated: article.updated || article.created || new Date().toISOString(),
-            version: '1.0'
-          });
-        }
+        // Skip adding the article itself - it's a theme/category, not a technique
         
         // Process each section as a separate technique
         if (article.sections && Array.isArray(article.sections)) {

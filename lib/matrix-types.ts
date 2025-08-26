@@ -60,8 +60,10 @@ export interface MatrixData {
     totalTechniques: number;
     categories: {
       motive: number;
-      coercion: number;
-      manipulation: number;
+      means: number;
+      preparation: number;
+      infringement: number;
+      antiForensics: number;
     };
     lastSync: string;
     apiSource?: string;

@@ -290,7 +290,7 @@ export function PlaybookGrid({ playbooks }: PlaybookGridProps) {
             }
           </p>
           {filteredPlaybooks.length !== playbooks.length && (
-            <Button variant="outline" onClick={() => setFilters({
+            <AboveButton variant="outline" onClick={() => setFilters({
               search: '',
               pillar: [],
               difficulty: [],

@@ -31,7 +31,8 @@ module.exports = {
             600: "#FF9FB5",
             700: "#FF89A1",
             800: "#FF738C",
-            900: "#FF5D78"
+            900: "#FF5D78",
+            950: "#DC2626" // Dark button color - proper contrast for white text
           },
           // Peach/Coral - Warmth & Trust
           peach: {

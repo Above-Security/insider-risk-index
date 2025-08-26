@@ -93,14 +93,14 @@ const aboveButtonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-above-rose-700 text-white shadow hover:bg-above-rose-900 focus-visible:ring-above-rose-800",
+        default: "bg-[#DC2626] text-white shadow hover:bg-above-rose-900 focus-visible:ring-above-rose-800",
         destructive: "bg-above-rose-900 text-white shadow-sm hover:bg-above-rose-800 focus-visible:ring-above-rose-700",
         outline: "border border-above-rose-300 bg-transparent text-above-rose-800 shadow-sm hover:bg-above-rose-50 hover:text-above-rose-900 focus-visible:ring-above-rose-700",
         secondary: "bg-above-blue-100 text-above-blue-900 shadow-sm hover:bg-above-blue-200 focus-visible:ring-above-blue-700",
         ghost: "text-above-rose-700 hover:bg-above-rose-50 hover:text-above-rose-900 focus-visible:ring-above-rose-700",
         link: "text-above-rose-700 underline-offset-4 hover:underline hover:text-above-rose-900 focus-visible:ring-above-rose-700",
-        success: "bg-above-blue-700 text-white shadow hover:bg-above-blue-800 focus-visible:ring-above-blue-600",
-        warning: "bg-above-peach-700 text-white shadow hover:bg-above-peach-800 focus-visible:ring-above-peach-600",
+        success: "bg-slate-700 text-white shadow hover:bg-slate-800 focus-visible:ring-slate-600",
+        warning: "bg-orange-600 text-white shadow hover:bg-orange-700 focus-visible:ring-orange-500",
       },
       size: {
         default: "h-9 px-4 py-2",

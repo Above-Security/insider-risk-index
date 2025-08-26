@@ -113,7 +113,7 @@ export default function GlossaryPage() {
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'technical':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+        return 'bg-blue-100 text-above-rose-800 dark:bg-blue-900 dark:text-above-rose-200';
       case 'business':
         return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
       case 'regulatory':
@@ -154,7 +154,7 @@ export default function GlossaryPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <BookOpen className="h-8 w-8 text-blue-600 mr-3" />
+              <BookOpen className="h-8 w-8 text-above-rose-600 mr-3" />
               <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
                 Insider Risk Glossary
               </h1>
@@ -206,7 +206,7 @@ export default function GlossaryPage() {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
-            <BookOpen className="h-8 w-8 text-blue-600 mr-3" />
+            <BookOpen className="h-8 w-8 text-above-rose-600 mr-3" />
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
               Insider Risk Glossary
             </h1>
@@ -230,7 +230,7 @@ export default function GlossaryPage() {
             <input
               type="text"
               placeholder="Search terms, definitions, or topics..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-above-rose-500 focus:border-transparent"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -243,7 +243,7 @@ export default function GlossaryPage() {
                 Category
               </label>
               <select
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-above-rose-500"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
@@ -260,7 +260,7 @@ export default function GlossaryPage() {
                 Difficulty
               </label>
               <select
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-above-rose-500"
                 value={selectedDifficulty}
                 onChange={(e) => setSelectedDifficulty(e.target.value)}
               >
@@ -277,7 +277,7 @@ export default function GlossaryPage() {
                 Pillar
               </label>
               <select
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-above-rose-500"
                 value={selectedPillar}
                 onChange={(e) => setSelectedPillar(e.target.value)}
               >
@@ -293,7 +293,7 @@ export default function GlossaryPage() {
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-above-rose-600 focus:ring-above-rose-500"
                   checked={showFeaturedOnly}
                   onChange={(e) => setShowFeaturedOnly(e.target.checked)}
                 />
@@ -327,7 +327,7 @@ export default function GlossaryPage() {
                   <div className="flex items-center">
                     <Link
                       href={`/glossary/${term.slug}`}
-                      className="text-xl font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      className="text-xl font-semibold text-gray-900 dark:text-white hover:text-above-rose-600 dark:hover:text-above-rose-400 transition-colors"
                     >
                       {term.term}
                     </Link>

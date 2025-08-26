@@ -67,7 +67,7 @@ export default function BenchmarksPage() {
                     {OVERALL_BENCHMARKS.totalAssessments.toLocaleString()}
                   </p>
                 </div>
-                <BarChart3 className="h-8 w-8 text-blue-600" />
+                <BarChart3 className="h-8 w-8 text-above-rose-600" />
               </div>
             </CardContent>
           </Card>
@@ -250,7 +250,7 @@ export default function BenchmarksPage() {
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0" />
                       <p className="text-sm">
                         Larger organizations (5,000+ employees) score 26 points higher on average than smaller ones (1-50 employees)
                       </p>
@@ -303,16 +303,16 @@ export default function BenchmarksPage() {
         </Tabs>
 
         {/* CTA Section */}
-        <div className="mt-16 bg-blue-600 rounded-2xl p-8 text-center">
+        <div className="mt-16 bg-above-rose-600 rounded-2xl p-8 text-center">
           <h3 className="text-2xl font-bold text-white mb-4">
             See How You Compare
           </h3>
-          <p className="text-blue-100 mb-6">
+          <p className="text-above-rose-100 mb-6">
             Take our assessment to benchmark your organization against these industry standards
           </p>
           <a
             href="/assessment"
-            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-above-rose-600 bg-white hover:bg-above-rose-50 transition-colors"
           >
             Start Your Assessment
           </a>

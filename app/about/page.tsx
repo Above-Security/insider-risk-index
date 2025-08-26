@@ -73,7 +73,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-above-white">
       {/* Hero Section */}
       <div className="bg-gradient-to-b from-blue-50 to-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -107,8 +107,8 @@ export default function AboutPage() {
 
           <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-                <Shield className="h-6 w-6 text-blue-600" />
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-above-rose-100">
+                <Shield className="h-6 w-6 text-above-rose-600" />
               </div>
               <h3 className="mt-4 text-lg font-semibold text-gray-900">Security First</h3>
               <p className="mt-2 text-gray-600">
@@ -171,11 +171,11 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
               <Card className="text-center border-t-4 border-blue-500">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
-                    <Shield className="h-6 w-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-above-rose-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                    <Shield className="h-6 w-6 text-above-rose-600" />
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">Visibility</h4>
-                  <div className="text-2xl font-bold text-blue-600 mb-1">25%</div>
+                  <div className="text-2xl font-bold text-above-rose-600 mb-1">25%</div>
                   <p className="text-sm text-gray-600">Monitoring & Detection Capabilities</p>
                 </CardContent>
               </Card>
@@ -231,8 +231,8 @@ export default function AboutPage() {
               <Card key={item.title} className="border-t-4 border-blue-500">
                 <CardHeader>
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-50 rounded-lg">
-                      <item.icon className="h-6 w-6 text-blue-600" />
+                    <div className="p-2 bg-above-rose-50 rounded-lg">
+                      <item.icon className="h-6 w-6 text-above-rose-600" />
                     </div>
                     <CardTitle>{item.title}</CardTitle>
                   </div>
@@ -293,8 +293,8 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Card className="text-center">
               <CardHeader>
-                <div className="w-16 h-16 bg-blue-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <BookOpen className="h-8 w-8 text-blue-600" />
+                <div className="w-16 h-16 bg-above-rose-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                  <BookOpen className="h-8 w-8 text-above-rose-600" />
                 </div>
                 <CardTitle>Ponemon Institute 2025</CardTitle>
               </CardHeader>
@@ -350,7 +350,7 @@ export default function AboutPage() {
             <p className="text-gray-600 mb-6">
               All research is properly attributed and cited in our methodology documentation
             </p>
-            <Link href="/matrix" className="text-blue-600 hover:text-blue-800 font-medium">
+            <Link href="/matrix" className="text-above-rose-600 hover:text-above-rose-800 font-medium">
               Explore the Insider Threat Matrix →
             </Link>
           </div>
@@ -373,13 +373,13 @@ export default function AboutPage() {
             {researchFoundation.map((item) => (
               <Card key={item.name} className="text-center">
                 <CardContent className="p-6">
-                  <div className="w-20 h-20 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <BookOpen className="h-10 w-10 text-blue-600" />
+                  <div className="w-20 h-20 bg-above-rose-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <BookOpen className="h-10 w-10 text-above-rose-600" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {item.name}
                   </h3>
-                  <p className="text-blue-600 font-medium mb-3">{item.role}</p>
+                  <p className="text-above-rose-600 font-medium mb-3">{item.role}</p>
                   <p className="text-gray-600 text-sm">{item.bio}</p>
                 </CardContent>
               </Card>
@@ -402,17 +402,17 @@ export default function AboutPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-blue-600 py-16 sm:py-24">
+      <div className="bg-above-rose-600 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Ready to Get Started?
             </h2>
-            <p className="mt-4 text-lg text-blue-100">
+            <p className="mt-4 text-lg text-above-rose-100">
               Take your first step toward better insider risk management
             </p>
             <div className="mt-8">
-              <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
+              <Button asChild size="lg" className="bg-above-white text-above-rose-600 hover:bg-above-rose-50">
                 <Link href="/assessment">
                   Start Your Assessment
                 </Link>

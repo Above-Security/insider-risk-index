@@ -32,7 +32,7 @@ module.exports = {
             700: "#FF89A1",
             800: "#FF738C",
             900: "#FF5D78",
-            950: "#DC2626" // Dark button color - proper contrast for white text
+            950: "#D13366" // Darker Above rose - maintains brand pink/rose hue
           },
           // Peach/Coral - Warmth & Trust
           peach: {

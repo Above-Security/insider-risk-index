@@ -48,7 +48,7 @@ export function MatrixVisualization() {
 
       const response = await fetch(`/api/matrix/techniques?${params}`);
       const data = await response.json();
-      setTechniques(data.techniques || []);
+      setTechniques(data.elements || []);
     } catch (error) {
       console.error('Failed to fetch techniques:', error);
       setTechniques([]);

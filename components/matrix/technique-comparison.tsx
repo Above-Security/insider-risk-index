@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { MatrixElement } from '@/lib/matrix-types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -54,8 +55,8 @@ export function TechniqueComparison() {
       const response = await fetch('/api/matrix/techniques');
       const data = await response.json();
       
-      if (data.techniques) {
-        const processedTechniques = data.techniques.map((tech: any) => ({
+      if (data.elements) {
+        const processedTechniques = data.elements.map((tech: MatrixElement) => ({
           ...tech,
           riskScore: calculateRiskScore(tech),
           controlGaps: identifyControlGaps(tech),

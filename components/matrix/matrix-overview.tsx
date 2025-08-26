@@ -18,7 +18,7 @@ interface MatrixStats {
   success: boolean;
   lastSync: string;
   version: string;
-  techniquesCount: number;
+  elementsCount: number;
   preventionsCount: number;
   detectionsCount: number;
   error?: string;
@@ -40,7 +40,7 @@ export function MatrixOverview() {
         success: false,
         lastSync: new Date().toISOString(),
         version: 'unknown',
-        techniquesCount: 0,
+        elementsCount: 0,
         preventionsCount: 0,
         detectionsCount: 0,
         error: 'Failed to load data'
@@ -179,7 +179,7 @@ export function MatrixOverview() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-slate-600 mb-1">Techniques</p>
-                <p className="text-3xl font-bold text-slate-900">{stats.techniquesCount}</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.elementsCount}</p>
                 <p className="text-sm text-slate-500">Threat vectors</p>
               </div>
               <div className="bg-above-rose-100 p-3 rounded-lg">

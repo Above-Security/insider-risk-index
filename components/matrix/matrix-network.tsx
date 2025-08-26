@@ -68,8 +68,8 @@ export function MatrixNetwork() {
         const response = await fetch('/api/matrix/techniques');
         const data = await response.json();
         
-        if (data.techniques) {
-          const { networkNodes, networkLinks } = buildNetworkData(data.techniques);
+        if (data.elements) {
+          const { networkNodes, networkLinks } = buildNetworkData(data.elements);
           setNodes(networkNodes);
           setLinks(networkLinks);
           
@@ -169,9 +169,14 @@ export function MatrixNetwork() {
       }
     });
 
-    return Object.entries(pillarCounts).reduce((a, b) => 
+    const entries = Object.entries(pillarCounts);
+    if (entries.length === 0) {
+      return 'visibility'; // Default pillar when no data available
+    }
+    
+    return entries.reduce((a, b) => 
       pillarCounts[a[0]] > pillarCounts[b[0]] ? a : b
-    )?.[0] || 'visibility';
+    )[0];
   };
 
   const getPillarColor = (technique: any): string => {

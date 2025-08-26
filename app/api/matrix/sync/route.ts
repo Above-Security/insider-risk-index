@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
         error: 'Internal server error',
         lastSync: new Date().toISOString(),
         version: 'unknown',
-        techniquesCount: 0,
+        elementsCount: 0,
         preventionsCount: 0,
         detectionsCount: 0
       },

@@ -163,11 +163,11 @@ export default async function ResearchArticlePage({ params }: Props) {
 
           {/* Research Methodology Note */}
           {'dataSources' in frontmatter && (
-            <Card className="mb-8 bg-blue-50 border-blue-200">
+            <Card className="mb-8 bg-above-rose-50 border-blue-200">
               <CardHeader>
-                <CardTitle className="text-lg text-blue-900">Research Methodology</CardTitle>
+                <CardTitle className="text-lg text-above-rose-900">Research Methodology</CardTitle>
               </CardHeader>
-              <CardContent className="text-blue-800">
+              <CardContent className="text-above-rose-800">
                 <p className="mb-3">
                   This research is based on comprehensive data analysis from multiple authoritative sources:
                 </p>
@@ -194,7 +194,7 @@ export default async function ResearchArticlePage({ params }: Props) {
                   <Card key={article.slug} className="group hover:shadow-lg transition-shadow">
                     <CardHeader>
                       <Badge variant="secondary" className="w-fit mb-2">Research</Badge>
-                      <CardTitle className="text-lg group-hover:text-blue-600 transition-colors line-clamp-2">
+                      <CardTitle className="text-lg group-hover:text-above-rose-600 transition-colors line-clamp-2">
                         {article.frontmatter.title}
                       </CardTitle>
                     </CardHeader>
@@ -219,17 +219,17 @@ export default async function ResearchArticlePage({ params }: Props) {
           )}
 
           {/* Call to Action */}
-          <Card className="mt-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+          <Card className="mt-16 bg-gradient-to-r from-above-rose-700 to-above-lavender-700 text-white">
             <CardContent className="p-8 text-center">
               <div className="flex justify-center mb-4">
                 <TrendingUp className="h-12 w-12" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Assess Your Organization's Risk</h3>
-              <p className="text-blue-100 text-lg mb-6">
+              <p className="text-above-rose-100 text-lg mb-6">
                 Get a comprehensive evaluation of your insider threat posture and compare against industry benchmarks.
               </p>
               <Link href="/assessment">
-                <Button size="lg" variant="secondary" className="bg-white text-blue-600 hover:bg-blue-50">
+                <Button size="lg" variant="secondary" className="bg-white text-above-rose-600 hover:bg-above-rose-50">
                   Start Free Assessment
                 </Button>
               </Link>

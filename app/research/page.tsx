@@ -19,33 +19,33 @@ export default function ResearchPage() {
   const researchArticles = getAllContent('research');
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-above-gradient-light">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white">
+      <div className="bg-gradient-to-r from-above-rose-900 via-above-rose-800 to-above-lavender-800 text-above-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <div className="rounded-full bg-white/10 p-3">
+              <div className="rounded-full bg-above-white/10 p-3">
                 <TrendingUp className="h-8 w-8" />
               </div>
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               Research & Insights
             </h1>
-            <p className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-blue-100">
+            <p className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-above-rose-100">
               Industry-leading research on insider threat trends, costs, and mitigation strategies. 
               Our analysis is based on comprehensive data from thousands of organizations worldwide.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm">
-              <div className="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2">
+              <div className="flex items-center gap-2 rounded-lg bg-above-white/10 px-4 py-2">
                 <BarChart3 className="h-4 w-4" />
                 1,400+ Organizations Analyzed
               </div>
-              <div className="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2">
+              <div className="flex items-center gap-2 rounded-lg bg-above-white/10 px-4 py-2">
                 <FileText className="h-4 w-4" />
                 Ponemon Institute Data
               </div>
-              <div className="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2">
+              <div className="flex items-center gap-2 rounded-lg bg-above-white/10 px-4 py-2">
                 <TrendingUp className="h-4 w-4" />
                 Verizon DBIR Analysis
               </div>
@@ -84,7 +84,7 @@ export default function ResearchPage() {
             
             <Card className="text-center border-l-4 border-l-blue-500">
               <CardHeader className="pb-3">
-                <CardTitle className="text-3xl font-bold text-blue-600">81</CardTitle>
+                <CardTitle className="text-3xl font-bold text-above-rose-700">81</CardTitle>
                 <CardDescription>Days average containment time</CardDescription>
               </CardHeader>
               <CardContent>
@@ -130,7 +130,7 @@ export default function ResearchPage() {
                           <Badge variant="secondary">Research</Badge>
                           {index === 0 && <Badge variant="default">Latest</Badge>}
                         </div>
-                        <CardTitle className="text-xl group-hover:text-blue-600 transition-colors line-clamp-2">
+                        <CardTitle className="text-xl group-hover:text-above-rose-700 transition-colors line-clamp-2">
                           {article.title}
                         </CardTitle>
                       </div>
@@ -189,7 +189,7 @@ export default function ResearchPage() {
                     )}
                     
                     <Link href={`/research/${article.slug}`}>
-                      <Button className="w-full group-hover:bg-blue-600 transition-colors">
+                      <Button className="w-full group-hover:bg-above-rose-600 transition-colors">
                         Read Full Report
                       </Button>
                     </Link>
@@ -201,13 +201,13 @@ export default function ResearchPage() {
         </div>
 
         {/* Call to Action */}
-        <div className="mt-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white text-center">
+        <div className="mt-16 bg-gradient-to-r from-above-rose-700 to-above-lavender-700 rounded-2xl p-8 text-white text-center">
           <h3 className="text-2xl font-bold mb-4">Get Your Organization's Risk Assessment</h3>
           <p className="text-xl text-blue-100 mb-6">
             See how your insider risk posture compares to industry benchmarks with our comprehensive assessment.
           </p>
           <Link href="/assessment">
-            <Button size="lg" variant="secondary" className="bg-white text-blue-600 hover:bg-blue-50">
+            <Button size="lg" variant="secondary" className="bg-white text-above-rose-700 hover:bg-above-rose-50">
               Start Free Assessment
             </Button>
           </Link>

@@ -45,17 +45,17 @@ export default function PlaybooksPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(playbooksJsonLd) }}
       />
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
+      <div className="min-h-screen bg-above-gradient-subtle py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
-            <BookOpen className="h-8 w-8 text-blue-600 mr-3" />
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+            <BookOpen className="h-8 w-8 text-above-rose-700 mr-3" />
+            <h1 className="text-4xl font-bold text-slate-900">
               Implementation Playbooks
             </h1>
           </div>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto">
             Comprehensive, step-by-step guides to building effective insider risk management 
             programs. Each playbook provides practical implementation strategies backed by 
             industry best practices and real-world experience.

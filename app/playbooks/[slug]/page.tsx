@@ -39,17 +39,17 @@ const pillarIcons = {
 };
 
 const difficultyColors = {
-  Beginner: "bg-green-100 text-green-800 border-green-200",
-  Intermediate: "bg-yellow-100 text-yellow-800 border-yellow-200", 
-  Advanced: "bg-red-100 text-red-800 border-red-200",
+  Beginner: "bg-above-blue-100 text-above-blue-800 border-above-blue-200",
+  Intermediate: "bg-above-peach-100 text-above-peach-800 border-above-peach-200", 
+  Advanced: "bg-above-rose-100 text-above-rose-800 border-above-rose-200",
 };
 
 const maturityLevels = {
-  1: { name: "Ad Hoc", color: "bg-gray-100 text-gray-800 border-gray-200", description: "Basic, reactive approach" },
-  2: { name: "Emerging", color: "bg-blue-100 text-blue-800 border-blue-200", description: "Developing capabilities" },
-  3: { name: "Managed", color: "bg-green-100 text-green-800 border-green-200", description: "Structured processes" },
-  4: { name: "Proactive", color: "bg-purple-100 text-purple-800 border-purple-200", description: "Optimized approach" },
-  5: { name: "Optimized", color: "bg-yellow-100 text-yellow-800 border-yellow-200", description: "Continuous improvement" },
+  1: { name: "Ad Hoc", color: "bg-above-blue-100 text-above-blue-800 border-above-blue-200", description: "Basic, reactive approach" },
+  2: { name: "Emerging", color: "bg-above-peach-100 text-above-peach-800 border-above-peach-200", description: "Developing capabilities" },
+  3: { name: "Managed", color: "bg-above-lavender-100 text-above-lavender-800 border-above-lavender-200", description: "Structured processes" },
+  4: { name: "Proactive", color: "bg-above-rose-100 text-above-rose-800 border-above-rose-200", description: "Optimized approach" },
+  5: { name: "Optimized", color: "bg-above-blue-100 text-above-blue-800 border-above-blue-200", description: "Continuous improvement" },
 };
 
 interface Props {
@@ -114,14 +114,14 @@ export default async function PlaybookPage({ params }: Props) {
   ]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-above-white">
       {/* Header */}
-      <div className="bg-gray-50 border-b">
+      <div className="bg-above-gradient-light border-b border-above-rose-100">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center mb-4">
             <Link 
               href="/playbooks"
-              className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700"
+              className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-slate-700"
             >
               <ArrowLeft className="h-4 w-4 mr-1" />
               Back to Playbooks
@@ -131,7 +131,7 @@ export default async function PlaybookPage({ params }: Props) {
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center mb-4">
-                <IconComponent className="h-8 w-8 text-blue-600 mr-3" />
+                <IconComponent className="h-8 w-8 text-above-rose-700 mr-3" />
                 <div className="flex flex-wrap gap-2">
                   <Badge 
                     variant="outline" 
@@ -148,15 +148,15 @@ export default async function PlaybookPage({ params }: Props) {
                 </div>
               </div>
               
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-4">
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-4">
                 {frontmatter.title}
               </h1>
               
-              <p className="text-xl text-gray-600 mb-6">
+              <p className="text-xl text-slate-600 mb-6">
                 {frontmatter.description}
               </p>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-slate-600">
                 <div className="flex items-center">
                   <Clock className="h-4 w-4 mr-2" />
                   {frontmatter.timeToImplement} to implement

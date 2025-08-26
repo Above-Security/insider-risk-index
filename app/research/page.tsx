@@ -58,27 +58,27 @@ export default function ResearchPage() {
         {/* Key Statistics */}
         <div className="mb-16">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">2024 Key Findings</h2>
-            <p className="text-lg text-gray-600 mt-2">Critical insights from our latest research</p>
+            <h2 className="text-3xl font-bold text-slate-900">2024 Key Findings</h2>
+            <p className="text-lg text-slate-600 mt-2">Critical insights from our latest research</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="text-center border-l-4 border-l-red-500">
               <CardHeader className="pb-3">
-                <CardTitle className="text-3xl font-bold text-red-600">$17.4M</CardTitle>
+                <CardTitle className="text-3xl font-bold text-above-rose-800">$17.4M</CardTitle>
                 <CardDescription>Average annual cost per organization</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">7.4% increase from 2023</p>
+                <p className="text-sm text-slate-600">7.4% increase from 2023</p>
               </CardContent>
             </Card>
             
             <Card className="text-center border-l-4 border-l-orange-500">
               <CardHeader className="pb-3">
-                <CardTitle className="text-3xl font-bold text-orange-600">68%</CardTitle>
+                <CardTitle className="text-3xl font-bold text-above-peach-800">68%</CardTitle>
                 <CardDescription>Of breaches involve human element</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">Non-malicious actors dominant</p>
+                <p className="text-sm text-slate-600">Non-malicious actors dominant</p>
               </CardContent>
             </Card>
             
@@ -88,17 +88,17 @@ export default function ResearchPage() {
                 <CardDescription>Days average containment time</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">$676,517 cost per incident</p>
+                <p className="text-sm text-slate-600">$676,517 cost per incident</p>
               </CardContent>
             </Card>
             
             <Card className="text-center border-l-4 border-l-green-500">
               <CardHeader className="pb-3">
-                <CardTitle className="text-3xl font-bold text-green-600">13.5</CardTitle>
+                <CardTitle className="text-3xl font-bold text-above-blue-800">13.5</CardTitle>
                 <CardDescription>Average incidents per year</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">Per organization baseline</p>
+                <p className="text-sm text-slate-600">Per organization baseline</p>
               </CardContent>
             </Card>
           </div>
@@ -107,16 +107,16 @@ export default function ResearchPage() {
         {/* Research Articles */}
         <div className="space-y-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900">Latest Research</h2>
-            <p className="text-lg text-gray-600 mt-2">Comprehensive analysis and industry insights</p>
+            <h2 className="text-3xl font-bold text-slate-900">Latest Research</h2>
+            <p className="text-lg text-slate-600 mt-2">Comprehensive analysis and industry insights</p>
           </div>
 
           {researchArticles.length === 0 ? (
             <Card className="text-center py-12">
               <CardContent>
-                <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">No Research Articles Found</h3>
-                <p className="text-gray-600">Research content is being prepared. Check back soon for the latest insights.</p>
+                <FileText className="h-16 w-16 text-slate-400 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">No Research Articles Found</h3>
+                <p className="text-slate-600">Research content is being prepared. Check back soon for the latest insights.</p>
               </CardContent>
             </Card>
           ) : (
@@ -141,7 +141,7 @@ export default function ResearchPage() {
                   </CardHeader>
                   
                   <CardContent className="pt-0">
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div className="flex items-center justify-between text-sm text-slate-500 mb-4">
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
@@ -165,7 +165,7 @@ export default function ResearchPage() {
                     
                     {'dataSources' in article && article.dataSources && (
                       <div className="mb-4">
-                        <p className="text-sm font-medium text-gray-700 mb-2">Data Sources:</p>
+                        <p className="text-sm font-medium text-slate-700 mb-2">Data Sources:</p>
                         <div className="flex flex-wrap gap-1">
                           {article.dataSources.map((source, i) => (
                             <Badge key={i} variant="outline" className="text-xs">
@@ -203,7 +203,7 @@ export default function ResearchPage() {
         {/* Call to Action */}
         <div className="mt-16 bg-gradient-to-r from-above-rose-700 to-above-lavender-700 rounded-2xl p-8 text-white text-center">
           <h3 className="text-2xl font-bold mb-4">Get Your Organization's Risk Assessment</h3>
-          <p className="text-xl text-blue-100 mb-6">
+          <p className="text-xl text-above-blue-100 mb-6">
             See how your insider risk posture compares to industry benchmarks with our comprehensive assessment.
           </p>
           <Link href="/assessment">

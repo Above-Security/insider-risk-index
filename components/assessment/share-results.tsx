@@ -106,18 +106,18 @@ export function ShareResults({
         
         <div className="space-y-6">
           {/* Results Summary */}
-          <div className="p-4 bg-blue-50 rounded-lg">
-            <h4 className="font-semibold text-blue-900 mb-2">{organizationName}</h4>
+          <div className="p-4 bg-above-blue-50 rounded-lg">
+            <h4 className="font-semibold text-above-blue-900 mb-2">{organizationName}</h4>
             <div className="flex items-center gap-4">
               <div>
-                <div className="text-2xl font-bold text-blue-600">{totalScore}</div>
-                <div className="text-sm text-blue-800">Overall Score</div>
+                <div className="text-2xl font-bold text-above-blue-800">{totalScore}</div>
+                <div className="text-sm text-above-blue-800">Overall Score</div>
               </div>
               <div>
-                <Badge className="bg-blue-100 text-blue-800 border-blue-200">
+                <Badge className="bg-above-blue-100 text-above-blue-800 border-above-blue-200">
                   Level {level}
                 </Badge>
-                <div className="text-sm text-blue-600 mt-1">Maturity Level</div>
+                <div className="text-sm text-above-blue-800 mt-1">Maturity Level</div>
               </div>
             </div>
           </div>
@@ -141,7 +141,7 @@ export function ShareResults({
                   onClick={() => copyToClipboard(resultsUrl)}
                 >
                   {copied ? (
-                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <CheckCircle className="h-4 w-4 text-above-blue-800" />
                   ) : (
                     <Copy className="h-4 w-4" />
                   )}
@@ -184,7 +184,7 @@ export function ShareResults({
               
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="email-to" className="text-xs text-gray-600">
+                  <Label htmlFor="email-to" className="text-xs text-slate-600">
                     To:
                   </Label>
                   <Input
@@ -197,7 +197,7 @@ export function ShareResults({
                 </div>
                 
                 <div>
-                  <Label htmlFor="email-subject" className="text-xs text-gray-600">
+                  <Label htmlFor="email-subject" className="text-xs text-slate-600">
                     Subject:
                   </Label>
                   <Input
@@ -209,7 +209,7 @@ export function ShareResults({
                 </div>
                 
                 <div>
-                  <Label htmlFor="email-message" className="text-xs text-gray-600">
+                  <Label htmlFor="email-message" className="text-xs text-slate-600">
                     Message:
                   </Label>
                   <Textarea

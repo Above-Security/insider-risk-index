@@ -151,20 +151,20 @@ function FilterDropdown({
             className="fixed inset-0 z-10" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full left-0 right-0 z-20 mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto">
+          <div className="absolute top-full left-0 right-0 z-20 mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-lg max-h-60 overflow-auto">
             {options.map((option) => (
               <button
                 key={option.value}
                 onClick={() => toggleOption(option.value)}
-                className="w-full px-3 py-2 text-left hover:bg-gray-50 dark:hover:bg-slate-700 flex items-center justify-between text-sm"
+                className="w-full px-3 py-2 text-left hover:bg-above-blue-50 dark:hover:bg-slate-700 flex items-center justify-between text-sm"
               >
                 <span>{option.label}</span>
                 <div className="flex items-center gap-2">
                   {showCount && option.count && (
-                    <span className="text-xs text-gray-500">({option.count})</span>
+                    <span className="text-xs text-slate-500">({option.count})</span>
                   )}
                   {selectedValues.includes(option.value) && (
-                    <div className="w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 bg-above-blue-800 rounded-full flex items-center justify-center">
                       <div className="w-2 h-2 bg-white rounded-full" />
                     </div>
                   )}
@@ -279,11 +279,11 @@ export function AdvancedSearch({ terms, onFiltersChange }: AdvancedSearchProps) 
     (filters.showFeaturedOnly ? 1 : 0);
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-8">
+    <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
       {/* Search Input */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
           <Input
             type="text"
             placeholder="Search terms, definitions, concepts, or tags..."
@@ -319,7 +319,7 @@ export function AdvancedSearch({ terms, onFiltersChange }: AdvancedSearchProps) 
 
       {/* Advanced Filters */}
       {showAdvanced && (
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+        <div className="border-t border-slate-200 dark:border-slate-700 pt-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             <FilterDropdown
               label="Category"
@@ -351,23 +351,23 @@ export function AdvancedSearch({ terms, onFiltersChange }: AdvancedSearchProps) 
                   type="checkbox"
                   checked={filters.showFeaturedOnly}
                   onChange={(e) => updateFilter('showFeaturedOnly', e.target.checked)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-2"
+                  className="rounded border-slate-300 text-above-blue-800 focus:ring-blue-500 mr-2"
                 />
-                <Sparkles className="h-4 w-4 mr-1 text-yellow-500" />
+                <Sparkles className="h-4 w-4 mr-1 text-above-peach-500" />
                 <span className="text-sm font-medium">Featured Only</span>
               </label>
             </div>
           </div>
 
           {/* Search Results Info */}
-          <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mb-4">
+          <div className="flex items-center justify-between text-sm text-slate-600 dark:text-slate-400 mb-4">
             <span>
               {filteredTerms.length} of {terms.length} terms
               {filters.query && ` matching "${filters.query}"`}
             </span>
             <div className="flex items-center gap-4">
               {filters.query && (
-                <span className="text-blue-600 dark:text-blue-400">
+                <span className="text-above-blue-800 dark:text-above-blue-400">
                   Relevance-ranked results
                 </span>
               )}
@@ -377,7 +377,7 @@ export function AdvancedSearch({ terms, onFiltersChange }: AdvancedSearchProps) 
           {/* Active Filters */}
           {hasActiveFilters && (
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-sm font-medium text-slate-700 dark:text-gray-300">
                 Active filters:
               </span>
               

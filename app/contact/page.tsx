@@ -95,14 +95,14 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-above-blue-50 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
             Contact Us
           </h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-slate-600">
             We&apos;d love to hear from you. Get in touch with our team.
           </p>
         </div>
@@ -208,7 +208,7 @@ export default function ContactPage() {
           <div className="space-y-8">
             {/* Contact Details */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
                 Get in Touch
               </h2>
               
@@ -216,14 +216,14 @@ export default function ContactPage() {
                 {contactInfo.map((item) => (
                   <div key={item.title} className="flex items-start gap-4">
                     <div className="flex-shrink-0">
-                      <div className="p-2 bg-blue-100 rounded-lg">
-                        <item.icon className="h-5 w-5 text-blue-600" />
+                      <div className="p-2 bg-above-blue-100 rounded-lg">
+                        <item.icon className="h-5 w-5 text-above-blue-800" />
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                      <p className="text-blue-600 font-medium">{item.details}</p>
-                      <p className="text-sm text-gray-600">{item.description}</p>
+                      <h3 className="font-semibold text-slate-900">{item.title}</h3>
+                      <p className="text-above-blue-800 font-medium">{item.details}</p>
+                      <p className="text-sm text-slate-600">{item.description}</p>
                     </div>
                   </div>
                 ))}
@@ -239,8 +239,8 @@ export default function ContactPage() {
                 <div className="space-y-3">
                   {useCases.map((useCase, index) => (
                     <div key={index} className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />
-                      <p className="text-gray-700">{useCase}</p>
+                      <div className="w-2 h-2 bg-above-blue-500 rounded-full flex-shrink-0" />
+                      <p className="text-slate-700">{useCase}</p>
                     </div>
                   ))}
                 </div>
@@ -248,28 +248,28 @@ export default function ContactPage() {
             </Card>
 
             {/* FAQ Link */}
-            <Card className="bg-blue-50 border-blue-200">
+            <Card className="bg-above-blue-50 border-above-blue-200">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <MessageSquare className="h-5 w-5 text-blue-600" />
-                  <h3 className="font-semibold text-blue-900">Quick Questions?</h3>
+                  <MessageSquare className="h-5 w-5 text-above-blue-800" />
+                  <h3 className="font-semibold text-above-blue-900">Quick Questions?</h3>
                 </div>
-                <p className="text-blue-800 text-sm mb-4">
+                <p className="text-above-blue-800 text-sm mb-4">
                   Check our frequently asked questions for instant answers to common queries.
                 </p>
-                <Button variant="outline" size="sm" className="border-blue-300 text-blue-700 hover:bg-blue-100">
+                <Button variant="outline" size="sm" className="border-above-blue-300 text-above-blue-800 hover:bg-above-blue-100">
                   View FAQ
                 </Button>
               </CardContent>
             </Card>
 
             {/* Response Time */}
-            <div className="bg-gray-100 rounded-lg p-6">
+            <div className="bg-above-blue-100 rounded-lg p-6">
               <div className="flex items-center gap-3 mb-2">
-                <Clock className="h-5 w-5 text-gray-600" />
-                <h3 className="font-semibold text-gray-900">Response Time</h3>
+                <Clock className="h-5 w-5 text-slate-600" />
+                <h3 className="font-semibold text-slate-900">Response Time</h3>
               </div>
-              <p className="text-gray-700 text-sm">
+              <p className="text-slate-700 text-sm">
                 We typically respond to all inquiries within 24-48 hours during business hours 
                 (Monday-Friday, 9 AM - 6 PM EST).
               </p>

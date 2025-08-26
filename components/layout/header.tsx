@@ -77,7 +77,7 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="lg:hidden" role="dialog" aria-modal="true">
           <div 
-            className="fixed inset-0 z-50 bg-gray-600/75 backdrop-blur-sm" 
+            className="fixed inset-0 z-50 bg-above-blue-800/75 backdrop-blur-sm" 
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />

@@ -8,8 +8,8 @@ export default function NotFound() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gray-50 via-slate-50 to-zinc-50">
       <Card className="max-w-2xl w-full shadow-xl">
         <CardHeader className="text-center space-y-2">
-          <div className="mx-auto p-4 bg-gray-100 rounded-full w-fit">
-            <FileQuestion className="h-12 w-12 text-gray-600" />
+          <div className="mx-auto p-4 bg-above-blue-100 rounded-full w-fit">
+            <FileQuestion className="h-12 w-12 text-slate-600" />
           </div>
           <CardTitle className="text-4xl font-bold">404</CardTitle>
           <CardDescription className="text-lg">

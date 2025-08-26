@@ -181,33 +181,33 @@ export function getColorFromScore(score: number): {
 } {
   if (score >= 81) {
     return {
-      bg: "bg-emerald-50",
+      bg: "bg-above-blue-50",
       text: "text-emerald-700",
       border: "border-emerald-200",
     };
   } else if (score >= 61) {
     return {
-      bg: "bg-green-50",
-      text: "text-green-700", 
-      border: "border-green-200",
+      bg: "bg-above-blue-50",
+      text: "text-above-blue-800", 
+      border: "border-above-blue-200",
     };
   } else if (score >= 41) {
     return {
-      bg: "bg-amber-50",
-      text: "text-amber-700",
-      border: "border-amber-200",
+      bg: "bg-above-peach-50",
+      text: "text-above-peach-800",
+      border: "border-above-peach-200",
     };
   } else if (score >= 21) {
     return {
-      bg: "bg-orange-50",
-      text: "text-orange-700",
-      border: "border-orange-200",
+      bg: "bg-above-peach-50",
+      text: "text-above-peach-800",
+      border: "border-above-peach-200",
     };
   } else {
     return {
-      bg: "bg-red-50",
-      text: "text-red-700",
-      border: "border-red-200",
+      bg: "bg-above-rose-50",
+      text: "text-above-rose-800",
+      border: "border-above-rose-200",
     };
   }
 }

@@ -205,32 +205,32 @@ export default async function PlaybookPage({ params }: Props) {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <div className="text-sm font-medium text-gray-500 mb-1">Target Maturity</div>
-                    <div className="text-sm text-gray-900">{maturityLevel.description}</div>
+                    <div className="text-sm font-medium text-slate-500 mb-1">Target Maturity</div>
+                    <div className="text-sm text-slate-900">{maturityLevel.description}</div>
                   </div>
                   
                   <div>
-                    <div className="text-sm font-medium text-gray-500 mb-1">Pillar Focus</div>
-                    <div className="text-sm text-gray-900 capitalize">
+                    <div className="text-sm font-medium text-slate-500 mb-1">Pillar Focus</div>
+                    <div className="text-sm text-slate-900 capitalize">
                       {frontmatter.pillar.replace("-", " & ")}
                     </div>
                   </div>
                   
                   <div>
-                    <div className="text-sm font-medium text-gray-500 mb-1">Version</div>
-                    <div className="text-sm text-gray-900">v{frontmatter.version}</div>
+                    <div className="text-sm font-medium text-slate-500 mb-1">Version</div>
+                    <div className="text-sm text-slate-900">v{frontmatter.version}</div>
                   </div>
                   
                   <div>
-                    <div className="text-sm font-medium text-gray-500 mb-1">Last Updated</div>
-                    <div className="text-sm text-gray-900">
+                    <div className="text-sm font-medium text-slate-500 mb-1">Last Updated</div>
+                    <div className="text-sm text-slate-900">
                       {new Date(frontmatter.lastUpdated).toLocaleDateString()}
                     </div>
                   </div>
                   
                   {frontmatter.tags && frontmatter.tags.length > 0 && (
                     <div>
-                      <div className="text-sm font-medium text-gray-500 mb-2">Tags</div>
+                      <div className="text-sm font-medium text-slate-500 mb-2">Tags</div>
                       <div className="flex flex-wrap gap-1">
                         {frontmatter.tags.map((tag) => (
                           <Badge key={tag} variant="secondary" className="text-xs">
@@ -256,12 +256,12 @@ export default async function PlaybookPage({ params }: Props) {
                           href={resource.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-start"
+                          className="text-sm text-above-blue-800 hover:text-above-blue-800 font-medium flex items-start"
                         >
                           {resource.title}
                           <ExternalLink className="h-3 w-3 ml-1 mt-0.5 flex-shrink-0" />
                         </a>
-                        <div className="text-xs text-gray-500 capitalize mt-1">
+                        <div className="text-xs text-slate-500 capitalize mt-1">
                           {resource.type}
                         </div>
                       </div>
@@ -271,13 +271,13 @@ export default async function PlaybookPage({ params }: Props) {
               )}
 
               {/* Action CTA */}
-              <Card className="bg-blue-50 border-blue-200">
+              <Card className="bg-above-blue-50 border-above-blue-200">
                 <CardContent className="p-4 text-center">
-                  <Target className="h-8 w-8 text-blue-600 mx-auto mb-3" />
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <Target className="h-8 w-8 text-above-blue-800 mx-auto mb-3" />
+                  <h3 className="font-semibold text-slate-900 mb-2">
                     Ready to Implement?
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-sm text-slate-600 mb-4">
                     Take our assessment to see how this playbook fits your current maturity level.
                   </p>
                   <Link href="/assessment">
@@ -294,7 +294,7 @@ export default async function PlaybookPage({ params }: Props) {
         {/* Related Playbooks */}
         {relatedPlaybooks.length > 0 && (
           <div className="mt-16 pt-8 border-t">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Playbooks</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Playbooks</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedPlaybooks.map((related) => {
                 const RelatedIcon = pillarIcons[related.frontmatter.pillar as keyof typeof pillarIcons] || BookOpen;
@@ -305,16 +305,16 @@ export default async function PlaybookPage({ params }: Props) {
                         <CardTitle className="text-base line-clamp-2">
                           {related.frontmatter.title}
                         </CardTitle>
-                        <RelatedIcon className="h-5 w-5 text-gray-400 ml-2 flex-shrink-0" />
+                        <RelatedIcon className="h-5 w-5 text-slate-400 ml-2 flex-shrink-0" />
                       </div>
                     </CardHeader>
                     <CardContent className="pt-2">
-                      <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+                      <p className="text-sm text-slate-600 line-clamp-2 mb-3">
                         {related.frontmatter.description}
                       </p>
                       <Link 
                         href={`/playbooks/${related.slug}`}
-                        className="text-sm font-medium text-blue-600 hover:text-blue-800"
+                        className="text-sm font-medium text-above-blue-800 hover:text-above-blue-800"
                       >
                         View Playbook →
                       </Link>

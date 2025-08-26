@@ -8,11 +8,11 @@ export function MatrixTechniques() {
     <Card>
       <CardContent className="pt-6">
         <div className="text-center py-12">
-          <AlertTriangle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <AlertTriangle className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-slate-900 mb-2">
             Technique Browser
           </h3>
-          <p className="text-gray-500 mb-6">
+          <p className="text-slate-500 mb-6">
             Comprehensive technique browser is in development
           </p>
         </div>

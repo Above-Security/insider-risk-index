@@ -87,13 +87,13 @@ export function AssessmentPreview() {
     return (
       <Card className="max-w-2xl mx-auto">
         <CardHeader className="text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-            <CheckCircle className="h-8 w-8 text-green-600" />
+          <div className="w-16 h-16 bg-above-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <CheckCircle className="h-8 w-8 text-above-blue-800" />
           </div>
           <CardTitle className="text-2xl">Preview Complete!</CardTitle>
         </CardHeader>
         <CardContent className="text-center space-y-6">
-          <p className="text-gray-600">
+          <p className="text-slate-600">
             This was just a small taste of our comprehensive 20-question assessment. 
             The full assessment covers all 5 pillars with detailed analysis and benchmarking.
           </p>
@@ -141,10 +141,10 @@ export function AssessmentPreview() {
           </div>
           
           <div className="text-right">
-            <div className="text-xs text-gray-500 mb-1">Preview Mode</div>
-            <div className="w-24 bg-gray-200 rounded-full h-1">
+            <div className="text-xs text-slate-500 mb-1">Preview Mode</div>
+            <div className="w-24 bg-slate-200 rounded-full h-1">
               <div 
-                className="bg-blue-600 h-1 rounded-full transition-all duration-300"
+                className="bg-above-blue-800 h-1 rounded-full transition-all duration-300"
                 style={{ width: `${((currentQuestion + 1) / previewQuestions.length) * 100}%` }}
               />
             </div>
@@ -154,7 +154,7 @@ export function AssessmentPreview() {
       
       <CardContent className="space-y-6">
         <div>
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
+          <h3 className="text-lg font-medium text-slate-900 mb-4">
             {question.question}
           </h3>
           
@@ -165,15 +165,15 @@ export function AssessmentPreview() {
                 onClick={() => setSelectedAnswer(index)}
                 className={`w-full text-left p-4 rounded-lg border transition-all ${
                   selectedAnswer === index
-                    ? 'border-blue-500 bg-blue-50 text-blue-900'
-                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                    ? 'border-above-blue-500 bg-above-blue-50 text-above-blue-900'
+                    : 'border-slate-200 hover:border-slate-300 hover:bg-above-blue-50'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <div className={`w-4 h-4 rounded-full border-2 ${
                     selectedAnswer === index
-                      ? 'border-blue-500 bg-blue-500'
-                      : 'border-gray-300'
+                      ? 'border-above-blue-500 bg-above-blue-500'
+                      : 'border-slate-300'
                   }`}>
                     {selectedAnswer === index && (
                       <div className="w-full h-full rounded-full bg-white scale-50" />
@@ -187,7 +187,7 @@ export function AssessmentPreview() {
         </div>
         
         <div className="flex justify-between items-center pt-4 border-t">
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-slate-500">
             This is a preview. Full assessment has detailed explanations.
           </div>
           

@@ -38,18 +38,18 @@ export default function BenchmarksPage() {
   const benchmarkDatasetJsonLd = getBenchmarkDatasetJsonLd();
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-above-blue-50 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
             Industry Benchmarks
           </h1>
-          <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="mt-4 text-xl text-slate-600 max-w-3xl mx-auto">
             Industry benchmarks derived from Ponemon Institute 2025 research, Verizon DBIR 2024 analysis, 
             and Gartner Market Guide insights across financial services, healthcare, and other industries
           </p>
-          <div className="mt-6 flex items-center justify-center space-x-8 text-sm text-gray-500">
+          <div className="mt-6 flex items-center justify-center space-x-8 text-sm text-slate-500">
             <span>• Ponemon Institute 2025 Cost Study</span>
             <span>• Verizon DBIR 2024 Analysis</span>
             <span>• Gartner Market Guide G00805757</span>
@@ -62,8 +62,8 @@ export default function BenchmarksPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Assessments</p>
-                  <p className="text-3xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-slate-600">Total Assessments</p>
+                  <p className="text-3xl font-bold text-slate-900">
                     {OVERALL_BENCHMARKS.totalAssessments.toLocaleString()}
                   </p>
                 </div>
@@ -76,12 +76,12 @@ export default function BenchmarksPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Average Score</p>
-                  <p className="text-3xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-slate-600">Average Score</p>
+                  <p className="text-3xl font-bold text-slate-900">
                     {OVERALL_BENCHMARKS.averageScore}
                   </p>
                 </div>
-                <Target className="h-8 w-8 text-green-600" />
+                <Target className="h-8 w-8 text-above-blue-800" />
               </div>
             </CardContent>
           </Card>
@@ -90,12 +90,12 @@ export default function BenchmarksPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Monthly Growth</p>
-                  <p className="text-3xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-slate-600">Monthly Growth</p>
+                  <p className="text-3xl font-bold text-slate-900">
                     +{OVERALL_BENCHMARKS.trends.monthlyGrowth}%
                   </p>
                 </div>
-                <TrendingUp className="h-8 w-8 text-amber-600" />
+                <TrendingUp className="h-8 w-8 text-above-peach-800" />
               </div>
             </CardContent>
           </Card>
@@ -104,12 +104,12 @@ export default function BenchmarksPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Score Improvement</p>
-                  <p className="text-3xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-slate-600">Score Improvement</p>
+                  <p className="text-3xl font-bold text-slate-900">
                     +{OVERALL_BENCHMARKS.trends.scoreImprovement}%
                   </p>
                 </div>
-                <Zap className="h-8 w-8 text-purple-600" />
+                <Zap className="h-8 w-8 text-above-lavender-800" />
               </div>
             </CardContent>
           </Card>
@@ -133,8 +133,8 @@ export default function BenchmarksPage() {
           {/* Industry Benchmarks */}
           <TabsContent value="industry" className="space-y-8">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Industry Benchmarks</h2>
-              <p className="text-gray-600">
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">Industry Benchmarks</h2>
+              <p className="text-slate-600">
                 Average scores across different industries based on {' '}
                 {Object.values(INDUSTRY_BENCHMARKS).reduce((sum, industry) => sum + industry.sampleSize, 0).toLocaleString()} assessments
               </p>
@@ -162,12 +162,12 @@ export default function BenchmarksPage() {
                     </div>
                     
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-gray-700">Pillar Breakdown:</p>
+                      <p className="text-sm font-medium text-slate-700">Pillar Breakdown:</p>
                       {PILLARS.map(pillar => {
                         const score = (industry.pillarAverages as Record<string, number>)[pillar.id] || 0;
                         return (
                           <div key={pillar.id} className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">{pillar.name.split(' ')[0]}</span>
+                            <span className="text-slate-600">{pillar.name.split(' ')[0]}</span>
                             <span className="font-medium">{score}%</span>
                           </div>
                         );
@@ -197,8 +197,8 @@ export default function BenchmarksPage() {
           {/* Company Size Benchmarks */}
           <TabsContent value="size" className="space-y-8">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Company Size Benchmarks</h2>
-              <p className="text-gray-600">
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">Company Size Benchmarks</h2>
+              <p className="text-slate-600">
                 How insider risk scores vary by organization size
               </p>
             </div>
@@ -225,12 +225,12 @@ export default function BenchmarksPage() {
                     </div>
                     
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-gray-700">Pillar Breakdown:</p>
+                      <p className="text-sm font-medium text-slate-700">Pillar Breakdown:</p>
                       {PILLARS.map(pillar => {
                         const score = (sizeData.pillarAverages as Record<string, number>)[pillar.id] || 0;
                         return (
                           <div key={pillar.id} className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">{pillar.name.split(' ')[0]}</span>
+                            <span className="text-slate-600">{pillar.name.split(' ')[0]}</span>
                             <span className="font-medium">{score}%</span>
                           </div>
                         );
@@ -256,13 +256,13 @@ export default function BenchmarksPage() {
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-above-blue-500 rounded-full mt-2 flex-shrink-0" />
                       <p className="text-sm">
                         Identity & SaaS/OAuth shows the largest gap between company sizes
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-amber-500 rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-above-peach-500 rounded-full mt-2 flex-shrink-0" />
                       <p className="text-sm">
                         Phishing Resilience scores are most consistent across all company sizes
                       </p>
@@ -278,19 +278,19 @@ export default function BenchmarksPage() {
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-above-lavender-500 rounded-full mt-2 flex-shrink-0" />
                       <p className="text-sm">
                         <strong>Small Organizations:</strong> Focus on basic visibility and prevention controls first
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-above-lavender-500 rounded-full mt-2 flex-shrink-0" />
                       <p className="text-sm">
                         <strong>Medium Organizations:</strong> Invest in investigation capabilities and identity management
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-above-lavender-500 rounded-full mt-2 flex-shrink-0" />
                       <p className="text-sm">
                         <strong>Large Organizations:</strong> Implement advanced analytics and behavioral monitoring
                       </p>
@@ -319,7 +319,7 @@ export default function BenchmarksPage() {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 text-center text-sm text-slate-500">
           <p>
             Benchmark data is updated quarterly. Last updated: {formatDate(OVERALL_BENCHMARKS.lastUpdated)}
           </p>

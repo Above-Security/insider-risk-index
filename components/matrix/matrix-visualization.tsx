@@ -78,10 +78,10 @@ export function MatrixVisualization() {
 
   const getCategoryColor = (category: string) => {
     switch (category.toLowerCase()) {
-      case 'motive': return 'bg-red-100 text-red-800 border-red-200';
-      case 'coercion': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'manipulation': return 'bg-purple-100 text-purple-800 border-purple-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'motive': return 'bg-above-rose-100 text-above-rose-800 border-above-rose-200';
+      case 'coercion': return 'bg-above-peach-100 text-above-peach-800 border-above-peach-200';
+      case 'manipulation': return 'bg-above-lavender-100 text-above-lavender-800 border-above-lavender-200';
+      default: return 'bg-above-blue-100 text-slate-800 border-slate-200';
     }
   };
 
@@ -99,7 +99,7 @@ export function MatrixVisualization() {
       <Card>
         <CardContent className="pt-6">
           <div className="animate-pulse">
-            <div className="h-96 bg-gray-200 rounded"></div>
+            <div className="h-96 bg-slate-200 rounded"></div>
           </div>
         </CardContent>
       </Card>
@@ -114,8 +114,8 @@ export function MatrixVisualization() {
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               <div className="flex items-center gap-2">
-                <Filter className="h-4 w-4 text-gray-500" />
-                <span className="text-sm font-medium text-gray-700">Filters:</span>
+                <Filter className="h-4 w-4 text-slate-500" />
+                <span className="text-sm font-medium text-slate-700">Filters:</span>
               </div>
               
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
@@ -167,10 +167,10 @@ export function MatrixVisualization() {
 
       {/* Results Summary */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-lg font-semibold text-slate-900">
           {techniques.length} Techniques Found
         </h3>
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+        <div className="flex items-center gap-2 text-sm text-slate-500">
           <AlertTriangle className="h-4 w-4" />
           Showing {selectedCategory !== 'all' ? selectedCategory : 'all categories'}
           {selectedPillar !== 'all' && ` • ${pillars.find(p => p.value === selectedPillar)?.label}`}
@@ -196,11 +196,11 @@ export function MatrixVisualization() {
         <Card>
           <CardContent className="pt-6">
             <div className="text-center py-12">
-              <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <Search className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-slate-900 mb-2">
                 No Techniques Found
               </h3>
-              <p className="text-gray-500">
+              <p className="text-slate-500">
                 Try adjusting your filters to see more results
               </p>
             </div>
@@ -236,7 +236,7 @@ function TechniqueCard({
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p className="text-sm text-gray-600 line-clamp-3">
+        <p className="text-sm text-slate-600 line-clamp-3">
           {technique.description}
         </p>
         
@@ -249,34 +249,34 @@ function TechniqueCard({
         <div className="space-y-2">
           {technique.preventions.length > 0 && (
             <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-green-600" />
-              <span className="text-xs text-gray-600">
+              <Shield className="h-4 w-4 text-above-blue-800" />
+              <span className="text-xs text-slate-600">
                 {technique.preventions.length} preventions
               </span>
             </div>
           )}
           {technique.detections.length > 0 && (
             <div className="flex items-center gap-2">
-              <Search className="h-4 w-4 text-blue-600" />
-              <span className="text-xs text-gray-600">
+              <Search className="h-4 w-4 text-above-blue-800" />
+              <span className="text-xs text-slate-600">
                 {technique.detections.length} detections
               </span>
             </div>
           )}
         </div>
 
-        <div className="mt-4 pt-3 border-t border-gray-100">
+        <div className="mt-4 pt-3 border-t border-slate-100">
           <a 
             href={`/matrix/technique/${technique.id}`}
-            className="text-xs text-blue-600 hover:text-blue-800 font-medium transition-colors"
+            className="text-xs text-above-blue-800 hover:text-above-blue-800 font-medium transition-colors"
           >
             View Details →
           </a>
         </div>
 
         {technique.contributors.length > 0 && (
-          <div className="pt-2 border-t border-gray-100">
-            <p className="text-xs text-gray-500">
+          <div className="pt-2 border-t border-slate-100">
+            <p className="text-xs text-slate-500">
               Contributors: {technique.contributors.slice(0, 2).map(c => c.name).join(', ')}
               {technique.contributors.length > 2 && ` +${technique.contributors.length - 2} more`}
             </p>
@@ -304,7 +304,7 @@ function TechniqueListItem({
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h3 className="font-semibold text-gray-900">{technique.title}</h3>
+              <h3 className="font-semibold text-slate-900">{technique.title}</h3>
               <Badge className={getCategoryColor(technique.category)}>
                 <CategoryIcon className="h-3 w-3 mr-1" />
                 {technique.category}
@@ -315,19 +315,19 @@ function TechniqueListItem({
                 </Badge>
               )}
             </div>
-            <p className="text-sm text-gray-600 mb-3">{technique.description}</p>
+            <p className="text-sm text-slate-600 mb-3">{technique.description}</p>
             
-            <div className="flex items-center justify-between text-xs text-gray-500">
+            <div className="flex items-center justify-between text-xs text-slate-500">
               <div className="flex items-center gap-4">
                 {technique.preventions.length > 0 && (
                   <div className="flex items-center gap-1">
-                    <Shield className="h-3 w-3 text-green-600" />
+                    <Shield className="h-3 w-3 text-above-blue-800" />
                     {technique.preventions.length} preventions
                   </div>
                 )}
                 {technique.detections.length > 0 && (
                   <div className="flex items-center gap-1">
-                    <Search className="h-3 w-3 text-blue-600" />
+                    <Search className="h-3 w-3 text-above-blue-800" />
                     {technique.detections.length} detections
                   </div>
                 )}
@@ -339,7 +339,7 @@ function TechniqueListItem({
               </div>
               <a 
                 href={`/matrix/technique/${technique.id}`}
-                className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                className="text-above-blue-800 hover:text-above-blue-800 font-medium transition-colors"
               >
                 Details →
               </a>

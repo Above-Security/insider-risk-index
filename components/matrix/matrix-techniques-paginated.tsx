@@ -170,16 +170,16 @@ export function MatrixTechniquesPaginated({
 
             {/* Preview of preventions and detections */}
             {(technique.preventions?.length > 0 || technique.detections?.length > 0) && (
-              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {technique.preventions?.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                      <h4 className="text-sm font-medium text-slate-900 dark:text-white mb-2">
                         Top Preventions:
                       </h4>
                       <ul className="space-y-1">
                         {technique.preventions.slice(0, 2).map((prevention, idx) => (
-                          <li key={idx} className="text-sm text-gray-600 dark:text-gray-400">
+                          <li key={idx} className="text-sm text-slate-600 dark:text-slate-400">
                             • {prevention.title}
                           </li>
                         ))}
@@ -189,12 +189,12 @@ export function MatrixTechniquesPaginated({
                   
                   {technique.detections?.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                      <h4 className="text-sm font-medium text-slate-900 dark:text-white mb-2">
                         Top Detections:
                       </h4>
                       <ul className="space-y-1">
                         {technique.detections.slice(0, 2).map((detection, idx) => (
-                          <li key={idx} className="text-sm text-gray-600 dark:text-gray-400">
+                          <li key={idx} className="text-sm text-slate-600 dark:text-slate-400">
                             • {detection.title}
                           </li>
                         ))}
@@ -211,11 +211,11 @@ export function MatrixTechniquesPaginated({
       {/* No results message */}
       {currentTechniques.length === 0 && (
         <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-12 text-center">
-          <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+          <Search className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">
             No techniques found
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-slate-600 dark:text-slate-400">
             Try adjusting your search terms or filters
           </p>
         </div>
@@ -237,7 +237,7 @@ export function MatrixTechniquesPaginated({
             </Button>
             
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+              <span className="text-sm text-slate-600 dark:text-slate-400">
                 Page
               </span>
               <Select
@@ -255,7 +255,7 @@ export function MatrixTechniquesPaginated({
                   ))}
                 </SelectContent>
               </Select>
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+              <span className="text-sm text-slate-600 dark:text-slate-400">
                 of {totalPages}
               </span>
             </div>

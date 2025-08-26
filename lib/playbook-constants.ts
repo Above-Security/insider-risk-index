@@ -36,9 +36,9 @@ export const PILLAR_NAMES = {
 } as const;
 
 export const PILLAR_COLORS = {
-  visibility: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-  'prevention-coaching': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-  'investigation-evidence': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-  'identity-saas': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-  'phishing-resilience': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+  visibility: 'bg-above-blue-100 text-above-blue-800 dark:bg-above-blue-900 dark:text-above-blue-200',
+  'prevention-coaching': 'bg-above-blue-100 text-above-blue-800 dark:bg-above-blue-900 dark:text-above-blue-200',
+  'investigation-evidence': 'bg-above-lavender-100 text-above-lavender-800 dark:bg-above-lavender-900 dark:text-above-lavender-200',
+  'identity-saas': 'bg-above-peach-100 text-above-peach-800 dark:bg-above-peach-900 dark:text-above-peach-200',
+  'phishing-resilience': 'bg-above-rose-100 text-above-rose-800 dark:bg-above-rose-900 dark:text-above-rose-200'
 } as const;

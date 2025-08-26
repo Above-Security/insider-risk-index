@@ -47,7 +47,7 @@ export function Footer() {
           {/* Brand section */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
-              <Shield className="h-8 w-8 text-blue-600" />
+              <Shield className="h-8 w-8 text-above-blue-800" />
               <span className="font-bold text-xl">Insider Risk Index</span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
@@ -62,7 +62,7 @@ export function Footer() {
                   href={item.href}
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="text-muted-foreground hover:text-blue-600 transition-colors"
+                  className="text-muted-foreground hover:text-above-blue-800 transition-colors"
                   aria-label={item.name}
                 >
                   <item.icon className="h-5 w-5" />
@@ -79,7 +79,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted-foreground hover:text-blue-600 transition-colors"
+                    className="text-sm text-muted-foreground hover:text-above-blue-800 transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -96,7 +96,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted-foreground hover:text-blue-600 transition-colors"
+                    className="text-sm text-muted-foreground hover:text-above-blue-800 transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -113,7 +113,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted-foreground hover:text-blue-600 transition-colors"
+                    className="text-sm text-muted-foreground hover:text-above-blue-800 transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -140,7 +140,7 @@ export function Footer() {
               />
               <button
                 type="submit"
-                className="flex-none rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                className="flex-none rounded-md bg-above-blue-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-above-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
               >
                 Subscribe
               </button>
@@ -157,7 +157,7 @@ export function Footer() {
           <div className="mt-4 md:mt-0 flex items-center gap-4 text-xs text-muted-foreground">
             <span>Made with security in mind</span>
             <span>&bull;</span>
-            <Link href="/humans.txt" className="hover:text-blue-600 transition-colors">
+            <Link href="/humans.txt" className="hover:text-above-blue-800 transition-colors">
               humans.txt
             </Link>
           </div>

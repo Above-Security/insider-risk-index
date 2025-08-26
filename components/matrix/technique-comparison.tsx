@@ -140,8 +140,8 @@ export function TechniqueComparison() {
       <Card>
         <CardContent className="pt-6">
           <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-gray-200 rounded w-1/3"></div>
-            <div className="h-64 bg-gray-200 rounded"></div>
+            <div className="h-8 bg-slate-200 rounded w-1/3"></div>
+            <div className="h-64 bg-slate-200 rounded"></div>
           </div>
         </CardContent>
       </Card>
@@ -152,8 +152,8 @@ export function TechniqueComparison() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <GitCompare className="h-5 w-5 text-blue-600" />
-          <h2 className="text-xl font-semibold text-gray-900">Technique Comparison</h2>
+          <GitCompare className="h-5 w-5 text-above-blue-800" />
+          <h2 className="text-xl font-semibold text-slate-900">Technique Comparison</h2>
         </div>
         <Badge variant="outline">
           {selectedTechniques.length}/3 selected
@@ -169,7 +169,7 @@ export function TechniqueComparison() {
           <CardContent className="space-y-4">
             {/* Search */}
             <div className="relative">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
               <Input
                 placeholder="Search techniques..."
                 value={searchQuery}
@@ -181,11 +181,11 @@ export function TechniqueComparison() {
             {/* Selected Techniques */}
             {selectedTechniques.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700">Selected for comparison:</h4>
+                <h4 className="text-sm font-medium text-slate-700">Selected for comparison:</h4>
                 {selectedTechniques.map(id => {
                   const technique = techniques.find(t => t.id === id);
                   return technique ? (
-                    <div key={id} className="flex items-center justify-between p-2 bg-blue-50 rounded">
+                    <div key={id} className="flex items-center justify-between p-2 bg-above-blue-50 rounded">
                       <span className="text-sm font-medium">{technique.title}</span>
                       <Button
                         size="sm"
@@ -207,22 +207,22 @@ export function TechniqueComparison() {
                   key={technique.id}
                   className={`p-3 rounded border cursor-pointer transition-colors ${
                     selectedTechniques.includes(technique.id)
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-above-blue-500 bg-above-blue-50'
+                      : 'border-slate-200 hover:border-slate-300'
                   }`}
                   onClick={() => toggleTechnique(technique.id)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h4 className="text-sm font-medium text-gray-900">{technique.title}</h4>
-                      <p className="text-xs text-gray-600 mt-1">
+                      <h4 className="text-sm font-medium text-slate-900">{technique.title}</h4>
+                      <p className="text-xs text-slate-600 mt-1">
                         {technique.description.substring(0, 100)}...
                       </p>
                     </div>
                     {selectedTechniques.includes(technique.id) ? (
-                      <X className="h-4 w-4 text-blue-600" />
+                      <X className="h-4 w-4 text-above-blue-800" />
                     ) : selectedTechniques.length < 3 ? (
-                      <Plus className="h-4 w-4 text-gray-400" />
+                      <Plus className="h-4 w-4 text-slate-400" />
                     ) : null}
                   </div>
                 </div>
@@ -237,11 +237,11 @@ export function TechniqueComparison() {
             <Card>
               <CardContent className="pt-6">
                 <div className="text-center py-12">
-                  <GitCompare className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <GitCompare className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-slate-900 mb-2">
                     Select Techniques to Compare
                   </h3>
-                  <p className="text-gray-500">
+                  <p className="text-slate-500">
                     Choose up to 3 techniques from the list to compare their controls and risk profiles.
                   </p>
                 </div>
@@ -269,7 +269,7 @@ export function TechniqueComparison() {
                       </thead>
                       <tbody>
                         <tr className="border-b">
-                          <td className="p-2 font-medium text-gray-600">Category</td>
+                          <td className="p-2 font-medium text-slate-600">Category</td>
                           {getSelectedTechniqueData().map(technique => (
                             <td key={technique.id} className="p-2">
                               <Badge variant="outline">{technique.category}</Badge>
@@ -277,30 +277,30 @@ export function TechniqueComparison() {
                           ))}
                         </tr>
                         <tr className="border-b">
-                          <td className="p-2 font-medium text-gray-600">Risk Score</td>
+                          <td className="p-2 font-medium text-slate-600">Risk Score</td>
                           {getSelectedTechniqueData().map(technique => (
                             <td key={technique.id} className="p-2">
                               <div className="flex items-center">
                                 <span className={`font-bold ${
-                                  technique.riskScore >= 8 ? 'text-red-600' :
-                                  technique.riskScore >= 6 ? 'text-orange-600' :
-                                  technique.riskScore >= 4 ? 'text-yellow-600' :
-                                  'text-green-600'
+                                  technique.riskScore >= 8 ? 'text-above-rose-800' :
+                                  technique.riskScore >= 6 ? 'text-above-peach-800' :
+                                  technique.riskScore >= 4 ? 'text-above-peach-800' :
+                                  'text-above-blue-800'
                                 }`}>
                                   {technique.riskScore}/10
                                 </span>
                                 <div className={`ml-2 w-12 h-2 rounded-full ${
-                                  technique.riskScore >= 8 ? 'bg-red-200' :
-                                  technique.riskScore >= 6 ? 'bg-orange-200' :
-                                  technique.riskScore >= 4 ? 'bg-yellow-200' :
-                                  'bg-green-200'
+                                  technique.riskScore >= 8 ? 'bg-above-rose-200' :
+                                  technique.riskScore >= 6 ? 'bg-above-peach-200' :
+                                  technique.riskScore >= 4 ? 'bg-above-peach-200' :
+                                  'bg-above-blue-200'
                                 }`}>
                                   <div 
                                     className={`h-full rounded-full ${
-                                      technique.riskScore >= 8 ? 'bg-red-600' :
-                                      technique.riskScore >= 6 ? 'bg-orange-600' :
-                                      technique.riskScore >= 4 ? 'bg-yellow-600' :
-                                      'bg-green-600'
+                                      technique.riskScore >= 8 ? 'bg-above-rose-700' :
+                                      technique.riskScore >= 6 ? 'bg-above-peach-700' :
+                                      technique.riskScore >= 4 ? 'bg-above-peach-700' :
+                                      'bg-above-blue-800'
                                     }`}
                                     style={{ width: `${(technique.riskScore / 10) * 100}%` }}
                                   ></div>
@@ -310,7 +310,7 @@ export function TechniqueComparison() {
                           ))}
                         </tr>
                         <tr className="border-b">
-                          <td className="p-2 font-medium text-gray-600">Preventions</td>
+                          <td className="p-2 font-medium text-slate-600">Preventions</td>
                           {getSelectedTechniqueData().map(technique => (
                             <td key={technique.id} className="p-2">
                               <span className="font-semibold">{technique.preventions?.length || 0}</span>
@@ -318,7 +318,7 @@ export function TechniqueComparison() {
                           ))}
                         </tr>
                         <tr>
-                          <td className="p-2 font-medium text-gray-600">Detections</td>
+                          <td className="p-2 font-medium text-slate-600">Detections</td>
                           {getSelectedTechniqueData().map(technique => (
                             <td key={technique.id} className="p-2">
                               <span className="font-semibold">{technique.detections?.length || 0}</span>
@@ -351,7 +351,7 @@ export function TechniqueComparison() {
                               const coverage = getPillarCoverage(technique, pillar.id);
                               return (
                                 <div key={technique.id} className="text-center">
-                                  <div className={`w-full h-2 rounded-full bg-gray-200`}>
+                                  <div className={`w-full h-2 rounded-full bg-slate-200`}>
                                     <div 
                                       className="h-full rounded-full"
                                       style={{ 
@@ -360,7 +360,7 @@ export function TechniqueComparison() {
                                       }}
                                     ></div>
                                   </div>
-                                  <span className="text-xs text-gray-600 mt-1">{coverage} controls</span>
+                                  <span className="text-xs text-slate-600 mt-1">{coverage} controls</span>
                                 </div>
                               );
                             })}
@@ -381,22 +381,22 @@ export function TechniqueComparison() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Control Gaps */}
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3 flex items-center">
-                        <AlertTriangle className="h-4 w-4 text-red-500 mr-1" />
+                      <h4 className="text-sm font-medium text-slate-900 mb-3 flex items-center">
+                        <AlertTriangle className="h-4 w-4 text-above-rose-500 mr-1" />
                         Control Gaps
                       </h4>
                       <div className="space-y-3">
                         {getSelectedTechniqueData().map(technique => (
                           <div key={technique.id}>
-                            <h5 className="text-xs font-medium text-gray-700">{technique.title}</h5>
+                            <h5 className="text-xs font-medium text-slate-700">{technique.title}</h5>
                             {technique.controlGaps.length > 0 ? (
-                              <ul className="text-xs text-red-600 space-y-1">
+                              <ul className="text-xs text-above-rose-800 space-y-1">
                                 {technique.controlGaps.map((gap, index) => (
                                   <li key={index}>• {gap}</li>
                                 ))}
                               </ul>
                             ) : (
-                              <p className="text-xs text-green-600">No significant gaps identified</p>
+                              <p className="text-xs text-above-blue-800">No significant gaps identified</p>
                             )}
                           </div>
                         ))}
@@ -405,22 +405,22 @@ export function TechniqueComparison() {
 
                     {/* Strengths */}
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3 flex items-center">
-                        <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
+                      <h4 className="text-sm font-medium text-slate-900 mb-3 flex items-center">
+                        <TrendingUp className="h-4 w-4 text-above-blue-500 mr-1" />
                         Strengths
                       </h4>
                       <div className="space-y-3">
                         {getSelectedTechniqueData().map(technique => (
                           <div key={technique.id}>
-                            <h5 className="text-xs font-medium text-gray-700">{technique.title}</h5>
+                            <h5 className="text-xs font-medium text-slate-700">{technique.title}</h5>
                             {technique.strengths.length > 0 ? (
-                              <ul className="text-xs text-green-600 space-y-1">
+                              <ul className="text-xs text-above-blue-800 space-y-1">
                                 {technique.strengths.map((strength, index) => (
                                   <li key={index}>• {strength}</li>
                                 ))}
                               </ul>
                             ) : (
-                              <p className="text-xs text-gray-500">Limited coverage identified</p>
+                              <p className="text-xs text-slate-500">Limited coverage identified</p>
                             )}
                           </div>
                         ))}

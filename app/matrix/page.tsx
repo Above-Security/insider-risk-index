@@ -47,21 +47,21 @@ export default async function MatrixPage() {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <Shield className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <Shield className="h-12 w-12 text-above-rose-500 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
               Matrix Data Unavailable
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-slate-600 dark:text-slate-400 mb-4">
               The ForScie Insider Threat Matrix data is currently unavailable. This could be due to:
             </p>
-            <ul className="text-left text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
+            <ul className="text-left text-slate-600 dark:text-slate-400 max-w-md mx-auto mb-6">
               <li>• Network connectivity issues</li>
               <li>• External API service downtime</li>
               <li>• Rate limiting on the data source</li>
             </ul>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-slate-600 dark:text-slate-400">
               Please try again later or visit{' '}
-              <a href="https://insiderthreatmatrix.org/" className="text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">
+              <a href="https://insiderthreatmatrix.org/" className="text-above-blue-800 hover:text-above-blue-800" target="_blank" rel="noopener noreferrer">
                 insiderthreatmatrix.org
               </a>{' '}
               directly.
@@ -98,35 +98,35 @@ export default async function MatrixPage() {
         {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 text-center">
-            <Database className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <Database className="h-8 w-8 text-above-blue-800 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-slate-900 dark:text-white">
               {metadata.totalTechniques}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-slate-600 dark:text-slate-400">
               Total Techniques
             </div>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 text-center">
-            <div className="text-2xl font-bold text-red-600 mb-1">
+            <div className="text-2xl font-bold text-above-rose-800 mb-1">
               {metadata.categories.motive}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-slate-600 dark:text-slate-400">
               Motive Techniques
             </div>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 text-center">
-            <div className="text-2xl font-bold text-orange-600 mb-1">
+            <div className="text-2xl font-bold text-above-peach-800 mb-1">
               {metadata.categories.coercion}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-slate-600 dark:text-slate-400">
               Coercion Techniques
             </div>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 text-center">
-            <div className="text-2xl font-bold text-purple-600 mb-1">
+            <div className="text-2xl font-bold text-above-lavender-800 mb-1">
               {metadata.categories.manipulation}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-slate-600 dark:text-slate-400">
               Manipulation Techniques
             </div>
           </div>
@@ -160,7 +160,7 @@ export default async function MatrixPage() {
             
             <TabsContent value="overview" className="mt-6">
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                   Threat Techniques Overview
                 </h2>
                 <MatrixTechniquesPaginated techniques={techniques} itemsPerPage={20} />
@@ -187,18 +187,18 @@ export default async function MatrixPage() {
 
         {/* Attribution */}
         <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
             <Users className="h-5 w-5 mr-2" />
             Attribution & Contributors
           </h3>
           <div className="space-y-4">
             <div>
-              <p className="text-gray-600 dark:text-gray-300 mb-2">
+              <p className="text-slate-600 dark:text-gray-300 mb-2">
                 <strong>Data Source:</strong> The Insider Threat Matrix is maintained by the ForScie community 
-                (<a href="https://forscie.org/" className="text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">forscie.org</a>), 
+                (<a href="https://forscie.org/" className="text-above-blue-800 hover:text-above-blue-800" target="_blank" rel="noopener noreferrer">forscie.org</a>), 
                 providing open-source threat intelligence for the cybersecurity community.
               </p>
-              <p className="text-gray-600 dark:text-gray-300 mb-2">
+              <p className="text-slate-600 dark:text-gray-300 mb-2">
                 <strong>Integration:</strong> This assessment platform integrates Matrix techniques with 
                 Ponemon Institute cost data and Gartner implementation insights to provide actionable recommendations.
               </p>
@@ -207,7 +207,7 @@ export default async function MatrixPage() {
                   href="https://insiderthreatmatrix.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+                  className="inline-flex items-center text-above-blue-800 dark:text-above-blue-400 hover:text-above-blue-800 dark:hover:text-above-blue-300 transition-colors"
                 >
                   Visit ForScie Insider Threat Matrix
                   <ExternalLink className="h-4 w-4 ml-1" />
@@ -216,14 +216,14 @@ export default async function MatrixPage() {
             </div>
             {contributors.length > 0 && (
               <div>
-                <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                <h4 className="text-sm font-medium text-slate-900 dark:text-white mb-2">
                   Contributors:
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {contributors.map((contributor, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-sm"
+                      className="px-2 py-1 bg-above-blue-50 dark:bg-above-blue-900 text-above-blue-800 dark:text-above-blue-300 rounded text-sm"
                     >
                       {contributor}
                     </span>

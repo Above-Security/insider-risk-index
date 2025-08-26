@@ -106,10 +106,10 @@ export default function AssessmentResultsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-above-blue-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading your results...</p>
+          <p className="text-slate-600">Loading your results...</p>
         </div>
       </div>
     );
@@ -117,7 +117,7 @@ export default function AssessmentResultsPage() {
 
   if (error || !assessmentData) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="min-h-screen bg-above-blue-50 py-12">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Alert variant="destructive">
             <AlertDescription>
@@ -142,7 +142,7 @@ export default function AssessmentResultsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-above-blue-50 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header with navigation */}
         <div className="mb-8 flex items-center justify-between">
@@ -151,7 +151,7 @@ export default function AssessmentResultsPage() {
             Back
           </Button>
           
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-slate-500">
             Completed: {new Date(assessmentData.completedAt).toLocaleDateString()}
           </div>
         </div>
@@ -175,7 +175,7 @@ export default function AssessmentResultsPage() {
                 className="h-auto p-4 flex-col space-y-2"
               >
                 <div className="font-medium">Retake Assessment</div>
-                <div className="text-xs text-gray-500">Get updated results</div>
+                <div className="text-xs text-slate-500">Get updated results</div>
               </Button>
               
               <Button 
@@ -184,7 +184,7 @@ export default function AssessmentResultsPage() {
                 className="h-auto p-4 flex-col space-y-2"
               >
                 <div className="font-medium">Browse Playbooks</div>
-                <div className="text-xs text-gray-500">Implementation guides</div>
+                <div className="text-xs text-slate-500">Implementation guides</div>
               </Button>
               
               <Button 
@@ -193,7 +193,7 @@ export default function AssessmentResultsPage() {
                 className="h-auto p-4 flex-col space-y-2"
               >
                 <div className="font-medium">View Benchmarks</div>
-                <div className="text-xs text-gray-500">Industry comparisons</div>
+                <div className="text-xs text-slate-500">Industry comparisons</div>
               </Button>
             </div>
           </div>

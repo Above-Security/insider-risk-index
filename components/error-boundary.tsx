@@ -63,7 +63,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
         <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-red-50 to-orange-50">
           <Card className="max-w-2xl w-full shadow-xl">
             <CardHeader className="space-y-1">
-              <div className="flex items-center gap-2 text-red-600">
+              <div className="flex items-center gap-2 text-above-rose-800">
                 <AlertCircle className="h-6 w-6" />
                 <CardTitle className="text-2xl">Something went wrong</CardTitle>
               </div>
@@ -84,14 +84,14 @@ export class ErrorBoundary extends React.Component<Props, State> {
 
               {isDevelopment && this.state.error?.stack && (
                 <details className="space-y-2">
-                  <summary className="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                  <summary className="cursor-pointer text-sm font-medium text-slate-700 hover:text-slate-900">
                     Developer Details (Development Only)
                   </summary>
-                  <pre className="p-4 bg-gray-100 rounded-lg text-xs overflow-auto max-h-64">
+                  <pre className="p-4 bg-above-blue-100 rounded-lg text-xs overflow-auto max-h-64">
                     {this.state.error.stack}
                   </pre>
                   {this.state.errorInfo?.componentStack && (
-                    <pre className="p-4 bg-gray-100 rounded-lg text-xs overflow-auto max-h-64">
+                    <pre className="p-4 bg-above-blue-100 rounded-lg text-xs overflow-auto max-h-64">
                       Component Stack:
                       {this.state.errorInfo.componentStack}
                     </pre>

@@ -26,11 +26,11 @@ export function ResultsPreview() {
     <Card className="max-w-4xl mx-auto">
       <CardHeader className="text-center">
         <div className="flex items-center justify-center gap-2 mb-2">
-          <TrendingUp className="h-5 w-5 text-blue-600" />
+          <TrendingUp className="h-5 w-5 text-above-blue-800" />
           <Badge variant="secondary" className="text-xs">Sample Results</Badge>
         </div>
         <CardTitle className="text-2xl">Your Assessment Results Preview</CardTitle>
-        <p className="text-gray-600">
+        <p className="text-slate-600">
           See how your results would look with detailed analysis and recommendations
         </p>
       </CardHeader>
@@ -39,28 +39,28 @@ export function ResultsPreview() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Score Overview */}
           <div className="space-y-6">
-            <div className="text-center p-6 bg-blue-50 rounded-lg">
-              <div className="text-4xl font-bold text-blue-600 mb-2">
+            <div className="text-center p-6 bg-above-blue-50 rounded-lg">
+              <div className="text-4xl font-bold text-above-blue-800 mb-2">
                 {mockResults.totalScore}
               </div>
-              <div className="text-lg font-semibold text-gray-900 mb-1">
+              <div className="text-lg font-semibold text-slate-900 mb-1">
                 Overall Score
               </div>
-              <Badge className="bg-blue-100 text-blue-800 border-blue-200">
+              <Badge className="bg-above-blue-100 text-above-blue-800 border-above-blue-200">
                 Level {mockResults.level}: {mockResults.levelName}
               </Badge>
             </div>
             
             <div>
-              <h4 className="font-semibold text-gray-900 mb-3">Pillar Breakdown</h4>
+              <h4 className="font-semibold text-slate-900 mb-3">Pillar Breakdown</h4>
               <div className="space-y-3">
                 {mockResults.pillarScores.map((pillar) => (
                   <div key={pillar.name} className="flex items-center gap-3">
-                    <div className="w-20 text-sm font-medium text-gray-700">
+                    <div className="w-20 text-sm font-medium text-slate-700">
                       {pillar.name}
                     </div>
                     <div className="flex-1">
-                      <div className="bg-gray-200 rounded-full h-2">
+                      <div className="bg-slate-200 rounded-full h-2">
                         <div
                           className="h-2 rounded-full transition-all duration-1000"
                           style={{ 
@@ -70,7 +70,7 @@ export function ResultsPreview() {
                         />
                       </div>
                     </div>
-                    <div className="w-12 text-sm font-semibold text-gray-900">
+                    <div className="w-12 text-sm font-semibold text-slate-900">
                       {pillar.score}
                     </div>
                   </div>
@@ -171,7 +171,7 @@ export function ResultsPreview() {
             </div>
             
             <div className="text-center">
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-sm text-slate-600 mb-4">
                 Interactive radar chart showing your strength across all pillars
               </p>
               <Button asChild>

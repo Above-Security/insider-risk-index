@@ -71,10 +71,10 @@ export function MatrixTechniques() {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'motive': return 'bg-red-100 text-red-800 border-red-200';
-      case 'coercion': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'manipulation': return 'bg-purple-100 text-purple-800 border-purple-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'motive': return 'bg-above-rose-100 text-above-rose-800 border-above-rose-200';
+      case 'coercion': return 'bg-above-peach-100 text-above-peach-800 border-above-peach-200';
+      case 'manipulation': return 'bg-above-lavender-100 text-above-lavender-800 border-above-lavender-200';
+      default: return 'bg-above-blue-100 text-slate-800 border-slate-200';
     }
   };
 
@@ -85,9 +85,9 @@ export function MatrixTechniques() {
           <Card key={i}>
             <CardContent className="pt-6">
               <div className="animate-pulse">
-                <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                <div className="h-6 bg-gray-200 rounded mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-4 bg-slate-200 rounded mb-2"></div>
+                <div className="h-6 bg-slate-200 rounded mb-2"></div>
+                <div className="h-4 bg-slate-200 rounded w-3/4"></div>
               </div>
             </CardContent>
           </Card>
@@ -106,7 +106,7 @@ export function MatrixTechniques() {
       <Card>
         <CardContent className="pt-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
             <Input
               placeholder="Search techniques by name, description, or category..."
               value={searchTerm}
@@ -120,7 +120,7 @@ export function MatrixTechniques() {
       {/* Results */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-lg font-semibold text-slate-900">
             {filteredTechniques.length} Technique{filteredTechniques.length !== 1 ? 's' : ''}
             {searchTerm && ` matching "${searchTerm}"`}
           </h3>
@@ -133,7 +133,7 @@ export function MatrixTechniques() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <h3 className="font-semibold text-gray-900">{technique.title}</h3>
+                      <h3 className="font-semibold text-slate-900">{technique.title}</h3>
                       <Badge className={getCategoryColor(technique.category)}>
                         {technique.category}
                       </Badge>
@@ -143,23 +143,23 @@ export function MatrixTechniques() {
                         </Badge>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600 mb-3">{technique.description}</p>
+                    <p className="text-sm text-slate-600 mb-3">{technique.description}</p>
                   </div>
                   <Button variant="ghost" size="sm">
                     <ExternalLink className="h-4 w-4" />
                   </Button>
                 </div>
 
-                <div className="flex items-center gap-6 text-xs text-gray-500 pt-2 border-t border-gray-100">
+                <div className="flex items-center gap-6 text-xs text-slate-500 pt-2 border-t border-slate-100">
                   {technique.preventions.length > 0 && (
                     <div className="flex items-center gap-1">
-                      <Shield className="h-3 w-3 text-green-600" />
+                      <Shield className="h-3 w-3 text-above-blue-800" />
                       {technique.preventions.length} prevention{technique.preventions.length !== 1 ? 's' : ''}
                     </div>
                   )}
                   {technique.detections.length > 0 && (
                     <div className="flex items-center gap-1">
-                      <Search className="h-3 w-3 text-blue-600" />
+                      <Search className="h-3 w-3 text-above-blue-800" />
                       {technique.detections.length} detection{technique.detections.length !== 1 ? 's' : ''}
                     </div>
                   )}
@@ -185,11 +185,11 @@ export function MatrixTechniques() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-center py-12">
-                <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                <Search className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-slate-900 mb-2">
                   No Techniques Found
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-slate-500">
                   {searchTerm 
                     ? `No techniques match "${searchTerm}". Try a different search term.`
                     : 'No techniques are currently available.'
@@ -213,10 +213,10 @@ function TechniqueDetail({
 }) {
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'motive': return 'bg-red-100 text-red-800 border-red-200';
-      case 'coercion': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'manipulation': return 'bg-purple-100 text-purple-800 border-purple-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'motive': return 'bg-above-rose-100 text-above-rose-800 border-above-rose-200';
+      case 'coercion': return 'bg-above-peach-100 text-above-peach-800 border-above-peach-200';
+      case 'manipulation': return 'bg-above-lavender-100 text-above-lavender-800 border-above-lavender-200';
+      default: return 'bg-above-blue-100 text-slate-800 border-slate-200';
     }
   };
 
@@ -244,7 +244,7 @@ function TechniqueDetail({
                   </Badge>
                 )}
               </div>
-              <p className="text-gray-600">{technique.description}</p>
+              <p className="text-slate-600">{technique.description}</p>
             </div>
           </div>
         </CardHeader>
@@ -258,7 +258,7 @@ function TechniqueDetail({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Shield className="h-5 w-5 text-green-600" />
+                  <Shield className="h-5 w-5 text-above-blue-800" />
                   Prevention Strategies
                 </CardTitle>
               </CardHeader>
@@ -266,8 +266,8 @@ function TechniqueDetail({
                 <ul className="space-y-2">
                   {technique.preventions.map((prevention, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">{prevention}</span>
+                      <div className="w-2 h-2 bg-above-blue-800 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-sm text-slate-700">{prevention}</span>
                     </li>
                   ))}
                 </ul>
@@ -280,7 +280,7 @@ function TechniqueDetail({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Search className="h-5 w-5 text-blue-600" />
+                  <Search className="h-5 w-5 text-above-blue-800" />
                   Detection Methods
                 </CardTitle>
               </CardHeader>
@@ -288,8 +288,8 @@ function TechniqueDetail({
                 <ul className="space-y-2">
                   {technique.detections.map((detection, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">{detection}</span>
+                      <div className="w-2 h-2 bg-above-blue-800 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-sm text-slate-700">{detection}</span>
                     </li>
                   ))}
                 </ul>
@@ -302,24 +302,24 @@ function TechniqueDetail({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <ExternalLink className="h-5 w-5 text-purple-600" />
+                  <ExternalLink className="h-5 w-5 text-above-lavender-800" />
                   References
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   {technique.references.map((ref, index) => (
-                    <div key={index} className="border-l-2 border-purple-200 pl-4">
+                    <div key={index} className="border-l-2 border-above-lavender-200 pl-4">
                       <a 
                         href={ref.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-sm font-medium text-purple-700 hover:text-purple-800"
+                        className="text-sm font-medium text-above-lavender-800 hover:text-above-lavender-800"
                       >
                         {ref.title}
                       </a>
                       {(ref.author || ref.date) && (
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-slate-500 mt-1">
                           {ref.author && `by ${ref.author}`}
                           {ref.author && ref.date && ` • `}
                           {ref.date}
@@ -342,13 +342,13 @@ function TechniqueDetail({
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-sm font-medium text-gray-700 mb-1">ID</p>
-                <p className="text-sm text-gray-600 font-mono">{technique.id}</p>
+                <p className="text-sm font-medium text-slate-700 mb-1">ID</p>
+                <p className="text-sm text-slate-600 font-mono">{technique.id}</p>
               </div>
               
               {technique.platforms.length > 0 && (
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">Platforms</p>
+                  <p className="text-sm font-medium text-slate-700 mb-2">Platforms</p>
                   <div className="flex flex-wrap gap-1">
                     {technique.platforms.map((platform, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
@@ -362,13 +362,13 @@ function TechniqueDetail({
               {(technique.created || technique.updated) && (
                 <div className="space-y-2">
                   {technique.created && (
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <div className="flex items-center gap-2 text-xs text-slate-500">
                       <Calendar className="h-3 w-3" />
                       Created: {new Date(technique.created).toLocaleDateString()}
                     </div>
                   )}
                   {technique.updated && (
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <div className="flex items-center gap-2 text-xs text-slate-500">
                       <Calendar className="h-3 w-3" />
                       Updated: {new Date(technique.updated).toLocaleDateString()}
                     </div>
@@ -391,9 +391,9 @@ function TechniqueDetail({
                 <div className="space-y-3">
                   {technique.contributors.map((contributor, index) => (
                     <div key={index}>
-                      <p className="text-sm font-medium text-gray-900">{contributor.name}</p>
+                      <p className="text-sm font-medium text-slate-900">{contributor.name}</p>
                       {contributor.affiliation && (
-                        <p className="text-xs text-gray-600">{contributor.affiliation}</p>
+                        <p className="text-xs text-slate-600">{contributor.affiliation}</p>
                       )}
                     </div>
                   ))}

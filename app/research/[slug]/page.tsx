@@ -102,17 +102,17 @@ export default async function ResearchArticlePage({ params }: Props) {
           <header className="mb-12">
             <div className="mb-4">
               <Badge variant="secondary" className="mb-2">Research</Badge>
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+              <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
                 {frontmatter.title}
               </h1>
             </div>
             
-            <p className="text-xl text-gray-600 leading-relaxed mb-6">
+            <p className="text-xl text-slate-600 leading-relaxed mb-6">
               {frontmatter.description}
             </p>
             
             {/* Article Meta */}
-            <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500">
+            <div className="flex flex-wrap items-center gap-6 text-sm text-slate-500">
               {frontmatter.author && (
                 <div className="flex items-center gap-1">
                   <User className="h-4 w-4" />
@@ -146,7 +146,7 @@ export default async function ResearchArticlePage({ params }: Props) {
 
             {/* Action Buttons */}
             <div className="mt-6 flex gap-3">
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-slate-500">
                 Share: <span className="font-mono text-xs">{articleUrl}</span>
               </div>
             </div>
@@ -163,7 +163,7 @@ export default async function ResearchArticlePage({ params }: Props) {
 
           {/* Research Methodology Note */}
           {'dataSources' in frontmatter && (
-            <Card className="mb-8 bg-above-rose-50 border-blue-200">
+            <Card className="mb-8 bg-above-rose-50 border-above-blue-200">
               <CardHeader>
                 <CardTitle className="text-lg text-above-rose-900">Research Methodology</CardTitle>
               </CardHeader>
@@ -188,7 +188,7 @@ export default async function ResearchArticlePage({ params }: Props) {
           {/* Related Articles */}
           {relatedArticles.length > 0 && (
             <section className="mt-12">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Research</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Related Research</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedArticles.map((article) => (
                   <Card key={article.slug} className="group hover:shadow-lg transition-shadow">
@@ -199,10 +199,10 @@ export default async function ResearchArticlePage({ params }: Props) {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      <p className="text-slate-600 text-sm mb-4 line-clamp-3">
                         {article.frontmatter.description}
                       </p>
-                      <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
+                      <div className="flex items-center justify-between text-xs text-slate-500 mb-4">
                         <span>{new Date(article.frontmatter.publishDate || article.frontmatter.publishedAt || Date.now()).toLocaleDateString()}</span>
                         <span>{article.frontmatter.readingTime || '5'} min read</span>
                       </div>

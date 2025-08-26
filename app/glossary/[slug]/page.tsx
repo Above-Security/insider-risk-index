@@ -123,28 +123,28 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'beginner':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+        return 'bg-above-blue-100 text-above-blue-800 dark:bg-above-blue-900 dark:text-above-blue-200';
       case 'intermediate':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
+        return 'bg-above-peach-100 text-above-peach-800 dark:bg-above-peach-900 dark:text-above-peach-200';
       case 'advanced':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+        return 'bg-above-rose-100 text-above-rose-800 dark:bg-above-rose-900 dark:text-above-rose-200';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+        return 'bg-above-blue-100 text-slate-800 dark:bg-above-blue-900 dark:text-gray-200';
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'technical':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+        return 'bg-above-blue-100 text-above-blue-800 dark:bg-above-blue-900 dark:text-above-blue-200';
       case 'business':
-        return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
+        return 'bg-above-lavender-100 text-above-lavender-800 dark:bg-above-lavender-900 dark:text-above-lavender-200';
       case 'regulatory':
-        return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+        return 'bg-above-peach-100 text-above-peach-800 dark:bg-above-peach-900 dark:text-above-peach-200';
       case 'legal':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+        return 'bg-above-rose-100 text-above-rose-800 dark:bg-above-rose-900 dark:text-above-rose-200';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+        return 'bg-above-blue-100 text-slate-800 dark:bg-above-blue-900 dark:text-gray-200';
     }
   };
 
@@ -178,7 +178,7 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
         <div className="mb-8">
           <Link
             href="/glossary"
-            className="inline-flex items-center text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+            className="inline-flex items-center text-sm text-above-blue-800 dark:text-above-blue-400 hover:text-above-blue-800 dark:hover:text-above-blue-300 transition-colors"
           >
             <ArrowLeft className="h-4 w-4 mr-1" />
             Back to Glossary
@@ -188,9 +188,9 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
         {/* Main Content */}
         <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden">
           {/* Header */}
-          <div className="px-8 py-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="px-8 py-6 border-b border-slate-200 dark:border-slate-700">
             <div className="flex items-start justify-between mb-4">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
                 {term.term}
               </h1>
               <div className="flex gap-2">
@@ -204,7 +204,7 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
             </div>
 
             {/* Quick definition */}
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-lg text-slate-700 dark:text-gray-300 leading-relaxed">
               {term.definition}
             </p>
           </div>
@@ -214,11 +214,11 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
             {/* Long explanation */}
             {term.longExplanation && (
               <div className="mb-8">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">
                   Detailed Explanation
                 </h2>
                 <div className="prose prose-gray dark:prose-invert max-w-none">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <p className="text-slate-700 dark:text-gray-300 leading-relaxed">
                     {term.longExplanation}
                   </p>
                 </div>
@@ -230,15 +230,15 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
               {/* Pillar Relevance */}
               {term.pillarRelevance.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-3 flex items-center">
-                    <Brain className="h-5 w-5 mr-2 text-blue-600" />
+                  <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-3 flex items-center">
+                    <Brain className="h-5 w-5 mr-2 text-above-blue-800" />
                     Relevant Pillars
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {term.pillarRelevance.map((pillar) => (
                       <span
                         key={pillar}
-                        className="px-3 py-1 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
+                        className="px-3 py-1 bg-above-blue-50 dark:bg-above-blue-900 text-above-blue-800 dark:text-above-blue-300 rounded-full text-sm font-medium"
                       >
                         {pillar.charAt(0).toUpperCase() + pillar.slice(1)}
                       </span>
@@ -250,15 +250,15 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
               {/* Tags */}
               {term.tags.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-3 flex items-center">
-                    <Tag className="h-5 w-5 mr-2 text-green-600" />
+                  <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-3 flex items-center">
+                    <Tag className="h-5 w-5 mr-2 text-above-blue-800" />
                     Tags
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {term.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm"
+                        className="px-3 py-1 bg-above-blue-100 dark:bg-above-blue-800 text-slate-700 dark:text-gray-300 rounded-full text-sm"
                       >
                         {tag}
                       </span>
@@ -271,13 +271,13 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
             {/* Sources */}
             {term.sources.length > 0 && (
               <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-3 flex items-center">
-                  <ExternalLink className="h-5 w-5 mr-2 text-purple-600" />
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-3 flex items-center">
+                  <ExternalLink className="h-5 w-5 mr-2 text-above-lavender-800" />
                   Sources & References
                 </h3>
                 <ul className="space-y-2">
                   {term.sources.map((source, index) => (
-                    <li key={index} className="text-gray-600 dark:text-gray-400 text-sm">
+                    <li key={index} className="text-slate-600 dark:text-slate-400 text-sm">
                       • {source}
                     </li>
                   ))}
@@ -288,7 +288,7 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
             {/* Related Terms */}
             {relatedTerms.length > 0 && (
               <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-4">
                   Related Terms
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -296,10 +296,10 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
                     <Link
                       key={relatedTerm.slug}
                       href={`/glossary/${relatedTerm.slug}`}
-                      className="block p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-600 transition-colors"
+                      className="block p-4 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-above-blue-300 dark:hover:border-above-blue-700 transition-colors"
                     >
                       <div className="flex items-start justify-between mb-2">
-                        <h4 className="font-medium text-gray-900 dark:text-white">
+                        <h4 className="font-medium text-slate-900 dark:text-white">
                           {relatedTerm.term}
                         </h4>
                         <div className="flex gap-1">
@@ -308,7 +308,7 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
                           </span>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                      <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
                         {relatedTerm.definition}
                       </p>
                     </Link>
@@ -318,8 +318,8 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
             )}
 
             {/* Meta information */}
-            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex flex-wrap gap-6 text-sm text-gray-500 dark:text-gray-400">
+            <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
+              <div className="flex flex-wrap gap-6 text-sm text-slate-500 dark:text-slate-400">
                 <div className="flex items-center">
                   <Calendar className="h-4 w-4 mr-1" />
                   <span>Updated: {formatDate(term.updatedAt)}</span>

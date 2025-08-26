@@ -121,7 +121,7 @@ export default async function ResultsPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-above-blue-50 py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header Navigation */}
           <div className="mb-8 flex items-center justify-between">
@@ -133,7 +133,7 @@ export default async function ResultsPage({ params }: Props) {
             </Link>
             
             <div className="flex items-center gap-4">
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-slate-500">
                 Completed: {assessment.createdAt.toLocaleDateString()}
               </div>
               <ShareResults
@@ -163,11 +163,11 @@ export default async function ResultsPage({ params }: Props) {
           </div>
 
           {/* Methodology Note */}
-          <div className="mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-blue-900 mb-2">
+          <div className="mt-12 bg-above-blue-50 border border-above-blue-200 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-above-blue-900 mb-2">
               About This Assessment
             </h3>
-            <div className="text-blue-800 space-y-2">
+            <div className="text-above-blue-800 space-y-2">
               <p>
                 The Insider Risk Index evaluates your organization across 5 critical pillars 
                 of insider threat management with industry-validated weightings.
@@ -207,7 +207,7 @@ export default async function ResultsPage({ params }: Props) {
             <h3 className="text-xl font-semibold mb-4">
               Ready to Improve Your Insider Risk Posture?
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-slate-600 mb-6">
               Explore our vendor-agnostic implementation guides and research insights.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

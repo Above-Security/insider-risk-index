@@ -48,7 +48,7 @@ export function MatrixRecommendations({ context }: MatrixRecommendationsProps) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Target className="h-5 w-5 text-blue-600" />
+            <Target className="h-5 w-5 text-above-blue-800" />
             Matrix-Enhanced Recommendations
           </CardTitle>
         </CardHeader>
@@ -56,9 +56,9 @@ export function MatrixRecommendations({ context }: MatrixRecommendationsProps) {
           <div className="space-y-4">
             {[1, 2, 3].map(i => (
               <div key={i} className="animate-pulse">
-                <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                <div className="h-6 bg-gray-200 rounded mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-4 bg-slate-200 rounded mb-2"></div>
+                <div className="h-6 bg-slate-200 rounded mb-2"></div>
+                <div className="h-4 bg-slate-200 rounded w-3/4"></div>
               </div>
             ))}
           </div>
@@ -72,13 +72,13 @@ export function MatrixRecommendations({ context }: MatrixRecommendationsProps) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-red-600" />
+            <AlertTriangle className="h-5 w-5 text-above-rose-800" />
             Recommendations Unavailable
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-gray-600">{error}</p>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-slate-600">{error}</p>
+          <p className="text-sm text-slate-500 mt-2">
             Please check your connection and try again, or refer to the standard playbooks.
           </p>
         </CardContent>
@@ -97,10 +97,10 @@ export function MatrixRecommendations({ context }: MatrixRecommendationsProps) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Target className="h-5 w-5 text-blue-600" />
+            <Target className="h-5 w-5 text-above-blue-800" />
             Matrix-Enhanced Recommendations
           </CardTitle>
-          <p className="text-gray-600">
+          <p className="text-slate-600">
             Personalized recommendations based on your assessment results and the latest 
             insider threat intelligence from the ForScie Matrix.
           </p>
@@ -119,22 +119,22 @@ export function MatrixRecommendations({ context }: MatrixRecommendationsProps) {
       </div>
 
       {/* Matrix Attribution */}
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-above-blue-50 border-above-blue-200">
         <CardContent className="pt-6">
           <div className="flex items-start gap-4">
-            <div className="bg-blue-100 p-2 rounded-lg">
-              <Shield className="h-6 w-6 text-blue-600" />
+            <div className="bg-above-blue-100 p-2 rounded-lg">
+              <Shield className="h-6 w-6 text-above-blue-800" />
             </div>
             <div>
-              <h3 className="font-semibold text-blue-900 mb-2">
+              <h3 className="font-semibold text-above-blue-900 mb-2">
                 Powered by Insider Threat Matrix
               </h3>
-              <p className="text-blue-800 mb-4 text-sm">
+              <p className="text-above-blue-800 mb-4 text-sm">
                 These recommendations are enhanced with threat intelligence from the 
                 community-driven Insider Threat Matrix, providing you with the latest 
                 techniques, preventions, and detection methods.
               </p>
-              <Button variant="outline" size="sm" className="text-blue-700 border-blue-300">
+              <Button variant="outline" size="sm" className="text-above-blue-800 border-above-blue-300">
                 <ExternalLink className="h-4 w-4 mr-2" />
                 Explore Full Matrix
               </Button>
@@ -157,19 +157,19 @@ function RecommendationCard({
   
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'bg-red-100 text-red-800 border-red-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'high': return 'bg-above-rose-100 text-above-rose-800 border-above-rose-200';
+      case 'medium': return 'bg-above-peach-100 text-above-peach-800 border-above-peach-200';
+      case 'low': return 'bg-above-blue-100 text-above-blue-800 border-above-blue-200';
+      default: return 'bg-above-blue-100 text-slate-800 border-slate-200';
     }
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy': return 'bg-green-100 text-green-700';
-      case 'moderate': return 'bg-yellow-100 text-yellow-700';
-      case 'hard': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case 'easy': return 'bg-above-blue-100 text-above-blue-800';
+      case 'moderate': return 'bg-above-peach-100 text-above-peach-800';
+      case 'hard': return 'bg-above-rose-100 text-above-rose-800';
+      default: return 'bg-above-blue-100 text-slate-700';
     }
   };
 
@@ -179,7 +179,7 @@ function RecommendationCard({
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
+              <span className="bg-above-blue-100 text-above-blue-800 text-xs font-medium px-2 py-1 rounded-full">
                 #{rank}
               </span>
               <Badge className={getPriorityColor(recommendation.priority)}>
@@ -194,7 +194,7 @@ function RecommendationCard({
             </CardTitle>
           </div>
           <div className="text-right">
-            <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
+            <div className="flex items-center gap-1 text-xs text-slate-500 mb-1">
               <TrendingUp className="h-3 w-3" />
               Impact: {recommendation.estimatedImpact}/10
             </div>
@@ -212,11 +212,11 @@ function RecommendationCard({
       </CardHeader>
       
       <CardContent className="space-y-4">
-        <p className="text-gray-600 text-sm">
+        <p className="text-slate-600 text-sm">
           {recommendation.description}
         </p>
 
-        <div className="flex items-center gap-4 text-xs text-gray-500">
+        <div className="flex items-center gap-4 text-xs text-slate-500">
           <div className="flex items-center gap-1">
             <Clock className="h-3 w-3" />
             {recommendation.timeToImplement}
@@ -237,19 +237,19 @@ function RecommendationCard({
 
         {/* Matrix Insights */}
         {(recommendation.preventionStrategies.length > 0 || recommendation.detectionMethods.length > 0) && (
-          <div className="bg-gray-50 p-3 rounded-lg">
-            <h4 className="text-xs font-medium text-gray-700 mb-2">Matrix Insights</h4>
+          <div className="bg-above-blue-50 p-3 rounded-lg">
+            <h4 className="text-xs font-medium text-slate-700 mb-2">Matrix Insights</h4>
             <div className="space-y-2">
               {recommendation.preventionStrategies.slice(0, 2).map((strategy, index) => (
                 <div key={index} className="flex items-start gap-2">
-                  <Shield className="h-3 w-3 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-xs text-gray-600">{strategy}</span>
+                  <Shield className="h-3 w-3 text-above-blue-800 mt-0.5 flex-shrink-0" />
+                  <span className="text-xs text-slate-600">{strategy}</span>
                 </div>
               ))}
               {recommendation.detectionMethods.slice(0, 1).map((method, index) => (
                 <div key={index} className="flex items-start gap-2">
-                  <Search className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-xs text-gray-600">{method}</span>
+                  <Search className="h-3 w-3 text-above-blue-800 mt-0.5 flex-shrink-0" />
+                  <span className="text-xs text-slate-600">{method}</span>
                 </div>
               ))}
             </div>
@@ -257,7 +257,7 @@ function RecommendationCard({
         )}
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
+        <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
           {recommendation.playbooks.length > 0 && (
             <Button variant="outline" size="sm" asChild>
               <a href={`/playbooks/${recommendation.playbooks[0]}`}>

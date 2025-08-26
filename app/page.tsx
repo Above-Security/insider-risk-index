@@ -151,7 +151,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <PlayCircle className="h-6 w-6 text-blue-600" />
+              <PlayCircle className="h-6 w-6 text-above-blue-800" />
               <Badge variant="secondary">Interactive Demo</Badge>
             </div>
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -167,7 +167,7 @@ export default function HomePage() {
       </section>
 
       {/* Results Preview */}
-      <section className="py-16 sm:py-24 bg-gray-50">
+      <section className="py-16 sm:py-24 bg-above-blue-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <ResultsPreview />
         </div>
@@ -188,13 +188,13 @@ export default function HomePage() {
           <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {features.map((feature) => (
               <div key={feature.title} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-                  <feature.icon className="h-6 w-6 text-blue-600" />
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-above-blue-100">
+                  <feature.icon className="h-6 w-6 text-above-blue-800" />
                 </div>
-                <h3 className="mt-4 text-lg font-medium text-gray-900">
+                <h3 className="mt-4 text-lg font-medium text-slate-900">
                   {feature.title}
                 </h3>
-                <p className="mt-2 text-gray-600">
+                <p className="mt-2 text-slate-600">
                   {feature.description}
                 </p>
               </div>
@@ -204,56 +204,56 @@ export default function HomePage() {
       </section>
 
       {/* Stats */}
-      <section className="py-16 sm:py-24 bg-blue-600">
+      <section className="py-16 sm:py-24 bg-above-blue-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Research-Backed Industry Data
             </h2>
-            <p className="mt-4 text-lg text-blue-100 max-w-3xl mx-auto">
+            <p className="mt-4 text-lg text-above-blue-100 max-w-3xl mx-auto">
               Our assessment framework is built on comprehensive analysis from leading security research organizations
             </p>
           </div>
           
           <dl className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div className="flex flex-col items-center">
-              <dt className="text-sm font-medium text-blue-200">
+              <dt className="text-sm font-medium text-above-blue-200">
                 Annual Cost Impact
               </dt>
               <dd className="text-3xl font-bold text-white">
                 $17.4M
               </dd>
-              <dd className="text-xs text-blue-200">Average per organization (Ponemon 2025)</dd>
+              <dd className="text-xs text-above-blue-200">Average per organization (Ponemon 2025)</dd>
             </div>
             
             <div className="flex flex-col items-center">
-              <dt className="text-sm font-medium text-blue-200">
+              <dt className="text-sm font-medium text-above-blue-200">
                 Programs Ineffective
               </dt>
               <dd className="text-3xl font-bold text-white">
                 54%
               </dd>
-              <dd className="text-xs text-blue-200">Report less than effective results (Gartner)</dd>
+              <dd className="text-xs text-above-blue-200">Report less than effective results (Gartner)</dd>
             </div>
             
             <div className="flex flex-col items-center">
-              <dt className="text-sm font-medium text-blue-200">
+              <dt className="text-sm font-medium text-above-blue-200">
                 Attack Frequency Increase
               </dt>
               <dd className="text-3xl font-bold text-white">
                 48%
               </dd>
-              <dd className="text-xs text-blue-200">Organizations report more frequent attacks (Gartner)</dd>
+              <dd className="text-xs text-above-blue-200">Organizations report more frequent attacks (Gartner)</dd>
             </div>
             
             <div className="flex flex-col items-center">
-              <dt className="text-sm font-medium text-blue-200">
+              <dt className="text-sm font-medium text-above-blue-200">
                 Containment Time
               </dt>
               <dd className="text-3xl font-bold text-white">
                 81 days
               </dd>
-              <dd className="text-xs text-blue-200">Average incident containment (Ponemon 2025)</dd>
+              <dd className="text-xs text-above-blue-200">Average incident containment (Ponemon 2025)</dd>
             </div>
           </dl>
         </div>
@@ -285,17 +285,17 @@ export default function HomePage() {
               </Button>
             </div>
             
-            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-gray-500">
+            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-slate-500">
               <div className="flex items-center gap-1">
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <CheckCircle className="h-4 w-4 text-above-blue-500" />
                 Free to use
               </div>
               <div className="flex items-center gap-1">
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <CheckCircle className="h-4 w-4 text-above-blue-500" />
                 Immediate results
               </div>
               <div className="flex items-center gap-1">
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <CheckCircle className="h-4 w-4 text-above-blue-500" />
                 Expert recommendations
               </div>
             </div>

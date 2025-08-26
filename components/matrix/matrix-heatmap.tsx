@@ -38,17 +38,17 @@ export function MatrixHeatmap() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const pillars = [
-    { id: 'visibility', name: 'Visibility', icon: Eye, color: 'bg-blue-500' },
-    { id: 'prevention-coaching', name: 'Prevention & Coaching', icon: Users, color: 'bg-green-500' },
-    { id: 'investigation-evidence', name: 'Investigation & Evidence', icon: Search, color: 'bg-amber-500' },
-    { id: 'identity-saas', name: 'Identity & SaaS', icon: Key, color: 'bg-violet-500' },
-    { id: 'phishing-resilience', name: 'Phishing Resilience', icon: ShieldAlert, color: 'bg-red-500' }
+    { id: 'visibility', name: 'Visibility', icon: Eye, color: 'bg-above-blue-500' },
+    { id: 'prevention-coaching', name: 'Prevention & Coaching', icon: Users, color: 'bg-above-blue-500' },
+    { id: 'investigation-evidence', name: 'Investigation & Evidence', icon: Search, color: 'bg-above-peach-500' },
+    { id: 'identity-saas', name: 'Identity & SaaS', icon: Key, color: 'bg-above-lavender-500' },
+    { id: 'phishing-resilience', name: 'Phishing Resilience', icon: ShieldAlert, color: 'bg-above-rose-500' }
   ];
 
   const categories = [
-    { id: 'Motive', name: 'Motive', color: 'bg-red-100 border-red-300', textColor: 'text-red-800' },
-    { id: 'Coercion', name: 'Coercion', color: 'bg-orange-100 border-orange-300', textColor: 'text-orange-800' },
-    { id: 'Manipulation', name: 'Manipulation', color: 'bg-purple-100 border-purple-300', textColor: 'text-purple-800' }
+    { id: 'Motive', name: 'Motive', color: 'bg-above-rose-100 border-above-rose-300', textColor: 'text-above-rose-800' },
+    { id: 'Coercion', name: 'Coercion', color: 'bg-above-peach-100 border-above-peach-300', textColor: 'text-above-peach-800' },
+    { id: 'Manipulation', name: 'Manipulation', color: 'bg-above-lavender-100 border-above-lavender-300', textColor: 'text-above-lavender-800' }
   ];
 
   useEffect(() => {
@@ -141,12 +141,12 @@ export function MatrixHeatmap() {
 
   const getRiskColor = (riskLevel: number): string => {
     switch (riskLevel) {
-      case 5: return 'bg-red-600'; // Critical
-      case 4: return 'bg-red-500'; // High
-      case 3: return 'bg-yellow-500'; // Medium
-      case 2: return 'bg-green-500'; // Low
-      case 1: return 'bg-green-600'; // Minimal
-      default: return 'bg-gray-400';
+      case 5: return 'bg-above-rose-700'; // Critical
+      case 4: return 'bg-above-rose-500'; // High
+      case 3: return 'bg-above-peach-500'; // Medium
+      case 2: return 'bg-above-blue-500'; // Low
+      case 1: return 'bg-above-blue-800'; // Minimal
+      default: return 'bg-above-blue-400';
     }
   };
 
@@ -166,8 +166,8 @@ export function MatrixHeatmap() {
       <Card>
         <CardContent className="pt-6">
           <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-gray-200 rounded w-1/3"></div>
-            <div className="h-64 bg-gray-200 rounded"></div>
+            <div className="h-8 bg-slate-200 rounded w-1/3"></div>
+            <div className="h-64 bg-slate-200 rounded"></div>
           </div>
         </CardContent>
       </Card>
@@ -179,8 +179,8 @@ export function MatrixHeatmap() {
       <Card>
         <CardContent className="pt-6">
           <div className="text-center py-8">
-            <AlertTriangle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">Unable to load matrix data</p>
+            <AlertTriangle className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+            <p className="text-slate-500">Unable to load matrix data</p>
           </div>
         </CardContent>
       </Card>
@@ -237,9 +237,9 @@ export function MatrixHeatmap() {
                     <div className={`w-16 h-16 ${pillar.color} rounded-full flex items-center justify-center mx-auto mb-2`}>
                       <PillarIcon className="h-8 w-8 text-white" />
                     </div>
-                    <div className="text-2xl font-bold text-gray-900">{coverage}</div>
-                    <div className="text-sm text-gray-600 mb-1">{pillar.name}</div>
-                    <div className="text-xs text-gray-500">{percentage}%</div>
+                    <div className="text-2xl font-bold text-slate-900">{coverage}</div>
+                    <div className="text-sm text-slate-600 mb-1">{pillar.name}</div>
+                    <div className="text-xs text-slate-500">{percentage}%</div>
                   </div>
                 );
               })}
@@ -263,7 +263,7 @@ export function MatrixHeatmap() {
                     <div
                       className={`
                         w-full h-16 ${getRiskColor(technique.riskLevel || 3)} 
-                        rounded border-2 border-white hover:border-gray-300 
+                        rounded border-2 border-white hover:border-slate-300 
                         transition-all cursor-pointer opacity-80 hover:opacity-100
                         flex items-center justify-center
                       `}
@@ -283,15 +283,15 @@ export function MatrixHeatmap() {
                       <div className="flex items-center justify-between text-xs">
                         <span className="capitalize">{technique.category}</span>
                         <span className={`font-medium ${
-                          technique.riskLevel === 5 ? 'text-red-600' :
-                          technique.riskLevel === 4 ? 'text-red-500' :
-                          technique.riskLevel === 3 ? 'text-yellow-600' :
-                          'text-green-600'
+                          technique.riskLevel === 5 ? 'text-above-rose-800' :
+                          technique.riskLevel === 4 ? 'text-above-rose-500' :
+                          technique.riskLevel === 3 ? 'text-above-peach-800' :
+                          'text-above-blue-800'
                         }`}>
                           {getRiskLabel(technique.riskLevel || 3)}
                         </span>
                       </div>
-                      <div className="text-xs mt-1 text-gray-600">
+                      <div className="text-xs mt-1 text-slate-600">
                         {technique.preventions?.length || 0} preventions, {technique.detections?.length || 0} detections
                       </div>
                     </div>
@@ -303,23 +303,23 @@ export function MatrixHeatmap() {
             {/* Legend */}
             <div className="flex items-center justify-center mt-6 space-x-4 text-sm">
               <div className="flex items-center">
-                <div className="w-4 h-4 bg-red-600 rounded mr-2"></div>
+                <div className="w-4 h-4 bg-above-rose-700 rounded mr-2"></div>
                 Critical Risk
               </div>
               <div className="flex items-center">
-                <div className="w-4 h-4 bg-red-500 rounded mr-2"></div>
+                <div className="w-4 h-4 bg-above-rose-500 rounded mr-2"></div>
                 High Risk
               </div>
               <div className="flex items-center">
-                <div className="w-4 h-4 bg-yellow-500 rounded mr-2"></div>
+                <div className="w-4 h-4 bg-above-peach-500 rounded mr-2"></div>
                 Medium Risk
               </div>
               <div className="flex items-center">
-                <div className="w-4 h-4 bg-green-500 rounded mr-2"></div>
+                <div className="w-4 h-4 bg-above-blue-500 rounded mr-2"></div>
                 Low Risk
               </div>
               <div className="flex items-center">
-                <div className="w-4 h-4 bg-green-600 rounded mr-2"></div>
+                <div className="w-4 h-4 bg-above-blue-800 rounded mr-2"></div>
                 Minimal Risk
               </div>
             </div>

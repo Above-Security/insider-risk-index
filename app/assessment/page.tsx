@@ -105,18 +105,18 @@ export default function AssessmentPage() {
 
   if (currentStep === "organization") {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="min-h-screen bg-above-blue-50 py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+              <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
                 Insider Risk Assessment
               </h1>
-              <p className="mt-4 text-xl text-gray-600">
+              <p className="mt-4 text-xl text-slate-600">
                 Research-backed assessment framework developed from analysis of $17.4M average annual 
                 insider threat costs and 48% increase in attack frequency
               </p>
-              <div className="mt-6 text-sm text-gray-500">
+              <div className="mt-6 text-sm text-slate-500">
                 <p className="mb-2">
                   <strong>Methodology:</strong> 20 questions across 5 pillars weighted by economic impact analysis
                 </p>
@@ -140,7 +140,7 @@ export default function AssessmentPage() {
     const currentAnswer = answers.get(currentQuestion.id);
 
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-above-blue-50 py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <ProgressHeader

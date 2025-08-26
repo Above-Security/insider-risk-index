@@ -22,9 +22,9 @@ interface PlaybookFiltersProps {
 }
 
 const DIFFICULTY_OPTIONS = [
-  { value: 'Beginner', label: 'Beginner', color: 'bg-green-100 text-green-800' },
-  { value: 'Intermediate', label: 'Intermediate', color: 'bg-yellow-100 text-yellow-800' },
-  { value: 'Advanced', label: 'Advanced', color: 'bg-red-100 text-red-800' },
+  { value: 'Beginner', label: 'Beginner', color: 'bg-above-blue-100 text-above-blue-800' },
+  { value: 'Intermediate', label: 'Intermediate', color: 'bg-above-peach-100 text-above-peach-800' },
+  { value: 'Advanced', label: 'Advanced', color: 'bg-above-rose-100 text-above-rose-800' },
 ];
 
 const TIME_ESTIMATE_OPTIONS = [
@@ -75,18 +75,18 @@ function FilterDropdown({
             className="fixed inset-0 z-10" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full left-0 right-0 z-20 mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto">
+          <div className="absolute top-full left-0 right-0 z-20 mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-lg max-h-60 overflow-auto">
             {options.map((option) => (
               <button
                 key={option.value}
                 onClick={() => toggleOption(option.value)}
-                className="w-full px-3 py-2 text-left hover:bg-gray-50 dark:hover:bg-slate-700 flex items-center justify-between"
+                className="w-full px-3 py-2 text-left hover:bg-above-blue-50 dark:hover:bg-slate-700 flex items-center justify-between"
               >
                 {renderOption ? renderOption(option) : (
                   <span className={option.color || ''}>{option.label}</span>
                 )}
                 {selectedValues.includes(option.value) && (
-                  <div className="w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
+                  <div className="w-4 h-4 bg-above-blue-800 rounded-full flex items-center justify-center">
                     <div className="w-2 h-2 bg-white rounded-full" />
                   </div>
                 )}
@@ -134,11 +134,11 @@ export function PlaybookFilters({ filters, onFiltersChange, availableTags }: Pla
   const tagOptions = availableTags.map(tag => ({ value: tag, label: tag }));
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-8">
+    <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
       {/* Search Bar */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
           <Input
             type="text"
             placeholder="Search playbooks by title, description, or content..."
@@ -169,7 +169,7 @@ export function PlaybookFilters({ filters, onFiltersChange, availableTags }: Pla
 
       {/* Advanced Filters */}
       {showAllFilters && (
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+        <div className="border-t border-slate-200 dark:border-slate-700 pt-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             <FilterDropdown
               label="Pillar"
@@ -213,7 +213,7 @@ export function PlaybookFilters({ filters, onFiltersChange, availableTags }: Pla
           {/* Active Filters */}
           {hasActiveFilters && (
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-sm font-medium text-slate-700 dark:text-gray-300">
                 Active filters:
               </span>
               

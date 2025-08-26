@@ -46,11 +46,11 @@ export function ProgressHeader({
       {/* Organization Info */}
       {organizationName && (
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">
             Assessment for {organizationName}
           </h1>
           {industry && employeeCount && (
-            <p className="text-gray-600">
+            <p className="text-slate-600">
               {industry.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} • {employeeCount} employees
             </p>
           )}
@@ -62,12 +62,12 @@ export function ProgressHeader({
         <CardContent className="pt-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">Overall Progress</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="text-lg font-semibold text-slate-900">Overall Progress</h3>
+              <p className="text-sm text-slate-600">
                 {completedQuestions} of {totalQuestions} questions completed
               </p>
             </div>
-            <div className="flex items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center gap-4 text-sm text-slate-600">
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
                 ~{estimatedTimeRemaining} min remaining
@@ -97,13 +97,13 @@ export function ProgressHeader({
                     />
                   )}
                 </div>
-                <div className="text-xs font-medium text-gray-900 mb-1">
+                <div className="text-xs font-medium text-slate-900 mb-1">
                   {pillar.name}
                 </div>
-                <div className="text-xs text-gray-600">
+                <div className="text-xs text-slate-600">
                   {pillar.answeredQuestions}/{pillar.totalQuestions}
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
+                <div className="w-full bg-slate-200 rounded-full h-1 mt-1">
                   <div 
                     className="h-1 rounded-full transition-all duration-300"
                     style={{ 

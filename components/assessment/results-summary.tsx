@@ -100,9 +100,9 @@ export function ResultsSummary({
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 {benchmarkComparison.industry >= 0 ? (
-                  <TrendingUp className="h-4 w-4 text-green-600" />
+                  <TrendingUp className="h-4 w-4 text-above-blue-800" />
                 ) : (
-                  <TrendingDown className="h-4 w-4 text-red-600" />
+                  <TrendingDown className="h-4 w-4 text-above-rose-800" />
                 )}
                 <p className="text-sm font-medium text-muted-foreground">Industry Benchmark</p>
               </div>
@@ -110,7 +110,7 @@ export function ResultsSummary({
                 <p className="text-2xl font-bold">
                   {formatPercentage(result.benchmark.industry, 1)}
                 </p>
-                <p className={`text-sm ${benchmarkComparison.industry >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                <p className={`text-sm ${benchmarkComparison.industry >= 0 ? 'text-above-blue-800' : 'text-above-rose-800'}`}>
                   {benchmarkComparison.industry >= 0 ? '+' : ''}{formatPercentage(benchmarkComparison.industry, 1)}
                 </p>
               </div>
@@ -123,14 +123,14 @@ export function ResultsSummary({
           <CardContent className="p-6">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <Target className="h-4 w-4 text-blue-600" />
+                <Target className="h-4 w-4 text-above-blue-800" />
                 <p className="text-sm font-medium text-muted-foreground">Company Size Benchmark</p>
               </div>
               <div className="flex items-baseline gap-2">
                 <p className="text-2xl font-bold">
                   {formatPercentage(result.benchmark.companySize, 1)}
                 </p>
-                <p className={`text-sm ${benchmarkComparison.companySize >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                <p className={`text-sm ${benchmarkComparison.companySize >= 0 ? 'text-above-blue-800' : 'text-above-rose-800'}`}>
                   {benchmarkComparison.companySize >= 0 ? '+' : ''}{formatPercentage(benchmarkComparison.companySize, 1)}
                 </p>
               </div>
@@ -174,14 +174,14 @@ export function ResultsSummary({
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
+              <CheckCircle className="h-5 w-5 text-above-blue-800" />
               Key Strengths
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {result.strengths.slice(0, 3).map((strength, index) => (
               <div key={index} className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-above-blue-500 rounded-full mt-2 flex-shrink-0" />
                 <p className="text-sm">{strength}</p>
               </div>
             ))}
@@ -192,14 +192,14 @@ export function ResultsSummary({
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-amber-600" />
+              <AlertTriangle className="h-5 w-5 text-above-peach-800" />
               Areas for Improvement
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {result.weaknesses.slice(0, 3).map((weakness, index) => (
               <div key={index} className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-amber-500 rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-above-peach-500 rounded-full mt-2 flex-shrink-0" />
                 <p className="text-sm">{weakness}</p>
               </div>
             ))}
@@ -258,21 +258,21 @@ export function ResultsSummary({
       </div>
 
       {/* Next Steps */}
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-above-blue-50 border-above-blue-200">
         <CardContent className="p-6">
           <div className="space-y-3">
-            <h3 className="font-semibold text-blue-900">What&apos;s Next?</h3>
-            <ul className="space-y-2 text-sm text-blue-800">
+            <h3 className="font-semibold text-above-blue-900">What&apos;s Next?</h3>
+            <ul className="space-y-2 text-sm text-above-blue-800">
               <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0" />
+                <span className="w-1.5 h-1.5 bg-above-blue-800 rounded-full mt-2 flex-shrink-0" />
                 Download your detailed action plan to share with stakeholders
               </li>
               <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0" />
+                <span className="w-1.5 h-1.5 bg-above-blue-800 rounded-full mt-2 flex-shrink-0" />
                 Browse our playbooks for step-by-step implementation guides
               </li>
               <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0" />
+                <span className="w-1.5 h-1.5 bg-above-blue-800 rounded-full mt-2 flex-shrink-0" />
                 Schedule a follow-up assessment in 6 months to track progress
               </li>
             </ul>

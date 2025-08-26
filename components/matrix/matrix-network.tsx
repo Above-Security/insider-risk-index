@@ -219,8 +219,8 @@ export function MatrixNetwork() {
       <Card>
         <CardContent className="pt-6">
           <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-gray-200 rounded w-1/3"></div>
-            <div className="h-96 bg-gray-200 rounded"></div>
+            <div className="h-8 bg-slate-200 rounded w-1/3"></div>
+            <div className="h-96 bg-slate-200 rounded"></div>
           </div>
         </CardContent>
       </Card>
@@ -233,8 +233,8 @@ export function MatrixNetwork() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <Network className="h-5 w-5 text-gray-500" />
-            <span className="text-sm font-medium text-gray-700">View Mode:</span>
+            <Network className="h-5 w-5 text-slate-500" />
+            <span className="text-sm font-medium text-slate-700">View Mode:</span>
           </div>
           <div className="flex gap-2">
             <Button
@@ -353,15 +353,15 @@ export function MatrixNetwork() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Techniques:</span>
+                <span className="text-sm text-slate-600">Techniques:</span>
                 <span className="font-semibold">{nodes.filter(n => n.type === 'technique').length}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Hub Nodes:</span>
+                <span className="text-sm text-slate-600">Hub Nodes:</span>
                 <span className="font-semibold">{nodes.filter(n => n.type !== 'technique').length}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Connections:</span>
+                <span className="text-sm text-slate-600">Connections:</span>
                 <span className="font-semibold">{links.length}</span>
               </div>
             </CardContent>
@@ -417,13 +417,13 @@ export function MatrixNetwork() {
                 
                 {selectedNode.category && (
                   <div>
-                    <span className="text-sm text-gray-600">Category:</span>
+                    <span className="text-sm text-slate-600">Category:</span>
                     <span className="ml-2 font-medium">{selectedNode.category}</span>
                   </div>
                 )}
 
                 <div>
-                  <span className="text-sm text-gray-600">Connections:</span>
+                  <span className="text-sm text-slate-600">Connections:</span>
                   <span className="ml-2 font-medium">
                     {links.filter(link => 
                       link.source === selectedNode.id || link.target === selectedNode.id
@@ -431,7 +431,7 @@ export function MatrixNetwork() {
                   </span>
                 </div>
 
-                <div className="text-xs text-gray-500 mt-2">
+                <div className="text-xs text-slate-500 mt-2">
                   Click on another node to explore relationships
                 </div>
               </CardContent>

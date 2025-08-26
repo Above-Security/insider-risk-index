@@ -81,10 +81,10 @@ export default function AboutPage() {
             <Badge variant="secondary" className="mb-4">
               Research-Driven Assessment
             </Badge>
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
               About Insider Risk Index
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
+            <p className="mt-6 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">
               We help organizations understand and improve their insider risk posture through 
               comprehensive assessments, expert insights, and actionable recommendations.
             </p>
@@ -96,10 +96,10 @@ export default function AboutPage() {
       <div className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Our Mission
             </h2>
-            <p className="mt-6 text-xl text-gray-600">
+            <p className="mt-6 text-xl text-slate-600">
               To democratize access to world-class insider threat assessment capabilities, 
               helping organizations of all sizes build more secure and resilient environments.
             </p>
@@ -110,38 +110,38 @@ export default function AboutPage() {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-above-rose-100">
                 <Shield className="h-6 w-6 text-above-rose-600" />
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">Security First</h3>
-              <p className="mt-2 text-gray-600">
+              <h3 className="mt-4 text-lg font-semibold text-slate-900">Security First</h3>
+              <p className="mt-2 text-slate-600">
                 Built by security professionals for security professionals
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-green-100">
-                <Users className="h-6 w-6 text-green-600" />
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-above-blue-100">
+                <Users className="h-6 w-6 text-above-blue-800" />
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">Accessible</h3>
-              <p className="mt-2 text-gray-600">
+              <h3 className="mt-4 text-lg font-semibold text-slate-900">Accessible</h3>
+              <p className="mt-2 text-slate-600">
                 Free assessments available to organizations of all sizes
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
-                <Target className="h-6 w-6 text-purple-600" />
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-above-lavender-100">
+                <Target className="h-6 w-6 text-above-lavender-800" />
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">Practical</h3>
-              <p className="mt-2 text-gray-600">
+              <h3 className="mt-4 text-lg font-semibold text-slate-900">Practical</h3>
+              <p className="mt-2 text-slate-600">
                 Actionable recommendations that drive real improvements
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100">
-                <TrendingUp className="h-6 w-6 text-amber-600" />
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-above-peach-100">
+                <TrendingUp className="h-6 w-6 text-above-peach-800" />
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">Evidence-Based</h3>
-              <p className="mt-2 text-gray-600">
+              <h3 className="mt-4 text-lg font-semibold text-slate-900">Evidence-Based</h3>
+              <p className="mt-2 text-slate-600">
                 Grounded in research and validated by industry data
               </p>
             </div>
@@ -150,13 +150,13 @@ export default function AboutPage() {
       </div>
 
       {/* Methodology Section */}
-      <div className="bg-gray-50 py-16 sm:py-24">
+      <div className="bg-above-blue-50 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Assessment Methodology
             </h2>
-            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
               Our 5-pillar framework is validated by real-world data from the Ponemon Institute, 
               Verizon DBIR, and enhanced with threat intelligence from the ForScie Insider Threat Matrix.
             </p>
@@ -165,62 +165,62 @@ export default function AboutPage() {
           {/* Pillar Framework */}
           <div className="mb-16">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">5-Pillar Framework</h3>
-              <p className="text-gray-600">Industry-validated weightings based on cost impact analysis</p>
+              <h3 className="text-2xl font-semibold text-slate-900 mb-4">5-Pillar Framework</h3>
+              <p className="text-slate-600">Industry-validated weightings based on cost impact analysis</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-              <Card className="text-center border-t-4 border-blue-500">
+              <Card className="text-center border-t-4 border-above-blue-500">
                 <CardContent className="pt-6">
                   <div className="w-12 h-12 bg-above-rose-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
                     <Shield className="h-6 w-6 text-above-rose-600" />
                   </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Visibility</h4>
+                  <h4 className="font-semibold text-slate-900 mb-2">Visibility</h4>
                   <div className="text-2xl font-bold text-above-rose-600 mb-1">25%</div>
-                  <p className="text-sm text-gray-600">Monitoring & Detection Capabilities</p>
+                  <p className="text-sm text-slate-600">Monitoring & Detection Capabilities</p>
                 </CardContent>
               </Card>
               
-              <Card className="text-center border-t-4 border-green-500">
+              <Card className="text-center border-t-4 border-above-blue-500">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
-                    <Users className="h-6 w-6 text-green-600" />
+                  <div className="w-12 h-12 bg-above-blue-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                    <Users className="h-6 w-6 text-above-blue-800" />
                   </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Coaching</h4>
-                  <div className="text-2xl font-bold text-green-600 mb-1">25%</div>
-                  <p className="text-sm text-gray-600">Prevention & Training Programs</p>
+                  <h4 className="font-semibold text-slate-900 mb-2">Coaching</h4>
+                  <div className="text-2xl font-bold text-above-blue-800 mb-1">25%</div>
+                  <p className="text-sm text-slate-600">Prevention & Training Programs</p>
                 </CardContent>
               </Card>
               
-              <Card className="text-center border-t-4 border-purple-500">
+              <Card className="text-center border-t-4 border-above-lavender-500">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
-                    <BookOpen className="h-6 w-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-above-lavender-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                    <BookOpen className="h-6 w-6 text-above-lavender-800" />
                   </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Evidence</h4>
-                  <div className="text-2xl font-bold text-purple-600 mb-1">20%</div>
-                  <p className="text-sm text-gray-600">Investigation & Response</p>
+                  <h4 className="font-semibold text-slate-900 mb-2">Evidence</h4>
+                  <div className="text-2xl font-bold text-above-lavender-800 mb-1">20%</div>
+                  <p className="text-sm text-slate-600">Investigation & Response</p>
                 </CardContent>
               </Card>
               
-              <Card className="text-center border-t-4 border-amber-500">
+              <Card className="text-center border-t-4 border-above-peach-500">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-amber-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
-                    <Lock className="h-6 w-6 text-amber-600" />
+                  <div className="w-12 h-12 bg-above-peach-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                    <Lock className="h-6 w-6 text-above-peach-800" />
                   </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Identity</h4>
-                  <div className="text-2xl font-bold text-amber-600 mb-1">15%</div>
-                  <p className="text-sm text-gray-600">Access Controls & SaaS</p>
+                  <h4 className="font-semibold text-slate-900 mb-2">Identity</h4>
+                  <div className="text-2xl font-bold text-above-peach-800 mb-1">15%</div>
+                  <p className="text-sm text-slate-600">Access Controls & SaaS</p>
                 </CardContent>
               </Card>
               
-              <Card className="text-center border-t-4 border-red-500">
+              <Card className="text-center border-t-4 border-above-rose-500">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-red-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
-                    <Target className="h-6 w-6 text-red-600" />
+                  <div className="w-12 h-12 bg-above-rose-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                    <Target className="h-6 w-6 text-above-rose-800" />
                   </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Phishing</h4>
-                  <div className="text-2xl font-bold text-red-600 mb-1">15%</div>
-                  <p className="text-sm text-gray-600">Social Engineering Defense</p>
+                  <h4 className="font-semibold text-slate-900 mb-2">Phishing</h4>
+                  <div className="text-2xl font-bold text-above-rose-800 mb-1">15%</div>
+                  <p className="text-sm text-slate-600">Social Engineering Defense</p>
                 </CardContent>
               </Card>
             </div>
@@ -228,7 +228,7 @@ export default function AboutPage() {
 
           <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2">
             {methodology.map((item) => (
-              <Card key={item.title} className="border-t-4 border-blue-500">
+              <Card key={item.title} className="border-t-4 border-above-blue-500">
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-above-rose-50 rounded-lg">
@@ -238,7 +238,7 @@ export default function AboutPage() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">{item.description}</p>
+                  <p className="text-slate-600">{item.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -250,10 +250,10 @@ export default function AboutPage() {
       <div className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Our Principles
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-slate-600">
               The values that guide everything we do
             </p>
           </div>
@@ -262,15 +262,15 @@ export default function AboutPage() {
             {principles.map((principle) => (
               <div key={principle.title} className="flex items-start gap-4">
                 <div className="flex-shrink-0">
-                  <div className="p-2 bg-gray-100 rounded-lg">
-                    <principle.icon className="h-6 w-6 text-gray-700" />
+                  <div className="p-2 bg-above-blue-100 rounded-lg">
+                    <principle.icon className="h-6 w-6 text-slate-700" />
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-2">
                     {principle.title}
                   </h3>
-                  <p className="text-gray-600">{principle.description}</p>
+                  <p className="text-slate-600">{principle.description}</p>
                 </div>
               </div>
             ))}
@@ -282,10 +282,10 @@ export default function AboutPage() {
       <div className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Research Foundation
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-slate-600">
               Our assessments are grounded in the latest industry research and threat intelligence
             </p>
           </div>
@@ -299,55 +299,55 @@ export default function AboutPage() {
                 <CardTitle>Ponemon Institute 2025</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4">
+                <p className="text-slate-600 mb-4">
                   Global Cost of Insider Threats study provides the economic foundation for our pillar weightings
                 </p>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <div className="text-2xl font-bold text-gray-900">$17.4M</div>
-                  <div className="text-sm text-gray-600">Average annual cost per organization</div>
+                <div className="bg-above-blue-50 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-slate-900">$17.4M</div>
+                  <div className="text-sm text-slate-600">Average annual cost per organization</div>
                 </div>
               </CardContent>
             </Card>
 
             <Card className="text-center">
               <CardHeader>
-                <div className="w-16 h-16 bg-green-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <Shield className="h-8 w-8 text-green-600" />
+                <div className="w-16 h-16 bg-above-blue-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                  <Shield className="h-8 w-8 text-above-blue-800" />
                 </div>
                 <CardTitle>Verizon DBIR 2024</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4">
+                <p className="text-slate-600 mb-4">
                   Data Breach Investigations Report informs our understanding of insider threat patterns
                 </p>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <div className="text-2xl font-bold text-gray-900">68%</div>
-                  <div className="text-sm text-gray-600">Breaches involve human element</div>
+                <div className="bg-above-blue-50 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-slate-900">68%</div>
+                  <div className="text-sm text-slate-600">Breaches involve human element</div>
                 </div>
               </CardContent>
             </Card>
 
             <Card className="text-center">
               <CardHeader>
-                <div className="w-16 h-16 bg-purple-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <Users className="h-8 w-8 text-purple-600" />
+                <div className="w-16 h-16 bg-above-lavender-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                  <Users className="h-8 w-8 text-above-lavender-800" />
                 </div>
                 <CardTitle>ForScie Matrix</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4">
+                <p className="text-slate-600 mb-4">
                   Community-driven threat intelligence enhances our recommendations with real-world techniques
                 </p>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <div className="text-2xl font-bold text-gray-900">50+</div>
-                  <div className="text-sm text-gray-600">Insider threat techniques cataloged</div>
+                <div className="bg-above-blue-50 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-slate-900">50+</div>
+                  <div className="text-sm text-slate-600">Insider threat techniques cataloged</div>
                 </div>
               </CardContent>
             </Card>
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-gray-600 mb-6">
+            <p className="text-slate-600 mb-6">
               All research is properly attributed and cited in our methodology documentation
             </p>
             <Link href="/matrix" className="text-above-rose-600 hover:text-above-rose-800 font-medium">
@@ -358,13 +358,13 @@ export default function AboutPage() {
       </div>
 
       {/* Research Foundation Section */}
-      <div className="bg-gray-50 py-16 sm:py-24">
+      <div className="bg-above-blue-50 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Research Foundation
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-slate-600">
               Built on authoritative security research and community-driven threat intelligence
             </p>
           </div>
@@ -376,22 +376,22 @@ export default function AboutPage() {
                   <div className="w-20 h-20 bg-above-rose-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                     <BookOpen className="h-10 w-10 text-above-rose-600" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-slate-900 mb-2">
                     {item.name}
                   </h3>
                   <p className="text-above-rose-600 font-medium mb-3">{item.role}</p>
-                  <p className="text-gray-600 text-sm">{item.bio}</p>
+                  <p className="text-slate-600 text-sm">{item.bio}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-gray-600 text-sm mb-4">
+            <p className="text-slate-600 text-sm mb-4">
               This assessment framework synthesizes insights from multiple authoritative sources rather than proprietary research.
               All data sources are properly attributed and citations are provided throughout the platform.
             </p>
-            <div className="flex justify-center space-x-8 text-sm text-gray-500">
+            <div className="flex justify-center space-x-8 text-sm text-slate-500">
               <span>• Ponemon Institute 2025</span>
               <span>• Gartner Market Guide G00805757</span>
               <span>• Verizon DBIR 2024</span>

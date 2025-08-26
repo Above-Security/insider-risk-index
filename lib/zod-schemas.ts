@@ -12,6 +12,7 @@ export const AssessmentQuestionSchema = z.object({
   })),
   weight: z.number().min(0).max(1),
   explanation: z.string().optional(),
+  matrixTechniques: z.array(z.string()).optional(),
 });
 
 export const AssessmentAnswerSchema = z.object({

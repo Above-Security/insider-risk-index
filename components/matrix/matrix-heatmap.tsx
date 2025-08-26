@@ -87,16 +87,53 @@ export function MatrixHeatmap() {
   };
 
   const calculateRiskLevel = (technique: any): number => {
-    // Risk level based on number of preventions/detections (fewer = higher risk)
-    const preventionCount = technique.preventions?.length || 0;
-    const detectionCount = technique.detections?.length || 0;
-    const totalControls = preventionCount + detectionCount;
+    // Calculate risk based on technique category and characteristics
+    const title = technique.title?.toLowerCase() || '';
+    const description = technique.description?.toLowerCase() || '';
+    const category = technique.category;
     
-    if (totalControls === 0) return 5; // Critical
-    if (totalControls <= 2) return 4; // High  
-    if (totalControls <= 4) return 3; // Medium
-    if (totalControls <= 6) return 2; // Low
-    return 1; // Minimal
+    // Critical risk techniques (5)
+    if (category === 'Infringement') {
+      if (title.includes('exfiltration') || title.includes('destruction') || 
+          title.includes('sabotage') || description.includes('critical data')) {
+        return 5;
+      }
+      return 4; // Other infringement actions are high risk
+    }
+    
+    // High risk techniques (4)
+    if (category === 'Anti-forensics') {
+      return 4; // Covering tracks is always high risk
+    }
+    
+    // Medium-High risk (3-4)
+    if (category === 'Preparation') {
+      if (title.includes('privilege') || title.includes('credential') || 
+          description.includes('escalat')) {
+        return 4;
+      }
+      return 3;
+    }
+    
+    // Medium risk (3)
+    if (category === 'Means') {
+      if (title.includes('admin') || title.includes('bypass') || 
+          description.includes('unauthoriz')) {
+        return 4;
+      }
+      return 3;
+    }
+    
+    // Low-Medium risk (2-3)
+    if (category === 'Motive') {
+      if (title.includes('financial') || title.includes('espionage') || 
+          title.includes('revenge')) {
+        return 3;
+      }
+      return 2;
+    }
+    
+    return 2; // Default low risk
   };
 
   const determinePrimaryPillar = (technique: any): string => {
@@ -249,80 +286,170 @@ export function MatrixHeatmap() {
           </CardContent>
         </Card>
 
-        {/* Risk Heatmap */}
+        {/* Risk Heatmap Matrix */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
               <Shield className="h-5 w-5 mr-2" />
-              Technique Risk Heatmap
+              Risk Distribution by Category
             </CardTitle>
+            <p className="text-sm text-slate-600 mt-1">
+              Showing risk levels across different threat categories
+            </p>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
-              {filteredTechniques.map((technique, index) => (
-                <Tooltip key={technique.id}>
-                  <TooltipTrigger>
-                    <div
-                      className={`
-                        w-full h-16 ${getRiskColor(technique.riskLevel || 3)} 
-                        rounded border-2 border-white hover:border-slate-300 
-                        transition-all cursor-pointer opacity-80 hover:opacity-100
-                        flex items-center justify-center
-                      `}
-                    >
-                      <span className="text-xs text-white font-medium text-center px-1">
-                        {technique.title.length > 12 
-                          ? technique.title.substring(0, 12) + '...'
-                          : technique.title
-                        }
-                      </span>
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="max-w-xs">
-                    <div className="p-2">
-                      <div className="font-semibold mb-1">{technique.title}</div>
-                      <div className="text-sm mb-2">{technique.description}</div>
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="capitalize">{technique.category}</span>
-                        <span className={`font-medium ${
-                          technique.riskLevel === 5 ? 'text-above-rose-800' :
-                          technique.riskLevel === 4 ? 'text-above-rose-500' :
-                          technique.riskLevel === 3 ? 'text-above-peach-800' :
-                          'text-above-blue-800'
-                        }`}>
-                          {getRiskLabel(technique.riskLevel || 3)}
-                        </span>
-                      </div>
-                      <div className="text-xs mt-1 text-slate-600">
-                        {technique.preventions?.length || 0} preventions, {technique.detections?.length || 0} detections
-                      </div>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
+            {/* Risk Level Legend */}
+            <div className="flex justify-between items-center mb-6">
+              <span className="text-sm font-medium text-slate-700">Risk Level:</span>
+              <div className="flex gap-2">
+                <div className="flex items-center gap-1">
+                  <div className="w-4 h-4 bg-above-blue-400 rounded"></div>
+                  <span className="text-xs text-slate-600">Low</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-4 h-4 bg-above-peach-500 rounded"></div>
+                  <span className="text-xs text-slate-600">Medium</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-4 h-4 bg-above-rose-500 rounded"></div>
+                  <span className="text-xs text-slate-600">High</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-4 h-4 bg-above-rose-700 rounded"></div>
+                  <span className="text-xs text-slate-600">Critical</span>
+                </div>
+              </div>
             </div>
-            
-            {/* Legend */}
-            <div className="flex items-center justify-center mt-6 space-x-4 text-sm">
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-above-rose-700 rounded mr-2"></div>
-                Critical Risk
-              </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-above-rose-500 rounded mr-2"></div>
-                High Risk
-              </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-above-peach-500 rounded mr-2"></div>
-                Medium Risk
-              </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-above-blue-500 rounded mr-2"></div>
-                Low Risk
-              </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-above-blue-800 rounded mr-2"></div>
-                Minimal Risk
+
+            {/* Category Risk Matrix */}
+            <div className="space-y-4">
+              {categories.map(category => {
+                const categoryTechniques = data.techniques.filter(t => t.category === category.id);
+                const riskDistribution = {
+                  critical: categoryTechniques.filter(t => (t.riskLevel || 3) === 5).length,
+                  high: categoryTechniques.filter(t => (t.riskLevel || 3) === 4).length,
+                  medium: categoryTechniques.filter(t => (t.riskLevel || 3) === 3).length,
+                  low: categoryTechniques.filter(t => (t.riskLevel || 3) <= 2).length,
+                };
+                const total = categoryTechniques.length;
+                
+                return (
+                  <div key={category.id} className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <h4 className={`font-medium ${category.textColor}`}>
+                        {category.name} ({total} techniques)
+                      </h4>
+                    </div>
+                    <div className="flex gap-1 h-8">
+                      {total > 0 ? (
+                        <>
+                          {riskDistribution.critical > 0 && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div 
+                                  className="bg-above-rose-700 rounded transition-all hover:opacity-80"
+                                  style={{ width: `${(riskDistribution.critical / total) * 100}%` }}
+                                />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>{riskDistribution.critical} Critical Risk</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+                          {riskDistribution.high > 0 && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div 
+                                  className="bg-above-rose-500 rounded transition-all hover:opacity-80"
+                                  style={{ width: `${(riskDistribution.high / total) * 100}%` }}
+                                />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>{riskDistribution.high} High Risk</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+                          {riskDistribution.medium > 0 && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div 
+                                  className="bg-above-peach-500 rounded transition-all hover:opacity-80"
+                                  style={{ width: `${(riskDistribution.medium / total) * 100}%` }}
+                                />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>{riskDistribution.medium} Medium Risk</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+                          {riskDistribution.low > 0 && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div 
+                                  className="bg-above-blue-400 rounded transition-all hover:opacity-80"
+                                  style={{ width: `${(riskDistribution.low / total) * 100}%` }}
+                                />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>{riskDistribution.low} Low Risk</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+                        </>
+                      ) : (
+                        <div className="bg-slate-100 rounded w-full" />
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Highest Risk Techniques */}
+            <div className="mt-8 pt-6 border-t border-slate-200">
+              <h4 className="font-medium text-slate-700 mb-4">Highest Risk Techniques</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {data.techniques
+                  .filter(t => (t.riskLevel || 3) >= 4)
+                  .sort((a, b) => (b.riskLevel || 3) - (a.riskLevel || 3))
+                  .slice(0, 6)
+                  .map(technique => (
+                    <Tooltip key={technique.id}>
+                      <TooltipTrigger asChild>
+                        <div className={`p-3 rounded border ${
+                          technique.riskLevel === 5 ? 'bg-above-rose-50 border-above-rose-200' :
+                          technique.riskLevel === 4 ? 'bg-above-peach-50 border-above-peach-200' :
+                          'bg-above-lavender-50 border-above-lavender-200'
+                        } hover:shadow-md transition-all cursor-pointer`}>
+                          <div className="flex items-start justify-between mb-1">
+                            <span className="text-sm font-medium text-slate-800 line-clamp-1">
+                              {technique.title}
+                            </span>
+                            <Badge variant="outline" className={`ml-2 text-xs ${
+                              technique.riskLevel === 5 ? 'text-above-rose-700 border-above-rose-400' :
+                              technique.riskLevel === 4 ? 'text-above-peach-700 border-above-peach-400' :
+                              'text-above-lavender-700 border-above-lavender-400'
+                            }`}>
+                              {getRiskLabel(technique.riskLevel || 3)}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-slate-600 line-clamp-2">
+                            {technique.description}
+                          </p>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" className="max-w-md">
+                        <div className="p-2">
+                          <div className="font-semibold mb-1">{technique.title}</div>
+                          <div className="text-sm mb-2">{technique.description}</div>
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="capitalize">{technique.category}</span>
+                            <span>{technique.preventions?.length || 0} preventions, {technique.detections?.length || 0} detections</span>
+                          </div>
+                        </div>
+                      </TooltipContent>
+                    </Tooltip>
+              ))}
               </div>
             </div>
           </CardContent>

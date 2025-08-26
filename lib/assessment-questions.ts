@@ -16,6 +16,7 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
     ],
     weight: 0.3,
     explanation: "Endpoint monitoring is critical for detecting insider activities across workstations, servers, and mobile devices. According to Gartner's 2024 Market Guide, organizations with comprehensive endpoint visibility experience 40% faster threat detection (Gartner, G00805757, 2024).",
+    matrixTechniques: ["ME001", "ME024"], // Asset Control, Access
   },
   {
     id: "v2",
@@ -30,6 +31,7 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
     ],
     weight: 0.25,
     explanation: "Understanding normal user behavior patterns is essential for identifying suspicious activities. Ponemon Institute's 2025 report shows that organizations with User Behavior Analytics (UBA) reduce containment time from 81 days to 45 days on average (Ponemon Institute, 2025).",
+    matrixTechniques: ["MT018"], // Curiosity
   },
   {
     id: "v3",
@@ -44,6 +46,7 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
     ],
     weight: 0.25,
     explanation: "Data movement monitoring helps detect unauthorized access to sensitive information. Gartner research indicates that 85% of successful insider data theft involves unusual data access patterns that could be detected with proper monitoring (Gartner Market Guide, 2024).",
+    matrixTechniques: ["ME024", "ME001"], // Access, Asset Control
   },
   {
     id: "v4",

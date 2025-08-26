@@ -9,7 +9,8 @@ export const glossaryTerms = [
     difficulty: "beginner",
     relatedTerms: ["least-privilege", "privileged-access-management", "identity-governance"],
     pillarRelevance: ["identity", "visibility"],
-    sources: ["NIST SP 800-53", "ISO 27001"]
+    sources: ["NIST SP 800-53", "ISO 27001"],
+    matrixTechniques: ["ME024", "ME001"] // Access, Asset Control
   },
   {
     term: "Behavioral Baseline",
@@ -21,7 +22,8 @@ export const glossaryTerms = [
     difficulty: "intermediate",
     relatedTerms: ["user-entity-behavior-analytics", "anomaly-detection", "behavioral-monitoring"],
     pillarRelevance: ["visibility", "evidence"],
-    sources: ["MITRE ATT&CK Framework", "Gartner Market Guide G00805757 2024", "Ponemon Institute 2025"]
+    sources: ["MITRE ATT&CK Framework", "Gartner Market Guide G00805757 2024", "Ponemon Institute 2025"],
+    matrixTechniques: ["MT018", "MT022"] // Curiosity, Boundary Testing
   },
   {
     term: "Credential Stuffing",

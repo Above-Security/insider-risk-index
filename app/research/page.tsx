@@ -1,4 +1,4 @@
-import { getAllContent } from "@/lib/content";
+import { getAllContent } from "@/lib/mdx";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AboveButton, AboveBadge } from "@/components/ui/above-components";
@@ -16,7 +16,9 @@ export const metadata = {
 };
 
 export default function ResearchPage() {
-  const researchArticles = getAllContent('research');
+  const researchArticles = getAllContent('research').filter(article => 
+    article && article.frontmatter && article.frontmatter.title
+  );
   
   return (
     <div className="min-h-screen bg-above-gradient-light">
@@ -140,12 +142,12 @@ export default function ResearchPage() {
                           {index === 0 && <AboveBadge variant="default">Latest</AboveBadge>}
                         </div>
                         <CardTitle className="text-xl group-hover:text-above-rose-700 transition-colors line-clamp-2">
-                          {article.title}
+                          {article.frontmatter.title}
                         </CardTitle>
                       </div>
                     </div>
                     <CardDescription className="text-base leading-relaxed">
-                      {article.description}
+                      {article.frontmatter.description}
                     </CardDescription>
                   </CardHeader>
                   
@@ -154,29 +156,29 @@ export default function ResearchPage() {
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
-                          {new Date(article.publishedAt).toLocaleDateString('en-US', { 
+                          {new Date(article.frontmatter.publishedAt || article.frontmatter.publishDate || Date.now()).toLocaleDateString('en-US', { 
                             year: 'numeric', 
                             month: 'long' 
                           })}
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="h-4 w-4" />
-                          {article.readingTime} min read
+                          {article.frontmatter.readingTime || '15'} min read
                         </div>
-                        {article.author && (
+                        {article.frontmatter.author && (
                           <div className="flex items-center gap-1">
                             <User className="h-4 w-4" />
-                            {article.author}
+                            {article.frontmatter.author}
                           </div>
                         )}
                       </div>
                     </div>
                     
-                    {'dataSources' in article && article.dataSources && (
+                    {article.frontmatter.dataSources && (
                       <div className="mb-4">
                         <p className="text-sm font-medium text-slate-700 mb-2">Data Sources:</p>
                         <div className="flex flex-wrap gap-1">
-                          {article.dataSources.map((source, i) => (
+                          {article.frontmatter.dataSources.map((source, i) => (
                             <AboveBadge key={i} variant="outline" className="text-xs">
                               {source}
                             </AboveBadge>
@@ -185,10 +187,10 @@ export default function ResearchPage() {
                       </div>
                     )}
                     
-                    {article.tags && (
+                    {article.frontmatter.tags && (
                       <div className="mb-4">
                         <div className="flex flex-wrap gap-1">
-                          {article.tags.map((tag, i) => (
+                          {article.frontmatter.tags.map((tag, i) => (
                             <AboveBadge key={i} variant="secondary" className="text-xs">
                               {tag}
                             </AboveBadge>

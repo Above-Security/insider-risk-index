@@ -24,9 +24,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const content = await getContentBySlug('research', slug);
+  const content = getContentBySlug('research', slug);
   
-  if (!content) {
+  if (!content || !content.frontmatter || !content.frontmatter.title) {
     return {
       title: "Research Article Not Found",
       description: "The requested research article could not be found.",
@@ -60,7 +60,7 @@ export default async function ResearchArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = getContentBySlug('research', slug);
   
-  if (!article) {
+  if (!article || !article.frontmatter || !article.frontmatter.title) {
     notFound();
   }
 
@@ -99,7 +99,9 @@ export default async function ResearchArticlePage({ params }: Props) {
               </Link>
               
               <div className="mb-4">
-                <AboveBadge variant="secondary" className="mb-2 bg-white/20 text-white border-white/30">Research</AboveBadge>
+                <div className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold mb-2 bg-white/20 text-white border-white/30">
+                  Research
+                </div>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
                   {frontmatter.title}
                 </h1>
@@ -119,7 +121,7 @@ export default async function ResearchArticlePage({ params }: Props) {
                 )}
                 <div className="flex items-center gap-1">
                   <Calendar className="h-4 w-4" />
-                  {new Date(frontmatter.publishDate).toLocaleDateString('en-US', { 
+                  {new Date(frontmatter.publishDate || frontmatter.publishedAt).toLocaleDateString('en-US', { 
                     year: 'numeric', 
                     month: 'long', 
                     day: 'numeric' 
@@ -127,7 +129,7 @@ export default async function ResearchArticlePage({ params }: Props) {
                 </div>
                 <div className="flex items-center gap-1">
                   <Clock className="h-4 w-4" />
-                  {frontmatter.readingTime} minute read
+                  {frontmatter.readingTime || '15'} minute read
                 </div>
               </div>
 
@@ -135,9 +137,9 @@ export default async function ResearchArticlePage({ params }: Props) {
               {frontmatter.tags && (
                 <div className="mt-6 flex flex-wrap justify-center gap-2">
                   {frontmatter.tags.map((tag: string, index: number) => (
-                    <AboveBadge key={index} variant="outline" className="bg-white/10 border-white/30 text-white">
+                    <div key={index} className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold bg-white/10 border-white/30 text-white">
                       {tag}
-                    </AboveBadge>
+                    </div>
                   ))}
                 </div>
               )}

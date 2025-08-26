@@ -25,12 +25,16 @@ export interface PlaybookFrontmatter {
 export interface ResearchFrontmatter {
   title: string;
   description: string;
-  publishDate: string;
-  lastUpdated: string;
+  publishedAt: string;
+  publishDate?: string;
+  lastUpdated?: string;
   author: string;
   category: "trends" | "research" | "analysis" | "report";
   tags: string[];
-  readingTime: string;
+  readingTime?: string;
+  methodology?: string;
+  dataSources?: string[];
+  nextReport?: string;
   sources?: {
     title: string;
     url: string;

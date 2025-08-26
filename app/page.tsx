@@ -50,40 +50,40 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="grainy-gradient-hero text-white">
+      <section className="grainy-gradient-subtle">
         <div className={getPageLayout()}>
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-8">
-              <Badge variant="secondary" className="mb-4 bg-white/20 text-white border-white/30">
+              <Badge variant="secondary" className="mb-4 bg-above-lavender-100 text-slate-800 border-above-lavender-200">
                 Research-Based Assessment Framework
               </Badge>
-              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
                 Measure Your{" "}
-                <span className="text-white/90">Insider Risk</span>{" "}
+                <span className="text-above-rose-700">Insider Risk</span>{" "}
                 Posture
               </h1>
-              <p className="mt-6 text-lg leading-8 text-white/80">
+              <p className="mt-6 text-lg leading-8 text-slate-700">
                 Developed from analysis of $17.4M average annual insider threat costs (Ponemon 2025) and 
                 48% increase in insider attacks (Gartner Market Guide G00805757). Get evidence-based insights.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <AboveButton asChild size="lg" variant="default" className="text-lg px-8 bg-white text-above-rose-700 hover:bg-white/90">
+              <AboveButton asChild size="lg" variant="default" className="text-lg px-8">
                 <Link href="/assessment">
                   Start Free Assessment
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </AboveButton>
               
-              <AboveButton variant="outline" size="lg" asChild className="text-lg px-8 border-white/30 text-white hover:bg-white/10">
+              <AboveButton variant="outline" size="lg" asChild className="text-lg px-8">
                 <Link href="/benchmarks">
                   View Benchmarks
                 </Link>
               </AboveButton>
             </div>
             
-            <p className="mt-4 text-sm text-white/70">
+            <p className="mt-4 text-sm text-slate-600">
               ✓ No registration required  ✓ Takes 5-10 minutes  ✓ Immediate results
             </p>
           </div>

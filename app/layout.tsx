@@ -32,6 +32,17 @@ export const metadata: Metadata = {
       'application/atom+xml': `${seoConfig.siteUrl}/atom.xml`,
     },
   },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', type: 'image/x-icon' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', type: 'image/png', sizes: '180x180' },
+      { url: '/apple-touch-icon-ipad.png', type: 'image/png', sizes: '167x167' },
+    ],
+  },
   openGraph: {
     type: "website",
     title: seoConfig.siteName,

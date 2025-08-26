@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Shield, Twitter, Linkedin, Mail } from "lucide-react";
+import { Twitter, Linkedin, Mail } from "lucide-react";
+import { LogoWithText } from "@/components/ui/logo";
 
 const navigation = {
   main: [
@@ -46,9 +47,13 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand section */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <Shield className="h-8 w-8 text-above-blue-800" />
-              <span className="font-bold text-xl">Insider Risk Index</span>
+            <Link href="/">
+              <LogoWithText 
+                logoSize="lg"
+                textSize="xl"
+                color="above-blue"
+                showFullText={true}
+              />
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
               Measure and improve your organization&apos;s insider risk posture with our comprehensive assessment platform.

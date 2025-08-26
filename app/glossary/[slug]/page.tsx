@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, BookOpen, Tag, Brain, Calendar, User, ExternalLink } from 'lucide-react';
 import { PrismaClient } from '@prisma/client';
 import { getGlossaryTermJsonLd } from '@/lib/seo';
+import Script from 'next/script';
 
 const prisma = new PrismaClient();
 
@@ -337,6 +338,22 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
         </div>
       </div>
       </div>
+      
+      {/* JSON-LD structured data */}
+      <Script
+        id="glossary-term-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getGlossaryTermJsonLd({
+            term: term.term,
+            definition: term.definition,
+            category: term.category,
+            difficulty: term.difficulty,
+            pillarRelevance: term.pillarRelevance,
+            slug: term.slug,
+          })),
+        }}
+      />
     </>
   );
 }

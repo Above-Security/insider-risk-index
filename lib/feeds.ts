@@ -279,26 +279,37 @@ export async function generatePlaybooksFeed(): Promise<string> {
 }
 
 /**
- * Generate sitemap feed for search engines
+ * Generate comprehensive sitemap for search engines with dynamic content
  */
 export async function generateSitemapFeed(): Promise<string> {
   try {
     // During build time, use static content
     const research = getAllContent('research').slice(0, 1000);
     const playbooks = getAllContent('playbooks').slice(0, 1000);
-
-    const staticPages = [
-      { url: "", priority: "1.0", changefreq: "weekly" },
-      { url: "/assessment", priority: "0.9", changefreq: "monthly" },
-      { url: "/benchmarks", priority: "0.8", changefreq: "weekly" },
-      { url: "/playbooks", priority: "0.8", changefreq: "weekly" },
-      { url: "/research", priority: "0.8", changefreq: "weekly" },
-      { url: "/about", priority: "0.6", changefreq: "monthly" },
-      { url: "/contact", priority: "0.5", changefreq: "monthly" },
-      { url: "/privacy", priority: "0.3", changefreq: "yearly" },
-      { url: "/terms", priority: "0.3", changefreq: "yearly" },
+    
+    // Static routes with priority and change frequency
+    const staticRoutes = [
+      { url: '', priority: 1.0, changefreq: 'daily' }, // Homepage
+      { url: 'assessment', priority: 0.9, changefreq: 'monthly' },
+      { url: 'benchmarks', priority: 0.8, changefreq: 'weekly' },
+      { url: 'matrix', priority: 0.8, changefreq: 'weekly' },
+      { url: 'playbooks', priority: 0.7, changefreq: 'weekly' },
+      { url: 'research', priority: 0.7, changefreq: 'weekly' },
+      { url: 'glossary', priority: 0.6, changefreq: 'monthly' },
+      { url: 'about', priority: 0.5, changefreq: 'monthly' },
+      { url: 'contact', priority: 0.4, changefreq: 'monthly' },
+      { url: 'privacy', priority: 0.3, changefreq: 'yearly' },
+      { url: 'terms', priority: 0.3, changefreq: 'yearly' },
     ];
 
+    // Merge static routes with defined priorities
+    const staticPages = staticRoutes.map(route => ({
+      url: route.url ? `/${route.url}` : '',
+      priority: route.priority.toString(),
+      changefreq: route.changefreq,
+    }));
+
+    // Dynamic content with proper last modification dates
     const dynamicPages = [
       ...research.map((r: ContentItem<ContentFrontmatter>) => ({
         url: `/research/${r.slug}`,
@@ -308,11 +319,14 @@ export async function generateSitemapFeed(): Promise<string> {
       })),
       ...playbooks.map((p: ContentItem<ContentFrontmatter>) => ({
         url: `/playbooks/${p.slug}`,
-        priority: "0.7",
+        priority: "0.7",  
         changefreq: "monthly",
         lastmod: new Date(p.frontmatter.updatedAt || p.frontmatter.lastUpdated || Date.now()).toISOString().split('T')[0],
       })),
     ];
+    
+    // TODO: Add glossary terms when database is available
+    // TODO: Add matrix technique pages when API is available
 
     const allPages = [...staticPages, ...dynamicPages];
 

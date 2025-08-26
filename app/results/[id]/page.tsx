@@ -8,6 +8,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { generateJsonLd, getAssessmentResultJsonLd } from "@/lib/seo";
 import { type RecommendationContext } from "@/lib/recommendations";
+import Script from "next/script";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -116,9 +117,12 @@ export default async function ResultsPage({ params }: Props) {
 
   return (
     <>
-      <script
+      <Script
+        id="results-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
       />
       
       <div className="min-h-screen bg-above-blue-50 py-8">

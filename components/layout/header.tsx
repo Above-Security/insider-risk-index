@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AboveButton } from "@/components/ui/above-components";
+import { LogoWithText } from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
 import { LAYOUT_CONSTANTS } from "@/lib/layout-utils";
 
@@ -35,15 +36,15 @@ export function Header() {
 
   return (
     <header className="bg-above-white/95 border-b border-above-rose-200 sticky top-0 z-50 backdrop-blur-lg shadow-sm">
-      <nav className="mx-auto max-w-7xl flex items-center justify-between py-4 px-4 sm:px-6 lg:px-8" aria-label="Global">
-        <div className="flex-shrink-0 w-32 sm:w-40 lg:w-56">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-1 sm:gap-2 min-w-0">
-            <Shield className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-above-rose-700 flex-shrink-0" />
-            <span className="font-bold text-sm sm:text-base lg:text-lg text-slate-900 truncate">
-              <span className="hidden md:inline">Insider Risk Index</span>
-              <span className="hidden sm:inline md:hidden">Risk Index</span>
-              <span className="sm:hidden">IRI</span>
-            </span>
+      <nav className="mx-auto max-w-7xl flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8" aria-label="Global">
+        <div className="flex-shrink-0">
+          <Link href="/" className="-m-1.5 p-1.5 min-w-0">
+            <LogoWithText 
+              logoSize="md"
+              textSize="lg"
+              color="above-rose"
+              showFullText={true}
+            />
           </Link>
         </div>
         
@@ -98,11 +99,15 @@ export function Header() {
             <div className="flex items-center justify-between">
               <Link 
                 href="/" 
-                className="-m-1.5 p-1.5 flex items-center gap-2 min-w-0 flex-1"
+                className="-m-1.5 p-1.5 min-w-0 flex-1"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Shield className="h-8 w-8 text-above-rose-700 flex-shrink-0" />
-                <span className="font-bold text-xl sm:text-2xl text-slate-900 truncate">Insider Risk Index</span>
+                <LogoWithText 
+                  logoSize="md"
+                  textSize="xl"
+                  color="above-rose"
+                  showFullText={false}
+                />
               </Link>
               <Button
                 variant="ghost"

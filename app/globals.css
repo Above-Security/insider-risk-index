@@ -55,12 +55,14 @@
   --color-above-lavender-800: #C0A8FF;
   --color-above-lavender-900: #B89DFF;
   
-  /* Grainy Gradient Utilities - Enhanced Above brand colors */
-  --gradient-primary: radial-gradient(ellipse 600px 400px at 50% 0%, 
-                                      var(--color-above-rose-100) 0%, 
-                                      rgba(255, 255, 255, 0.9) 40%,
-                                      var(--color-above-lavender-50) 70%,
-                                      var(--color-above-blue-50) 100%);
+  /* Grainy Gradient Utilities - White-based with subtle Above brand colors */
+  --gradient-primary: radial-gradient(ellipse 800px 600px at 50% 0%, 
+                                      rgba(255, 255, 255, 1) 0%,
+                                      rgba(248, 251, 255, 0.95) 20%,
+                                      rgba(255, 248, 245, 0.9) 40%,
+                                      rgba(250, 248, 255, 0.85) 60%,
+                                      rgba(255, 245, 248, 0.8) 80%,
+                                      rgba(248, 251, 255, 0.9) 100%);
                       
   --gradient-hero: linear-gradient(135deg, 
                                   var(--color-above-rose-600) 0%,
@@ -217,8 +219,8 @@ img {
   position: absolute;
   inset: 0;
   background-image: var(--noise-texture);
-  mix-blend-mode: soft-light;
-  opacity: 0.3;
+  mix-blend-mode: multiply;
+  opacity: 0.15;
   pointer-events: none;
 }
 

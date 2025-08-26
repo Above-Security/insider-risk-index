@@ -29,6 +29,7 @@ import {
   Key,
   ShieldAlert
 } from "lucide-react";
+import Script from "next/script";
 
 const pillarIcons = {
   visibility: Eye,
@@ -338,13 +339,19 @@ export default async function PlaybookPage({ params }: Props) {
       </div>
 
       {/* JSON-LD structured data */}
-      <script
+      <Script
+        id="playbook-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(playbookJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(playbookJsonLd),
+        }}
       />
-      <script
+      <Script
+        id="playbook-breadcrumb-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
       />
     </div>
   );

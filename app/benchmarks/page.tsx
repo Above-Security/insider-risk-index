@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
 import { formatDate } from "@/lib/utils";
+import Script from "next/script";
 
 export const metadata = pageMetadata.benchmarks();
 
@@ -331,9 +332,12 @@ export default function BenchmarksPage() {
       </div>
 
       {/* JSON-LD structured data */}
-      <script
+      <Script
+        id="benchmarks-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(benchmarkDatasetJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(benchmarkDatasetJsonLd),
+        }}
       />
     </div>
   );

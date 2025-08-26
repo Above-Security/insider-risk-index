@@ -9,6 +9,8 @@ import { calculateInsiderRiskIndex } from "@/lib/scoring";
 import { AssessmentAnswer } from "@/lib/zod-schemas";
 import { useRouter } from "next/navigation";
 import { analytics } from "@/lib/analytics";
+import { getAssessmentJsonLd } from "@/lib/seo";
+import Script from "next/script";
 
 interface OrganizationData {
   organizationName: string;
@@ -168,5 +170,23 @@ export default function AssessmentPage() {
     );
   }
 
-  return null;
+  return (
+    <>
+      <Script
+        id="assessment-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getAssessmentJsonLd()),
+        }}
+      />
+      {/* Fallback for unexpected state */}
+      <div className="min-h-screen bg-above-blue-50 py-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-slate-900">Loading Assessment...</h1>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

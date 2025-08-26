@@ -1,7 +1,7 @@
 import { getAllContent } from "@/lib/mdx";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AboveButton, AboveBadge } from "@/components/ui/above-components";
-import { Calendar, Clock, User, TrendingUp, FileText, BarChart3 } from "lucide-react";
+import { Calendar, Clock, User, TrendingUp, FileText, BarChart3, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
 
@@ -23,33 +23,33 @@ export default function ResearchPage() {
   return (
     <div className="min-h-screen bg-above-gradient-light">
       {/* Hero Section */}
-      <div className="grainy-gradient-hero text-white">
+      <div className="grainy-gradient-subtle">
         <div className={`${getPageLayout()} py-16 lg:py-20`}>
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <div className="rounded-full bg-white/10 p-3">
-                <TrendingUp className="h-8 w-8" />
+              <div className="rounded-full bg-above-rose-100 p-4">
+                <BookOpen size={32} className="text-above-rose-700" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
               Research & Insights
             </h1>
-            <p className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-white/90">
+            <p className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-slate-700">
               Industry-leading research on insider threat trends, costs, and mitigation strategies. 
               Our analysis is based on comprehensive data from thousands of organizations worldwide.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm">
-              <div className="flex items-center gap-2 rounded-lg bg-above-white/10 px-4 py-2">
-                <BarChart3 className="h-4 w-4" />
-                1,400+ Organizations Analyzed
+              <div className="flex items-center gap-2 rounded-lg bg-above-blue-100 px-4 py-2">
+                <BarChart3 className="h-4 w-4 text-above-blue-800" />
+                <span className="text-slate-700 font-medium">1,400+ Organizations Analyzed</span>
               </div>
-              <div className="flex items-center gap-2 rounded-lg bg-above-white/10 px-4 py-2">
-                <FileText className="h-4 w-4" />
-                Ponemon Institute Data
+              <div className="flex items-center gap-2 rounded-lg bg-above-peach-100 px-4 py-2">
+                <FileText className="h-4 w-4 text-above-peach-800" />
+                <span className="text-slate-700 font-medium">Ponemon Institute Data</span>
               </div>
-              <div className="flex items-center gap-2 rounded-lg bg-above-white/10 px-4 py-2">
-                <TrendingUp className="h-4 w-4" />
-                Verizon DBIR Analysis
+              <div className="flex items-center gap-2 rounded-lg bg-above-lavender-100 px-4 py-2">
+                <TrendingUp className="h-4 w-4 text-above-lavender-800" />
+                <span className="text-slate-700 font-medium">Verizon DBIR Analysis</span>
               </div>
             </div>
           </div>

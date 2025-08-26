@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { getPageLayout, getSectionLayout, getGridClass } from '@/lib/layout-utils';
+import { generateJsonLd } from '@/lib/seo';
+import Script from 'next/script';
 
 export const dynamic = 'force-dynamic';
 
@@ -246,6 +248,53 @@ export default async function MatrixPage() {
           </div>
         </div>
       </div>
+      
+      {/* Matrix JSON-LD structured data */}
+      <Script
+        id="matrix-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateJsonLd({
+            "@type": "Dataset",
+            name: "Insider Threat Matrix",
+            description: "Comprehensive threat intelligence framework with 350+ insider threat techniques, prevention strategies, and detection methods",
+            url: "https://insiderriskindex.com/matrix",
+            creator: {
+              "@type": "Organization",
+              name: "ForScie Community",
+              url: "https://forscie.org/",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "ForScie Community",
+              url: "https://forscie.org/",
+            },
+            dateModified: lastUpdated,
+            keywords: "insider threat, threat intelligence, cybersecurity, security framework, threat matrix",
+            license: "https://github.com/forscie/insider-threat-matrix/blob/main/LICENSE",
+            distribution: {
+              "@type": "DataDownload",
+              contentUrl: "https://raw.githubusercontent.com/forscie/insider-threat-matrix/refs/heads/main/insider-threat-matrix.json",
+              encodingFormat: "application/json",
+            },
+            variableMeasured: [
+              {
+                "@type": "PropertyValue",
+                name: "Technique Count",
+                description: "Number of documented threat techniques",
+                value: techniques?.length || 0,
+              },
+              {
+                "@type": "PropertyValue",
+                name: "Categories",
+                description: "Threat technique categories",
+                value: "Motive, Coercion, Manipulation",
+              },
+            ],
+            citation: "ForScie Community. Insider Threat Matrix. https://insiderthreatmatrix.org/",
+          })),
+        }}
+      />
     </div>
   );
 }

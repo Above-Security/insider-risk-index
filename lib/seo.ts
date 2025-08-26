@@ -146,6 +146,23 @@ export function getOrganizationJsonLd() {
       email: seoConfig.contact.email,
       contactType: "customer support",
     },
+    industry: "Cybersecurity",
+    expertise: [
+      "Insider Threat Management",
+      "Risk Assessment",
+      "Security Benchmarking",
+      "Threat Intelligence",
+    ],
+    makesOffer: {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: "Insider Risk Assessment",
+        description: "Free comprehensive insider risk assessment and benchmarking",
+      },
+      price: "0",
+      priceCurrency: "USD",
+    },
   });
 }
 
@@ -158,11 +175,39 @@ export function getWebsiteJsonLd() {
     name: seoConfig.siteName,
     url: seoConfig.siteUrl,
     description: seoConfig.description,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${seoConfig.siteUrl}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
+    inLanguage: "en-US",
+    about: {
+      "@type": "Thing",
+      name: "Insider Threat Management",
+      description: "The practice of identifying, assessing, and mitigating risks posed by people within an organization",
     },
+    mainEntity: {
+      "@type": "SoftwareApplication",
+      name: "Insider Risk Assessment Tool",
+      applicationCategory: "SecurityApplication",
+      operatingSystem: "Web Browser",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      },
+    },
+    potentialAction: [
+      {
+        "@type": "SearchAction",
+        target: `${seoConfig.siteUrl}/glossary?search={search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
+      {
+        "@type": "AssessAction",
+        target: `${seoConfig.siteUrl}/assessment`,
+        object: {
+          "@type": "Thing",
+          name: "Organizational Insider Risk Posture",
+        },
+      },
+    ],
   });
 }
 
@@ -174,21 +219,46 @@ export function getAssessmentJsonLd() {
     "@type": "WebApplication",
     name: "Insider Risk Index Assessment",
     url: `${seoConfig.siteUrl}/assessment`,
-    description: "Comprehensive insider threat risk assessment tool",
+    description: "Free comprehensive insider risk assessment tool based on Ponemon Institute 2025 research and Gartner Market Guide insights",
     applicationCategory: "SecurityApplication",
     operatingSystem: "Web browser",
+    browserRequirements: "JavaScript enabled",
+    softwareVersion: "2.0",
+    releaseNotes: "Enhanced with Matrix technique integration and industry benchmarking",
+    creator: {
+      "@type": "Organization",
+      name: seoConfig.siteName,
+      url: seoConfig.siteUrl,
+    },
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
     },
     featureList: [
-      "Risk Assessment",
-      "Benchmark Comparison",
-      "Detailed Reporting",
-      "PDF Generation",
-      "Industry Analysis",
+      "5-Pillar Risk Assessment Framework",
+      "Industry Benchmark Comparisons", 
+      "ForScie Matrix Integration",
+      "Instant PDF Reports",
+      "No Registration Required",
+      "Privacy-First Design",
     ],
+    audience: {
+      "@type": "Audience",
+      audienceType: [
+        "Security Professionals",
+        "Risk Managers", 
+        "Compliance Officers",
+        "IT Directors",
+        "CISOs",
+      ],
+    },
+    educationalUse: "Professional cybersecurity training and assessment",
+    interactivityType: "expositive",
+    learningResourceType: "assessment",
+    timeRequired: "PT15M",
+    typicalAgeRange: "18-",
   });
 }
 

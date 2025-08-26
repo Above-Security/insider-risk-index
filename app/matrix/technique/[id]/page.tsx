@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getMatrixTechniqueJsonLd, getBreadcrumbJsonLd } from '@/lib/seo';
+import Script from 'next/script';
 
 interface TechniquePageProps {
   params: Promise<{ id: string }>;
@@ -533,13 +534,19 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
       </div>
 
       {/* JSON-LD structured data */}
-      <script
+      <Script
+        id="technique-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(techniqueJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(techniqueJsonLd),
+        }}
       />
-      <script
+      <Script
+        id="technique-breadcrumb-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
       />
     </div>
   );

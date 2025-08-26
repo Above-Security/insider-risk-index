@@ -30,6 +30,7 @@ interface ResultsSummaryProps {
     employeeCount: string;
   };
   onGeneratePDF: (type: "board-brief" | "detailed-plan") => void;
+  pdfGenerating?: string | null;
   assessmentId?: string;
   className?: string;
 }
@@ -38,6 +39,7 @@ export function ResultsSummary({
   result, 
   organizationInfo, 
   onGeneratePDF,
+  pdfGenerating,
   assessmentId,
   className 
 }: ResultsSummaryProps) {

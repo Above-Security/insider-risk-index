@@ -1,5 +1,80 @@
 @import "tailwindcss";
 
+/* Assessment wizard animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
 /* Force generate essential Above brand classes only (Tailwind v4) */
 @source inline('grainy-gradient-hero grainy-gradient-cta grainy-gradient-subtle text-above-rose-700 text-above-lavender-700 text-above-blue-800 text-above-peach-700 bg-above-rose-50 bg-above-peach-50 bg-above-blue-100 bg-above-lavender-50 hover:bg-above-rose-50 text-white text-white/{90,80} bg-white/{10,20} border-white/{20,30}');
 

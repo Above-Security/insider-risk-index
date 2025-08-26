@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Building2, Users, Mail, Shield } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface OrganizationFormProps {
   onSubmit: (data: {
@@ -59,6 +60,18 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+  
+  // Refs for focus management
+  const firstInputRef = useRef<HTMLInputElement>(null);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+  
+  // Auto-focus first input on mount
+  useEffect(() => {
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -93,6 +106,14 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: "" }));
     }
+  };
+  
+  const handleFieldFocus = (fieldName: string) => {
+    setFocusedField(fieldName);
+  };
+  
+  const handleFieldBlur = () => {
+    setFocusedField(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -136,12 +157,22 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               Organization Name *
             </Label>
             <Input
+              ref={firstInputRef}
               id="organizationName"
               type="text"
               placeholder="Enter your organization name"
               value={formData.organizationName}
               onChange={(e) => updateField("organizationName", e.target.value)}
-              className={errors.organizationName ? "border-above-rose-500" : ""}
+              onFocus={() => handleFieldFocus("organizationName")}
+              onBlur={handleFieldBlur}
+              className={cn(
+                "transition-all duration-200 focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2",
+                errors.organizationName 
+                  ? "border-above-rose-500 focus:border-above-rose-500" 
+                  : "focus:border-above-rose-400",
+                focusedField === "organizationName" && "ring-2 ring-above-rose-500 ring-offset-2"
+              )}
+              disabled={isSubmitting}
             />
             {errors.organizationName && (
               <p className="text-sm text-above-rose-600">{errors.organizationName}</p>
@@ -151,8 +182,21 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
           {/* Industry */}
           <div className="space-y-2">
             <Label htmlFor="industry">Industry *</Label>
-            <Select value={formData.industry} onValueChange={(value) => updateField("industry", value)}>
-              <SelectTrigger className={errors.industry ? "border-above-rose-500" : ""}>
+            <Select 
+              value={formData.industry} 
+              onValueChange={(value) => updateField("industry", value)}
+              disabled={isSubmitting}
+            >
+              <SelectTrigger 
+                className={cn(
+                  "transition-all duration-200 focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2",
+                  errors.industry 
+                    ? "border-above-rose-500 focus:border-above-rose-500" 
+                    : "focus:border-above-rose-400"
+                )}
+                onFocus={() => handleFieldFocus("industry")}
+                onBlur={handleFieldBlur}
+              >
                 <SelectValue placeholder="Select your industry" />
               </SelectTrigger>
               <SelectContent>
@@ -176,8 +220,21 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               <Users className="h-4 w-4" />
               Company Size *
             </Label>
-            <Select value={formData.employeeCount} onValueChange={(value) => updateField("employeeCount", value)}>
-              <SelectTrigger className={errors.employeeCount ? "border-above-rose-500" : ""}>
+            <Select 
+              value={formData.employeeCount} 
+              onValueChange={(value) => updateField("employeeCount", value)}
+              disabled={isSubmitting}
+            >
+              <SelectTrigger 
+                className={cn(
+                  "transition-all duration-200 focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2",
+                  errors.employeeCount 
+                    ? "border-above-rose-500 focus:border-above-rose-500" 
+                    : "focus:border-above-rose-400"
+                )}
+                onFocus={() => handleFieldFocus("employeeCount")}
+                onBlur={handleFieldBlur}
+              >
                 <SelectValue placeholder="Select company size" />
               </SelectTrigger>
               <SelectContent>
@@ -205,7 +262,15 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               placeholder="your.email@company.com"
               value={formData.contactEmail}
               onChange={(e) => updateField("contactEmail", e.target.value)}
-              className={errors.contactEmail ? "border-above-rose-500" : ""}
+              onFocus={() => handleFieldFocus("contactEmail")}
+              onBlur={handleFieldBlur}
+              className={cn(
+                "transition-all duration-200 focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2",
+                errors.contactEmail 
+                  ? "border-above-rose-500 focus:border-above-rose-500" 
+                  : "focus:border-above-rose-400"
+              )}
+              disabled={isSubmitting}
             />
             {errors.contactEmail && (
               <p className="text-sm text-above-rose-600">{errors.contactEmail}</p>
@@ -256,7 +321,14 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
         </CardContent>
 
         <CardFooter>
-          <AboveButton type="submit" variant="default" className="w-full" size="lg" disabled={isSubmitting}>
+          <AboveButton 
+            ref={submitButtonRef}
+            type="submit" 
+            variant="default" 
+            className="w-full focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2 transition-all duration-200" 
+            size="lg" 
+            disabled={isSubmitting}
+          >
             {isSubmitting ? (
               <>
                 <LoadingSpinner size="sm" className="mr-2" />

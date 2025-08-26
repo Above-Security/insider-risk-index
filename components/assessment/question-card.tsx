@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AssessmentQuestion } from "@/lib/zod-schemas";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -40,11 +40,37 @@ export function QuestionCard({
   const [selectedValue, setSelectedValue] = useState<number | undefined>(value);
   const [questionRationale, setQuestionRationale] = useState(rationale || "");
   const [showExplanation, setShowExplanation] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
+  
+  // Refs for focus management
+  const cardRef = useRef<HTMLDivElement>(null);
+  const explanationButtonRef = useRef<HTMLButtonElement>(null);
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
+  
+  // Update state when props change (navigation between questions)
+  useEffect(() => {
+    setSelectedValue(value);
+    setQuestionRationale(rationale || "");
+    setShowExplanation(false);
+    setIsNavigating(false);
+    
+    // Auto-focus the card for keyboard navigation
+    if (cardRef.current) {
+      cardRef.current.focus();
+    }
+  }, [question.id, value, rationale]);
 
   const handleValueChange = (newValue: string) => {
     const numValue = parseInt(newValue, 10);
     setSelectedValue(numValue);
     onAnswer(numValue, questionRationale);
+    
+    // Auto-focus next button when selection is made
+    setTimeout(() => {
+      if (nextButtonRef.current) {
+        nextButtonRef.current.focus();
+      }
+    }, 100);
   };
 
   const handleRationaleChange = (newRationale: string) => {
@@ -53,11 +79,30 @@ export function QuestionCard({
       onAnswer(selectedValue, newRationale);
     }
   };
+  
+  const handleNext = () => {
+    if (selectedValue === undefined) return;
+    setIsNavigating(true);
+    onNext?.();
+  };
+  
+  const handlePrevious = () => {
+    setIsNavigating(true);
+    onPrevious?.();
+  };
 
   const selectedOption = question.options.find(opt => opt.value === selectedValue);
 
   return (
-    <Card className={cn("w-full max-w-4xl mx-auto bg-above-white border-above-rose-100/30 shadow-soft", className)}>
+    <Card 
+      ref={cardRef}
+      tabIndex={-1}
+      className={cn(
+        "w-full max-w-4xl mx-auto bg-above-white border-above-rose-100/30 shadow-soft transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2",
+        isNavigating && "opacity-75 pointer-events-none",
+        className
+      )}
+    >
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
@@ -76,10 +121,13 @@ export function QuestionCard({
           
           {question.explanation && (
             <Button
+              ref={explanationButtonRef}
               variant="ghost"
               size="sm"
               onClick={() => setShowExplanation(!showExplanation)}
-              className="flex-shrink-0"
+              className="flex-shrink-0 hover:bg-above-blue-50 focus:bg-above-blue-50 focus:ring-2 focus:ring-above-blue-500 focus:ring-offset-1"
+              aria-expanded={showExplanation}
+              aria-label={showExplanation ? "Hide explanation" : "Show explanation"}
             >
               <HelpCircle className="h-4 w-4" />
             </Button>
@@ -97,19 +145,23 @@ export function QuestionCard({
       </CardHeader>
       
       <CardContent className="space-y-6">
-        <RadioGroup value={selectedValue?.toString()} onValueChange={handleValueChange}>
+        <RadioGroup 
+          value={selectedValue?.toString()} 
+          onValueChange={handleValueChange}
+          className="focus-within:ring-2 focus-within:ring-above-rose-500 focus-within:ring-offset-2 rounded-md transition-all duration-200"
+        >
           <div className="space-y-3">
             {question.options.map((option) => (
-              <div key={option.value} className="flex items-start space-x-3">
+              <div key={option.value} className="flex items-start space-x-3 group">
                 <RadioGroupItem 
                   value={option.value.toString()} 
                   id={`option-${option.value}`}
-                  className="mt-1"
+                  className="mt-1 focus:ring-above-rose-500 focus:ring-offset-2 transition-all duration-200"
                 />
                 <div className="grid gap-1.5 leading-none flex-1">
                   <Label 
                     htmlFor={`option-${option.value}`}
-                    className="text-sm font-medium cursor-pointer"
+                    className="text-sm font-medium cursor-pointer transition-colors duration-200 group-hover:text-above-rose-700 group-focus-within:text-above-rose-700"
                   >
                     {option.label}
                   </Label>
@@ -121,7 +173,12 @@ export function QuestionCard({
                 </div>
                 <Badge 
                   variant={selectedValue === option.value ? "default" : "outline"}
-                  className="text-xs px-2 py-0.5"
+                  className={cn(
+                    "text-xs px-2 py-0.5 transition-all duration-200",
+                    selectedValue === option.value 
+                      ? "bg-above-rose-700 text-white shadow-sm" 
+                      : "hover:bg-above-rose-50 hover:border-above-rose-300 group-hover:bg-above-rose-50 group-hover:border-above-rose-300"
+                  )}
                 >
                   {option.value}pts
                 </Badge>
@@ -160,8 +217,9 @@ export function QuestionCard({
         <div className="flex justify-between pt-4 border-t">
           <Button
             variant="outline"
-            onClick={onPrevious}
-            disabled={questionNumber === 1}
+            onClick={handlePrevious}
+            disabled={questionNumber === 1 || isNavigating}
+            className="focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Previous
           </Button>
@@ -179,9 +237,11 @@ export function QuestionCard({
           </div>
           
           <AboveButton
-            onClick={onNext}
-            disabled={selectedValue === undefined}
+            ref={nextButtonRef}
+            onClick={handleNext}
+            disabled={selectedValue === undefined || isNavigating}
             variant="default"
+            className="focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLast ? "Complete Assessment" : "Next"}
           </AboveButton>

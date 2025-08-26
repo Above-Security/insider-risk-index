@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { AboveButton } from "@/components/ui/above-components";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
@@ -255,7 +256,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
         </CardContent>
 
         <CardFooter>
-          <Button type="submit" className="w-full bg-above-rose-700 hover:bg-above-rose-800 text-white shadow-soft-rose" size="lg" disabled={isSubmitting}>
+          <AboveButton type="submit" variant="default" className="w-full" size="lg" disabled={isSubmitting}>
             {isSubmitting ? (
               <>
                 <LoadingSpinner size="sm" className="mr-2" />
@@ -264,7 +265,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
             ) : (
               'Begin Assessment'
             )}
-          </Button>
+          </AboveButton>
         </CardFooter>
       </form>
     </Card>

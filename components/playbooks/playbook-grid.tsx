@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Clock, Target, Star, ArrowRight, BookOpen, Tag, Users, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { AboveButton } from '@/components/ui/above-components';
 import { PILLAR_NAMES, PILLAR_COLORS, type Playbook } from '@/lib/playbook-constants';
 import { PlaybookFilters, PlaybookFilters as PlaybookFiltersComponent } from './playbook-filters';
 
@@ -162,10 +163,10 @@ function PlaybookCard({ playbook }: { playbook: Playbook }) {
       {/* Action Button */}
       <div className="flex justify-end pt-4 border-t border-slate-200 dark:border-slate-700">
         <Link href={`/playbooks/${playbook.slug}`}>
-          <Button className="bg-above-blue-800 hover:bg-above-blue-800 text-white">
+          <AboveButton variant="secondary">
             View Playbook
             <ArrowRight className="h-4 w-4 ml-2" />
-          </Button>
+          </AboveButton>
         </Link>
       </div>
     </div>
@@ -297,7 +298,7 @@ export function PlaybookGrid({ playbooks }: PlaybookGridProps) {
               tags: [],
             })}>
               Clear All Filters
-            </Button>
+            </AboveButton>
           )}
         </div>
       ) : (

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AboveButton } from "@/components/ui/above-components";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -65,11 +66,11 @@ export function Header() {
         </div>
         
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Button asChild className="bg-above-rose-700 hover:bg-above-rose-800 text-white shadow-soft-rose">
+          <AboveButton asChild variant="default">
             <Link href="/assessment">
               Start Assessment
             </Link>
-          </Button>
+          </AboveButton>
         </div>
       </nav>
       
@@ -125,11 +126,11 @@ export function Header() {
                 </div>
                 
                 <div className="py-6">
-                  <Button asChild className="w-full h-12 text-base bg-above-rose-700 hover:bg-above-rose-800 text-white shadow-soft-rose">
+                  <AboveButton asChild variant="default" className="w-full h-12 text-base">
                     <Link href="/assessment" onClick={() => setMobileMenuOpen(false)}>
                       Start Assessment
                     </Link>
-                  </Button>
+                  </AboveButton>
                 </div>
               </div>
             </div>

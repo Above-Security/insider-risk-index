@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { AboveButton } from "@/components/ui/above-components";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -68,18 +69,18 @@ export default function HomePage() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8 bg-above-rose-700 hover:bg-above-rose-800 text-white shadow-soft-rose">
+              <AboveButton asChild size="lg" variant="default" className="text-lg px-8">
                 <Link href="/assessment">
                   Start Free Assessment
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
-              </Button>
+              </AboveButton>
               
-              <Button variant="outline" size="lg" asChild className="text-lg px-8 border-above-blue-300 text-slate-700 hover:bg-above-blue-50">
+              <AboveButton variant="outline" size="lg" asChild className="text-lg px-8">
                 <Link href="/benchmarks">
                   View Benchmarks
                 </Link>
-              </Button>
+              </AboveButton>
             </div>
             
             <p className="mt-4 text-sm text-slate-600">
@@ -271,18 +272,18 @@ export default function HomePage() {
             </p>
             
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8">
+              <AboveButton asChild size="lg" variant="default" className="text-lg px-8">
                 <Link href="/assessment">
                   Take Assessment Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
-              </Button>
+              </AboveButton>
               
-              <Button variant="outline" size="lg" asChild className="text-lg px-8">
+              <AboveButton variant="outline" size="lg" asChild className="text-lg px-8">
                 <Link href="/research">
                   Browse Research
                 </Link>
-              </Button>
+              </AboveButton>
             </div>
             
             <div className="mt-8 flex items-center justify-center gap-6 text-sm text-slate-500">

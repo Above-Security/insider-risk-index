@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { AboveButton } from "@/components/ui/above-components";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Info, HelpCircle } from "lucide-react";
@@ -177,13 +178,13 @@ export function QuestionCard({
             </div>
           </div>
           
-          <Button
+          <AboveButton
             onClick={onNext}
             disabled={selectedValue === undefined}
-            className="bg-above-rose-700 hover:bg-above-rose-800 text-white"
+            variant="default"
           >
             {isLast ? "Complete Assessment" : "Next"}
-          </Button>
+          </AboveButton>
         </div>
       </CardContent>
     </Card>

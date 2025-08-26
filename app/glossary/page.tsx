@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { Search, Filter, BookOpen, Tag, Brain, Star } from 'lucide-react';
+import { AboveButton } from '@/components/ui/above-components';
 import Link from 'next/link';
 
 interface GlossaryTerm {
@@ -187,12 +188,13 @@ export default function GlossaryPage() {
                   <li>• Verify Prisma client is properly generated</li>
                 </ul>
               </div>
-              <button
+              <AboveButton
                 onClick={() => window.location.reload()}
-                className="mt-4 px-4 py-2 bg-above-rose-700 hover:bg-above-rose-700 text-white rounded-md transition-colors"
+                variant="default"
+                className="mt-4"
               >
                 Retry
-              </button>
+              </AboveButton>
             </div>
           </div>
         </div>

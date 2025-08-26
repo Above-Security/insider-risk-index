@@ -331,7 +331,7 @@ export function getSizeBenchmark(size: string) {
 
 export function getPillarColor(pillarId: string): string {
   const pillar = getPillarById(pillarId);
-  return pillar?.color || "#6B7280";
+  return pillar?.color || "#C8B3FF";
 }
 
 export function getPillarWeight(pillarId: string): number {

@@ -238,7 +238,7 @@ describe('Pillar System', () => {
       expect(getPillarColor('visibility')).toBe('#7AB7FF'); // above-blue-800
       expect(getPillarWeight('visibility')).toBe(0.25);
       
-      expect(getPillarColor('nonexistent')).toBe('#6B7280'); // default gray
+      expect(getPillarColor('nonexistent')).toBe('#C8B3FF'); // default lavender
       expect(getPillarWeight('nonexistent')).toBe(0);
     });
   });

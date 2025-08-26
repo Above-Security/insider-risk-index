@@ -126,24 +126,9 @@ module.exports = {
       },
       backgroundImage: {
         // Gradient definitions
-        'above-gradient': `
-          radial-gradient(ellipse at top left, rgba(255, 224, 236, 0.6), transparent 50%),
-          radial-gradient(ellipse at bottom right, rgba(212, 233, 255, 0.5), transparent 50%),
-          radial-gradient(circle at center, rgba(255, 212, 196, 0.4), transparent 60%),
-          linear-gradient(135deg, #FFFAF8 0%, #FFF5F0 100%)
-        `,
-        'above-gradient-subtle': `
-          radial-gradient(ellipse at top left, rgba(255, 224, 236, 0.3), transparent 50%),
-          radial-gradient(ellipse at bottom right, rgba(212, 233, 255, 0.25), transparent 50%),
-          radial-gradient(circle at center, rgba(255, 212, 196, 0.2), transparent 60%),
-          linear-gradient(135deg, #FFFAF8 0%, #FFF5F0 100%)
-        `,
-        'above-gradient-light': `
-          radial-gradient(ellipse at top left, rgba(255, 224, 236, 0.15), transparent 50%),
-          radial-gradient(ellipse at bottom right, rgba(212, 233, 255, 0.12), transparent 50%),
-          radial-gradient(circle at center, rgba(255, 212, 196, 0.1), transparent 60%),
-          linear-gradient(135deg, #FFFFFF 0%, #FFFAF8 100%)
-        `,
+        'above-gradient': 'radial-gradient(ellipse at top left, rgba(255, 224, 236, 0.6), transparent 50%), radial-gradient(ellipse at bottom right, rgba(212, 233, 255, 0.5), transparent 50%), radial-gradient(circle at center, rgba(255, 212, 196, 0.4), transparent 60%), linear-gradient(135deg, #FFFAF8 0%, #FFF5F0 100%)',
+        'above-gradient-subtle': 'radial-gradient(ellipse at top left, rgba(255, 224, 236, 0.3), transparent 50%), radial-gradient(ellipse at bottom right, rgba(212, 233, 255, 0.25), transparent 50%), radial-gradient(circle at center, rgba(255, 212, 196, 0.2), transparent 60%), linear-gradient(135deg, #FFFAF8 0%, #FFF5F0 100%)',
+        'above-gradient-light': 'radial-gradient(ellipse at top left, rgba(255, 224, 236, 0.15), transparent 50%), radial-gradient(ellipse at bottom right, rgba(212, 233, 255, 0.12), transparent 50%), radial-gradient(circle at center, rgba(255, 212, 196, 0.1), transparent 60%), linear-gradient(135deg, #FFFFFF 0%, #FFFAF8 100%)',
         // Grain texture (as data URI or reference to asset)
         'noise': "url('/noise.svg')",
       },

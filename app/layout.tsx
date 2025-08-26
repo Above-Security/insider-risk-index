@@ -101,7 +101,7 @@ export default function RootLayout({
         {/* DNS prefetch for analytics */}
         <link rel="dns-prefetch" href="https://us.i.posthog.com" />
       </head>
-      <body className="font-sans antialiased min-h-screen bg-background text-foreground">
+      <body className="font-sans antialiased min-h-screen bg-above-white text-slate-900">
         <ErrorBoundary>
           <AccessibilityProvider>
             <PostHogProvider>

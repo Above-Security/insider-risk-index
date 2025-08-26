@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
               style={{
                 width: "80px",
                 height: "80px",
-                background: "#3B82F6",
+                background: "#7AB7FF",
                 borderRadius: "16px",
                 display: "flex",
                 alignItems: "center",
@@ -110,7 +110,7 @@ export async function GET(request: NextRequest) {
                   style={{
                     fontSize: "72px",
                     fontWeight: "bold",
-                    color: "#3B82F6",
+                    color: "#7AB7FF",
                   }}
                 >
                   {score}
@@ -125,7 +125,7 @@ export async function GET(request: NextRequest) {
                   <div
                     style={{
                       fontSize: "24px",
-                      color: "#6B7280",
+                      color: "#C8B3FF",
                     }}
                   >
                     out of 100
@@ -134,7 +134,7 @@ export async function GET(request: NextRequest) {
                     <div
                       style={{
                         fontSize: "18px",
-                        color: "#3B82F6",
+                        color: "#7AB7FF",
                         fontWeight: "600",
                       }}
                     >
@@ -149,7 +149,7 @@ export async function GET(request: NextRequest) {
             <p
               style={{
                 fontSize: score ? "24px" : "32px",
-                color: "#6B7280",
+                color: "#C8B3FF",
                 margin: "0",
                 lineHeight: 1.3,
                 maxWidth: "600px",

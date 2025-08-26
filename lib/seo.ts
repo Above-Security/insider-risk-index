@@ -22,7 +22,7 @@ export const seoConfig = {
   publisher: "Insider Risk Index",
   robots: "index, follow",
   language: "en-US",
-  themeColor: "#3B82F6",
+  themeColor: "#7AB7FF",
   social: {
     twitter: "@InsiderRiskIdx",
     linkedin: "company/insider-risk-index",

@@ -38,11 +38,11 @@ export function TechniqueComparison() {
   const [loading, setLoading] = useState(true);
 
   const pillars = [
-    { id: 'visibility', name: 'Visibility', icon: Eye, color: '#3B82F6' },
-    { id: 'prevention-coaching', name: 'Prevention & Coaching', icon: Users, color: '#10B981' },
-    { id: 'investigation-evidence', name: 'Investigation & Evidence', icon: Search, color: '#F59E0B' },
-    { id: 'identity-saas', name: 'Identity & SaaS', icon: Key, color: '#8B5CF6' },
-    { id: 'phishing-resilience', name: 'Phishing Resilience', icon: ShieldAlert, color: '#EF4444' }
+    { id: 'visibility', name: 'Visibility', icon: Eye, color: '#7AB7FF' },
+    { id: 'prevention-coaching', name: 'Prevention & Coaching', icon: Users, color: '#FF89A1' },
+    { id: 'investigation-evidence', name: 'Investigation & Evidence', icon: Search, color: '#FF9C7A' },
+    { id: 'identity-saas', name: 'Identity & SaaS', icon: Key, color: '#C8B3FF' },
+    { id: 'phishing-resilience', name: 'Phishing Resilience', icon: ShieldAlert, color: '#FF5D78' }
   ];
 
   useEffect(() => {

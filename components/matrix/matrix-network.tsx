@@ -47,17 +47,17 @@ export function MatrixNetwork() {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const pillars = [
-    { id: 'visibility', name: 'Visibility', icon: Eye, color: '#3B82F6' },
-    { id: 'prevention-coaching', name: 'Prevention & Coaching', icon: Users, color: '#10B981' },
-    { id: 'investigation-evidence', name: 'Investigation & Evidence', icon: Search, color: '#F59E0B' },
-    { id: 'identity-saas', name: 'Identity & SaaS', icon: Key, color: '#8B5CF6' },
-    { id: 'phishing-resilience', name: 'Phishing Resilience', icon: ShieldAlert, color: '#EF4444' }
+    { id: 'visibility', name: 'Visibility', icon: Eye, color: '#7AB7FF' },
+    { id: 'prevention-coaching', name: 'Prevention & Coaching', icon: Users, color: '#FF89A1' },
+    { id: 'investigation-evidence', name: 'Investigation & Evidence', icon: Search, color: '#FF9C7A' },
+    { id: 'identity-saas', name: 'Identity & SaaS', icon: Key, color: '#C8B3FF' },
+    { id: 'phishing-resilience', name: 'Phishing Resilience', icon: ShieldAlert, color: '#FF5D78' }
   ];
 
   const categories = [
-    { id: 'Motive', name: 'Motive', color: '#DC2626' },
-    { id: 'Coercion', name: 'Coercion', color: '#EA580C' },
-    { id: 'Manipulation', name: 'Manipulation', color: '#7C3AED' }
+    { id: 'Motive', name: 'Motive', color: '#FF89A1' },
+    { id: 'Coercion', name: 'Coercion', color: '#FF9C7A' },
+    { id: 'Manipulation', name: 'Manipulation', color: '#C8B3FF' }
   ];
 
   useEffect(() => {
@@ -174,11 +174,11 @@ export function MatrixNetwork() {
 
   const getPillarColor = (technique: any): string => {
     const primaryPillar = determinePrimaryPillar(technique);
-    return pillars.find(p => p.id === primaryPillar)?.color || '#6B7280';
+    return pillars.find(p => p.id === primaryPillar)?.color || '#C8B3FF';
   };
 
   const getCategoryColor = (category: string): string => {
-    return categories.find(c => c.id === category)?.color || '#6B7280';
+    return categories.find(c => c.id === category)?.color || '#C8B3FF';
   };
 
   const initializePositions = (networkNodes: NetworkNode[]) => {

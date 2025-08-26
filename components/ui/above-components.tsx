@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
@@ -118,12 +119,15 @@ const aboveButtonVariants = cva(
 
 export interface AboveButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof aboveButtonVariants> {}
+    VariantProps<typeof aboveButtonVariants> {
+  asChild?: boolean;
+}
 
 export const AboveButton = React.forwardRef<HTMLButtonElement, AboveButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
     return (
-      <button
+      <Comp
         className={cn(aboveButtonVariants({ variant, size, className }))}
         ref={ref}
         {...props}

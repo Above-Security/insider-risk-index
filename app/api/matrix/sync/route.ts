@@ -16,9 +16,9 @@ export async function POST(request: NextRequest) {
       success: true,
       data: matrixData,
       lastSync: new Date().toISOString(),
-      techniquesCount: matrixData.techniques.length,
-      preventionsCount: matrixData.techniques.reduce((sum, t) => sum + (t.preventions?.length || 0), 0),
-      detectionsCount: matrixData.techniques.reduce((sum, t) => sum + (t.detections?.length || 0), 0),
+      elementsCount: matrixData.elements.length,
+      preventionsCount: matrixData.elements.reduce((sum, t) => sum + (t.preventions?.length || 0), 0),
+      detectionsCount: matrixData.elements.reduce((sum, t) => sum + (t.detections?.length || 0), 0),
       version: matrixData.version
     };
     
@@ -54,9 +54,9 @@ export async function GET() {
       success: true,
       data: matrixData,
       lastSync: new Date().toISOString(),
-      techniquesCount: matrixData.techniques.length,
-      preventionsCount: matrixData.techniques.reduce((sum, t) => sum + (t.preventions?.length || 0), 0),
-      detectionsCount: matrixData.techniques.reduce((sum, t) => sum + (t.detections?.length || 0), 0),
+      elementsCount: matrixData.elements.length,
+      preventionsCount: matrixData.elements.reduce((sum, t) => sum + (t.preventions?.length || 0), 0),
+      detectionsCount: matrixData.elements.reduce((sum, t) => sum + (t.detections?.length || 0), 0),
       version: matrixData.version
     };
     

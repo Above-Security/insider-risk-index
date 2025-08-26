@@ -1,6 +1,15 @@
+import 'server-only';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+declare global {
+  var __prisma: PrismaClient | undefined;
+}
+
+const prisma = globalThis.__prisma || new PrismaClient();
+
+if (process.env.NODE_ENV === 'development') {
+  globalThis.__prisma = prisma;
+}
 
 export interface AnalyticsEventData {
   name: string;

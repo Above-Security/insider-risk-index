@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, ArrowLeft } from "lucide-react";
 import { AssessmentResult } from "@/lib/zod-schemas";
-import { analytics } from "@/lib/analytics";
+import { analytics } from "@/lib/analytics-client";
 
 interface AssessmentData {
   organizationData: {

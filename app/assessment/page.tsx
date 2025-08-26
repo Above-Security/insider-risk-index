@@ -8,7 +8,7 @@ import { ASSESSMENT_QUESTIONS } from "@/lib/assessment-questions";
 import { calculateInsiderRiskIndex } from "@/lib/scoring";
 import { AssessmentAnswer } from "@/lib/zod-schemas";
 import { useRouter } from "next/navigation";
-import { analytics } from "@/lib/analytics";
+import { analytics } from "@/lib/analytics-client";
 import { getAssessmentJsonLd } from "@/lib/seo";
 import Script from "next/script";
 

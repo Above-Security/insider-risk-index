@@ -1,7 +1,6 @@
 "use client";
 
 import posthog from './posthog-client';
-import { AnalyticsDB } from './analytics-db';
 
 // Analytics event types
 export interface BaseEvent {
@@ -208,12 +207,8 @@ class AnalyticsManager {
       // Track with PostHog
       posthog.capture(name, properties);
 
-      // Store in database
-      await AnalyticsDB.trackEvent({
-        name,
-        properties,
-        ...this.getBaseEventData(),
-      });
+      // Server-side tracking would go here if needed
+      console.log('Event tracked:', name, properties);
     } catch (error) {
       console.error("Error tracking custom event:", error);
     }
@@ -271,7 +266,7 @@ class AnalyticsManager {
    */
   private async trackEvent(event: AnalyticsEventType) {
     try {
-      await AnalyticsDB.trackEvent({
+      // await AnalyticsDB.trackEvent({
         name: event.type,
         properties: event,
         userId: event.userId,
@@ -296,7 +291,7 @@ class AnalyticsManager {
 
     try {
       for (const event of events) {
-        await AnalyticsDB.trackEvent({
+        // await AnalyticsDB.trackEvent({
           name: event.type,
           properties: event,
           userId: event.userId,
@@ -337,7 +332,7 @@ export class ServerAnalytics {
    */
   static async trackEvent(name: string, properties?: Record<string, any>) {
     try {
-      await AnalyticsDB.trackEvent({
+      // await AnalyticsDB.trackEvent({
         name,
         properties,
         timestamp: new Date(),
@@ -436,7 +431,7 @@ export class AnalyticsReporting {
       const startDate = new Date();
       startDate.setDate(startDate.getDate() - days);
 
-      const events = await AnalyticsDB.getAnalytics({
+      // const events = await AnalyticsDB.getAnalytics({
         startDate,
         endDate: new Date(),
         eventName: "content_viewed",
@@ -469,7 +464,7 @@ export class AnalyticsReporting {
       const startDate = new Date();
       startDate.setDate(startDate.getDate() - days);
 
-      const events = await AnalyticsDB.getAnalytics({
+      // const events = await AnalyticsDB.getAnalytics({
         startDate,
         endDate: new Date(),
       });

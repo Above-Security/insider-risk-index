@@ -6,32 +6,33 @@
   /* Performance optimizations */
   --font-display: swap;
   
-  --color-border: hsl(214.3 31.8% 91.4%);
-  --color-input: hsl(214.3 31.8% 91.4%);
-  --color-ring: hsl(222.2 84% 4.9%);
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(222.2 84% 4.9%);
+  /* Above brand colors as CSS variables */
+  --color-border: #FFE0EC; /* above-rose-200 */
+  --color-input: #FFE0EC; /* above-rose-200 */
+  --color-ring: #FF89A1; /* above-rose-700 */
+  --color-background: #FFFFFF; /* white */
+  --color-foreground: #0F172A; /* slate-900 */
   
-  --color-primary: hsl(222.2 47.4% 11.2%);
-  --color-primary-foreground: hsl(210 40% 98%);
+  --color-primary: #FF89A1; /* above-rose-700 */
+  --color-primary-foreground: #FFFFFF; /* white */
   
-  --color-secondary: hsl(210 40% 96.1%);
-  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+  --color-secondary: #F8FBFF; /* above-blue-50 */
+  --color-secondary-foreground: #0F172A; /* slate-900 */
   
-  --color-destructive: hsl(0 84.2% 60.2%);
-  --color-destructive-foreground: hsl(210 40% 98%);
+  --color-destructive: #FF5D78; /* above-rose-900 */
+  --color-destructive-foreground: #FFFFFF; /* white */
   
-  --color-muted: hsl(210 40% 96.1%);
-  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+  --color-muted: #F0F7FF; /* above-blue-100 */
+  --color-muted-foreground: #475569; /* slate-600 */
   
-  --color-accent: hsl(210 40% 96.1%);
-  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+  --color-accent: #FFF8F5; /* above-peach-50 */
+  --color-accent-foreground: #0F172A; /* slate-900 */
   
-  --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(222.2 84% 4.9%);
+  --color-popover: #FFFFFF; /* white */
+  --color-popover-foreground: #0F172A; /* slate-900 */
   
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(222.2 84% 4.9%);
+  --color-card: #FFFFFF; /* white */
+  --color-card-foreground: #0F172A; /* slate-900 */;
   
   /* Pillar colors */
   --color-visibility: hsl(217 91% 60%);
@@ -125,7 +126,7 @@ img {
 
 /* Prose styles for MDX content */
 .prose {
-  color: hsl(222.2 84% 4.9%);
+  color: #0F172A; /* slate-900 */
   max-width: none;
 }
 
@@ -135,7 +136,7 @@ img {
   line-height: 1.111;
   margin-top: 0;
   margin-bottom: 2rem;
-  color: hsl(222.2 84% 4.9%);
+  color: #0F172A; /* slate-900 */
 }
 
 .prose h2 {
@@ -144,8 +145,8 @@ img {
   line-height: 1.2;
   margin-top: 3rem;
   margin-bottom: 1.5rem;
-  color: hsl(222.2 84% 4.9%);
-  border-bottom: 2px solid hsl(214.3 31.8% 91.4%);
+  color: #0F172A; /* slate-900 */
+  border-bottom: 2px solid #FFE0EC; /* above-rose-200 */
   padding-bottom: 0.5rem;
 }
 
@@ -155,7 +156,7 @@ img {
   line-height: 1.333;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  color: hsl(222.2 84% 4.9%);
+  color: #0F172A; /* slate-900 */
 }
 
 .prose h4 {
@@ -164,7 +165,7 @@ img {
   line-height: 1.4;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  color: hsl(222.2 84% 4.9%);
+  color: #0F172A; /* slate-900 */
 }
 
 .prose p {
@@ -186,19 +187,19 @@ img {
 
 .prose strong {
   font-weight: 600;
-  color: hsl(222.2 84% 4.9%);
+  color: #0F172A; /* slate-900 */
 }
 
 .prose blockquote {
   font-style: italic;
-  border-left: 4px solid hsl(214.3 31.8% 91.4%);
+  border-left: 4px solid #FFE0EC; /* above-rose-200 */
   padding-left: 1.5rem;
   margin: 2rem 0;
-  color: hsl(215.4 16.3% 46.9%);
+  color: #475569; /* slate-600 */
 }
 
 .prose code {
-  background-color: hsl(210 40% 96.1%);
+  background-color: #F0F7FF; /* above-blue-100 */
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
@@ -206,7 +207,7 @@ img {
 }
 
 .prose pre {
-  background-color: hsl(210 40% 96.1%);
+  background-color: #F8FBFF; /* above-blue-50 */
   padding: 1.5rem;
   border-radius: 0.5rem;
   overflow-x: auto;
@@ -228,24 +229,24 @@ img {
 }
 
 .prose th, .prose td {
-  border: 1px solid hsl(214.3 31.8% 91.4%);
+  border: 1px solid #FFE0EC; /* above-rose-200 */
   padding: 0.75rem;
   text-align: left;
 }
 
 .prose th {
-  background-color: hsl(210 40% 96.1%);
+  background-color: #F0F7FF; /* above-blue-100 */
   font-weight: 600;
 }
 
 .prose hr {
   border: 0;
-  border-top: 1px solid hsl(214.3 31.8% 91.4%);
+  border-top: 1px solid #FFE0EC; /* above-rose-200 */
   margin: 3rem 0;
 }
 
 .prose a {
-  color: hsl(222.2 47.4% 11.2%);
+  color: #7AB7FF; /* above-blue-800 */
   text-decoration: underline;
   text-underline-offset: 2px;
 }

@@ -164,14 +164,14 @@ export function TechniqueComparison() {
         {/* Technique Selection */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Select Techniques</CardTitle>
+            <CardTitle className="text-lg">Select Elements</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
               <Input
-                placeholder="Search techniques..."
+                placeholder="Search elements..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -239,7 +239,7 @@ export function TechniqueComparison() {
                 <div className="text-center py-12">
                   <GitCompare className="h-12 w-12 text-slate-400 mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-slate-900 mb-2">
-                    Select Techniques to Compare
+                    Select Elements to Compare
                   </h3>
                   <p className="text-slate-500">
                     Choose up to 3 techniques from the list to compare their controls and risk profiles.

@@ -1,4 +1,4 @@
-import { MatrixApiResponse, MatrixData, MatrixElement, CachedMatrixData } from './matrix-types';
+import { MatrixApiResponse, MatrixData, MatrixElement, CachedMatrixData, MatrixPrevention, MatrixDetection } from './matrix-types';
 
 const MATRIX_API_URL = process.env.MATRIX_API_URL || 'https://raw.githubusercontent.com/forscie/insider-threat-matrix/refs/heads/main/insider-threat-matrix.json';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -83,7 +83,7 @@ export class MatrixAPI {
               const preventions = this.extractPreventions(section);
               const detections = this.extractDetections(section);
               
-              techniques.push({
+              elements.push({
                 id: section.id,
                 title: section.title,
                 description: this.stripHtmlTags(section.description || ''),
@@ -100,7 +100,7 @@ export class MatrixAPI {
               if (section.subsections && Array.isArray(section.subsections)) {
                 section.subsections.forEach((subsection: any) => {
                   if (subsection.id && subsection.title) {
-                    techniques.push({
+                    elements.push({
                       id: subsection.id,
                       title: subsection.title,
                       description: this.stripHtmlTags(subsection.description || ''),
@@ -123,11 +123,11 @@ export class MatrixAPI {
 
     // Calculate category counts for all 5 themes
     const categoryCounts = {
-      motive: techniques.filter(t => t.category === 'Motive').length,
-      means: techniques.filter(t => t.category === 'Means').length,
-      preparation: techniques.filter(t => t.category === 'Preparation').length,
-      infringement: techniques.filter(t => t.category === 'Infringement').length,
-      antiForensics: techniques.filter(t => t.category === 'Anti-forensics').length
+      motive: elements.filter(t => t.category === 'Motive').length,
+      means: elements.filter(t => t.category === 'Means').length,
+      preparation: elements.filter(t => t.category === 'Preparation').length,
+      infringement: elements.filter(t => t.category === 'Infringement').length,
+      antiForensics: elements.filter(t => t.category === 'Anti-forensics').length
     };
 
     return {
@@ -145,9 +145,9 @@ export class MatrixAPI {
         license: 'Creative Commons Attribution 4.0 International',
         description: 'The ForScie Insider Threat Matrix is a community-driven knowledge base of insider threat techniques, tactics, and procedures.'
       },
-      techniques,
+      elements,
       metadata: {
-        totalTechniques: techniques.length,
+        totalElements: elements.length,
         categories: categoryCounts,
         lastSync: new Date().toISOString(),
         apiSource: 'ForScie GitHub Repository'
@@ -427,7 +427,7 @@ export class MatrixAPI {
       },
       elements: [],
       metadata: {
-        totalTechniques: 0,
+        totalElements: 0,
         categories: {
           motive: 0,
           means: 0,
@@ -444,10 +444,10 @@ export class MatrixAPI {
   /**
    * Get Matrix statistics
    */
-  static async getMatrixStats(): Promise<{ totalTechniques: number; categories: Record<string, number>; lastUpdated: string; }> {
+  static async getMatrixStats(): Promise<{ totalElements: number; categories: Record<string, number>; lastUpdated: string; }> {
     const data = await this.getMatrixData();
     return {
-      totalTechniques: data.metadata.totalTechniques,
+      totalElements: data.metadata.totalElements,
       categories: data.metadata.categories,
       lastUpdated: data.lastUpdated
     };
@@ -460,10 +460,10 @@ export class MatrixAPI {
     const data = await this.getMatrixData();
     
     if (category === 'all') {
-      return data.techniques;
+      return data.elements;
     }
     
-    return data.techniques.filter(tech => tech.category === category);
+    return data.elements.filter((tech: MatrixElement) => tech.category === category);
   }
 
   /**
@@ -471,7 +471,7 @@ export class MatrixAPI {
    */
   static async getTechniqueById(id: string) {
     const data = await this.getMatrixData();
-    return data.techniques.find(tech => tech.id === id);
+    return data.elements.find((tech: MatrixElement) => tech.id === id);
   }
 
   /**
@@ -481,7 +481,7 @@ export class MatrixAPI {
     const data = await this.getMatrixData();
     const lowerKeyword = keyword.toLowerCase();
     
-    return data.techniques.filter(tech => 
+    return data.elements.filter((tech: MatrixElement) => 
       tech.title.toLowerCase().includes(lowerKeyword) ||
       tech.description.toLowerCase().includes(lowerKeyword) ||
       tech.id.toLowerCase().includes(lowerKeyword)
@@ -504,10 +504,10 @@ export class MatrixAPI {
     const data = await this.getMatrixData();
     
     if (!pillarName) {
-      return data.techniques;
+      return data.elements;
     }
     
-    return data.techniques.filter(tech => {
+    return data.elements.filter((tech: MatrixElement) => {
       return tech.preventions?.some(prev => prev.pillar === pillarName || prev.primaryPillar === pillarName) ||
              tech.detections?.some(det => det.pillar === pillarName || det.primaryPillar === pillarName);
     });
@@ -522,13 +522,13 @@ export class MatrixAPI {
     return {
       pillarName,
       relatedTechniques: techniques.length,
-      elements: elements.map(element => ({
-        id: tech.id,
-        name: tech.title,
-        description: tech.description,
-        category: tech.category,
-        relevantPreventions: tech.preventions?.filter(p => p.pillar === pillarName || p.primaryPillar === pillarName) || [],
-        relevantDetections: tech.detections?.filter(d => d.pillar === pillarName || d.primaryPillar === pillarName) || []
+      elements: techniques.map((element: MatrixElement) => ({
+        id: element.id,
+        name: element.title,
+        description: element.description,
+        category: element.category,
+        relevantPreventions: element.preventions?.filter((p: MatrixPrevention) => p.pillar === pillarName || p.primaryPillar === pillarName) || [],
+        relevantDetections: element.detections?.filter((d: MatrixDetection) => d.pillar === pillarName || d.primaryPillar === pillarName) || []
       })),
       recommendations: this.generatePillarRecommendations(techniques, pillarName)
     };
@@ -541,7 +541,7 @@ export class MatrixAPI {
     const recommendations: string[] = [];
     
     // Extract unique prevention strategies
-    techniques.forEach(tech => {
+    elements.forEach((tech: MatrixElement) => {
       tech.preventions?.forEach(prevention => {
         if ((prevention.pillar === pillarName || prevention.primaryPillar === pillarName) && prevention.title) {
           recommendations.push(prevention.title);

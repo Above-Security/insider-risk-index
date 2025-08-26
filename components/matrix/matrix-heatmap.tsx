@@ -86,7 +86,7 @@ export function MatrixHeatmap() {
         const categoryDistribution = calculateCategoryDistribution(techniques);
 
         setData({
-          techniques,
+          elements: techniques,
           pillarCoverage,
           categoryDistribution
         });
@@ -174,7 +174,7 @@ export function MatrixHeatmap() {
     )[0];
   };
 
-  const calculatePillarCoverage = (techniques: MatrixTechnique[]): Record<string, number> => {
+  const calculatePillarCoverage = (techniques: MatrixElement[]): Record<string, number> => {
     const coverage: Record<string, number> = {};
     pillars.forEach(pillar => {
       coverage[pillar.id] = techniques.filter(tech => tech.primaryPillar === pillar.id).length;
@@ -182,7 +182,7 @@ export function MatrixHeatmap() {
     return coverage;
   };
 
-  const calculateCategoryDistribution = (techniques: MatrixTechnique[]): Record<string, number> => {
+  const calculateCategoryDistribution = (techniques: MatrixElement[]): Record<string, number> => {
     const distribution: Record<string, number> = {};
     categories.forEach(category => {
       distribution[category.id] = techniques.filter(tech => tech.category === category.id).length;
@@ -239,8 +239,8 @@ export function MatrixHeatmap() {
   }
 
   const filteredTechniques = selectedCategory === 'all' 
-    ? data.techniques 
-    : data.techniques.filter(tech => tech.category === selectedCategory);
+    ? data.elements 
+    : data.elements.filter(tech => tech.category === selectedCategory);
 
   return (
     <TooltipProvider>
@@ -279,8 +279,8 @@ export function MatrixHeatmap() {
               {pillars.map(pillar => {
                 const PillarIcon = pillar.icon;
                 const coverage = data.pillarCoverage[pillar.id] || 0;
-                const percentage = data.techniques.length > 0 
-                  ? Math.round((coverage / data.techniques.length) * 100)
+                const percentage = data.elements.length > 0 
+                  ? Math.round((coverage / data.elements.length) * 100)
                   : 0;
                 
                 return (
@@ -336,7 +336,7 @@ export function MatrixHeatmap() {
             {/* Category Risk Matrix */}
             <div className="space-y-4">
               {categories.map(category => {
-                const categoryTechniques = data.techniques.filter(t => t.category === category.id);
+                const categoryTechniques = data.elements.filter(t => t.category === category.id);
                 const riskDistribution = {
                   critical: categoryTechniques.filter(t => (t.riskLevel || 3) === 5).length,
                   high: categoryTechniques.filter(t => (t.riskLevel || 3) === 4).length,
@@ -421,7 +421,7 @@ export function MatrixHeatmap() {
             <div className="mt-8 pt-6 border-t border-slate-200">
               <h4 className="font-medium text-slate-700 mb-4">Highest Risk Techniques</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {data.techniques
+                {data.elements
                   .filter(t => (t.riskLevel || 3) >= 4)
                   .sort((a, b) => (b.riskLevel || 3) - (a.riskLevel || 3))
                   .slice(0, 6)

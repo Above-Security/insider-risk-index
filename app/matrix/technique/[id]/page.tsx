@@ -20,6 +20,7 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { MatrixAPI } from '@/lib/matrix-api';
+import { MatrixPrevention, MatrixDetection } from '@/lib/matrix-types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -40,6 +41,13 @@ const getElementType = (category: string): string => {
 
 interface TechniquePageProps {
   params: Promise<{ id: string }>;
+}
+
+interface Pillar {
+  id: string;
+  name: string;
+  icon: any;
+  color: string;
 }
 
 async function getTechniqueData(id: string) {
@@ -157,9 +165,9 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
     title: technique.title,
     description: technique.description,
     category: technique.category,
-    preventions: (technique.preventions || []).map(p => p.title),
-    detections: (technique.detections || []).map(d => d.title),
-    contributors: (technique.contributors || []).map(c => ({
+    preventions: (technique.preventions || []).map((p: MatrixPrevention) => p.title),
+    detections: (technique.detections || []).map((d: MatrixDetection) => d.title),
+    contributors: (technique.contributors || []).map((c: string) => ({
       name: c,
       affiliation: undefined
     }))
@@ -290,7 +298,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  {technique.preventions.map((prevention, index) => (
+                  {technique.preventions.map((prevention: MatrixPrevention, index: number) => (
                     <div key={prevention.id || index} className="border-l-4 border-above-blue-700 pl-4">
                       <h4 className="font-semibold text-slate-900 mb-2">
                         {prevention.title}
@@ -353,7 +361,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  {technique.detections.map((detection, index) => (
+                  {technique.detections.map((detection: MatrixDetection, index: number) => (
                     <div key={detection.id || index} className="border-l-4 border-above-peach-700 pl-4">
                       <h4 className="font-semibold text-slate-900 mb-2">
                         {detection.title}
@@ -404,7 +412,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                           {(detection.requiredTools?.length || 0) > 0 && (
                             <div>
                               <span className="text-xs text-slate-500">Required Tools: </span>
-                              {detection.requiredTools?.map(tool => (
+                              {detection.requiredTools?.map((tool: string) => (
                                 <Badge key={tool} variant="outline" className="mr-1">
                                   {tool}
                                 </Badge>
@@ -414,7 +422,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                           {(detection.alternativeTools?.length || 0) > 0 && (
                             <div>
                               <span className="text-xs text-slate-500">Alternative Tools: </span>
-                              {detection.alternativeTools?.map(tool => (
+                              {detection.alternativeTools?.map((tool: string) => (
                                 <Badge key={tool} variant="secondary" className="mr-1">
                                   {tool}
                                 </Badge>
@@ -440,7 +448,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {technique.tactics.map((tactic, index) => (
+                    {technique.tactics.map((tactic: string, index: number) => (
                       <Badge key={index} variant="outline" className="text-above-lavender-700 border-above-lavender-300">
                         {tactic}
                       </Badge>
@@ -464,7 +472,7 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    {technique.contributors.map((contributor, index) => (
+                    {technique.contributors.map((contributor: string, index: number) => (
                       <div key={index} className="text-sm">
                         {contributor}
                       </div>
@@ -484,13 +492,13 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {pillars.map(pillar => {
+                  {pillars.map((pillar: Pillar) => {
                     const PillarIcon = pillar.icon;
                     const preventionCount = technique.preventions?.filter(
-                      p => p.primaryPillar === pillar.id
+                      (p: MatrixPrevention) => p.primaryPillar === pillar.id
                     ).length || 0;
                     const detectionCount = technique.detections?.filter(
-                      d => d.primaryPillar === pillar.id
+                      (d: MatrixDetection) => d.primaryPillar === pillar.id
                     ).length || 0;
                     const totalCount = preventionCount + detectionCount;
                     

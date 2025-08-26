@@ -5,7 +5,7 @@ import { MatrixData } from './matrix-types';
 interface PillarMatrixAnalysis {
   pillarName: string;
   relatedTechniques: number;
-  techniques: Array<{
+  elements: Array<{
     id: string;
     name: string;
     description: string;
@@ -198,9 +198,9 @@ function generateCriticalRecommendations(
   return [{
     id: `critical-${pillarId}-${Date.now()}`,
     pillarId,
-    matrixTechniques: analysis.techniques.map(t => t.id).slice(0, 5),
+    matrixTechniques: analysis.elements.map(t => t.id).slice(0, 5),
     preventionStrategies: analysis.recommendations.slice(0, 3),
-    detectionMethods: analysis.techniques.flatMap(t => t.relevantDetections.map(d => d.description)).slice(0, 3),
+    detectionMethods: analysis.elements.flatMap(t => t.relevantDetections.map(d => d.description)).slice(0, 3),
     resources: [
       {
         title: 'Insider Threat Matrix Techniques',
@@ -269,9 +269,9 @@ function generateModerateRecommendations(
       difficulty: action.difficulty,
       timeToImplement: action.timeToImplement,
       estimatedImpact: action.estimatedImpact,
-      matrixTechniques: analysis.techniques.map(t => t.id).slice(0, 3),
+      matrixTechniques: analysis.elements.map(t => t.id).slice(0, 3),
       preventionStrategies: analysis.recommendations.slice(0, 2),
-      detectionMethods: analysis.techniques.flatMap(t => t.relevantDetections.map(d => d.description)).slice(0, 2),
+      detectionMethods: analysis.elements.flatMap(t => t.relevantDetections.map(d => d.description)).slice(0, 2),
       playbooks: [pillarId.replace('-', '-')],
       resources: [
         {
@@ -303,9 +303,9 @@ function generateOptimizationRecommendations(
     difficulty: 'hard',
     timeToImplement: '4-8 weeks',
     estimatedImpact: 5,
-    matrixTechniques: analysis.techniques.map(t => t.id).slice(0, 2),
+    matrixTechniques: analysis.elements.map(t => t.id).slice(0, 2),
     preventionStrategies: analysis.recommendations.slice(0, 1),
-    detectionMethods: analysis.techniques.flatMap(t => t.relevantDetections.map(d => d.description)).slice(0, 1),
+    detectionMethods: analysis.elements.flatMap(t => t.relevantDetections.map(d => d.description)).slice(0, 1),
     playbooks: [pillarId],
     resources: [
       {

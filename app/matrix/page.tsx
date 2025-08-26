@@ -45,7 +45,7 @@ export async function generateMetadata() {
 export default async function MatrixPage() {
   const matrixData = await getMatrixData();
 
-  if (!matrixData || !matrixData.techniques || matrixData.techniques.length === 0) {
+  if (!matrixData || !matrixData.elements || matrixData.elements.length === 0) {
     return (
       <div className={`min-h-screen bg-above-blue-50 ${getSectionLayout('md')}`}>
         <div className={getPageLayout()}>
@@ -75,7 +75,7 @@ export default async function MatrixPage() {
     );
   }
 
-  const { techniques, metadata, contributors, lastUpdated } = matrixData;
+  const { elements, metadata, contributors, lastUpdated } = matrixData;
 
   return (
     <div className={`min-h-screen bg-above-gradient-subtle ${getSectionLayout('md')}`}>
@@ -103,7 +103,7 @@ export default async function MatrixPage() {
             <CardContent className="p-6 text-center">
               <Database className="h-8 w-8 text-above-blue-800 mx-auto mb-2" />
               <div className="text-3xl font-bold text-slate-900">
-                {metadata.totalTechniques}
+                {metadata.totalElements}
               </div>
               <div className="text-sm font-medium text-slate-600">
                 Total Elements
@@ -213,7 +213,7 @@ export default async function MatrixPage() {
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                   Threat Techniques Overview
                 </h2>
-                <MatrixTechniquesPaginated techniques={techniques} itemsPerPage={20} />
+                <MatrixTechniquesPaginated techniques={elements} itemsPerPage={20} />
               </div>
             </TabsContent>
             
@@ -318,7 +318,7 @@ export default async function MatrixPage() {
                 "@type": "PropertyValue",
                 name: "Technique Count",
                 description: "Number of documented threat techniques",
-                value: techniques?.length || 0,
+                value: elements?.length || 0,
               },
               {
                 "@type": "PropertyValue",

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { MatrixTechnique } from '@/lib/matrix-types';
+import { MatrixElement } from '@/lib/matrix-types';
 import { ChevronLeft, ChevronRight, Shield, AlertCircle, Eye, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Link from 'next/link';
 
 interface MatrixTechniquesPaginatedProps {
-  techniques: MatrixTechnique[];
+  techniques: MatrixElement[];
   itemsPerPage?: number;
 }
 

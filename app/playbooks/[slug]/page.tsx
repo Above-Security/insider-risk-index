@@ -4,7 +4,7 @@ import Link from "next/link";
 export const dynamic = 'force-dynamic';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { AboveButton, AboveBadge } from "@/components/ui/above-components";
 import { MDXContent } from "@/components/mdx/mdx-content";
 import { 
   getContentBySlug, 
@@ -114,49 +114,49 @@ export default async function PlaybookPage({ params }: Props) {
   ]);
 
   return (
-    <div className="min-h-screen bg-above-white">
-      {/* Header */}
-      <div className="bg-above-gradient-light border-b border-above-rose-100">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center mb-4">
+    <div className="min-h-screen bg-above-gradient-light">
+      {/* Enhanced Header with Gradient */}
+      <div className="bg-gradient-to-r from-above-rose-900 via-above-rose-800 to-above-lavender-800 text-white">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center mb-8">
             <Link 
               href="/playbooks"
-              className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-slate-700"
+              className="inline-flex items-center text-sm font-medium text-above-rose-100 hover:text-white mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-1" />
               Back to Playbooks
             </Link>
-          </div>
 
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <div className="flex items-center mb-4">
-                <IconComponent className="h-8 w-8 text-above-rose-700 mr-3" />
+            <div className="mb-4">
+              <div className="flex items-center justify-center mb-4">
+                <div className="bg-white/20 p-3 rounded-full mr-3">
+                  <IconComponent className="h-8 w-8 text-white" />
+                </div>
                 <div className="flex flex-wrap gap-2">
-                  <Badge 
+                  <AboveBadge 
                     variant="outline" 
-                    className={difficultyColors[frontmatter.difficulty as keyof typeof difficultyColors] || difficultyColors.Beginner}
+                    className="bg-white/20 border-white/30 text-white"
                   >
                     {frontmatter.difficulty}
-                  </Badge>
-                  <Badge 
+                  </AboveBadge>
+                  <AboveBadge 
                     variant="outline"
-                    className={maturityLevel.color}
+                    className="bg-white/20 border-white/30 text-white"
                   >
                     Level {frontmatter.maturityLevel} - {maturityLevel.name}
-                  </Badge>
+                  </AboveBadge>
                 </div>
               </div>
               
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-4">
+              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
                 {frontmatter.title}
               </h1>
               
-              <p className="text-xl text-slate-600 mb-6">
+              <p className="text-xl leading-relaxed mb-6 text-above-rose-100 max-w-3xl mx-auto">
                 {frontmatter.description}
               </p>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-slate-600">
+              <div className="flex flex-wrap justify-center gap-6 text-sm text-above-rose-100">
                 <div className="flex items-center">
                   <Clock className="h-4 w-4 mr-2" />
                   {frontmatter.timeToImplement} to implement
@@ -172,15 +172,15 @@ export default async function PlaybookPage({ params }: Props) {
               </div>
             </div>
 
-            <div className="hidden md:flex flex-col gap-2 ml-6">
-              <Button variant="outline" size="sm">
+            <div className="flex justify-center gap-3 mt-6">
+              <AboveButton variant="outline" size="sm" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
                 <Share2 className="h-4 w-4 mr-2" />
                 Share
-              </Button>
-              <Button variant="outline" size="sm">
+              </AboveButton>
+              <AboveButton variant="outline" size="sm" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
                 <Download className="h-4 w-4 mr-2" />
                 Export PDF
-              </Button>
+              </AboveButton>
             </div>
           </div>
         </div>
@@ -188,11 +188,13 @@ export default async function PlaybookPage({ params }: Props) {
 
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Main Content */}
+          {/* Main Content with Enhanced Styling */}
           <div className="lg:col-span-3">
-            <article>
-              <MDXContent content={content} />
-            </article>
+            <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+              <article>
+                <MDXContent content={content} />
+              </article>
+            </div>
           </div>
 
           {/* Sidebar */}
@@ -233,9 +235,9 @@ export default async function PlaybookPage({ params }: Props) {
                       <div className="text-sm font-medium text-slate-500 mb-2">Tags</div>
                       <div className="flex flex-wrap gap-1">
                         {frontmatter.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs">
+                          <AboveBadge key={tag} variant="secondary" className="text-xs">
                             {tag}
-                          </Badge>
+                          </AboveBadge>
                         ))}
                       </div>
                     </div>
@@ -271,9 +273,9 @@ export default async function PlaybookPage({ params }: Props) {
               )}
 
               {/* Action CTA */}
-              <Card className="bg-above-blue-50 border-above-blue-200">
-                <CardContent className="p-4 text-center">
-                  <Target className="h-8 w-8 text-above-blue-800 mx-auto mb-3" />
+              <Card className="bg-gradient-to-br from-above-rose-50 to-above-lavender-50 border-above-rose-200">
+                <CardContent className="p-6 text-center">
+                  <Target className="h-10 w-10 text-above-rose-700 mx-auto mb-3" />
                   <h3 className="font-semibold text-slate-900 mb-2">
                     Ready to Implement?
                   </h3>
@@ -281,9 +283,9 @@ export default async function PlaybookPage({ params }: Props) {
                     Take our assessment to see how this playbook fits your current maturity level.
                   </p>
                   <Link href="/assessment">
-                    <Button size="sm" className="w-full">
+                    <AboveButton size="sm" className="w-full">
                       Start Assessment
-                    </Button>
+                    </AboveButton>
                   </Link>
                 </CardContent>
               </Card>
@@ -293,30 +295,38 @@ export default async function PlaybookPage({ params }: Props) {
 
         {/* Related Playbooks */}
         {relatedPlaybooks.length > 0 && (
-          <div className="mt-16 pt-8 border-t">
+          <div className="mt-16 pt-8 border-t border-above-rose-200">
             <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Playbooks</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedPlaybooks.map((related) => {
+              {relatedPlaybooks.map((related, index) => {
                 const RelatedIcon = pillarIcons[related.frontmatter.pillar as keyof typeof pillarIcons] || BookOpen;
+                const cardColors = [
+                  { bg: 'bg-above-rose-50', border: 'border-above-rose-200', accent: 'border-l-above-rose-700' },
+                  { bg: 'bg-above-blue-50', border: 'border-above-blue-200', accent: 'border-l-above-blue-700' },
+                  { bg: 'bg-above-peach-50', border: 'border-above-peach-200', accent: 'border-l-above-peach-700' },
+                ];
+                const cardColor = cardColors[index % cardColors.length];
+                
                 return (
-                  <Card key={related.slug} className="hover:shadow-md transition-shadow">
+                  <Card key={related.slug} className={`hover:shadow-xl hover:scale-105 transition-all duration-300 ${cardColor.bg} ${cardColor.border} border-l-4 ${cardColor.accent}`}>
                     <CardHeader className="pb-2">
                       <div className="flex items-start justify-between">
                         <CardTitle className="text-base line-clamp-2">
                           {related.frontmatter.title}
                         </CardTitle>
-                        <RelatedIcon className="h-5 w-5 text-slate-400 ml-2 flex-shrink-0" />
+                        <div className="bg-white/50 p-2 rounded-lg ml-2 flex-shrink-0">
+                          <RelatedIcon className="h-5 w-5 text-above-rose-700" />
+                        </div>
                       </div>
                     </CardHeader>
                     <CardContent className="pt-2">
-                      <p className="text-sm text-slate-600 line-clamp-2 mb-3">
+                      <p className="text-sm text-slate-600 line-clamp-2 mb-4">
                         {related.frontmatter.description}
                       </p>
-                      <Link 
-                        href={`/playbooks/${related.slug}`}
-                        className="text-sm font-medium text-above-blue-800 hover:text-above-blue-800"
-                      >
-                        View Playbook →
+                      <Link href={`/playbooks/${related.slug}`}>
+                        <AboveButton variant="outline" size="sm" className="w-full">
+                          View Playbook →
+                        </AboveButton>
                       </Link>
                     </CardContent>
                   </Card>

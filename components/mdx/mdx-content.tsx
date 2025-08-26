@@ -22,7 +22,7 @@ import {
 const components = {
   // Basic HTML elements with styling
   h1: (props: any) => <h1 className="text-3xl font-bold mb-6 text-slate-900" {...props} />,
-  h2: (props: any) => <h2 className="text-2xl font-semibold mb-4 mt-8 text-slate-900 border-b border-slate-200 pb-2" {...props} />,
+  h2: (props: any) => <h2 className="text-2xl font-semibold mb-4 mt-8 text-slate-900 border-b-2 border-above-rose-200 pb-2" {...props} />,
   h3: (props: any) => <h3 className="text-xl font-semibold mb-3 mt-6 text-slate-900" {...props} />,
   h4: (props: any) => <h4 className="text-lg font-medium mb-2 mt-4 text-slate-900" {...props} />,
   p: (props: any) => <p className="mb-4 text-slate-700 leading-relaxed" {...props} />,
@@ -30,16 +30,29 @@ const components = {
   ol: (props: any) => <ol className="list-decimal list-inside mb-4 space-y-1 text-slate-700" {...props} />,
   li: (props: any) => <li className="mb-1" {...props} />,
   blockquote: (props: any) => (
-    <blockquote className="border-l-4 border-above-blue-500 pl-4 italic my-4 text-slate-600 bg-above-blue-50 py-2" {...props} />
+    <blockquote className="border-l-4 border-above-rose-700 pl-4 italic my-4 text-slate-700 bg-above-rose-50 py-3 rounded-r-lg shadow-sm" {...props} />
   ),
   code: (props: any) => (
-    <code className="bg-above-blue-100 text-slate-800 px-1 py-0.5 rounded text-sm font-mono" {...props} />
+    <code className="bg-above-blue-100 text-slate-900 px-2 py-1 rounded font-mono text-sm border border-above-blue-200" {...props} />
   ),
   pre: (props: any) => (
-    <pre className="bg-above-blue-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-4 text-sm" {...props} />
+    <pre className="bg-slate-800 text-gray-100 p-4 rounded-lg overflow-x-auto mb-4 text-sm border border-slate-600 shadow-lg" {...props} />
   ),
   a: (props: any) => (
-    <a className="text-above-blue-800 hover:text-above-blue-800 underline" {...props} />
+    <a className="text-above-rose-700 hover:text-above-rose-900 underline underline-offset-2 font-medium" {...props} />
+  ),
+  
+  // Enhanced table styling for research data
+  table: (props: any) => (
+    <div className="overflow-x-auto my-6">
+      <table className="w-full border-collapse bg-white rounded-lg shadow-sm border border-above-blue-200" {...props} />
+    </div>
+  ),
+  th: (props: any) => (
+    <th className="bg-above-blue-100 text-above-blue-900 font-semibold p-3 text-left border-b border-above-blue-200 first:rounded-tl-lg last:rounded-tr-lg" {...props} />
+  ),
+  td: (props: any) => (
+    <td className="p-3 border-b border-above-blue-100 text-slate-700" {...props} />
   ),
   
   // Custom components
@@ -147,7 +160,57 @@ const components = {
         </div>
       </div>
     </div>
-  )
+  ),
+  
+  // Research-specific components
+  StatCard: ({ title, value, subtitle, trend }: {
+    title: string;
+    value: string;
+    subtitle?: string;
+    trend?: 'up' | 'down' | 'neutral';
+  }) => {
+    const trendColors = {
+      up: 'text-above-rose-700',
+      down: 'text-above-blue-700', 
+      neutral: 'text-slate-600'
+    };
+    
+    return (
+      <div className="bg-white p-6 rounded-lg border-l-4 border-above-blue-700 shadow-sm">
+        <h4 className="text-sm font-medium text-slate-600 mb-1">{title}</h4>
+        <div className="text-3xl font-bold text-slate-900 mb-1">{value}</div>
+        {subtitle && (
+          <p className={`text-sm ${trend ? trendColors[trend] : 'text-slate-600'}`}>
+            {subtitle}
+          </p>
+        )}
+      </div>
+    );
+  },
+  
+  ResearchSection: ({ title, children, category }: {
+    title: string;
+    children: React.ReactNode;
+    category?: 'findings' | 'methodology' | 'analysis' | 'recommendations';
+  }) => {
+    const categoryColors = {
+      findings: { bg: 'bg-above-rose-50', border: 'border-above-rose-200', text: 'text-above-rose-700' },
+      methodology: { bg: 'bg-above-blue-50', border: 'border-above-blue-200', text: 'text-above-blue-700' },
+      analysis: { bg: 'bg-above-peach-50', border: 'border-above-peach-200', text: 'text-above-peach-700' },
+      recommendations: { bg: 'bg-above-lavender-50', border: 'border-above-lavender-200', text: 'text-above-lavender-700' }
+    };
+    
+    const colors = category ? categoryColors[category] : { bg: 'bg-slate-50', border: 'border-slate-200', text: 'text-slate-700' };
+    
+    return (
+      <div className={`${colors.bg} ${colors.border} border-l-4 p-6 my-6 rounded-r-lg`}>
+        <h3 className={`text-xl font-semibold mb-4 ${colors.text}`}>{title}</h3>
+        <div className="space-y-4">
+          {children}
+        </div>
+      </div>
+    );
+  }
 };
 
 interface MDXContentProps {

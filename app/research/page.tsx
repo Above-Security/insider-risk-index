@@ -1,7 +1,7 @@
 import { getAllContent } from "@/lib/content";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { AboveButton, AboveBadge } from "@/components/ui/above-components";
 import { Calendar, Clock, User, TrendingUp, FileText, BarChart3 } from "lucide-react";
 import Link from "next/link";
 
@@ -62,43 +62,43 @@ export default function ResearchPage() {
             <p className="text-lg text-slate-600 mt-2">Critical insights from our latest research</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center border-l-4 border-l-red-500">
+            <Card className="text-center border-l-4 border-l-above-rose-700 bg-above-rose-50 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-3">
-                <CardTitle className="text-3xl font-bold text-above-rose-800">$17.4M</CardTitle>
-                <CardDescription>Average annual cost per organization</CardDescription>
+                <CardTitle className="text-3xl font-bold text-above-rose-900">$17.4M</CardTitle>
+                <CardDescription className="text-above-rose-800">Average annual cost per organization</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-slate-600">7.4% increase from 2023</p>
+                <AboveBadge variant="error" className="text-xs">7.4% increase from 2023</AboveBadge>
               </CardContent>
             </Card>
             
-            <Card className="text-center border-l-4 border-l-orange-500">
+            <Card className="text-center border-l-4 border-l-above-peach-700 bg-above-peach-50 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-3">
-                <CardTitle className="text-3xl font-bold text-above-peach-800">68%</CardTitle>
-                <CardDescription>Of breaches involve human element</CardDescription>
+                <CardTitle className="text-3xl font-bold text-above-peach-900">68%</CardTitle>
+                <CardDescription className="text-above-peach-800">Of breaches involve human element</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-slate-600">Non-malicious actors dominant</p>
+                <AboveBadge variant="warning" className="text-xs">Non-malicious actors dominant</AboveBadge>
               </CardContent>
             </Card>
             
-            <Card className="text-center border-l-4 border-l-blue-500">
+            <Card className="text-center border-l-4 border-l-above-blue-700 bg-above-blue-50 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-3">
-                <CardTitle className="text-3xl font-bold text-above-rose-700">81</CardTitle>
-                <CardDescription>Days average containment time</CardDescription>
+                <CardTitle className="text-3xl font-bold text-above-blue-900">81</CardTitle>
+                <CardDescription className="text-above-blue-800">Days average containment time</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-slate-600">$676,517 cost per incident</p>
+                <AboveBadge variant="secondary" className="text-xs">$676,517 cost per incident</AboveBadge>
               </CardContent>
             </Card>
             
-            <Card className="text-center border-l-4 border-l-green-500">
+            <Card className="text-center border-l-4 border-l-above-lavender-700 bg-above-lavender-50 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-3">
-                <CardTitle className="text-3xl font-bold text-above-blue-800">13.5</CardTitle>
-                <CardDescription>Average incidents per year</CardDescription>
+                <CardTitle className="text-3xl font-bold text-above-lavender-900">13.5</CardTitle>
+                <CardDescription className="text-above-lavender-800">Average incidents per year</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-slate-600">Per organization baseline</p>
+                <AboveBadge variant="secondary" className="text-xs">Per organization baseline</AboveBadge>
               </CardContent>
             </Card>
           </div>
@@ -121,14 +121,23 @@ export default function ResearchPage() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {researchArticles.map((article, index) => (
-                <Card key={article.slug} className={`group hover:shadow-lg transition-shadow ${index === 0 ? 'lg:col-span-2' : ''}`}>
+              {researchArticles.map((article, index) => {
+                const cardColors = [
+                  { bg: 'bg-above-rose-50', border: 'border-above-rose-200', accent: 'border-l-above-rose-700' },
+                  { bg: 'bg-above-blue-50', border: 'border-above-blue-200', accent: 'border-l-above-blue-700' },
+                  { bg: 'bg-above-peach-50', border: 'border-above-peach-200', accent: 'border-l-above-peach-700' },
+                  { bg: 'bg-above-lavender-50', border: 'border-above-lavender-200', accent: 'border-l-above-lavender-700' },
+                ];
+                const cardColor = cardColors[index % cardColors.length];
+                
+                return (
+                <Card key={article.slug} className={`group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ${cardColor.bg} ${cardColor.border} border-l-4 ${cardColor.accent} ${index === 0 ? 'lg:col-span-2' : ''}`}>
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <Badge variant="secondary">Research</Badge>
-                          {index === 0 && <Badge variant="default">Latest</Badge>}
+                          <AboveBadge variant="secondary">Research</AboveBadge>
+                          {index === 0 && <AboveBadge variant="default">Latest</AboveBadge>}
                         </div>
                         <CardTitle className="text-xl group-hover:text-above-rose-700 transition-colors line-clamp-2">
                           {article.title}
@@ -168,9 +177,9 @@ export default function ResearchPage() {
                         <p className="text-sm font-medium text-slate-700 mb-2">Data Sources:</p>
                         <div className="flex flex-wrap gap-1">
                           {article.dataSources.map((source, i) => (
-                            <Badge key={i} variant="outline" className="text-xs">
+                            <AboveBadge key={i} variant="outline" className="text-xs">
                               {source}
-                            </Badge>
+                            </AboveBadge>
                           ))}
                         </div>
                       </div>
@@ -180,22 +189,23 @@ export default function ResearchPage() {
                       <div className="mb-4">
                         <div className="flex flex-wrap gap-1">
                           {article.tags.map((tag, i) => (
-                            <Badge key={i} variant="secondary" className="text-xs">
+                            <AboveBadge key={i} variant="secondary" className="text-xs">
                               {tag}
-                            </Badge>
+                            </AboveBadge>
                           ))}
                         </div>
                       </div>
                     )}
                     
                     <Link href={`/research/${article.slug}`}>
-                      <Button className="w-full group-hover:bg-above-rose-600 transition-colors">
+                      <AboveButton className="w-full" variant="default">
                         Read Full Report
-                      </Button>
+                      </AboveButton>
                     </Link>
                   </CardContent>
                 </Card>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
@@ -207,9 +217,9 @@ export default function ResearchPage() {
             See how your insider risk posture compares to industry benchmarks with our comprehensive assessment.
           </p>
           <Link href="/assessment">
-            <Button size="lg" variant="secondary" className="bg-white text-above-rose-700 hover:bg-above-rose-50">
+            <AboveButton size="lg" variant="secondary" className="bg-white text-above-rose-700 hover:bg-above-rose-50">
               Start Free Assessment
-            </Button>
+            </AboveButton>
           </Link>
         </div>
       </div>

@@ -586,8 +586,8 @@ async function main() {
   // Research articles
   await prisma.research.create({
     data: {
-      slug: 'insider-threat-trends-2024',
-      title: 'Insider Threat Landscape Report 2024',
+      slug: 'insider-threat-trends-2025',
+      title: 'The Hidden Enemy: 2025 Insider Threat Intelligence Report',
       abstract: 'Comprehensive analysis of insider threat trends, costs, and mitigation strategies based on data from over 1,400 organizations across 15 industries.',
       content: 'Full research content would be stored here...',
       authors: ['Dr. Sarah Chen', 'Michael Rodriguez', 'Emily Thompson'],

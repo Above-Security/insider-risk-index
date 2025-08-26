@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -45,14 +46,23 @@ const components = {
   // Enhanced table styling for research data
   table: (props: any) => (
     <div className="overflow-x-auto my-6">
-      <table className="w-full border-collapse bg-white rounded-lg shadow-sm border border-above-blue-200" {...props} />
+      <table className="w-full border-collapse bg-white rounded-lg shadow-lg border border-slate-300" {...props} />
     </div>
   ),
+  thead: (props: any) => (
+    <thead className="bg-slate-100" {...props} />
+  ),
+  tbody: (props: any) => (
+    <tbody className="bg-white" {...props} />
+  ),
+  tr: (props: any) => (
+    <tr className="hover:bg-slate-50 transition-colors" {...props} />
+  ),
   th: (props: any) => (
-    <th className="bg-above-blue-100 text-above-blue-900 font-semibold p-3 text-left border-b border-above-blue-200 first:rounded-tl-lg last:rounded-tr-lg" {...props} />
+    <th className="bg-slate-100 text-slate-900 font-semibold p-4 text-left border border-slate-300 text-sm uppercase tracking-wide first:rounded-tl-lg last:rounded-tr-lg" {...props} />
   ),
   td: (props: any) => (
-    <td className="p-3 border-b border-above-blue-100 text-slate-700" {...props} />
+    <td className="p-4 border border-slate-300 text-slate-700 text-sm" {...props} />
   ),
   
   // Custom components
@@ -220,8 +230,16 @@ interface MDXContentProps {
 
 export function MDXContent({ content, className = "" }: MDXContentProps) {
   return (
-    <div className={`prose prose-lg max-w-none ${className}`}>
-      <MDXRemote source={content} components={components} />
+    <div className={className}>
+      <MDXRemote 
+        source={content} 
+        components={components}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        }}
+      />
     </div>
   );
 }

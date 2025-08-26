@@ -27,36 +27,6 @@ export default function AssessmentPage() {
   const [answers, setAnswers] = useState<Map<string, AssessmentAnswer>>(new Map());
   const [answeredQuestions, setAnsweredQuestions] = useState<Set<string>>(new Set());
   
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      // Only handle keyboard navigation in questions step
-      if (currentStep !== "questions") return;
-      
-      if (event.ctrlKey || event.metaKey) {
-        switch (event.key) {
-          case 'ArrowRight':
-          case 'n':
-            event.preventDefault();
-            if (answers.has(ASSESSMENT_QUESTIONS[currentQuestionIndex].id)) {
-              handleNext();
-            }
-            break;
-          case 'ArrowLeft':
-          case 'p':
-            event.preventDefault();
-            if (currentQuestionIndex > 0) {
-              handlePrevious();
-            }
-            break;
-        }
-      }
-    };
-    
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentStep, currentQuestionIndex, answers, handleNext, handlePrevious]);
-  
   const handleOrganizationSubmit = async (data: OrganizationData) => {
     setOrganizationData(data);
     setCurrentStep("questions");
@@ -118,6 +88,36 @@ export default function AssessmentPage() {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   }, [currentQuestionIndex]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Only handle keyboard navigation in questions step
+      if (currentStep !== "questions") return;
+      
+      if (event.ctrlKey || event.metaKey) {
+        switch (event.key) {
+          case 'ArrowRight':
+          case 'n':
+            event.preventDefault();
+            if (answers.has(ASSESSMENT_QUESTIONS[currentQuestionIndex].id)) {
+              handleNext();
+            }
+            break;
+          case 'ArrowLeft':
+          case 'p':
+            event.preventDefault();
+            if (currentQuestionIndex > 0) {
+              handlePrevious();
+            }
+            break;
+        }
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentStep, currentQuestionIndex, answers, handleNext, handlePrevious]);
 
   if (currentStep === "organization") {
     return (

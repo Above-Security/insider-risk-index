@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Search, Tag, Brain, Star } from 'lucide-react';
+import { Search, Tag, Brain, Star, BookOpen } from 'lucide-react';
 import { AboveButton } from '@/components/ui/above-components';
 import Link from 'next/link';
 

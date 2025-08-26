@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, BookOpen, Tag, Brain, Calendar, User, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Tag, Brain, Calendar, User, ExternalLink } from 'lucide-react';
 import { PrismaClient } from '@prisma/client';
 import { getGlossaryTermJsonLd } from '@/lib/seo';
 import Script from 'next/script';

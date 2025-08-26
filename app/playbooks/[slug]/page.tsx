@@ -3,7 +3,6 @@ import Link from "next/link";
 
 export const dynamic = 'force-dynamic';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { AboveButton, AboveBadge } from "@/components/ui/above-components";
 import { MDXContent } from "@/components/mdx/mdx-content";
 import { 
@@ -39,11 +38,6 @@ const pillarIcons = {
   "phishing-resilience": ShieldAlert,
 };
 
-const difficultyColors = {
-  Beginner: "bg-above-blue-100 text-above-blue-800 border-above-blue-200",
-  Intermediate: "bg-above-peach-100 text-above-peach-800 border-above-peach-200", 
-  Advanced: "bg-above-rose-100 text-above-rose-800 border-above-rose-200",
-};
 
 const maturityLevels = {
   1: { name: "Ad Hoc", color: "bg-above-blue-100 text-above-blue-800 border-above-blue-200", description: "Basic, reactive approach" },

@@ -38,8 +38,8 @@ export default function BenchmarksPage() {
   const benchmarkDatasetJsonLd = getBenchmarkDatasetJsonLd();
 
   return (
-    <div className="min-h-screen bg-above-blue-50 py-8">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className={`min-h-screen bg-above-blue-50 ${getSectionLayout('sm')}`}>
+      <div className={getPageLayout()}>
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
@@ -57,7 +57,7 @@ export default function BenchmarksPage() {
         </div>
 
         {/* Overview Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <div className={`${getGridClass('metrics', '2-4')} mb-12`}>
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -141,7 +141,7 @@ export default function BenchmarksPage() {
             </div>
 
             {/* Industry Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className={getGridClass('cards', '1-2-3')}>
               {Object.entries(INDUSTRY_BENCHMARKS).map(([key, industry]) => (
                 <Card key={key} className="hover:shadow-lg transition-shadow">
                   <CardHeader className="pb-4">
@@ -204,7 +204,7 @@ export default function BenchmarksPage() {
             </div>
 
             {/* Size Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className={getGridClass('cards', '1-2-3')}>
               {Object.entries(SIZE_BENCHMARKS).map(([key, sizeData]) => (
                 <Card key={key} className="hover:shadow-lg transition-shadow">
                   <CardHeader className="pb-4">
@@ -242,7 +242,7 @@ export default function BenchmarksPage() {
             </div>
 
             {/* Size Trend Analysis */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className={getGridClass('content', '1-2')}>
               <Card>
                 <CardHeader>
                   <CardTitle>Key Insights</CardTitle>

@@ -20,6 +20,7 @@ import { PILLARS, OVERALL_BENCHMARKS } from "@/lib/pillars";
 import { pageMetadata } from "@/lib/seo";
 import { AssessmentPreview } from "@/components/home/assessment-preview";
 import { ResultsPreview } from "@/components/home/results-preview";
+import { LAYOUT_CONSTANTS, getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
 
 export const metadata = pageMetadata.home();
 
@@ -50,9 +51,9 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="grainy-gradient-subtle py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
+      <section className={`grainy-gradient-subtle ${getSectionLayout('lg')}`}>
+        <div className={getPageLayout()}>
+          <div className="mx-auto max-w-4xl text-center">
             <div className="mb-8">
               <Badge variant="secondary" className="mb-4 bg-above-lavender-100 text-slate-800 border-above-lavender-200">
                 Research-Based Assessment Framework
@@ -68,7 +69,7 @@ export default function HomePage() {
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <AboveButton asChild size="lg" variant="default" className="text-lg px-8">
                 <Link href="/assessment">
                   Start Free Assessment
@@ -91,8 +92,8 @@ export default function HomePage() {
       </section>
 
       {/* The 5 Pillars */}
-      <section className="py-16 sm:py-24 bg-above-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`bg-above-white ${getSectionLayout('lg')}`}>
+        <div className={getPageLayout()}>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               The 5 Pillars of Insider Risk
@@ -102,7 +103,7 @@ export default function HomePage() {
             </p>
           </div>
           
-          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className={`mt-16 ${getGridClass('cards', '1-2-3')}`}>
             {PILLARS.map((pillar, index) => {
               const IconComponent = {
                 Eye,
@@ -148,8 +149,8 @@ export default function HomePage() {
       </section>
 
       {/* Interactive Preview */}
-      <section className="py-16 sm:py-24 bg-above-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`bg-above-white ${getSectionLayout('lg')}`}>
+        <div className={getPageLayout()}>
           <div className="mx-auto max-w-2xl text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
               <PlayCircle className="h-6 w-6 text-above-blue-800" />
@@ -168,15 +169,15 @@ export default function HomePage() {
       </section>
 
       {/* Results Preview */}
-      <section className="py-16 sm:py-24 bg-above-blue-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`bg-above-blue-50 ${getSectionLayout('lg')}`}>
+        <div className={getPageLayout()}>
           <ResultsPreview />
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-16 sm:py-24 bg-above-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`bg-above-white ${getSectionLayout('lg')}`}>
+        <div className={getPageLayout()}>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Why Choose Our Assessment?
@@ -186,7 +187,7 @@ export default function HomePage() {
             </p>
           </div>
           
-          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className={`mt-16 ${getGridClass('cards', '1-2-4')}`}>
             {features.map((feature) => (
               <div key={feature.title} className="text-center">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-above-blue-100">
@@ -205,8 +206,8 @@ export default function HomePage() {
       </section>
 
       {/* Stats */}
-      <section className="py-16 sm:py-24 bg-above-blue-800">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`bg-above-blue-800 ${getSectionLayout('lg')}`}>
+        <div className={getPageLayout()}>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Research-Backed Industry Data
@@ -216,7 +217,7 @@ export default function HomePage() {
             </p>
           </div>
           
-          <dl className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className={`mt-16 ${getGridClass('metrics', '2-4')}`}>
             <div className="flex flex-col items-center">
               <dt className="text-sm font-medium text-above-blue-200">
                 Annual Cost Impact
@@ -261,8 +262,8 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 sm:py-24 bg-above-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`bg-above-white ${getSectionLayout('lg')}`}>
+        <div className={getPageLayout()}>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Ready to Get Started?
@@ -271,7 +272,7 @@ export default function HomePage() {
               Take the first step toward better insider threat management
             </p>
             
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
               <AboveButton asChild size="lg" variant="default" className="text-lg px-8">
                 <Link href="/assessment">
                   Take Assessment Now
@@ -286,7 +287,7 @@ export default function HomePage() {
               </AboveButton>
             </div>
             
-            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-slate-500">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500">
               <div className="flex items-center gap-1">
                 <CheckCircle className="h-4 w-4 text-above-blue-500" />
                 Free to use

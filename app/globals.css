@@ -217,6 +217,108 @@ img {
   pointer-events: none;
 }
 
+/* Responsive Enhancement - Mobile First Optimizations */
+@media (max-width: 640px) {
+  /* Improve mobile text readability */
+  .text-4xl { font-size: 2.25rem; }
+  .text-5xl { font-size: 2.5rem; }
+  .text-6xl { font-size: 3rem; }
+  
+  /* Tighter mobile spacing */
+  .gap-8 { gap: 1.5rem; }
+  .gap-6 { gap: 1rem; }
+  .gap-4 { gap: 0.75rem; }
+  
+  /* Mobile grid adjustments */
+  .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  
+  /* Reduce excessive padding on mobile */
+  .py-24 { padding-top: 3rem; padding-bottom: 3rem; }
+  .py-20 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  .py-16 { padding-top: 2rem; padding-bottom: 2rem; }
+  
+  /* Card spacing optimizations */
+  .p-8 { padding: 1.5rem; }
+  .p-6 { padding: 1rem; }
+}
+
+@media (max-width: 480px) {
+  /* Extra small screens */
+  .px-4 { padding-left: 1rem; padding-right: 1rem; }
+  .text-lg { font-size: 1rem; }
+  .text-xl { font-size: 1.125rem; }
+  
+  /* Smaller buttons on mobile */
+  .h-12 { height: 2.5rem; }
+  .px-8 { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Better tablet spacing */
+  .gap-8 { gap: 1.75rem; }
+  .gap-6 { gap: 1.25rem; }
+  
+  /* Grid adjustments for tablets */
+  .sm\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md\\:grid-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Touch target optimizations */
+@media (pointer: coarse) {
+  /* Larger touch targets for mobile */
+  .h-10 { height: 3rem; }
+  .min-h-\\[44px\\] { min-height: 44px; }
+  
+  /* Button spacing for touch */
+  button, .btn, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem 1.5rem;
+  }
+  
+  /* Link touch targets */
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Sharper borders on retina */
+  .border { border-width: 0.5px; }
+  .border-2 { border-width: 1px; }
+  .border-4 { border-width: 2px; }
+}
+
+/* Container query support for cards */
+@container (max-width: 300px) {
+  .card-responsive {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .card-responsive h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Focus improvements for accessibility */
+@media (prefers-reduced-motion: no-preference) {
+  /* Smooth focus transitions */
+  button:focus, 
+  a:focus, 
+  input:focus, 
+  textarea:focus, 
+  select:focus {
+    transition: all 0.2s ease-in-out;
+    outline: 2px solid var(--color-above-rose-700);
+    outline-offset: 2px;
+  }
+}
+
 /* Critical above-the-fold optimizations */
 .critical-above-fold {
   contain: layout style paint;

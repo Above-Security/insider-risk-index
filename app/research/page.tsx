@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { AboveButton, AboveBadge } from "@/components/ui/above-components";
 import { Calendar, Clock, User, TrendingUp, FileText, BarChart3 } from "lucide-react";
 import Link from "next/link";
+import { LAYOUT_CONSTANTS, getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
 
 export const metadata = {
   title: "Research & Insights | Insider Risk Index",
@@ -24,7 +25,7 @@ export default function ResearchPage() {
     <div className="min-h-screen bg-above-gradient-light">
       {/* Hero Section */}
       <div className="grainy-gradient-hero text-white">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className={`${getPageLayout()} py-16 lg:py-20`}>
           <div className="text-center">
             <div className="flex justify-center mb-6">
               <div className="rounded-full bg-white/10 p-3">
@@ -56,14 +57,14 @@ export default function ResearchPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className={`${getPageLayout()} ${getSectionLayout('lg')}`}>
         {/* Key Statistics */}
         <div className="mb-16">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-slate-900">2024 Key Findings</h2>
             <p className="text-lg text-slate-600 mt-2">Critical insights from our latest research</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className={getGridClass('cards', '1-2-4')}>
             <Card className="text-center border-l-4 border-l-above-rose-700 bg-above-rose-50 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-3">
                 <CardTitle className="text-3xl font-bold text-above-rose-900">$17.4M</CardTitle>
@@ -213,7 +214,7 @@ export default function ResearchPage() {
         </div>
 
         {/* Call to Action */}
-        <div className="mt-16 grainy-gradient-cta rounded-2xl p-8 text-center">
+        <div className="mt-16 grainy-gradient-cta rounded-2xl p-6 lg:p-8 text-center">
           <h3 className="text-2xl font-bold mb-4 text-white">Get Your Organization's Risk Assessment</h3>
           <p className="text-xl mb-6 text-white/90">
             See how your insider risk posture compares to industry benchmarks with our comprehensive assessment.

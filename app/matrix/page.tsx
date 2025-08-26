@@ -8,6 +8,7 @@ import { MatrixTechniquesPaginated } from '@/components/matrix/matrix-techniques
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { generateJsonLd } from '@/lib/seo';
 import Link from 'next/link';
+import { LAYOUT_CONSTANTS, getPageLayout, getSectionLayout, getGridClass } from '@/lib/layout-utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -75,8 +76,8 @@ export default async function MatrixPage() {
   const { techniques, metadata, contributors, lastUpdated } = matrixData;
 
   return (
-    <div className="min-h-screen bg-above-gradient-subtle py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className={`min-h-screen bg-above-gradient-subtle ${getSectionLayout('md')}`}>
+      <div className={getPageLayout()}>
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
@@ -96,7 +97,7 @@ export default async function MatrixPage() {
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <div className={`${getGridClass('metrics', '2-4')} mb-12`}>
           <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 text-center">
             <Database className="h-8 w-8 text-above-blue-800 mx-auto mb-2" />
             <div className="text-2xl font-bold text-slate-900 dark:text-white">

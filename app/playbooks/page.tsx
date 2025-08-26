@@ -2,6 +2,7 @@ import { BookOpen } from 'lucide-react';
 import { getAllPlaybooks } from '@/lib/playbooks';
 import { PlaybookGrid } from '@/components/playbooks/playbook-grid';
 import { pageMetadata, generateJsonLd } from '@/lib/seo';
+import { LAYOUT_CONSTANTS, getPageLayout, getSectionLayout } from '@/lib/layout-utils';
 
 export const metadata = pageMetadata.playbooks();
 
@@ -45,8 +46,8 @@ export default function PlaybooksPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(playbooksJsonLd) }}
       />
-      <div className="min-h-screen grainy-gradient-subtle py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className={`min-h-screen grainy-gradient-subtle ${getSectionLayout('md')}`}>
+      <div className={getPageLayout()}>
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">

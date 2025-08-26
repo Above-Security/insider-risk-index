@@ -26,18 +26,18 @@ async function getMatrixData() {
 export async function generateMetadata() {
   return {
     title: 'Insider Threat Matrix - Comprehensive Threat Intelligence',
-    description: 'Explore the comprehensive Insider Threat Matrix with 350+ techniques, preventions, and detection methods based on real-world threat intelligence from the ForScie community.',
+    description: 'Explore the comprehensive Insider Threat Matrix with 350+ motivations, capabilities, activities, and techniques based on real-world threat intelligence from the ForScie community.',
     keywords: ['insider threat matrix', 'threat intelligence', 'security techniques', 'prevention strategies', 'detection methods', 'ForScie', 'cybersecurity framework'],
     openGraph: {
       title: 'Insider Threat Matrix - Comprehensive Threat Intelligence',
-      description: 'Explore 350+ insider threat techniques with prevention and detection strategies',
+      description: 'Explore 350+ insider threat elements: motivations, capabilities, activities, and techniques with prevention and detection strategies',
       type: 'website',
       url: '/matrix',
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Insider Threat Matrix',
-      description: 'Comprehensive threat intelligence framework with 350+ techniques',
+      description: 'Comprehensive threat intelligence framework with 350+ insider threat elements',
     },
   };
 }
@@ -89,8 +89,7 @@ export default async function MatrixPage() {
             </h1>
           </div>
           <p className="text-lg text-slate-700 max-w-3xl mx-auto mb-6">
-            Comprehensive threat intelligence based on real-world insider threat techniques, 
-            prevention strategies, and detection methods from the cybersecurity community.
+            Comprehensive threat intelligence covering motivations, capabilities, activities, and techniques from real-world insider threats, with prevention strategies and detection methods from the cybersecurity community.
           </p>
           <div className="flex items-center justify-center text-sm text-slate-600">
             <Calendar className="h-4 w-4 mr-1" />
@@ -107,7 +106,7 @@ export default async function MatrixPage() {
                 {metadata.totalTechniques}
               </div>
               <div className="text-sm font-medium text-slate-600">
-                Total Techniques
+                Total Elements
               </div>
             </CardContent>
           </Card>
@@ -120,6 +119,9 @@ export default async function MatrixPage() {
               <div className="text-sm font-medium text-slate-600">
                 Motive
               </div>
+              <div className="text-xs text-slate-500">
+                Motivations
+              </div>
             </CardContent>
           </Card>
           <Card>
@@ -130,6 +132,9 @@ export default async function MatrixPage() {
               </div>
               <div className="text-sm font-medium text-slate-600">
                 Means
+              </div>
+              <div className="text-xs text-slate-500">
+                Capabilities
               </div>
             </CardContent>
           </Card>
@@ -142,6 +147,9 @@ export default async function MatrixPage() {
               <div className="text-sm font-medium text-slate-600">
                 Preparation
               </div>
+              <div className="text-xs text-slate-500">
+                Activities
+              </div>
             </CardContent>
           </Card>
           <Card>
@@ -153,6 +161,9 @@ export default async function MatrixPage() {
               <div className="text-sm font-medium text-slate-600">
                 Infringement
               </div>
+              <div className="text-xs text-slate-500">
+                Techniques
+              </div>
             </CardContent>
           </Card>
           <Card>
@@ -163,6 +174,9 @@ export default async function MatrixPage() {
               </div>
               <div className="text-sm font-medium text-slate-600">
                 Anti-forensics
+              </div>
+              <div className="text-xs text-slate-500">
+                Techniques
               </div>
             </CardContent>
           </Card>

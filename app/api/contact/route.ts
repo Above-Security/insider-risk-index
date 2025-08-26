@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContactFormSchema } from "@/lib/zod-schemas";
-import { ServerAnalytics } from "@/lib/analytics";
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,12 +7,6 @@ export async function POST(request: NextRequest) {
     
     // Validate the form data
     const validatedData = ContactFormSchema.parse(body);
-    
-    // Track the contact form submission
-    await ServerAnalytics.trackEvent("contact_form_submitted", {
-      company: validatedData.company,
-      subscribe: validatedData.subscribe,
-    });
 
     // In a production environment, you would:
     // 1. Send an email using a service like SendGrid, Resend, or NodeMailer

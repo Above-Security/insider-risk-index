@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, ArrowLeft } from "lucide-react";
 import { AssessmentResult } from "@/lib/zod-schemas";
-import { analytics } from "@/lib/analytics-client";
 
 interface AssessmentData {
   organizationData: {
@@ -43,12 +42,6 @@ export default function AssessmentResultsPage() {
           const data = JSON.parse(storedData) as AssessmentData;
           setAssessmentData(data);
           
-          // Track results viewing
-          analytics.trackPageView("/assessment/results", {
-            score: data.result.totalScore,
-            level: data.result.level,
-            industry: data.organizationData.industry,
-          });
           
           // Trigger fade-in animation
           setTimeout(() => setFadeIn(true), 100);
@@ -79,13 +72,6 @@ export default function AssessmentResultsPage() {
     setPdfGenerating(type);
     
     try {
-      // Track PDF generation
-      await analytics.trackContent({
-        type: "pdf_generated",
-        contentId: `${type}-${Date.now()}`,
-        contentType: "pdf",
-      });
-
       // Call API to generate PDF
       const response = await fetch("/api/generate-pdf", {
         method: "POST",

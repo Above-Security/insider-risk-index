@@ -8,7 +8,6 @@ import { ASSESSMENT_QUESTIONS } from "@/lib/assessment-questions";
 import { calculateInsiderRiskIndex } from "@/lib/scoring";
 import { AssessmentAnswer } from "@/lib/zod-schemas";
 import { useRouter } from "next/navigation";
-import { analytics } from "@/lib/analytics-client";
 import { getAssessmentJsonLd } from "@/lib/seo";
 import Script from "next/script";
 
@@ -61,13 +60,6 @@ export default function AssessmentPage() {
   const handleOrganizationSubmit = async (data: OrganizationData) => {
     setOrganizationData(data);
     setCurrentStep("questions");
-    
-    // Track assessment start
-    await analytics.trackAssessment({
-      type: "assessment_started",
-      industry: data.industry,
-      companySize: data.employeeCount,
-    });
   };
 
   const handleAnswer = (questionId: string, value: number, rationale?: string) => {
@@ -93,14 +85,6 @@ export default function AssessmentPage() {
         companySize: organizationData.employeeCount,
       });
 
-      // Track assessment completion
-      await analytics.trackAssessment({
-        type: "assessment_completed",
-        industry: organizationData.industry,
-        companySize: organizationData.employeeCount,
-        score: result.totalScore,
-        level: result.level,
-      });
 
       // Save to localStorage for results page
       const assessmentData = {

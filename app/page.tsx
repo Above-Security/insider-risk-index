@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { PILLARS } from "@/lib/pillars";
 import { pageMetadata, getProductJsonLd, getResearchArticleJsonLd, getOrganizationJsonLd } from "@/lib/seo";
+import { getWebApplicationSchema, getHowToAssessmentSchema, getDatasetSchema, getSoftwareApplicationSchema } from "@/lib/enhanced-seo";
 import { AssessmentPreview } from "@/components/home/assessment-preview";
 import { ResultsPreview } from "@/components/home/results-preview";
 import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
@@ -57,6 +58,12 @@ export default function HomePage() {
     tags: ["shadow AI", "insider threats", "artificial intelligence security", "threat intelligence", "malicious insiders"],
     author: "Insider Risk Index Research Team"
   });
+
+  // Enhanced Schema.org markup for comprehensive AI/LLM visibility
+  const webAppJsonLd = getWebApplicationSchema();
+  const howToJsonLd = getHowToAssessmentSchema();
+  const datasetJsonLd = getDatasetSchema();
+  const softwareJsonLd = getSoftwareApplicationSchema();
 
   // FAQ Schema for Bing/ChatGPT optimization
   const faqJsonLd = {
@@ -150,6 +157,22 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
       />
       <div className="flex flex-col">
       {/* Hero Section */}

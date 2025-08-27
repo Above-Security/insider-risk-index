@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+    <ShortName>Insider Risk Index</ShortName>
+    <Description>Search insider threat intelligence, assessments, and security research</Description>
+    <Tags>cybersecurity insider threats security assessment</Tags>
+    <Contact>hello@insiderisk.io</Contact>
+    <Url type="text/html" template="https://insiderisk.io/search?q={searchTerms}"/>
+    <Url type="application/rss+xml" template="https://insiderisk.io/feed.xml"/>
+    <LongName>Insider Risk Index - Security Assessment &amp; Threat Intelligence</LongName>
+    <Image height="64" width="64" type="image/png">https://insiderisk.io/favicon.png</Image>
+    <Image height="16" width="16" type="image/x-icon">https://insiderisk.io/favicon.ico</Image>
+    <Query role="example" searchTerms="insider threat assessment"/>
+    <Developer>Insider Risk Index Team</Developer>
+    <Attribution>Copyright 2025, Insider Risk Index. Research-backed cybersecurity intelligence.</Attribution>
+    <SyndicationRight>open</SyndicationRight>
+    <AdultContent>false</AdultContent>
+    <Language>en-us</Language>
+    <OutputEncoding>UTF-8</OutputEncoding>
+    <InputEncoding>UTF-8</InputEncoding>
+</OpenSearchDescription>

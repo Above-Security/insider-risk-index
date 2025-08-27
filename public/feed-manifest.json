@@ -1,0 +1,27 @@
+{
+  "version": "https://jsonfeed.org/version/1",
+  "title": "Insider Risk Index - Security Research & Intelligence",
+  "description": "Latest research on insider threats, security assessments, and threat intelligence. Expert analysis based on Ponemon Institute, Verizon DBIR, and Gartner research.",
+  "home_page_url": "https://insiderisk.io",
+  "feed_url": "https://insiderisk.io/feed.json",
+  "icon": "https://insiderisk.io/favicon.ico",
+  "favicon": "https://insiderisk.io/favicon.ico",
+  "language": "en-US",
+  "author": {
+    "name": "Insider Risk Index Research Team",
+    "url": "https://insiderisk.io/about"
+  },
+  "hubs": [
+    {
+      "type": "rssCloud",
+      "url": "https://rpc.rsscloud.io:5337/"
+    }
+  ],
+  "_search_hints": {
+    "categories": ["cybersecurity", "insider threats", "threat intelligence", "security research"],
+    "content_type": "research",
+    "expertise_level": "expert",
+    "authority_sources": ["ponemon institute", "verizon dbir", "gartner"],
+    "update_frequency": "weekly"
+  }
+}

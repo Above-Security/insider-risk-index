@@ -1,12 +1,12 @@
-Contact: mailto:security@insiderriskindex.com
-Expires: 2026-12-31T23:59:59.000Z
-Encryption: https://insiderriskindex.com/pgp-key.txt
-Acknowledgments: https://insiderriskindex.com/security/acknowledgments
+Contact: mailto:security@insiderisk.io
+Contact: https://insiderisk.io/contact
+Expires: 2025-12-31T23:59:59.000Z
+Encryption: https://insiderisk.io/pgp-key.txt
+Acknowledgments: https://insiderisk.io/security-acknowledgments
 Preferred-Languages: en
-Canonical: https://insiderriskindex.com/.well-known/security.txt
-Policy: https://insiderriskindex.com/security-policy
+Canonical: https://insiderisk.io/.well-known/security.txt
+Policy: https://insiderisk.io/security-policy
 
-# Security Reporting
-# We take security seriously at Insider Risk Index.
-# If you discover a security vulnerability, please report it responsibly.
-# We appreciate your efforts to improve our security.
+# Insider Risk Index Security Policy
+# We take security seriously and appreciate responsible disclosure
+# Please report security vulnerabilities through the contact methods above

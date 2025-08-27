@@ -7,7 +7,8 @@ if (typeof window !== 'undefined') {
   if (posthogKey) {
     posthog.init(posthogKey, {
       api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-      defaults: '2025-05-24'
+      defaults: '2025-05-24',
+      person_profiles: 'always',
     })
   } else {
     console.error('PostHog initialization failed: NEXT_PUBLIC_POSTHOG_KEY is not defined')

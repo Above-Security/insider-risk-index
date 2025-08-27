@@ -231,35 +231,35 @@ export function getRiskLevel(score: number): {
       level: 5,
       name: "Optimized",
       description: "Minimal Risk - Excellent insider risk program",
-      color: "emerald"
+      color: "#68ADFF" // above-blue-900 - excellent performance
     };
   } else if (score >= 65) {
     return {
       level: 4,
       name: "Proactive",
       description: "Low Risk - Good baseline security",
-      color: "green"
+      color: "#B0D5FF" // above-blue-500 - good performance
     };
   } else if (score >= 45) {
     return {
       level: 3,
       name: "Managed",
       description: "Moderate Risk - Some gaps identified",
-      color: "amber"
+      color: "#FFAB8D" // above-peach-600 - moderate performance
     };
   } else if (score >= 25) {
     return {
       level: 2,
       name: "Emerging",
       description: "High Risk - Major improvements needed",
-      color: "orange"
+      color: "#FF8D67" // above-peach-800 - poor performance
     };
   } else {
     return {
       level: 1,
       name: "Ad Hoc",
       description: "Critical Risk - Immediate action required",
-      color: "red"
+      color: "#FF738C" // above-rose-800 - critical performance
     };
   }
 }

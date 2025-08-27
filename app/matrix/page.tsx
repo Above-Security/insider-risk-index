@@ -12,7 +12,8 @@ import { getPageLayout, getSectionLayout, getGridClass } from '@/lib/layout-util
 import { generateJsonLd } from '@/lib/seo';
 import Script from 'next/script';
 
-export const dynamic = 'force-dynamic';
+// ISR: Revalidate every hour (3600 seconds) for fresh Matrix data
+export const revalidate = 3600;
 
 async function getMatrixData() {
   try {

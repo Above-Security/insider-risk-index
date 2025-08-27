@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { getContentBySlug, getAllContent, getRelatedContent } from "@/lib/mdx";
 
-export const dynamic = 'force-dynamic';
+// ISR: Revalidate every hour (3600 seconds) for fresh content
+export const revalidate = 3600;
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AboveButton, AboveBadge, AboveAlert, AboveAlertDescription } from "@/components/ui/above-components";

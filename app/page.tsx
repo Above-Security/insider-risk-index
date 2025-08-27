@@ -16,7 +16,7 @@ import {
   PlayCircle
 } from "lucide-react";
 import { PILLARS } from "@/lib/pillars";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, getProductJsonLd } from "@/lib/seo";
 import { AssessmentPreview } from "@/components/home/assessment-preview";
 import { ResultsPreview } from "@/components/home/results-preview";
 import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
@@ -24,6 +24,14 @@ import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-util
 export const metadata = pageMetadata.home();
 
 export default function HomePage() {
+  const productJsonLd = getProductJsonLd({
+    name: "Insider Risk Index Assessment",
+    description: "Free comprehensive assessment tool measuring organizational insider risk posture across 5 critical pillars. Get actionable insights and industry benchmarks based on Ponemon Institute and Gartner research.",
+    url: "https://insiderisk.io/assessment",
+    price: "0",
+    currency: "USD"
+  });
+
   const features = [
     {
       icon: Shield,
@@ -48,7 +56,12 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="flex flex-col">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <div className="flex flex-col">
       {/* Hero Section */}
       <section className="grainy-gradient-subtle">
         <div className={getPageLayout()}>
@@ -304,5 +317,6 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

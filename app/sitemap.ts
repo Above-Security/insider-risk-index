@@ -12,7 +12,7 @@ interface ContentFrontmatter {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = seoConfig.siteUrl;
+  const baseUrl = seoConfig.siteUrl.trim();
   
   try {
     // Get dynamic content

@@ -16,7 +16,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: seoConfig.siteName,
+  title: {
+    default: "Insider Risk Index - Free Security Assessment Tool",
+    template: "%s | Insider Risk Index"
+  },
   description: seoConfig.description,
   keywords: seoConfig.keywords,
   authors: seoConfig.authors,

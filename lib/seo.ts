@@ -3,7 +3,7 @@ import { Metadata } from "next";
 // Base SEO configuration
 export const seoConfig = {
   siteName: "Insider Risk Index",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://insiderisk.io",
+  siteUrl: (process.env.NEXT_PUBLIC_SITE_URL || "https://insiderisk.io").trim(),
   description: "Measure and improve your organization's insider risk posture with our comprehensive assessment tool. Get actionable insights across 5 critical pillars of insider threat management.",
   keywords: [
     "insider threat",
@@ -63,7 +63,8 @@ export function generateMetadata({
   }>;
   noIndex?: boolean;
 }): Metadata {
-  const fullTitle = title === seoConfig.siteName ? title : `${title} | ${seoConfig.siteName}`;
+  // For homepage or when title already contains the site name, use as is
+  const fullTitle = title.includes(seoConfig.siteName) ? title : `${title} | ${seoConfig.siteName}`;
   const fullDescription = description || seoConfig.description;
   const url = `${seoConfig.siteUrl}${path}`;
   
@@ -792,9 +793,10 @@ export function getAssessmentResultJsonLd({
  * Common page-specific metadata generators
  */
 export const pageMetadata = {
-  home: () => generateMetadata({
-    title: seoConfig.siteName,
-    description: seoConfig.description,
+  home: () => ({
+    title: "Free Insider Risk Assessment - Measure Your Security Posture",
+    description: "Free comprehensive insider risk assessment based on Ponemon Institute research showing $17.4M average costs. Measure your security posture across 5 critical pillars. Get instant results and benchmarks.",
+    keywords: ["insider risk assessment", "insider threat tool", "security posture measurement", "free security assessment", "ponemon institute", "gartner insider risk"],
   }),
 
   assessment: () => generateMetadata({

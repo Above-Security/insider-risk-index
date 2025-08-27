@@ -93,8 +93,15 @@ export default function AboutPage() {
     },
   ];
 
+  const faqJsonLd = getFAQJsonLd(faqs);
+
   return (
-    <div className="min-h-screen bg-above-white">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <div className="min-h-screen bg-above-white">
       {/* Hero Section */}
       <div className="bg-gradient-to-b from-blue-50 to-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -443,5 +450,6 @@ export default function AboutPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

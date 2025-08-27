@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic';
+// ISR: Revalidate every hour (3600 seconds) for fresh Matrix technique data
+export const revalidate = 3600;
 import { 
   Shield, 
   ArrowLeft, 

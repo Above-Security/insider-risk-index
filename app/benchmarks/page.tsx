@@ -1,3 +1,6 @@
+// ISR: Revalidate every hour (3600 seconds) for fresh benchmark data
+export const revalidate = 3600;
+
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

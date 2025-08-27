@@ -10,6 +10,9 @@ import { WebVitals } from "@/components/web-vitals";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { CSPostHogProvider } from './providers';
 
+// Simple test to see if this runs in production
+console.log('🟢 LAYOUT LOADED - This should appear in console!');
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -114,6 +117,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* DNS prefetch for analytics */}
         <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+        {/* Simple test script */}
+        <script dangerouslySetInnerHTML={{ __html: `console.log('🔥 INLINE SCRIPT TEST - v1.0.10');` }} />
       </head>
       <body className="font-sans antialiased min-h-screen bg-above-white text-slate-900">
         <ErrorBoundary>

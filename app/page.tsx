@@ -185,7 +185,7 @@ export default function HomePage() {
                 Research-Based Assessment Framework
               </Badge>
               <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
-                Free Insider Risk Assessment{" "}
+                Free Insider Threat Assessment{" "}
                 <span className="text-above-rose-700">for Organizations</span>
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-700">

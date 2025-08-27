@@ -447,8 +447,8 @@ export default function AboutPage() {
             <Card className="bg-above-blue-50 border-above-blue-200">
               <CardContent className="p-8">
                 <div className="flex items-center justify-center mb-6">
-                  <div className="bg-above-white p-4 rounded-lg shadow-sm">
-                    <AboveLogo size="lg" className="text-above-blue-800" />
+                  <div className="bg-white p-6 rounded-lg shadow-md">
+                    <AboveLogo size="xl" className="text-black scale-150" />
                   </div>
                 </div>
                 

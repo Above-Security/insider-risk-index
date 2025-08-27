@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AboveButton } from "@/components/ui/above-components";
+import { AboveLogoWithText } from "@/components/ui/above-logo";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -470,10 +471,27 @@ export default function HomePage() {
                   <BookOpen className="h-6 w-6 text-above-peach-700" />
                   <h3 className="text-xl font-bold text-slate-900">Research Hub</h3>
                 </div>
-                <p className="text-slate-700 mb-6">
+                <p className="text-slate-700 mb-4">
                   Access our complete library of insider threat research, industry reports, 
                   and threat intelligence analysis
                 </p>
+                <div className="mb-6">
+                  <div className="flex items-center justify-center gap-2 text-sm text-slate-600">
+                    <span>Research sponsored by</span>
+                    <a 
+                      href="https://abovesec.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-above-blue-800 hover:text-above-blue-600 font-medium transition-colors"
+                    >
+                      <AboveLogoWithText 
+                        size="sm" 
+                        textClassName="text-sm font-medium" 
+                        className="opacity-80 hover:opacity-100 transition-opacity"
+                      />
+                    </a>
+                  </div>
+                </div>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <AboveButton variant="default" size="lg" asChild>
                     <Link href="/research">

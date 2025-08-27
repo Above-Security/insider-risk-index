@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getContentBySlug, getAllContent, getRelatedContent } from "@/lib/mdx";
+import { AboveLogoWithText } from "@/components/ui/above-logo";
 
 // ISR: Revalidate every hour (3600 seconds) for fresh content
 export const revalidate = 3600;
@@ -373,6 +374,24 @@ export default async function ResearchArticlePage({ params }: Props) {
                   Individual organizational data has been anonymized and aggregated to maintain confidentiality 
                   while preserving statistical validity.
                 </p>
+              </div>
+              
+              <div className="mt-4 p-4 bg-above-blue-50 border border-above-blue-200 rounded-lg">
+                <div className="flex items-center justify-center gap-2 text-sm text-above-blue-800">
+                  <span>Research sponsored by</span>
+                  <a 
+                    href="https://abovesec.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="font-medium hover:text-above-blue-600 transition-colors"
+                  >
+                    <AboveLogoWithText 
+                      size="md" 
+                      textClassName="text-sm font-medium" 
+                      className="opacity-80 hover:opacity-100 transition-opacity"
+                    />
+                  </a>
+                </div>
               </div>
             </CardContent>
           </Card>

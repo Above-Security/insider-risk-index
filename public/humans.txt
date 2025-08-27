@@ -1,19 +1,17 @@
 /* TEAM */
 
-Product Lead: Sarah Chen
-Site: San Francisco, CA
-Role: Chief Security Officer & Product Vision
-Background: Former CISO at Fortune 500 companies
+Founder & CEO: Aviv Nahum
+Site: Tel Aviv District, Israel
+Role: AI x Cybersecurity
+Background: Exploit & security researcher, specializing in applications penetration testing and hacking methodologies
+Company: Above Security (abovesec.com)
+LinkedIn: https://www.linkedin.com/company/abovesec/
 
-Technical Lead: Michael Rodriguez  
-Site: Austin, TX
-Role: Lead Security Researcher & Assessment Design
-Background: PhD Computer Science, Behavioral Analytics
-
-UX/Research Lead: Emily Thompson
-Site: New York, NY
-Role: Risk Assessment Expert & User Experience
-Background: Certified Risk Management Professional
+Previous Experience:
+- Co-Founder at Ctrl (acquired by Sana AI)
+- Technical Due Diligence at Battery Ventures
+- Founding R&D at Cybersecurity Company (acquired for $1B)
+- Israeli Military Intelligence
 
 /* THANKS */
 
@@ -47,14 +45,11 @@ Security: Modern web security best practices
 
 /* CONTACT */
 
-General: hello@insiderisk.io
-Press: press@insiderisk.io
-Security: security@insiderisk.io
-Partnerships: partnerships@insiderisk.io
+General: hello@insiderriskindex.com
+Above Security: https://abovesec.com
+Company LinkedIn: https://www.linkedin.com/company/abovesec/
 
-Location: San Francisco, CA (HQ)
-          Austin, TX (Engineering)
-          New York, NY (Research)
+Location: Tel Aviv District, Israel
 
 /* PHILOSOPHY */
 
@@ -62,14 +57,20 @@ We believe insider threats are one of the most challenging security problems org
 Our mission is to democratize access to world-class insider threat assessment capabilities.
 Security should be measurable, actionable, and accessible to organizations of all sizes.
 Privacy and trust are fundamental - we never compromise on data protection.
-Continuous improvement through research, feedback, and real-world validation.
+Research-backed methodology based on real-world data and threat intelligence.
+
+/* SPONSORSHIP */
+
+The Insider Risk Index platform is sponsored by Above Security (abovesec.com).
+Above Security provides comprehensive insider threat protection solutions.
+This sponsorship enables us to maintain the free assessment platform and contribute valuable research to the security community.
 
 /* NOTES */
 
-Built with care by security professionals who understand the challenges firsthand.
-Every feature is designed based on real-world security needs and user feedback.
+Built by security professionals who understand the challenges firsthand.
+Every feature is designed based on real-world security needs and authoritative research.
 We're committed to keeping the core assessment free and accessible.
 Open to partnerships, research collaborations, and community contributions.
 
-This project represents hundreds of hours of research, development, and testing.
-We hope it helps make the internet a safer place, one organization at a time.
+This project represents extensive research, development, and validation.
+We hope it helps make organizations more secure against insider threats.

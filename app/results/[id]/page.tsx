@@ -8,6 +8,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { generateJsonLd, getAssessmentResultJsonLd } from "@/lib/seo";
 import { type RecommendationContext } from "@/lib/recommendations";
+import { AboveLogoWithText } from "@/components/ui/above-logo";
 import Script from "next/script";
 
 interface Props {
@@ -203,6 +204,25 @@ export default async function ResultsPage({ params }: Props) {
                   Learn more about our methodology
                 </Link>
               </p>
+            </div>
+          </div>
+
+          {/* Research Attribution */}
+          <div className="mt-8 bg-above-white border rounded-lg p-4">
+            <div className="flex items-center justify-center gap-3 text-sm text-slate-600">
+              <span>Assessment framework sponsored by</span>
+              <a 
+                href="https://abovesec.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-above-blue-800 hover:text-above-blue-600 font-medium transition-colors"
+              >
+                <AboveLogoWithText 
+                  size="md" 
+                  textClassName="text-sm font-medium" 
+                  className="opacity-80 hover:opacity-100 transition-opacity"
+                />
+              </a>
             </div>
           </div>
 

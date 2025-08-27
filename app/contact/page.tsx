@@ -7,12 +7,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AboveLogo } from "@/components/ui/above-logo";
 import { 
   Mail, 
   MessageSquare, 
   Clock,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Building2,
+  MapPin,
+  ExternalLink
 } from "lucide-react";
 
 export default function ContactPage() {
@@ -64,18 +68,31 @@ export default function ContactPage() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const contactInfo = [
+  const contactInfo: Array<{
+    icon: any;
+    title: string;
+    details: string;
+    description: string;
+    isLink?: boolean;
+  }> = [
     {
       icon: Mail,
-      title: "Email",
-      details: "hello@insiderriskindex.com",
-      description: "Get in touch with our team",
+      title: "General Inquiries",
+      details: "aviv@abovesec.com",
+      description: "Business inquiries and partnerships",
     },
     {
-      icon: MessageSquare,
-      title: "Support",
-      details: "support@insiderriskindex.com", 
-      description: "Technical support and questions",
+      icon: Building2,
+      title: "Above Security",
+      details: "abovesec.com",
+      description: "Comprehensive insider threat protection solutions",
+      isLink: true,
+    },
+    {
+      icon: MapPin,
+      title: "Location",
+      details: "Tel Aviv District, Israel",
+      description: "Headquarters and operations",
     },
     {
       icon: Clock,
@@ -86,12 +103,14 @@ export default function ContactPage() {
   ];
 
   const useCases = [
-    "Questions about the assessment",
-    "Partnership opportunities",
-    "Custom enterprise solutions",
+    "Questions about the insider risk assessment",
+    "Partnership and collaboration opportunities",
+    "Above Security enterprise solutions",
     "Media and press inquiries",
-    "Research collaboration",
-    "Speaking engagements",
+    "Security research collaboration",
+    "Speaking engagements and conferences",
+    "Venture capital and investment discussions",
+    "Technical due diligence consulting",
   ];
 
   return (
@@ -99,11 +118,14 @@ export default function ContactPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-            Contact Us
-          </h1>
+          <div className="mb-8">
+            <AboveLogo size="lg" className="text-slate-900 opacity-100 w-24 h-20 mx-auto mb-6" />
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+              Contact Above Security
+            </h1>
+          </div>
           <p className="mt-4 text-xl text-slate-600">
-            We&apos;d love to hear from you. Get in touch with our team.
+            Get in touch with Above Security about insider threat protection solutions and enterprise security.
           </p>
         </div>
 
@@ -222,7 +244,26 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-slate-900">{item.title}</h3>
-                      <p className="text-above-blue-800 font-medium">{item.details}</p>
+                      {item.isLink ? (
+                        <a 
+                          href={`https://${item.details}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-above-blue-800 font-medium hover:text-above-blue-600 transition-colors flex items-center gap-1"
+                        >
+                          {item.details}
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      ) : item.title === "General Inquiries" ? (
+                        <a 
+                          href={`mailto:${item.details}`}
+                          className="text-above-blue-800 font-medium hover:text-above-blue-600 transition-colors"
+                        >
+                          {item.details}
+                        </a>
+                      ) : (
+                        <p className="text-above-blue-800 font-medium">{item.details}</p>
+                      )}
                       <p className="text-sm text-slate-600">{item.description}</p>
                     </div>
                   </div>
@@ -247,19 +288,38 @@ export default function ContactPage() {
               </CardContent>
             </Card>
 
-            {/* FAQ Link */}
+            {/* About Above Security */}
             <Card className="bg-above-blue-50 border-above-blue-200">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <MessageSquare className="h-5 w-5 text-above-blue-800" />
-                  <h3 className="font-semibold text-above-blue-900">Quick Questions?</h3>
+                  <Building2 className="h-5 w-5 text-above-blue-800" />
+                  <h3 className="font-semibold text-above-blue-900">About Above Security</h3>
                 </div>
                 <p className="text-above-blue-800 text-sm mb-4">
-                  Check our frequently asked questions for instant answers to common queries.
+                  Above Security provides comprehensive insider threat protection solutions, specializing in 
+                  AI-powered cybersecurity and advanced threat detection. We help organizations detect, 
+                  investigate, and respond to insider risks with cutting-edge technology.
                 </p>
-                <Button variant="outline" size="sm" className="border-above-blue-300 text-above-blue-800 hover:bg-above-blue-100">
-                  View FAQ
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="border-above-blue-300 text-above-blue-800 hover:bg-above-blue-100"
+                    onClick={() => window.open('https://abovesec.com', '_blank')}
+                  >
+                    Visit Website
+                    <ExternalLink className="ml-1 h-3 w-3" />
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="border-above-blue-300 text-above-blue-800 hover:bg-above-blue-100"
+                    onClick={() => window.open('https://www.linkedin.com/company/abovesec/', '_blank')}
+                  >
+                    LinkedIn
+                    <ExternalLink className="ml-1 h-3 w-3" />
+                  </Button>
+                </div>
               </CardContent>
             </Card>
 

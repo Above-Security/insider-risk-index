@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Twitter, Linkedin, Mail } from "lucide-react";
 import { LogoWithText } from "@/components/ui/logo";
+import { AboveLogoWithText } from "@/components/ui/above-logo";
 
 const navigation = {
   main: [
@@ -156,11 +157,24 @@ export function Footer() {
         {/* Bottom section */}
         <div className="mt-8 border-t pt-8 flex flex-col md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Insider Risk Index. All rights reserved.
+            &copy; 2025 Insider Risk Index. All rights reserved.
           </p>
           
           <div className="mt-4 md:mt-0 flex items-center gap-4 text-xs text-muted-foreground">
-            <span>Made with security in mind</span>
+            <span>Research sponsored by</span>
+            <a 
+              href="https://abovesec.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-above-blue-800 transition-colors"
+              aria-label="Above Security - Insider Threat Protection"
+            >
+              <AboveLogoWithText 
+                size="md" 
+                textClassName="text-xs" 
+                className="opacity-70 hover:opacity-100 transition-opacity"
+              />
+            </a>
             <span>&bull;</span>
             <Link href="/humans.txt" className="hover:text-above-blue-800 transition-colors">
               humans.txt

@@ -12,6 +12,7 @@ import {
   Lock
 } from "lucide-react";
 import { pageMetadata, getFAQJsonLd } from "@/lib/seo";
+import { AboveLogo, AboveLogoWithText } from "@/components/ui/above-logo";
 import Link from "next/link";
 
 export const metadata = pageMetadata.about();
@@ -425,6 +426,72 @@ export default function AboutPage() {
               <span>• Verizon DBIR 2024</span>
               <span>• ForScie Matrix Community</span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Research Support Section */}
+      <div className="py-16 sm:py-24 bg-above-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              Research Support
+            </h2>
+            <p className="mt-4 text-lg text-slate-600">
+              The Insider Risk Index research and assessment platform is sponsored by Above Security, 
+              a leader in insider threat protection solutions.
+            </p>
+          </div>
+
+          <div className="mt-12 max-w-2xl mx-auto">
+            <Card className="bg-above-blue-50 border-above-blue-200">
+              <CardContent className="p-8">
+                <div className="flex items-center justify-center mb-6">
+                  <div className="bg-above-white p-4 rounded-lg shadow-sm">
+                    <AboveLogo size="lg" className="text-above-blue-800" />
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <h3 className="text-lg font-semibold text-above-blue-900 mb-3">
+                    Above Security
+                  </h3>
+                  <p className="text-above-blue-800 mb-4 text-sm leading-relaxed">
+                    Above Security provides comprehensive insider threat protection solutions, 
+                    helping organizations detect, investigate, and respond to insider risks. 
+                    Their support enables us to maintain this free assessment platform and 
+                    contribute valuable research to the security community.
+                  </p>
+                  <div className="flex items-center justify-center gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="text-above-blue-800 border-above-blue-300 hover:bg-above-blue-100"
+                      asChild
+                    >
+                      <a 
+                        href="https://abovesec.com" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Learn More
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-sm text-slate-500">
+              This sponsorship enables independent research while maintaining the objectivity 
+              and accuracy of our assessment methodology.
+            </p>
           </div>
         </div>
       </div>

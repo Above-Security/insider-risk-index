@@ -3,7 +3,7 @@ import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
 import { useEffect } from 'react'
 
-const APP_VERSION = '1.0.7'
+const APP_VERSION = '1.0.8'
 console.log(`🚀 Insider Risk Index v${APP_VERSION} - ${new Date().toISOString()}`)
 
 if (typeof window !== 'undefined') {

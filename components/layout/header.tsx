@@ -38,7 +38,11 @@ export function Header() {
     <header className="bg-above-white/95 border-b border-above-rose-200 sticky top-0 z-50 backdrop-blur-lg shadow-sm">
       <nav className="mx-auto max-w-7xl flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8" aria-label="Global">
         <div className="flex-shrink-0">
-          <Link href="/" className="-m-1.5 p-1.5 min-w-0">
+          <Link 
+            href="/" 
+            className="inline-flex items-center p-1.5 rounded-md min-w-0 focus:outline-none focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2 hover:bg-above-rose-50 transition-colors"
+            aria-label="Go to homepage"
+          >
             <LogoWithText 
               logoSize="md"
               textSize="lg"
@@ -99,8 +103,9 @@ export function Header() {
             <div className="flex items-center justify-between">
               <Link 
                 href="/" 
-                className="-m-1.5 p-1.5 min-w-0 flex-1"
+                className="inline-flex items-center p-1.5 rounded-md min-w-0 flex-1 focus:outline-none focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2 hover:bg-above-rose-50 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
+                aria-label="Go to homepage"
               >
                 <LogoWithText 
                   logoSize="md"

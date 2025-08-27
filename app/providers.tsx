@@ -29,6 +29,7 @@ if (typeof window !== 'undefined') {
       capture_pageview: false,
       capture_pageleave: true,
       persistence: 'localStorage+cookie',
+      advanced_disable_feature_flags: true, // Disable flags to bypass 401 error
       loaded: (posthog) => {
         console.log('[PostHog] Successfully loaded!', posthog)
       }

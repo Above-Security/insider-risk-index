@@ -3,12 +3,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { PostHogProvider } from "@/components/analytics/posthog-provider";
 import { seoConfig, getOrganizationJsonLd, getWebsiteJsonLd } from "@/lib/seo";
 import { SkipLink } from "@/components/skip-link";
 import { AccessibilityProvider } from "@/components/accessibility-provider";
 import { WebVitals } from "@/components/web-vitals";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { CSPostHogProvider } from './providers';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -118,7 +118,7 @@ export default function RootLayout({
       <body className="font-sans antialiased min-h-screen bg-above-white text-slate-900">
         <ErrorBoundary>
           <AccessibilityProvider>
-            <PostHogProvider>
+            <CSPostHogProvider>
               <SkipLink />
               <WebVitals />
               <div className="flex min-h-screen flex-col">
@@ -128,7 +128,7 @@ export default function RootLayout({
                 </main>
                 <Footer />
               </div>
-            </PostHogProvider>
+            </CSPostHogProvider>
           </AccessibilityProvider>
         </ErrorBoundary>
       </body>

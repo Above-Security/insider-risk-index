@@ -94,7 +94,9 @@ export default async function MatrixPage() {
           </p>
           <div className="flex items-center justify-center text-sm text-slate-600">
             <Calendar className="h-4 w-4 mr-1" />
-            <span>Last updated: {new Date(lastUpdated).toLocaleDateString()}</span>
+            <span>Last updated: {lastUpdated && !isNaN(new Date(lastUpdated).getTime()) 
+              ? new Date(lastUpdated).toLocaleDateString() 
+              : 'Recently'}</span>
           </div>
         </div>
 

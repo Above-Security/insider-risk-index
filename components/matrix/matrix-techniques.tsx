@@ -364,13 +364,17 @@ function TechniqueDetail({
                   {technique.created && (
                     <div className="flex items-center gap-2 text-xs text-slate-500">
                       <Calendar className="h-3 w-3" />
-                      Created: {new Date(technique.created).toLocaleDateString()}
+                      Created: {technique.created && !isNaN(new Date(technique.created).getTime()) 
+                        ? new Date(technique.created).toLocaleDateString() 
+                        : 'recently'}
                     </div>
                   )}
                   {technique.updated && (
                     <div className="flex items-center gap-2 text-xs text-slate-500">
                       <Calendar className="h-3 w-3" />
-                      Updated: {new Date(technique.updated).toLocaleDateString()}
+                      Updated: {technique.updated && !isNaN(new Date(technique.updated).getTime()) 
+                        ? new Date(technique.updated).toLocaleDateString() 
+                        : 'recently'}
                     </div>
                   )}
                 </div>

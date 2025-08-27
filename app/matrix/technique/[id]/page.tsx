@@ -216,7 +216,9 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
                 {technique.lastUpdated && (
                   <div className="flex items-center text-sm text-slate-600">
                     <Calendar className="h-4 w-4 mr-1" />
-                    Updated {new Date(technique.lastUpdated).toLocaleDateString()}
+                    Updated {technique.lastUpdated && !isNaN(new Date(technique.lastUpdated).getTime()) 
+                      ? new Date(technique.lastUpdated).toLocaleDateString()
+                      : 'recently'}
                   </div>
                 )}
               </div>

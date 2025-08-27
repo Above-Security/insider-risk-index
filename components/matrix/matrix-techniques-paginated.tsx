@@ -159,11 +159,13 @@ export function MatrixTechniquesPaginated({
               {/* Last Updated */}
               <div className="flex items-center text-slate-600 sm:col-span-2 lg:col-span-1">
                 <span className="text-xs">
-                  Updated: {new Date(technique.lastUpdated).toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric',
-                    year: '2-digit'
-                  })}
+                  Updated: {technique.lastUpdated && !isNaN(new Date(technique.lastUpdated).getTime()) 
+                    ? new Date(technique.lastUpdated).toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric',
+                        year: '2-digit'
+                      })
+                    : 'recently'}
                 </span>
               </div>
             </div>

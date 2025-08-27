@@ -9,7 +9,8 @@ if (typeof window !== 'undefined') {
   console.log('[PostHog] Checking initialization...', {
     hasKey: !!posthogKey,
     isLoaded: posthog.__loaded,
-    key: posthogKey?.substring(0, 10) + '...'
+    key: posthogKey?.substring(0, 10) + '...',
+    timestamp: new Date().toISOString()
   })
   
   if (posthogKey && !posthog.__loaded) {

@@ -10,7 +10,9 @@
   },
   "build": {
     "env": {
-      "NEXT_TELEMETRY_DISABLED": "1"
+      "NEXT_TELEMETRY_DISABLED": "1",
+      "INDEXNOW_KEY": "34842cf7adc727f3a275f5a6020aaadb43bff83cb3951b3a07ca3009a232f79b",
+      "INDEXNOW_ENABLED": "true"
     }
   },
   "headers": [

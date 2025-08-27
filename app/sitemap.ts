@@ -12,7 +12,7 @@ interface ContentFrontmatter {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = seoConfig.siteUrl.trim();
+  const baseUrl = new URL(seoConfig.siteUrl.trim());
   
   try {
     // Get dynamic content
@@ -22,55 +22,55 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Static routes with proper priorities and change frequencies
     const staticRoutes: MetadataRoute.Sitemap = [
       {
-        url: baseUrl,
+        url: baseUrl.toString(),
         lastModified: new Date(),
         changeFrequency: 'daily',
         priority: 1,
       },
       {
-        url: `${baseUrl}/assessment`,
+        url: new URL('/assessment', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.9,
       },
       {
-        url: `${baseUrl}/benchmarks`,
+        url: new URL('/benchmarks', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.8,
       },
       {
-        url: `${baseUrl}/matrix`,
+        url: new URL('/matrix', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.8,
       },
       {
-        url: `${baseUrl}/playbooks`,
+        url: new URL('/playbooks', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.7,
       },
       {
-        url: `${baseUrl}/research`,
+        url: new URL('/research', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.7,
       },
       {
-        url: `${baseUrl}/glossary`,
+        url: new URL('/glossary', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.6,
       },
       {
-        url: `${baseUrl}/about`,
+        url: new URL('/about', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.5,
       },
       {
-        url: `${baseUrl}/contact`,
+        url: new URL('/contact', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.4,
@@ -79,7 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     
     // Dynamic research routes
     const researchRoutes: MetadataRoute.Sitemap = research.map((item) => ({
-      url: `${baseUrl}/research/${item.slug}`,
+      url: new URL(`/research/${item.slug}`, baseUrl).toString(),
       lastModified: new Date(
         (item.frontmatter as ContentFrontmatter).publishedAt || 
         (item.frontmatter as ContentFrontmatter).publishDate || 
@@ -91,7 +91,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     
     // Dynamic playbook routes
     const playbookRoutes: MetadataRoute.Sitemap = playbooks.map((item) => ({
-      url: `${baseUrl}/playbooks/${item.slug}`,
+      url: new URL(`/playbooks/${item.slug}`, baseUrl).toString(),
       lastModified: new Date(
         (item.frontmatter as ContentFrontmatter).updatedAt || 
         (item.frontmatter as ContentFrontmatter).lastUpdated || 
@@ -109,37 +109,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Fallback to static routes only
     return [
       {
-        url: baseUrl,
+        url: baseUrl.toString(),
         lastModified: new Date(),
         changeFrequency: 'daily',
         priority: 1,
       },
       {
-        url: `${baseUrl}/assessment`,
+        url: new URL('/assessment', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.9,
       },
       {
-        url: `${baseUrl}/benchmarks`,
+        url: new URL('/benchmarks', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.8,
       },
       {
-        url: `${baseUrl}/matrix`,
+        url: new URL('/matrix', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.8,
       },
       {
-        url: `${baseUrl}/about`,
+        url: new URL('/about', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.5,
       },
       {
-        url: `${baseUrl}/contact`,
+        url: new URL('/contact', baseUrl).toString(),
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.4,

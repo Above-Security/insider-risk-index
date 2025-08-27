@@ -48,6 +48,16 @@ export default function HomePage() {
     author: "Insider Risk Index Research Team"
   });
 
+  const shadowAiJsonLd = getResearchArticleJsonLd({
+    title: "Shadow AI and the Evolution of Insider Threats: A Critical Intelligence Assessment",
+    description: "83% of organizations reported insider attacks in 2024 as AI amplifies threat capabilities. Analysis of recent incidents including Mercedes-Benz GitHub exposure, Marks & Spencer breach, and North Korean infiltration of AI companies.",
+    slug: "shadow-ai-insider-threats-2025",
+    publishDate: "2025-08-27",
+    lastModified: "2025-08-27",
+    tags: ["shadow AI", "insider threats", "artificial intelligence security", "threat intelligence", "malicious insiders"],
+    author: "Insider Risk Index Research Team"
+  });
+
   const features = [
     {
       icon: Shield,
@@ -84,6 +94,10 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(researchJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(shadowAiJsonLd) }}
       />
       <div className="flex flex-col">
       {/* Hero Section */}
@@ -204,37 +218,39 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Featured Research Article */}
-          <div className="mb-12">
-            <Card className="bg-white/80 border-above-peach-200 shadow-lg hover:shadow-xl transition-all duration-300">
+          {/* Featured Research Articles */}
+          <div className="space-y-8 mb-12">
+            
+            {/* Latest Article - Shadow AI */}
+            <Card className="bg-white/80 border-above-blue-200 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-3">
-                      <AlertTriangle className="h-5 w-5 text-above-rose-600" />
-                      <Badge variant="outline" className="bg-above-rose-50 text-above-rose-700 border-above-rose-200">
-                        Critical Intelligence
+                      <AlertTriangle className="h-5 w-5 text-above-blue-600" />
+                      <Badge variant="outline" className="bg-above-blue-50 text-above-blue-700 border-above-blue-200">
+                        Latest Intelligence
                       </Badge>
                       <Badge variant="outline" className="text-slate-600">
-                        15 min read
+                        18 min read
                       </Badge>
                     </div>
                     <CardTitle className="text-2xl font-bold text-slate-900 leading-tight">
                       <Link 
-                        href="/research/insider-threat-trends-2025"
-                        className="hover:text-above-peach-700 transition-colors"
+                        href="/research/shadow-ai-insider-threats-2025"
+                        className="hover:text-above-blue-700 transition-colors"
                       >
-                        The Hidden Enemy: 2025 Insider Threat Intelligence Report
+                        Shadow AI and the Evolution of Insider Threats: A Critical Intelligence Assessment
                       </Link>
                     </CardTitle>
                     <p className="mt-3 text-slate-700 leading-relaxed">
-                      Critical findings reveal the $17.4M annual cost of insider threats. Comprehensive analysis 
-                      of attack patterns, detection failures, and defense strategies based on 1,400+ organizations.
+                      83% of organizations reported insider attacks in 2024 as AI amplifies threat capabilities. 
+                      Analysis of recent incidents including Mercedes-Benz GitHub exposure and North Korean infiltration of AI companies.
                     </p>
                   </div>
                   <div className="ml-6 flex-shrink-0">
-                    <div className="w-20 h-20 bg-gradient-to-br from-above-rose-100 to-above-peach-100 rounded-lg flex items-center justify-center">
-                      <BarChart3 className="h-10 w-10 text-above-rose-700" />
+                    <div className="w-20 h-20 bg-gradient-to-br from-above-blue-100 to-above-lavender-100 rounded-lg flex items-center justify-center">
+                      <Eye className="h-10 w-10 text-above-blue-700" />
                     </div>
                   </div>
                 </div>
@@ -243,20 +259,20 @@ export default function HomePage() {
                 {/* Key Statistics */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-slate-50/50 rounded-lg">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-above-rose-700">$17.4M</div>
-                    <div className="text-xs text-slate-600">Annual Cost</div>
+                    <div className="text-2xl font-bold text-above-blue-700">83%</div>
+                    <div className="text-xs text-slate-600">Organizations Attacked</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-above-rose-700">48%</div>
-                    <div className="text-xs text-slate-600">Attack Increase</div>
+                    <div className="text-2xl font-bold text-above-blue-700">27%</div>
+                    <div className="text-xs text-slate-600">Shadow AI Data Exposure</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-above-rose-700">81</div>
-                    <div className="text-xs text-slate-600">Days to Contain</div>
+                    <div className="text-2xl font-bold text-above-blue-700">$2.73M</div>
+                    <div className="text-xs text-slate-600">Average Ransom</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-above-rose-700">1,400+</div>
-                    <div className="text-xs text-slate-600">Organizations</div>
+                    <div className="text-2xl font-bold text-above-blue-700">93%</div>
+                    <div className="text-xs text-slate-600">Expect AI Attacks 2025</div>
                   </div>
                 </div>
 
@@ -265,40 +281,40 @@ export default function HomePage() {
                   <div className="text-sm font-medium text-slate-900 mb-2">Authoritative Sources:</div>
                   <div className="flex flex-wrap gap-2">
                     <Badge variant="outline" className="bg-blue-50 text-blue-800 border-blue-200">
-                      Ponemon Institute 2025
+                      IBM Security 2024
                     </Badge>
                     <Badge variant="outline" className="bg-green-50 text-green-800 border-green-200">
-                      Verizon DBIR 2024
+                      Google FACADE Research
                     </Badge>
                     <Badge variant="outline" className="bg-purple-50 text-purple-800 border-purple-200">
-                      Gartner G00805757
+                      DFS AI Risk Assessment
                     </Badge>
                     <Badge variant="outline" className="bg-orange-50 text-orange-800 border-orange-200">
-                      ForScie Matrix
+                      Trend Micro AI Report
                     </Badge>
                   </div>
                 </div>
 
                 {/* Key Findings */}
                 <div className="mb-6">
-                  <div className="text-sm font-medium text-slate-900 mb-3">Key Research Findings:</div>
+                  <div className="text-sm font-medium text-slate-900 mb-3">Critical Intelligence:</div>
                   <div className="space-y-2">
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-above-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                       <p className="text-sm text-slate-700">
-                        <strong>68% of security breaches</strong> involve human elements, fundamentally shifting defense requirements
+                        <strong>North Korean actors</strong> use deepfake technology to infiltrate AI companies and steal data
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-above-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                       <p className="text-sm text-slate-700">
-                        <strong>54% of insider threat programs</strong> report less than effective results (Gartner research)
+                        <strong>80% of employees</strong> use unauthorized AI applications, creating massive shadow AI exposure
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-above-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                       <p className="text-sm text-slate-700">
-                        <strong>Healthcare organizations</strong> face 70% internal breach rate, highest among all sectors
+                        <strong>Mercedes-Benz GitHub exposure</strong> revealed SSO passwords and system blueprints publicly
                       </p>
                     </div>
                   </div>
@@ -306,14 +322,65 @@ export default function HomePage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4 text-sm text-slate-500">
-                    <span>Published August 26, 2025</span>
+                    <span>Published August 27, 2025</span>
                     <span>•</span>
-                    <span>Research Team Analysis</span>
+                    <span>Intelligence Assessment</span>
                   </div>
                   <AboveButton variant="outline" size="sm" asChild>
-                    <Link href="/research/insider-threat-trends-2025">
-                      Read Full Report
+                    <Link href="/research/shadow-ai-insider-threats-2025">
+                      Read Intelligence Report
                       <ExternalLink className="ml-2 h-4 w-4" />
+                    </Link>
+                  </AboveButton>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Foundational Research - Original Report */}
+            <Card className="bg-white/60 border-above-peach-200 shadow-md hover:shadow-lg transition-all duration-300">
+              <CardHeader className="pb-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <BarChart3 className="h-5 w-5 text-above-peach-600" />
+                      <Badge variant="outline" className="bg-above-peach-50 text-above-peach-700 border-above-peach-200">
+                        Foundational Research
+                      </Badge>
+                      <Badge variant="outline" className="text-slate-600">
+                        15 min read
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-xl font-bold text-slate-900 leading-tight">
+                      <Link 
+                        href="/research/insider-threat-trends-2025"
+                        className="hover:text-above-peach-700 transition-colors"
+                      >
+                        The Hidden Enemy: 2025 Insider Threat Intelligence Report
+                      </Link>
+                    </CardTitle>
+                    <p className="mt-3 text-slate-700 leading-relaxed">
+                      Critical findings from 1,400+ organizations reveal the $17.4M annual cost. Comprehensive baseline 
+                      analysis of attack patterns and defense strategies.
+                    </p>
+                  </div>
+                  <div className="ml-6 flex-shrink-0">
+                    <div className="w-16 h-16 bg-gradient-to-br from-above-peach-100 to-above-rose-100 rounded-lg flex items-center justify-center">
+                      <Shield className="h-8 w-8 text-above-peach-700" />
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4 text-sm text-slate-500">
+                    <span>Published August 26, 2025</span>
+                    <span>•</span>
+                    <span>Ponemon Institute • Gartner • Verizon DBIR</span>
+                  </div>
+                  <AboveButton variant="ghost" size="sm" asChild>
+                    <Link href="/research/insider-threat-trends-2025">
+                      View Report
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </AboveButton>
                 </div>

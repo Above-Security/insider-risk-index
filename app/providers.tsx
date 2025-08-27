@@ -3,8 +3,13 @@ import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
 import { useEffect } from 'react'
 
-const APP_VERSION = '1.0.8'
+const APP_VERSION = '1.0.9-debug'
 console.log(`🚀 Insider Risk Index v${APP_VERSION} - ${new Date().toISOString()}`)
+console.log(`🔍 Debug Info:`, {
+  hasPosthogKey: !!process.env.NEXT_PUBLIC_POSTHOG_KEY,
+  nodeEnv: process.env.NODE_ENV,
+  userAgent: typeof window !== 'undefined' ? window.navigator.userAgent.substring(0, 50) : 'server',
+})
 
 if (typeof window !== 'undefined') {
   const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY

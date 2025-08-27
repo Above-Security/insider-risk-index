@@ -65,11 +65,11 @@ const nextConfig = {
     const isDev = process.env.NODE_ENV !== 'production';
     const cspHeader = `
       default-src 'self';
-      script-src 'self' ${isDev ? "'unsafe-eval' 'unsafe-inline'" : "'unsafe-inline'"} https://us.i.posthog.com https://fonts.googleapis.com;
+      script-src 'self' ${isDev ? "'unsafe-eval' 'unsafe-inline'" : "'unsafe-inline'"} https://us.i.posthog.com https://us-assets.i.posthog.com https://fonts.googleapis.com;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       img-src 'self' blob: data: https:;
       font-src 'self' https://fonts.gstatic.com;
-      connect-src 'self' https://us.i.posthog.com https://raw.githubusercontent.com https://insiderthreatmatrix.org https://api.github.com;
+      connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com https://raw.githubusercontent.com https://insiderthreatmatrix.org https://api.github.com;
       frame-src 'none';
       base-uri 'self';
       form-action 'self';

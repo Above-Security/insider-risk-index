@@ -64,19 +64,18 @@ export default function BenchmarksPage() {
             Industry Benchmarks
           </h1>
           <p className="mt-4 text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Comprehensive benchmarks derived from <strong>real industry research</strong>: Ponemon Institute 2025 
-            ($17.4M annual costs), Verizon DBIR 2024 (68% human factor), and Gartner Market Guide G00805757 
-            (48% attack increase)
+            Industry intelligence based on <strong>authoritative security research</strong> with 
+            estimated organizational benchmarks for comparative analysis
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm">
             <Badge variant="outline" className="bg-blue-50 text-blue-800 border-blue-200">
-              Ponemon Institute 2025 Cost Study
+              Research-Informed Estimates
+            </Badge>
+            <Badge variant="outline" className="bg-yellow-50 text-yellow-800 border-yellow-200">
+              Ponemon Institute Data
             </Badge>
             <Badge variant="outline" className="bg-green-50 text-green-800 border-green-200">
-              Verizon DBIR 2024 Analysis
-            </Badge>
-            <Badge variant="outline" className="bg-purple-50 text-purple-800 border-purple-200">
-              Gartner Market Guide G00805757
+              Verizon DBIR Insights
             </Badge>
           </div>
         </div>
@@ -166,23 +165,22 @@ export default function BenchmarksPage() {
           {/* Industry Benchmarks */}
           <TabsContent value="industry" className="space-y-8">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">Industry Benchmarks</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Industry Analysis</h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Real-world security posture analysis across {' '}
-                <strong>{Object.values(INDUSTRY_BENCHMARKS).reduce((sum, industry) => sum + industry.sampleSize, 0).toLocaleString()} organizations</strong> 
-                {' '}from authoritative research studies
+                Estimated organizational security posture across industry sectors based on 
+                research insights and threat landscape analysis
               </p>
             </div>
 
             {/* Industry Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {Object.entries(INDUSTRY_BENCHMARKS).map(([key, industry]) => (
                 <Card key={key} className="hover:shadow-lg hover:scale-105 transition-all duration-300 bg-white/80 backdrop-blur-sm">
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-lg font-semibold">{industry.name}</CardTitle>
-                      <Badge variant="outline" className="text-xs bg-slate-100">
-                        {industry.sampleSize.toLocaleString()} orgs
+                      <Badge variant="outline" className="text-xs bg-amber-50 text-amber-700 border-amber-200">
+                        Estimated
                       </Badge>
                     </div>
                   </CardHeader>
@@ -221,17 +219,50 @@ export default function BenchmarksPage() {
               ))}
             </div>
 
-            {/* Industry Comparison Chart */}
-            <Card>
+            {/* Industry Insights */}
+            <Card className="bg-white/60 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Industry Comparison</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-above-blue-700" />
+                  Key Industry Insights
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-96">
-                  <PillarBarChart
-                    pillarBreakdown={industryChartData}
-                    title=""
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-slate-900">Highest Performing Sectors</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                        <span className="text-sm">Technology</span>
+                        <span className="font-semibold text-green-700">79/100</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 bg-blue-50 rounded">
+                        <span className="text-sm">Financial Services</span>
+                        <span className="font-semibold text-blue-700">74/100</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 bg-purple-50 rounded">
+                        <span className="text-sm">Government</span>
+                        <span className="font-semibold text-purple-700">72/100</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-slate-900">Areas for Improvement</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between p-2 bg-orange-50 rounded">
+                        <span className="text-sm">Non-Profit</span>
+                        <span className="font-semibold text-orange-700">52/100</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 bg-red-50 rounded">
+                        <span className="text-sm">Education</span>
+                        <span className="font-semibold text-red-700">56/100</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 bg-yellow-50 rounded">
+                        <span className="text-sm">Healthcare</span>
+                        <span className="font-semibold text-yellow-700">58/100</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -239,22 +270,22 @@ export default function BenchmarksPage() {
 
           {/* Company Size Benchmarks */}
           <TabsContent value="size" className="space-y-8">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-slate-900 mb-2">Company Size Benchmarks</h2>
-              <p className="text-slate-600">
-                How insider risk scores vary by organization size
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Organization Size Analysis</h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Estimated security maturity patterns across different organization sizes
               </p>
             </div>
 
             {/* Size Grid */}
-            <div className={getGridClass('cards', '1-2-3')}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {Object.entries(SIZE_BENCHMARKS).map(([key, sizeData]) => (
-                <Card key={key} className="hover:shadow-lg transition-shadow">
+                <Card key={key} className="hover:shadow-lg hover:scale-105 transition-all duration-300 bg-white/80 backdrop-blur-sm">
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg">{sizeData.name}</CardTitle>
-                      <Badge variant="outline" className="text-xs">
-                        {sizeData.sampleSize} orgs
+                      <CardTitle className="text-lg font-semibold">{sizeData.name}</CardTitle>
+                      <Badge variant="outline" className="text-xs bg-amber-50 text-amber-700 border-amber-200">
+                        Estimated
                       </Badge>
                     </div>
                   </CardHeader>
@@ -268,16 +299,25 @@ export default function BenchmarksPage() {
                     </div>
                     
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-slate-700">Pillar Breakdown:</p>
+                      <p className="text-sm font-medium text-slate-700 border-b border-slate-200 pb-2">
+                        Pillar Breakdown:
+                      </p>
                       {PILLARS.map(pillar => {
                         const score = (sizeData.pillarAverages as Record<string, number>)[pillar.id] || 0;
                         return (
                           <div key={pillar.id} className="flex items-center justify-between text-sm">
                             <span className="text-slate-600">{pillar.name.split(' ')[0]}</span>
-                            <span className="font-medium">{score}%</span>
+                            <span className="font-semibold text-slate-900">{score}%</span>
                           </div>
                         );
                       })}
+                    </div>
+
+                    <div className="pt-2 mt-4 border-t border-slate-100">
+                      <div className="text-xs text-slate-500 space-y-1">
+                        <div>Avg Cost: ${(sizeData.averageCostPerIncident / 1000).toFixed(0)}k</div>
+                        <div>Containment: {sizeData.avgContainmentDays} days</div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -376,29 +416,39 @@ export default function BenchmarksPage() {
         </Card>
 
         {/* Data Sources & Disclaimer */}
-        <Card className="mt-8 bg-white/60 backdrop-blur-sm">
+        <Card className="mt-8 bg-white/60 backdrop-blur-sm border-amber-200">
           <CardContent className="p-6">
             <div className="text-center space-y-4">
               <div className="flex items-center justify-center gap-2 mb-3">
-                <BarChart3 className="h-5 w-5 text-slate-600" />
-                <h4 className="text-lg font-semibold text-slate-900">Research Integrity</h4>
+                <BarChart3 className="h-5 w-5 text-amber-600" />
+                <h4 className="text-lg font-semibold text-slate-900">Data Transparency</h4>
+              </div>
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+                <p className="text-sm text-amber-800 font-medium mb-2">
+                  ⚠️ Important: Benchmark Data Methodology
+                </p>
+                <p className="text-sm text-amber-700 leading-relaxed">
+                  While our top-level statistics ($17.4M costs, 81-day containment, 68% human factor) come from 
+                  <strong> authoritative sources like Ponemon Institute 2025 and Verizon DBIR 2024</strong>, the 
+                  individual industry breakdowns and organization-specific scores shown here are <strong>estimates</strong> 
+                  based on research insights, threat landscape analysis, and industry patterns.
+                </p>
               </div>
               <p className="text-sm text-slate-600 max-w-4xl mx-auto leading-relaxed">
-                All benchmark data is derived from authoritative industry research: 
-                <strong> Ponemon Institute 2025 Cost of Insider Threats Report</strong> (1,400+ organizations), 
-                <strong> Verizon 2024 DBIR</strong> (comprehensive breach analysis), and 
-                <strong> Gartner Market Guide G00805757</strong> (insider risk management solutions).
-                Data is anonymized and aggregated to protect participant confidentiality.
+                <strong>Authoritative Data Sources:</strong> Ponemon Institute 2025 Cost Report, 
+                Verizon 2024 DBIR, IBM Security Reports, and Gartner Market Guide G00805757. 
+                <strong>Industry estimates</strong> are derived from these sources combined with 
+                general cybersecurity maturity patterns and threat intelligence.
               </p>
               <div className="flex flex-wrap justify-center gap-4 mt-4">
-                <Badge variant="outline" className="bg-blue-50 text-blue-800 border-blue-200">
-                  Last Updated: August 2025
+                <Badge variant="outline" className="bg-yellow-50 text-yellow-800 border-yellow-200">
+                  Research-Informed Estimates
                 </Badge>
                 <Badge variant="outline" className="bg-green-50 text-green-800 border-green-200">
-                  14,170+ Organizations
+                  Authoritative Statistics
                 </Badge>
-                <Badge variant="outline" className="bg-purple-50 text-purple-800 border-purple-200">
-                  Quarterly Refresh
+                <Badge variant="outline" className="bg-blue-50 text-blue-800 border-blue-200">
+                  Industry Analysis
                 </Badge>
               </div>
             </div>

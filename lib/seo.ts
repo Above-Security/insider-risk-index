@@ -795,8 +795,8 @@ export function getAssessmentResultJsonLd({
 export const pageMetadata = {
   home: () => ({
     title: "Free Insider Risk Assessment - Measure Your Security Posture",
-    description: "Free comprehensive insider risk assessment based on Ponemon Institute research showing $17.4M average costs. Measure your security posture across 5 critical pillars. Get instant results and benchmarks.",
-    keywords: ["insider risk assessment", "insider threat tool", "security posture measurement", "free security assessment", "ponemon institute", "gartner insider risk"],
+    description: "Free comprehensive insider risk assessment based on Ponemon Institute 2025 research showing $17.4M average costs. Measure your security posture across 5 critical pillars. Get instant results, industry benchmarks, and expert research insights.",
+    keywords: ["insider risk assessment", "insider threat tool", "security posture measurement", "free security assessment", "ponemon institute 2025", "gartner insider risk", "insider threat research", "cybersecurity intelligence", "threat matrix", "verizon dbir", "security research", "insider threat trends 2025"],
   }),
 
   assessment: () => generateMetadata({

@@ -13,10 +13,14 @@ import {
   Key,
   ShieldAlert,
   CheckCircle,
-  PlayCircle
+  PlayCircle,
+  BookOpen,
+  ExternalLink,
+  BarChart3,
+  AlertTriangle
 } from "lucide-react";
 import { PILLARS } from "@/lib/pillars";
-import { pageMetadata, getProductJsonLd } from "@/lib/seo";
+import { pageMetadata, getProductJsonLd, getResearchArticleJsonLd, getOrganizationJsonLd } from "@/lib/seo";
 import { AssessmentPreview } from "@/components/home/assessment-preview";
 import { ResultsPreview } from "@/components/home/results-preview";
 import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
@@ -30,6 +34,18 @@ export default function HomePage() {
     url: "https://insiderisk.io/assessment",
     price: "0",
     currency: "USD"
+  });
+
+  const organizationJsonLd = getOrganizationJsonLd();
+
+  const researchJsonLd = getResearchArticleJsonLd({
+    title: "The Hidden Enemy: 2025 Insider Threat Intelligence Report",
+    description: "Critical findings from 1,400+ organizations reveal the $17.4M annual cost of insider threats. Comprehensive analysis of attack patterns, detection failures, and defense strategies based on Verizon DBIR, Ponemon Institute, and Gartner research.",
+    slug: "insider-threat-trends-2025",
+    publishDate: "2025-08-26",
+    lastModified: "2025-08-26",
+    tags: ["insider threats", "cybersecurity research", "threat intelligence", "data security", "risk management"],
+    author: "Insider Risk Index Research Team"
   });
 
   const features = [
@@ -61,6 +77,14 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(researchJsonLd) }}
+      />
       <div className="flex flex-col">
       {/* Hero Section */}
       <section className="grainy-gradient-subtle">
@@ -77,7 +101,8 @@ export default function HomePage() {
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-700">
                 Developed from analysis of $17.4M average annual insider threat costs (Ponemon 2025) and 
-                48% increase in insider attacks (Gartner Market Guide G00805757). Get evidence-based insights.
+                48% increase in insider attacks (Gartner Market Guide G00805757). Get evidence-based insights 
+                backed by comprehensive <Link href="/research" className="text-above-rose-700 hover:text-above-rose-800 font-medium underline underline-offset-2">threat intelligence research</Link>.
               </p>
             </div>
             
@@ -160,6 +185,173 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Featured Research Section */}
+      <section className={`bg-gradient-to-br from-above-peach-50 via-white to-above-lavender-50 ${getSectionLayout('lg')}`}>
+        <div className={getPageLayout()}>
+          <div className="mx-auto max-w-2xl text-center mb-12">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <BookOpen className="h-6 w-6 text-above-peach-700" />
+              <Badge variant="secondary" className="bg-above-peach-100 text-above-peach-800 border-above-peach-200">
+                Latest Research
+              </Badge>
+            </div>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              Evidence-Based Insider Risk Intelligence
+            </h2>
+            <p className="mt-4 text-lg text-slate-600">
+              Our comprehensive analysis of 1,400+ organizations reveals critical trends and actionable insights 
+              based on authoritative security research
+            </p>
+          </div>
+
+          {/* Featured Research Article */}
+          <div className="mb-12">
+            <Card className="bg-white/80 border-above-peach-200 shadow-lg hover:shadow-xl transition-all duration-300">
+              <CardHeader className="pb-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <AlertTriangle className="h-5 w-5 text-above-rose-600" />
+                      <Badge variant="outline" className="bg-above-rose-50 text-above-rose-700 border-above-rose-200">
+                        Critical Intelligence
+                      </Badge>
+                      <Badge variant="outline" className="text-slate-600">
+                        15 min read
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-2xl font-bold text-slate-900 leading-tight">
+                      <Link 
+                        href="/research/insider-threat-trends-2025"
+                        className="hover:text-above-peach-700 transition-colors"
+                      >
+                        The Hidden Enemy: 2025 Insider Threat Intelligence Report
+                      </Link>
+                    </CardTitle>
+                    <p className="mt-3 text-slate-700 leading-relaxed">
+                      Critical findings reveal the $17.4M annual cost of insider threats. Comprehensive analysis 
+                      of attack patterns, detection failures, and defense strategies based on 1,400+ organizations.
+                    </p>
+                  </div>
+                  <div className="ml-6 flex-shrink-0">
+                    <div className="w-20 h-20 bg-gradient-to-br from-above-rose-100 to-above-peach-100 rounded-lg flex items-center justify-center">
+                      <BarChart3 className="h-10 w-10 text-above-rose-700" />
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0">
+                {/* Key Statistics */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-slate-50/50 rounded-lg">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-above-rose-700">$17.4M</div>
+                    <div className="text-xs text-slate-600">Annual Cost</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-above-rose-700">48%</div>
+                    <div className="text-xs text-slate-600">Attack Increase</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-above-rose-700">81</div>
+                    <div className="text-xs text-slate-600">Days to Contain</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-above-rose-700">1,400+</div>
+                    <div className="text-xs text-slate-600">Organizations</div>
+                  </div>
+                </div>
+
+                {/* Research Sources */}
+                <div className="mb-6">
+                  <div className="text-sm font-medium text-slate-900 mb-2">Authoritative Sources:</div>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline" className="bg-blue-50 text-blue-800 border-blue-200">
+                      Ponemon Institute 2025
+                    </Badge>
+                    <Badge variant="outline" className="bg-green-50 text-green-800 border-green-200">
+                      Verizon DBIR 2024
+                    </Badge>
+                    <Badge variant="outline" className="bg-purple-50 text-purple-800 border-purple-200">
+                      Gartner G00805757
+                    </Badge>
+                    <Badge variant="outline" className="bg-orange-50 text-orange-800 border-orange-200">
+                      ForScie Matrix
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* Key Findings */}
+                <div className="mb-6">
+                  <div className="text-sm font-medium text-slate-900 mb-3">Key Research Findings:</div>
+                  <div className="space-y-2">
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-sm text-slate-700">
+                        <strong>68% of security breaches</strong> involve human elements, fundamentally shifting defense requirements
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-sm text-slate-700">
+                        <strong>54% of insider threat programs</strong> report less than effective results (Gartner research)
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-sm text-slate-700">
+                        <strong>Healthcare organizations</strong> face 70% internal breach rate, highest among all sectors
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4 text-sm text-slate-500">
+                    <span>Published August 26, 2025</span>
+                    <span>•</span>
+                    <span>Research Team Analysis</span>
+                  </div>
+                  <AboveButton variant="outline" size="sm" asChild>
+                    <Link href="/research/insider-threat-trends-2025">
+                      Read Full Report
+                      <ExternalLink className="ml-2 h-4 w-4" />
+                    </Link>
+                  </AboveButton>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Research Hub CTA */}
+          <div className="text-center">
+            <Card className="bg-above-peach-100/50 border-above-peach-200 max-w-2xl mx-auto">
+              <CardContent className="p-8">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <BookOpen className="h-6 w-6 text-above-peach-700" />
+                  <h3 className="text-xl font-bold text-slate-900">Research Hub</h3>
+                </div>
+                <p className="text-slate-700 mb-6">
+                  Access our complete library of insider threat research, industry reports, 
+                  and threat intelligence analysis
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <AboveButton variant="default" size="lg" asChild>
+                    <Link href="/research">
+                      Browse All Research
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </AboveButton>
+                  <AboveButton variant="outline" size="lg" asChild>
+                    <Link href="/matrix">
+                      Explore Threat Matrix
+                    </Link>
+                  </AboveButton>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Interactive Preview */}
       <section className={`bg-above-white ${getSectionLayout('lg')}`}>
         <div className={getPageLayout()}>
@@ -195,7 +387,8 @@ export default function HomePage() {
               Why Choose Our Assessment?
             </h2>
             <p className="mt-4 text-lg text-slate-600">
-              Based on Ponemon Institute, Gartner Market Guide G00805757, and Verizon DBIR research methodologies
+              Built on authoritative research from <Link href="/research" className="text-above-rose-700 hover:text-above-rose-800 font-medium underline underline-offset-2">Ponemon Institute 2025</Link>, 
+              Gartner Market Guide G00805757, Verizon DBIR 2024, and <Link href="/matrix" className="text-above-blue-700 hover:text-above-blue-800 font-medium underline underline-offset-2">ForScie Threat Matrix</Link>
             </p>
           </div>
           

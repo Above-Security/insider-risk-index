@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Menu, X, ChevronDown, BookOpen, FileText, Search, Library } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AboveButton } from "@/components/ui/above-components";
 import { LogoWithText } from "@/components/ui/logo";
@@ -30,15 +30,35 @@ const mobileNavigation = [
 ];
 
 const resourcesNavigation = [
-  { name: "Playbooks", href: "/playbooks" },
-  { name: "Research", href: "/research" },
-  { name: "Glossary", href: "/glossary" },
+  { name: "Playbooks", href: "/playbooks", icon: BookOpen, description: "Implementation guides" },
+  { name: "Research", href: "/research", icon: FileText, description: "Industry insights" },
+  { name: "Glossary", href: "/glossary", icon: Search, description: "Security terminology" },
 ];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
+
+  // Handle hover with delay for better UX
+  const handleMouseEnter = () => {
+    if (hoverTimeout) clearTimeout(hoverTimeout);
+    setResourcesOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setResourcesOpen(false);
+    }, 300); // 300ms delay before hiding
+    setHoverTimeout(timeout);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeout) clearTimeout(hoverTimeout);
+    };
+  }, [hoverTimeout]);
 
   return (
     <header className="bg-above-white/95 border-b border-above-rose-200 sticky top-0 z-50 backdrop-blur-lg shadow-sm">
@@ -64,39 +84,48 @@ export function Header() {
                 <div key={item.name} className="relative">
                   <button
                     className={cn(
-                      "text-sm font-medium py-2 px-2 lg:px-3 rounded-md transition-colors whitespace-nowrap inline-flex items-center gap-1",
+                      "text-sm font-medium py-2 px-2 lg:px-3 rounded-md transition-all duration-200 whitespace-nowrap inline-flex items-center gap-1.5",
                       resourcesNavigation.some(resource => pathname === resource.href)
                         ? "text-above-rose-700 bg-above-rose-100 font-semibold" 
                         : "text-slate-700 hover:text-above-rose-700 hover:bg-above-rose-50"
                     )}
-                    onMouseEnter={() => setResourcesOpen(true)}
-                    onMouseLeave={() => setResourcesOpen(false)}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                   >
+                    <Library className="w-4 h-4" />
                     {item.name}
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <ChevronDown className={cn(
+                      "w-3 h-3 transition-transform duration-200",
+                      resourcesOpen ? "rotate-180" : "rotate-0"
+                    )} />
                   </button>
                   {resourcesOpen && (
                     <div 
-                      className="absolute top-full left-0 mt-1 w-40 bg-white border border-slate-200 rounded-md shadow-lg py-1 z-50"
-                      onMouseEnter={() => setResourcesOpen(true)}
-                      onMouseLeave={() => setResourcesOpen(false)}
+                      className="absolute top-full left-0 mt-2 w-64 bg-white border border-slate-200 rounded-lg shadow-xl py-2 z-50 animate-in slide-in-from-top-2 duration-200"
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
                     >
-                      {resourcesNavigation.map((resource) => (
-                        <Link
-                          key={resource.name}
-                          href={resource.href}
-                          className={cn(
-                            "block px-4 py-2 text-sm transition-colors",
-                            pathname === resource.href
-                              ? "text-above-rose-700 bg-above-rose-50 font-medium"
-                              : "text-slate-700 hover:text-above-rose-700 hover:bg-slate-50"
-                          )}
-                        >
-                          {resource.name}
-                        </Link>
-                      ))}
+                      {resourcesNavigation.map((resource) => {
+                        const IconComponent = resource.icon;
+                        return (
+                          <Link
+                            key={resource.name}
+                            href={resource.href}
+                            className={cn(
+                              "flex items-start gap-3 px-4 py-3 text-sm transition-all duration-150 hover:bg-slate-50",
+                              pathname === resource.href
+                                ? "text-above-rose-700 bg-above-rose-50 border-r-2 border-above-rose-400 font-medium"
+                                : "text-slate-700 hover:text-above-rose-700"
+                            )}
+                          >
+                            <IconComponent className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                            <div className="flex-1">
+                              <div className="font-medium">{resource.name}</div>
+                              <div className="text-xs text-slate-500 mt-0.5">{resource.description}</div>
+                            </div>
+                          </Link>
+                        );
+                      })}
                     </div>
                   )}
                 </div>

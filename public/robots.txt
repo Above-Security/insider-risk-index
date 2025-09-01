@@ -1,0 +1,86 @@
+# Robots.txt for Insider Risk Index
+# AI-optimized crawler configuration for 2025
+
+User-agent: *
+Allow: /
+Crawl-delay: 5
+
+# Specific AI crawler configurations
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 3
+
+User-agent: ClaudeBot  
+Allow: /
+Crawl-delay: 3
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 3
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Crawl-delay: 3
+
+User-agent: Bytespider
+Allow: /
+Crawl-delay: 5
+
+User-agent: Amazonbot
+Allow: /
+Crawl-delay: 5
+
+User-agent: Applebot
+Allow: /
+Crawl-delay: 5
+
+User-agent: YouBot
+Allow: /
+Crawl-delay: 5
+
+# Traditional search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 3
+
+# Block private/sensitive paths
+Disallow: /api/auth/
+Disallow: /api/admin/
+Disallow: /_next/static/
+Disallow: /.well-known/
+
+# Allow important AI optimization files
+Allow: /llms.txt
+Allow: /ai.txt
+Allow: /sitemap.xml
+Allow: /rss.xml
+Allow: /humans.txt
+
+# High-priority content for AI indexing
+Allow: /assessment
+Allow: /benchmarks
+Allow: /about
+Allow: /glossary
+Allow: /playbooks
+Allow: /research
+Allow: /matrix
+
+# Sitemap locations
+Sitemap: https://insiderriskindex.com/sitemap.xml
+Sitemap: https://insiderriskindex.com/rss.xml
+
+# AI optimization files
+# llms.txt: https://insiderriskindex.com/llms.txt
+# ai.txt: https://insiderriskindex.com/ai.txt
+
+# Contact for crawling issues
+# Email: hello@insiderriskindex.com
+# Website: https://insiderriskindex.com

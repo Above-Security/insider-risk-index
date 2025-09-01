@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getBingSubmissionService, bingSubmission } from '@/lib/bing-submission';
-import { submitUrlToIndexNow } from '@/app/actions/indexnow';
+import { submitUrlToIndexNow } from '@/lib/indexnow';
 
 interface SubmissionRequest {
   urls: string[];

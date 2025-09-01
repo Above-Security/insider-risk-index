@@ -116,7 +116,6 @@ export const MetadataSchema = z.object({
     card: z.string(),
     title: z.string(),
     description: z.string(),
-    creator: z.string(),
     images: z.array(z.string().url()),
   }).optional(),
   jsonLd: z.record(z.string(), z.any()).optional(),

@@ -24,8 +24,7 @@ export const seoConfig = {
   language: "en-US",
   themeColor: "#7AB7FF",
   social: {
-    twitter: "@InsiderRiskIdx",
-    linkedin: "company/insider-risk-index",
+    linkedin: "company/abovesec",
   },
   contact: {
     email: "hello@insiderisk.io",
@@ -108,7 +107,6 @@ export function generateMetadata({
       card: "summary_large_image",
       title: fullTitle,
       description: fullDescription,
-      creator: seoConfig.social.twitter,
       images: ogImages.map(img => img.url),
     },
     other: {
@@ -137,9 +135,8 @@ export function getOrganizationJsonLd() {
     url: seoConfig.siteUrl,
     logo: `${seoConfig.siteUrl}/logo.png`,
     description: seoConfig.description,
-    foundingDate: "2024",
+    foundingDate: "2025",
     sameAs: [
-      `https://twitter.com/${seoConfig.social.twitter.replace("@", "")}`,
       `https://linkedin.com/${seoConfig.social.linkedin}`,
     ],
     contactPoint: {

@@ -145,7 +145,7 @@ interface QuotaResponse {
      "@type": "Organization",
      "name": "Insider Risk Index",
      "url": "https://insiderisk.io",
-     "foundingDate": "2024",
+     "foundingDate": "2025",
      "industry": "Cybersecurity",
      "expertise": ["Insider Threat Management", "Risk Assessment"],
      "contactPoint": {
@@ -718,7 +718,6 @@ twitter: {
   card: "summary_large_image",
   title: seoConfig.siteName,
   description: seoConfig.description,
-  creator: seoConfig.social.twitter,
   images: [`${seoConfig.siteUrl}/og-image.png`],
 },
 ```
@@ -753,8 +752,7 @@ export const seoConfig = {
   language: "en-US",
   themeColor: "#7AB7FF",
   social: {
-    twitter: "@InsiderRiskIdx",
-    linkedin: "company/insider-risk-index",
+    linkedin: "company/abovesec",
   },
   contact: {
     email: "hello@insiderisk.io",
@@ -1639,7 +1637,7 @@ const industryBenchmarks = {
 
 #### **3. Test Social Sharing Optimization**
 - **Action**: Validate dynamic OG images across platforms
-- **Platforms**: LinkedIn, Twitter, Facebook, Slack
+- **Platforms**: LinkedIn, Facebook, Slack
 - **Verification**: Use social media debugger tools
 
 #### **4. Schema Markup Validation**

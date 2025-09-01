@@ -187,8 +187,7 @@ export function generateLocalBusinessJsonLd() {
     "url": "https://insiderisk.io",
     "logo": "https://insiderisk.io/logo.png",
     "sameAs": [
-      "https://twitter.com/insiderriskindex",
-      "https://linkedin.com/company/insider-risk-index",
+      "https://linkedin.com/company/abovesec",
       "https://github.com/above-security/insider-risk-index"
     ],
     "contactPoint": {

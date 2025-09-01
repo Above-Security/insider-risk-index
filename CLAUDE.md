@@ -442,7 +442,7 @@ interface ProgressState {
 interface ShareOptions {
   url: boolean;
   email: boolean;
-  socialMedia: ('twitter' | 'linkedin')[];
+  socialMedia: ('linkedin')[];
   pdf: boolean;
   customMessage: boolean;
 }

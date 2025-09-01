@@ -22,7 +22,6 @@ import {
   Download,
   CheckCircle,
   ExternalLink,
-  Twitter,
   Linkedin
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -69,11 +68,6 @@ export function ShareResults({
   const shareViaEmail = () => {
     const mailtoUrl = `mailto:${emailData.to}?subject=${encodeURIComponent(emailData.subject)}&body=${encodeURIComponent(emailData.message)}`;
     window.open(mailtoUrl);
-  };
-
-  const shareOnTwitter = () => {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(resultsUrl)}&hashtags=CyberSecurity,InsiderThreat,RiskManagement`;
-    window.open(twitterUrl, '_blank');
   };
 
   const shareOnLinkedIn = () => {
@@ -155,15 +149,6 @@ export function ShareResults({
                 Share on Social Media
               </Label>
               <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={shareOnTwitter}
-                  className="flex-1"
-                >
-                  <Twitter className="h-4 w-4 mr-2" />
-                  Twitter
-                </Button>
                 <Button
                   variant="outline"
                   size="sm"

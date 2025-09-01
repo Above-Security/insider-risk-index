@@ -72,7 +72,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: seoConfig.siteName,
     description: seoConfig.description,
-    creator: seoConfig.social.twitter,
     images: [`${seoConfig.siteUrl}/og-image.png`],
   },
   other: {

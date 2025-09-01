@@ -23,6 +23,8 @@ interface IndexNowSubmission {
  * Submit a single URL to IndexNow for immediate indexing
  */
 export async function submitUrlToIndexNow(url: string): Promise<boolean> {
+  const startTime = Date.now();
+  
   try {
     // Ensure URL is absolute
     const absoluteUrl = url.startsWith('http') ? url : `${SITE_URL}${url}`;
@@ -37,17 +39,50 @@ export async function submitUrlToIndexNow(url: string): Promise<boolean> {
       },
     });
     
+    const responseTime = Date.now() - startTime;
     const success = response.status === 200 || response.status === 202;
+    
+    // Track analytics
+    const { trackIndexNowSubmission } = await import('./indexnow-analytics');
+    await trackIndexNowSubmission({
+      url: absoluteUrl,
+      endpoint: INDEXNOW_ENDPOINTS[0],
+      status: success ? 'success' : 'failure',
+      responseCode: response.status,
+      responseTime,
+      errorMessage: success ? undefined : response.statusText,
+      searchEngine: 'bing',
+      contentType: url.includes('sitemap') ? 'sitemap' : url.includes('rss') || url.includes('feed') ? 'feed' : 'page',
+    });
     
     if (!success) {
       console.warn(`IndexNow submission failed for ${absoluteUrl}: ${response.status} ${response.statusText}`);
     } else {
-      console.log(`IndexNow: Successfully submitted ${absoluteUrl} to Bing`);
+      console.log(`IndexNow: Successfully submitted ${absoluteUrl} to Bing (${responseTime}ms)`);
     }
     
     return success;
   } catch (error) {
+    const responseTime = Date.now() - startTime;
     console.error('IndexNow submission error:', error);
+    
+    // Track failed submission
+    try {
+      const { trackIndexNowSubmission } = await import('./indexnow-analytics');
+      const absoluteUrl = url.startsWith('http') ? url : `${SITE_URL}${url}`;
+      await trackIndexNowSubmission({
+        url: absoluteUrl,
+        endpoint: INDEXNOW_ENDPOINTS[0],
+        status: 'failure',
+        responseTime,
+        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+        searchEngine: 'bing',
+        contentType: url.includes('sitemap') ? 'sitemap' : url.includes('rss') || url.includes('feed') ? 'feed' : 'page',
+      });
+    } catch (trackingError) {
+      console.error('Failed to track IndexNow error:', trackingError);
+    }
+    
     return false;
   }
 }
@@ -57,6 +92,8 @@ export async function submitUrlToIndexNow(url: string): Promise<boolean> {
  */
 export async function submitUrlsToIndexNow(urls: string[]): Promise<boolean> {
   if (urls.length === 0) return true;
+  
+  const startTime = Date.now();
   
   try {
     // Convert to absolute URLs and limit to 10,000 per IndexNow spec
@@ -80,17 +117,55 @@ export async function submitUrlsToIndexNow(urls: string[]): Promise<boolean> {
       body: JSON.stringify(submission)
     });
     
+    const responseTime = Date.now() - startTime;
     const success = response.status === 200 || response.status === 202;
+    
+    // Track analytics for bulk submission
+    const { trackIndexNowSubmission } = await import('./indexnow-analytics');
+    for (const url of absoluteUrls) {
+      await trackIndexNowSubmission({
+        url,
+        endpoint: INDEXNOW_ENDPOINTS[0],
+        status: success ? 'success' : 'failure',
+        responseCode: response.status,
+        responseTime: responseTime / absoluteUrls.length, // Average time per URL
+        errorMessage: success ? undefined : response.statusText,
+        searchEngine: 'bing',
+        contentType: url.includes('sitemap') ? 'sitemap' : url.includes('rss') || url.includes('feed') ? 'feed' : 'page',
+      });
+    }
     
     if (!success) {
       console.warn(`IndexNow bulk submission failed: ${response.status} ${response.statusText}`);
     } else {
-      console.log(`IndexNow: Successfully submitted ${absoluteUrls.length} URLs to Bing`);
+      console.log(`IndexNow: Successfully submitted ${absoluteUrls.length} URLs to Bing (${responseTime}ms)`);
     }
     
     return success;
   } catch (error) {
+    const responseTime = Date.now() - startTime;
     console.error('IndexNow bulk submission error:', error);
+    
+    // Track failed bulk submission
+    try {
+      const { trackIndexNowSubmission } = await import('./indexnow-analytics');
+      const absoluteUrls = urls.map(url => url.startsWith('http') ? url : `${SITE_URL}${url}`);
+      
+      for (const url of absoluteUrls) {
+        await trackIndexNowSubmission({
+          url,
+          endpoint: INDEXNOW_ENDPOINTS[0],
+          status: 'failure',
+          responseTime: responseTime / absoluteUrls.length,
+          errorMessage: error instanceof Error ? error.message : 'Unknown error',
+          searchEngine: 'bing',
+          contentType: url.includes('sitemap') ? 'sitemap' : url.includes('rss') || url.includes('feed') ? 'feed' : 'page',
+        });
+      }
+    } catch (trackingError) {
+      console.error('Failed to track IndexNow bulk error:', trackingError);
+    }
+    
     return false;
   }
 }

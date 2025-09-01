@@ -217,18 +217,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* The 5 Pillars - Enhanced Creative Design */}
+      {/* The 5 Pillars - Creative but Responsive Design */}
       <section className="relative bg-gradient-to-b from-above-white via-slate-50 to-above-blue-50 py-24 sm:py-32 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-above-rose-200/30 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-above-blue-200/30 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-above-peach-200/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-above-rose-200/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-above-blue-200/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-above-peach-200/15 rounded-full blur-3xl"></div>
         </div>
 
         <div className={getPageLayout()}>
           {/* Section Header */}
-          <div className="relative z-10 mx-auto max-w-3xl text-center mb-20">
+          <div className="relative z-10 mx-auto max-w-3xl text-center mb-16">
             <div className="flex items-center justify-center gap-2 mb-6">
               <div className="flex -space-x-2">
                 <div className="w-3 h-3 rounded-full bg-above-rose-500"></div>
@@ -253,182 +253,304 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Pillars Layout - Creative Radial Design */}
-          <div className="relative z-10 max-w-6xl mx-auto">
-            {/* Central Hub */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-              <div className="w-32 h-32 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full shadow-xl border-4 border-white flex items-center justify-center">
-                <div className="text-center">
-                  <Shield className="h-8 w-8 text-slate-700 mx-auto mb-2" />
-                  <div className="text-xs font-medium text-slate-700">Defense</div>
-                  <div className="text-xs font-medium text-slate-700">Matrix</div>
-                </div>
-              </div>
-              {/* Connecting lines */}
-              <div className="absolute inset-0 w-32 h-32">
-                {[0, 1, 2, 3, 4].map((index) => (
-                  <div
-                    key={index}
-                    className="absolute w-px h-24 bg-gradient-to-t from-slate-300 to-transparent"
-                    style={{
-                      top: '16px',
-                      left: '50%',
-                      transformOrigin: '0 80px',
-                      transform: `translateX(-50%) rotate(${index * 72}deg)`,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
+          {/* Pillars Layout - Creative Grid with Enhanced Design */}
+          <div className="relative z-10 max-w-7xl mx-auto">
+            {/* Desktop: 2-1-2 Layout, Mobile: Single Column */}
+            <div className="space-y-8">
+              {/* First Row - 2 Pillars */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {PILLARS.slice(0, 2).map((pillar, index) => {
+                  const IconComponent = {
+                    Eye,
+                    Shield,
+                    Search,
+                    Key,
+                    ShieldAlert,
+                  }[pillar.icon] || Shield;
 
-            {/* Pillars in Radial Layout */}
-            <div className="relative h-[600px] sm:h-[700px]">
-              {PILLARS.map((pillar, index) => {
-                const IconComponent = {
-                  Eye,
-                  Shield,
-                  Search,
-                  Key,
-                  ShieldAlert,
-                }[pillar.icon] || Shield;
+                  const pillarStyles = [
+                    { 
+                      gradient: 'from-above-rose-500 to-above-rose-700',
+                      bg: 'bg-above-rose-50',
+                      border: 'border-above-rose-200',
+                      icon: 'text-above-rose-700',
+                      accent: 'bg-above-rose-100',
+                      shadow: 'shadow-above-rose-500/10'
+                    },
+                    { 
+                      gradient: 'from-above-blue-500 to-above-blue-700',
+                      bg: 'bg-above-blue-50',
+                      border: 'border-above-blue-200',
+                      icon: 'text-above-blue-700',
+                      accent: 'bg-above-blue-100',
+                      shadow: 'shadow-above-blue-500/10'
+                    }
+                  ];
+                  const style = pillarStyles[index];
 
-                // Enhanced color schemes with gradients
-                const pillarStyles = [
-                  { 
-                    gradient: 'from-above-rose-500 to-above-rose-700',
-                    bg: 'bg-above-rose-50',
-                    border: 'border-above-rose-200',
-                    icon: 'text-above-rose-700',
-                    glow: 'shadow-above-rose-500/20',
-                    accent: 'bg-above-rose-100'
-                  },
-                  { 
-                    gradient: 'from-above-blue-500 to-above-blue-700',
-                    bg: 'bg-above-blue-50',
-                    border: 'border-above-blue-200',
-                    icon: 'text-above-blue-700',
-                    glow: 'shadow-above-blue-500/20',
-                    accent: 'bg-above-blue-100'
-                  },
-                  { 
-                    gradient: 'from-above-peach-500 to-above-peach-700',
-                    bg: 'bg-above-peach-50',
-                    border: 'border-above-peach-200',
-                    icon: 'text-above-peach-700',
-                    glow: 'shadow-above-peach-500/20',
-                    accent: 'bg-above-peach-100'
-                  },
-                  { 
-                    gradient: 'from-above-lavender-500 to-above-lavender-700',
-                    bg: 'bg-above-lavender-50',
-                    border: 'border-above-lavender-200',
-                    icon: 'text-above-lavender-700',
-                    glow: 'shadow-above-lavender-500/20',
-                    accent: 'bg-above-lavender-100'
-                  },
-                  { 
-                    gradient: 'from-above-rose-600 to-red-700',
-                    bg: 'bg-red-50',
-                    border: 'border-red-200',
-                    icon: 'text-red-700',
-                    glow: 'shadow-red-500/20',
-                    accent: 'bg-red-100'
-                  },
-                ];
-                const style = pillarStyles[index];
-
-                // Position pillars in a circle
-                const angle = (index * 72) - 90; // Start from top
-                const radius = 280; // Distance from center
-                const x = Math.cos((angle * Math.PI) / 180) * radius;
-                const y = Math.sin((angle * Math.PI) / 180) * radius;
-
-                return (
-                  <div
-                    key={pillar.id}
-                    className="absolute transform -translate-x-1/2 -translate-y-1/2 group"
-                    style={{
-                      top: '50%',
-                      left: '50%',
-                      transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
-                    }}
-                  >
-                    <div className={`relative w-72 sm:w-80 ${style.bg} ${style.border} border-2 rounded-2xl p-6 shadow-xl ${style.glow} shadow-2xl backdrop-blur-sm bg-opacity-90 transition-all duration-500 hover:scale-105 hover:shadow-3xl group-hover:bg-opacity-100`}>
-                      {/* Pillar Number */}
-                      <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-br from-white to-slate-100 rounded-full border-2 border-slate-300 flex items-center justify-center text-sm font-bold text-slate-700 shadow-md">
-                        {index + 1}
-                      </div>
-                      
-                      {/* Weight Indicator */}
-                      <div className="absolute -top-3 -right-3">
-                        <div className={`px-3 py-1 bg-gradient-to-r ${style.gradient} text-white text-xs font-bold rounded-full shadow-md transform rotate-12`}>
-                          {Math.round(pillar.weight * 100)}%
+                  return (
+                    <div key={pillar.id} className="group">
+                      <div className={`relative ${style.bg} ${style.border} ${style.shadow} border-2 rounded-2xl p-8 shadow-xl backdrop-blur-sm bg-opacity-90 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group-hover:bg-opacity-100 h-full`}>
+                        {/* Pillar Number */}
+                        <div className="absolute -top-4 -left-4 w-10 h-10 bg-gradient-to-br from-white to-slate-100 rounded-full border-2 border-slate-300 flex items-center justify-center text-lg font-bold text-slate-700 shadow-lg">
+                          {index + 1}
                         </div>
-                      </div>
-
-                      {/* Content */}
-                      <div className="relative z-10">
-                        {/* Icon */}
-                        <div className={`w-14 h-14 ${style.accent} rounded-2xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                          <IconComponent className={`h-7 w-7 ${style.icon}`} />
-                        </div>
-
-                        {/* Title */}
-                        <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 group-hover:text-slate-800 transition-colors">
-                          {pillar.name}
-                        </h3>
-
-                        {/* Description */}
-                        <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                          {pillar.description}
-                        </p>
-
-                        {/* Key Points */}
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-2 text-xs text-slate-500">
-                            <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${style.gradient}`}></div>
-                            <span>
-                              {index === 0 && "Monitor user behavior & data access"}
-                              {index === 1 && "Training & security awareness"}
-                              {index === 2 && "Incident response & forensics"}
-                              {index === 3 && "Access controls & permissions"}
-                              {index === 4 && "Email & social engineering defense"}
-                            </span>
+                        
+                        {/* Weight Indicator */}
+                        <div className="absolute -top-3 -right-3">
+                          <div className={`px-4 py-2 bg-gradient-to-r ${style.gradient} text-white text-sm font-bold rounded-full shadow-lg transform rotate-12`}>
+                            {Math.round(pillar.weight * 100)}%
                           </div>
                         </div>
 
-                        {/* Impact Level */}
-                        <div className="mt-4 pt-4 border-t border-slate-200">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-medium text-slate-700">Impact Level</span>
-                            <div className="flex gap-1">
-                              {[1, 2, 3, 4, 5].map((level) => (
-                                <div
-                                  key={level}
-                                  className={`w-2 h-2 rounded-full ${
-                                    level <= Math.ceil(pillar.weight * 20)
-                                      ? `bg-gradient-to-r ${style.gradient}`
-                                      : 'bg-slate-200'
-                                  }`}
-                                />
-                              ))}
+                        {/* Content */}
+                        <div className="relative z-10">
+                          {/* Icon */}
+                          <div className={`w-16 h-16 ${style.accent} rounded-2xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                            <IconComponent className={`h-8 w-8 ${style.icon}`} />
+                          </div>
+
+                          {/* Title */}
+                          <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-slate-800 transition-colors">
+                            {pillar.name}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="text-slate-600 leading-relaxed mb-6">
+                            {pillar.description}
+                          </p>
+
+                          {/* Key Points */}
+                          <div className="space-y-3 mb-6">
+                            <div className="flex items-start gap-3 text-sm text-slate-600">
+                              <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${style.gradient} mt-2 flex-shrink-0`}></div>
+                              <span>
+                                {index === 0 && "Monitor user behavior patterns, data access logs, and system activities for unusual or suspicious actions"}
+                                {index === 1 && "Implement comprehensive training programs and security awareness campaigns for all employees"}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Impact Level */}
+                          <div className="pt-4 border-t border-slate-200">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-medium text-slate-700">Critical Impact</span>
+                              <div className="flex gap-1">
+                                {[1, 2, 3, 4, 5].map((level) => (
+                                  <div
+                                    key={level}
+                                    className={`w-3 h-3 rounded-full ${
+                                      level <= Math.ceil(pillar.weight * 20)
+                                        ? `bg-gradient-to-r ${style.gradient}`
+                                        : 'bg-slate-200'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Decorative elements */}
-                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/50 to-transparent rounded-bl-3xl rounded-tr-2xl"></div>
-                      <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-slate-100/50 to-transparent rounded-tr-3xl rounded-bl-2xl"></div>
+                        {/* Decorative elements */}
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/40 to-transparent rounded-bl-3xl rounded-tr-2xl"></div>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+
+              {/* Center Pillar - Investigation & Evidence */}
+              <div className="flex justify-center">
+                <div className="w-full max-w-2xl group">
+                  {(() => {
+                    const pillar = PILLARS[2];
+                    const IconComponent = Search;
+                    const style = {
+                      gradient: 'from-above-peach-500 to-above-peach-700',
+                      bg: 'bg-above-peach-50',
+                      border: 'border-above-peach-200',
+                      icon: 'text-above-peach-700',
+                      accent: 'bg-above-peach-100',
+                      shadow: 'shadow-above-peach-500/10'
+                    };
+
+                    return (
+                      <div className={`relative ${style.bg} ${style.border} ${style.shadow} border-2 rounded-2xl p-8 shadow-xl backdrop-blur-sm bg-opacity-90 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group-hover:bg-opacity-100`}>
+                        {/* Central Hub Indicator */}
+                        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                          <div className="px-4 py-2 bg-gradient-to-r from-slate-600 to-slate-700 text-white text-xs font-bold rounded-full shadow-lg">
+                            CORE PILLAR
+                          </div>
+                        </div>
+
+                        {/* Pillar Number */}
+                        <div className="absolute -top-4 -left-4 w-10 h-10 bg-gradient-to-br from-white to-slate-100 rounded-full border-2 border-slate-300 flex items-center justify-center text-lg font-bold text-slate-700 shadow-lg">
+                          3
+                        </div>
+                        
+                        {/* Weight Indicator */}
+                        <div className="absolute -top-3 -right-3">
+                          <div className={`px-4 py-2 bg-gradient-to-r ${style.gradient} text-white text-sm font-bold rounded-full shadow-lg transform rotate-12`}>
+                            {Math.round(pillar.weight * 100)}%
+                          </div>
+                        </div>
+
+                        <div className="text-center">
+                          {/* Icon */}
+                          <div className={`w-20 h-20 ${style.accent} rounded-2xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform duration-300 mx-auto`}>
+                            <IconComponent className={`h-10 w-10 ${style.icon}`} />
+                          </div>
+
+                          {/* Title */}
+                          <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                            {pillar.name}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="text-slate-600 leading-relaxed mb-6">
+                            {pillar.description}
+                          </p>
+
+                          {/* Key Points */}
+                          <div className="text-sm text-slate-600 mb-6">
+                            <div className="flex items-center justify-center gap-3">
+                              <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${style.gradient}`}></div>
+                              <span>Incident response procedures, forensic capabilities, and evidence preservation</span>
+                            </div>
+                          </div>
+
+                          {/* Impact Level */}
+                          <div className="pt-4 border-t border-slate-200">
+                            <div className="flex items-center justify-center gap-4">
+                              <span className="text-sm font-medium text-slate-700">Critical Impact</span>
+                              <div className="flex gap-1">
+                                {[1, 2, 3, 4, 5].map((level) => (
+                                  <div
+                                    key={level}
+                                    className={`w-3 h-3 rounded-full ${
+                                      level <= Math.ceil(pillar.weight * 20)
+                                        ? `bg-gradient-to-r ${style.gradient}`
+                                        : 'bg-slate-200'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Decorative elements */}
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/40 to-transparent rounded-bl-3xl rounded-tr-2xl"></div>
+                        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-white/40 to-transparent rounded-tr-3xl rounded-bl-2xl"></div>
+                      </div>
+                    );
+                  })()}
+                </div>
+              </div>
+
+              {/* Bottom Row - 2 Pillars */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {PILLARS.slice(3, 5).map((pillar, index) => {
+                  const IconComponent = {
+                    Key,
+                    ShieldAlert,
+                  }[pillar.icon] || Shield;
+
+                  const pillarStyles = [
+                    { 
+                      gradient: 'from-above-lavender-500 to-above-lavender-700',
+                      bg: 'bg-above-lavender-50',
+                      border: 'border-above-lavender-200',
+                      icon: 'text-above-lavender-700',
+                      accent: 'bg-above-lavender-100',
+                      shadow: 'shadow-above-lavender-500/10'
+                    },
+                    { 
+                      gradient: 'from-red-500 to-red-700',
+                      bg: 'bg-red-50',
+                      border: 'border-red-200',
+                      icon: 'text-red-700',
+                      accent: 'bg-red-100',
+                      shadow: 'shadow-red-500/10'
+                    }
+                  ];
+                  const style = pillarStyles[index];
+
+                  return (
+                    <div key={pillar.id} className="group">
+                      <div className={`relative ${style.bg} ${style.border} ${style.shadow} border-2 rounded-2xl p-8 shadow-xl backdrop-blur-sm bg-opacity-90 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl group-hover:bg-opacity-100 h-full`}>
+                        {/* Pillar Number */}
+                        <div className="absolute -top-4 -left-4 w-10 h-10 bg-gradient-to-br from-white to-slate-100 rounded-full border-2 border-slate-300 flex items-center justify-center text-lg font-bold text-slate-700 shadow-lg">
+                          {index + 4}
+                        </div>
+                        
+                        {/* Weight Indicator */}
+                        <div className="absolute -top-3 -right-3">
+                          <div className={`px-4 py-2 bg-gradient-to-r ${style.gradient} text-white text-sm font-bold rounded-full shadow-lg transform rotate-12`}>
+                            {Math.round(pillar.weight * 100)}%
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="relative z-10">
+                          {/* Icon */}
+                          <div className={`w-16 h-16 ${style.accent} rounded-2xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                            <IconComponent className={`h-8 w-8 ${style.icon}`} />
+                          </div>
+
+                          {/* Title */}
+                          <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-slate-800 transition-colors">
+                            {pillar.name}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="text-slate-600 leading-relaxed mb-6">
+                            {pillar.description}
+                          </p>
+
+                          {/* Key Points */}
+                          <div className="space-y-3 mb-6">
+                            <div className="flex items-start gap-3 text-sm text-slate-600">
+                              <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${style.gradient} mt-2 flex-shrink-0`}></div>
+                              <span>
+                                {index === 0 && "Manage user access controls, SaaS application permissions, and identity governance systems"}
+                                {index === 1 && "Build resilience against email phishing, social engineering, and deceptive attack vectors"}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Impact Level */}
+                          <div className="pt-4 border-t border-slate-200">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-medium text-slate-700">Critical Impact</span>
+                              <div className="flex gap-1">
+                                {[1, 2, 3, 4, 5].map((level) => (
+                                  <div
+                                    key={level}
+                                    className={`w-3 h-3 rounded-full ${
+                                      level <= Math.ceil(pillar.weight * 20)
+                                        ? `bg-gradient-to-r ${style.gradient}`
+                                        : 'bg-slate-200'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Decorative elements */}
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/40 to-transparent rounded-bl-3xl rounded-tr-2xl"></div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
           {/* Bottom Summary */}
-          <div className="relative z-10 mt-20 max-w-4xl mx-auto text-center">
+          <div className="relative z-10 mt-16 max-w-4xl mx-auto text-center">
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-slate-200">
               <h3 className="text-2xl font-bold text-slate-900 mb-4">
                 Comprehensive Risk Assessment

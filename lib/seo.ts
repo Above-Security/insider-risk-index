@@ -502,39 +502,147 @@ export function getMatrixTechniqueJsonLd({
 export function getGlossaryTermJsonLd({
   term,
   definition,
+  longExplanation,
   category,
   difficulty,
   pillarRelevance,
+  tags,
+  sources,
   slug,
+  createdAt,
+  updatedAt,
+  lastReviewed,
+  reviewedBy,
 }: {
   term: string;
   definition: string;
+  longExplanation?: string;
   category: string;
   difficulty: string;
   pillarRelevance: string[];
+  tags?: string[];
+  sources?: string[];
   slug: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  lastReviewed?: Date | null;
+  reviewedBy?: string | null;
 }) {
-  return generateJsonLd({
-    "@type": "DefinedTerm",
+  const baseData = {
+    "@type": ["DefinedTerm", "Article"],
+    "@id": `${seoConfig.siteUrl}/glossary/${slug}`,
     name: term,
+    headline: term,
     description: definition,
+    text: longExplanation || definition,
     url: `${seoConfig.siteUrl}/glossary/${slug}`,
     identifier: slug,
+    inLanguage: "en-US",
+    
+    // DefinedTerm specific properties
     inDefinedTermSet: {
       "@type": "DefinedTermSet",
+      "@id": `${seoConfig.siteUrl}/glossary`,
       name: "Insider Risk Management Glossary",
       description: "Comprehensive glossary of terms related to insider risk management and cybersecurity",
       url: `${seoConfig.siteUrl}/glossary`,
+      creator: {
+        "@type": "Organization",
+        name: seoConfig.siteName,
+        url: seoConfig.siteUrl,
+      },
     },
-    about: pillarRelevance.map(pillar => ({
-      "@type": "Thing",
-      name: `${pillar} Security Pillar`,
-      description: `Security pillar focused on ${pillar} aspects of insider risk management`,
-    })),
-    additionalType: category,
+
+    // Article properties
+    publisher: {
+      "@type": "Organization",
+      name: seoConfig.siteName,
+      url: seoConfig.siteUrl,
+    },
+    
+    // Content categorization
+    about: [
+      ...pillarRelevance.map(pillar => ({
+        "@type": "Thing",
+        name: `${pillar.charAt(0).toUpperCase() + pillar.slice(1)} Security Pillar`,
+        description: `Security pillar focused on ${pillar} aspects of insider risk management`,
+      })),
+      {
+        "@type": "Thing",
+        name: "Insider Risk Management",
+        description: "Practices and technologies for managing insider threats and risks within organizations",
+      },
+      {
+        "@type": "Thing", 
+        name: "Cybersecurity",
+        description: "Protection of digital systems, networks, and data from security threats",
+      }
+    ],
+    
+    // Educational properties
+    audience: [
+      {
+        "@type": "Audience",
+        audienceType: "Security Professionals"
+      },
+      {
+        "@type": "Audience", 
+        audienceType: "Risk Managers"
+      },
+      {
+        "@type": "Audience",
+        audienceType: "Cybersecurity Analysts"
+      }
+    ],
     educationalLevel: difficulty,
-    keywords: [term, category, difficulty, ...pillarRelevance, "cybersecurity", "insider risk"],
-  });
+    learningResourceType: "definition",
+    educationalUse: "reference",
+    
+    // Categorization
+    additionalType: category,
+    keywords: [term, ...(tags || []), category, difficulty, ...pillarRelevance, "cybersecurity", "insider risk"],
+    
+    // Quality indicators
+    isPartOf: {
+      "@type": "WebSite",
+      name: seoConfig.siteName,
+      url: seoConfig.siteUrl,
+    },
+  };
+
+  // Add timestamps if available
+  if (createdAt) {
+    (baseData as any).dateCreated = createdAt.toISOString();
+    (baseData as any).datePublished = createdAt.toISOString();
+  }
+  
+  if (updatedAt) {
+    (baseData as any).dateModified = updatedAt.toISOString();
+  }
+
+  // Add review information if available
+  if (lastReviewed && reviewedBy) {
+    (baseData as any).review = {
+      "@type": "Review",
+      datePublished: lastReviewed.toISOString(),
+      author: {
+        "@type": "Person",
+        name: reviewedBy,
+      },
+      reviewBody: `This term has been reviewed and verified for accuracy as of ${lastReviewed.toLocaleDateString()}.`,
+    };
+  }
+
+  // Add sources as citations if available
+  if (sources && sources.length > 0) {
+    (baseData as any).citation = sources.map((source, index) => ({
+      "@type": "CreativeWork",
+      name: `Reference ${index + 1}`,
+      description: source,
+    }));
+  }
+
+  return generateJsonLd(baseData);
 }
 
 /**

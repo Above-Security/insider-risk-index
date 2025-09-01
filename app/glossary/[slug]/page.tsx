@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Tag, Brain, Calendar, User, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Tag, Brain, Calendar, User, ExternalLink, ChevronRight, Home } from 'lucide-react';
 import { PrismaClient } from '@prisma/client';
 import { getGlossaryTermJsonLd } from '@/lib/seo';
 import Script from 'next/script';
@@ -95,6 +95,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${term.term} - Insider Risk Glossary`,
     description: term.definition.length > 160 ? `${term.definition.substring(0, 157)}...` : term.definition,
     keywords: [term.term, ...term.tags, 'insider risk', 'cybersecurity', 'glossary'],
+    alternates: {
+      canonical: `/glossary/${slug}`,
+    },
     openGraph: {
       title: `${term.term} - Security Glossary`,
       description: term.definition.length > 160 ? `${term.definition.substring(0, 157)}...` : term.definition,
@@ -161,10 +164,17 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
   const termJsonLd = getGlossaryTermJsonLd({
     term: term.term,
     definition: term.definition,
+    longExplanation: term.longExplanation,
     category: term.category,
     difficulty: term.difficulty,
     pillarRelevance: term.pillarRelevance,
+    tags: term.tags,
+    sources: term.sources,
     slug: term.slug,
+    createdAt: term.createdAt,
+    updatedAt: term.updatedAt,
+    lastReviewed: term.lastReviewed,
+    reviewedBy: term.reviewedBy,
   });
 
   return (
@@ -175,16 +185,46 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
       />
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        {/* Navigation */}
-        <div className="mb-8">
-          <Link
-            href="/glossary"
-            className="inline-flex items-center text-sm text-above-blue-800 dark:text-above-blue-400 hover:text-above-blue-800 dark:hover:text-above-blue-300 transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4 mr-1" />
-            Back to Glossary
-          </Link>
-        </div>
+        {/* Breadcrumbs */}
+        <nav className="mb-8" aria-label="Breadcrumb">
+          <ol className="flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>
+              <Link
+                href="/"
+                className="inline-flex items-center hover:text-above-blue-800 dark:hover:text-above-blue-300 transition-colors"
+              >
+                <Home className="h-4 w-4 mr-1" />
+                Home
+              </Link>
+            </li>
+            <li>
+              <ChevronRight className="h-4 w-4 text-slate-400" />
+            </li>
+            <li>
+              <Link
+                href="/glossary"
+                className="hover:text-above-blue-800 dark:hover:text-above-blue-300 transition-colors"
+              >
+                Glossary
+              </Link>
+            </li>
+            <li>
+              <ChevronRight className="h-4 w-4 text-slate-400" />
+            </li>
+            <li className="text-slate-900 dark:text-white font-medium" aria-current="page">
+              {term.term}
+            </li>
+          </ol>
+          <div className="mt-4">
+            <Link
+              href="/glossary"
+              className="inline-flex items-center text-sm text-above-blue-800 dark:text-above-blue-400 hover:text-above-blue-800 dark:hover:text-above-blue-300 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-1" />
+              Back to Glossary
+            </Link>
+          </div>
+        </nav>
 
         {/* Main Content */}
         <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm overflow-hidden">
@@ -344,14 +384,7 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ s
         id="glossary-term-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getGlossaryTermJsonLd({
-            term: term.term,
-            definition: term.definition,
-            category: term.category,
-            difficulty: term.difficulty,
-            pillarRelevance: term.pillarRelevance,
-            slug: term.slug,
-          })),
+          __html: JSON.stringify(termJsonLd),
         }}
       />
     </>

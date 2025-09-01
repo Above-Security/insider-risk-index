@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { seoConfig } from '@/lib/seo';
 import { getAllContent } from '@/lib/mdx';
+import { PrismaClient } from '@prisma/client';
 
 interface ContentFrontmatter {
   title: string;
@@ -11,13 +12,28 @@ interface ContentFrontmatter {
   lastUpdated?: string;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = new URL(seoConfig.siteUrl.trim());
+  const prisma = new PrismaClient();
   
   try {
     // Get dynamic content
     const research = getAllContent('research');
     const playbooks = getAllContent('playbooks');
+    
+    // Get glossary terms
+    let glossaryTerms: Array<{ slug: string; updatedAt: Date }> = [];
+    try {
+      glossaryTerms = await prisma.glossaryTerm.findMany({
+        where: { published: true },
+        select: {
+          slug: true,
+          updatedAt: true,
+        },
+      });
+    } catch (error) {
+      console.warn('Could not fetch glossary terms for sitemap:', error);
+    }
     
     // Static routes with proper priorities and change frequencies
     const staticRoutes: MetadataRoute.Sitemap = [
@@ -101,7 +117,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     }));
     
-    return [...staticRoutes, ...researchRoutes, ...playbookRoutes];
+    // Dynamic glossary routes
+    const glossaryRoutes: MetadataRoute.Sitemap = glossaryTerms.map((term) => ({
+      url: new URL(`/glossary/${term.slug}`, baseUrl).toString(),
+      lastModified: term.updatedAt,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+    
+    return [...staticRoutes, ...researchRoutes, ...playbookRoutes, ...glossaryRoutes];
     
   } catch (error) {
     console.error('Error generating sitemap:', error);

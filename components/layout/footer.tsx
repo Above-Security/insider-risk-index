@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Twitter, Linkedin, Mail, CheckCircle, AlertCircle } from "lucide-react";
+import { Linkedin, Mail, CheckCircle, AlertCircle } from "lucide-react";
 import { LogoWithText } from "@/components/ui/logo";
 import { AboveLogoWithText } from "@/components/ui/above-logo";
 import { useState } from "react";
@@ -26,13 +26,8 @@ const navigation = {
   ],
   social: [
     {
-      name: "Twitter",
-      href: "https://twitter.com/InsiderRiskIdx",
-      icon: Twitter,
-    },
-    {
       name: "LinkedIn",
-      href: "https://linkedin.com/company/insider-risk-index",
+      href: "https://www.linkedin.com/company/abovesec",
       icon: Linkedin,
     },
     {
@@ -247,8 +242,8 @@ export function Footer() {
               aria-label="Above Security - Insider Threat Protection"
             >
               <AboveLogoWithText 
-                size="md" 
-                textClassName="text-xs" 
+                size="lg" 
+                textClassName="text-sm font-medium" 
                 className="opacity-70 hover:opacity-100 transition-opacity"
               />
             </a>

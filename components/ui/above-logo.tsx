@@ -7,9 +7,9 @@ interface AboveLogoProps extends React.SVGProps<SVGSVGElement> {
 }
 
 const sizeMap = {
-  sm: { width: 14, height: 11 },
-  md: { width: 16, height: 13 },
-  lg: { width: 48, height: 39 },
+  sm: { width: 20, height: 16 },
+  md: { width: 24, height: 19 },
+  lg: { width: 32, height: 26 },
 } as const;
 
 export function AboveLogo({ 

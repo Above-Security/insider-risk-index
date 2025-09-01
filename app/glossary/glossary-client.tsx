@@ -10,7 +10,7 @@ interface GlossaryTerm {
   term: string;
   slug: string;
   definition: string;
-  longExplanation?: string | null;
+  longExplanation?: string;
   category: string;
   tags: string[];
   difficulty: string;

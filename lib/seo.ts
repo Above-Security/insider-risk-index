@@ -675,6 +675,8 @@ export function getPlaybookJsonLd({
 }) {
   return generateJsonLd({
     "@type": "HowTo",
+    "@id": `${seoConfig.siteUrl}/playbooks/${slug}`,
+    identifier: `playbook-${slug}-v${version}`,
     name: title,
     description,
     url: `${seoConfig.siteUrl}/playbooks/${slug}`,
@@ -684,11 +686,20 @@ export function getPlaybookJsonLd({
     keywords: tags.join(", "),
     educationalLevel: difficulty,
     timeRequired: estimatedTime,
-    about: {
-      "@type": "Thing",
-      name: `${pillar} Security Implementation`,
-      description: `Implementation guide for ${pillar} pillar of insider risk management`,
-    },
+    about: [
+      {
+        "@type": "Thing",
+        name: `${pillar} Security Implementation`,
+        description: `Implementation guide for ${pillar} pillar of insider risk management`,
+      },
+      {
+        "@type": "Thing", 
+        name: "Insider Risk Management",
+        sameAs: "https://en.wikipedia.org/wiki/Insider_threat",
+      }
+    ],
+    genre: `${pillar}-security-implementation`,
+    category: "Security Implementation Guide",
     audience: {
       "@type": "Audience",
       audienceType: "Security Professionals",

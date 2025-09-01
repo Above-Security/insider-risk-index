@@ -16,6 +16,7 @@ const navigation = [
   { name: "Matrix", href: "/matrix" },
   { name: "Playbooks", href: "/playbooks" },
   { name: "Research", href: "/research" },
+  { name: "Glossary", href: "/glossary" },
   { name: "About", href: "/about" },
 ];
 

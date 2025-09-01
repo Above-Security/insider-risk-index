@@ -103,7 +103,12 @@ async function getGlossaryData() {
     });
 
     return {
-      terms,
+      terms: terms.map(term => ({
+        ...term,
+        longExplanation: term.longExplanation || undefined,
+        createdAt: term.createdAt.toISOString(),
+        updatedAt: term.updatedAt.toISOString(),
+      })),
       pagination: {
         total: totalCount,
         limit: 50,

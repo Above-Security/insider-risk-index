@@ -169,7 +169,7 @@ export async function GET(request: NextRequest) {
                 color: "#9CA3AF",
               }}
             >
-              <span>insiderriskindex.com</span>
+              <span>insiderisk.io</span>
             </div>
           </div>
         </div>

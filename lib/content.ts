@@ -165,7 +165,7 @@ export function generateArticleJsonLd(metadata: ContentMetadata, url: string) {
     "publisher": {
       "@type": "Organization",
       "name": "Insider Risk Index",
-      "url": "https://insiderriskindex.com"
+      "url": "https://insiderisk.io"
     },
     "datePublished": metadata.publishedAt,
     "dateModified": metadata.publishedAt,

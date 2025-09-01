@@ -357,7 +357,7 @@ export async function generateSitemapFeed(): Promise<string> {
  */
 export function generateRobotsTxt(): string {
   const isProduction = process.env.NODE_ENV === "production";
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://insiderriskindex.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://insiderisk.io";
   
   if (!isProduction) {
     return `User-agent: *
@@ -395,7 +395,7 @@ Sitemap: ${siteUrl}/sitemaps/benchmarks.xml
 # See: ${siteUrl}/ai.txt
 
 # Contact
-# hello@insiderriskindex.com
+# hello@insiderisk.io
 Allow: /atom.xml
 Allow: /feed.json`;
 }

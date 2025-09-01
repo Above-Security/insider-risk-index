@@ -19,13 +19,13 @@ export async function GET() {
       version: "https://jsonfeed.org/version/1.1",
       title: "Insider Risk Index",
       description: "Insider threat research and insights",
-      home_page_url: "https://insiderriskindex.com",
-      feed_url: "https://insiderriskindex.com/feed.json",
+      home_page_url: "https://insiderisk.io",
+      feed_url: "https://insiderisk.io/feed.json",
       language: "en-US",
       authors: [
         {
           name: "Insider Risk Index Team",
-          url: "https://insiderriskindex.com",
+          url: "https://insiderisk.io",
         },
       ],
       items: [],

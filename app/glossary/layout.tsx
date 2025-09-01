@@ -23,15 +23,15 @@ export default function GlossaryLayout({
   // Generate structured data for the glossary as a knowledge base
   const glossaryJsonLd = generateJsonLd({
     "@type": "CreativeWork",
-    "@id": "https://insiderriskindex.com/glossary",
+    "@id": "https://insiderisk.io/glossary",
     name: "Insider Risk Management Glossary",
     description: "Comprehensive glossary of terms related to insider risk management, cybersecurity, and threat intelligence with over 75 expertly curated definitions.",
-    url: "https://insiderriskindex.com/glossary",
+    url: "https://insiderisk.io/glossary",
     inLanguage: "en-US",
     isPartOf: {
       "@type": "WebSite",
       name: "Insider Risk Index",
-      url: "https://insiderriskindex.com"
+      url: "https://insiderisk.io"
     },
     audience: {
       "@type": "Audience",

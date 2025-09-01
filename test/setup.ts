@@ -31,7 +31,7 @@ Object.defineProperty(window, "localStorage", {
 });
 
 // Mock environment variables
-process.env.NEXT_PUBLIC_SITE_URL = "https://insiderriskindex.com";
+process.env.NEXT_PUBLIC_SITE_URL = "https://insiderisk.io";
 process.env.DATABASE_URL = "postgresql://test:test@localhost:5432/test";
 
 // Cleanup after each test

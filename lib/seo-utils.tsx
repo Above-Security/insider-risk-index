@@ -103,7 +103,7 @@ export function generateArticleJsonLd({
       "name": "Insider Risk Index",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://insiderriskindex.com/logo.png"
+        "url": "https://insiderisk.io/logo.png"
       }
     }
   };
@@ -138,7 +138,7 @@ export function generateVideoJsonLd({
       "name": "Insider Risk Index",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://insiderriskindex.com/logo.png"
+        "url": "https://insiderisk.io/logo.png"
       }
     }
   };
@@ -184,8 +184,8 @@ export function generateLocalBusinessJsonLd() {
     "@type": "LocalBusiness",
     "name": "Insider Risk Index",
     "description": "Comprehensive insider risk assessment and management platform",
-    "url": "https://insiderriskindex.com",
-    "logo": "https://insiderriskindex.com/logo.png",
+    "url": "https://insiderisk.io",
+    "logo": "https://insiderisk.io/logo.png",
     "sameAs": [
       "https://twitter.com/insiderriskindex",
       "https://linkedin.com/company/insider-risk-index",
@@ -194,8 +194,8 @@ export function generateLocalBusinessJsonLd() {
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "Customer Support",
-      "email": "support@insiderriskindex.com",
-      "url": "https://insiderriskindex.com/contact"
+      "email": "support@insiderisk.io",
+      "url": "https://insiderisk.io/contact"
     }
   };
 }
@@ -244,7 +244,7 @@ export function generateMetaTags({
   twitterCard?: string;
   jsonLd?: any;
 }): Metadata {
-  const url = canonical || "https://insiderriskindex.com";
+  const url = canonical || "https://insiderisk.io";
   
   return {
     title,

@@ -690,7 +690,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4:latest
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@insiderriskindex.com
+      PGADMIN_DEFAULT_EMAIL: admin@insiderisk.io
       PGADMIN_DEFAULT_PASSWORD: admin_dev_password
     ports: ["5050:80"]
 ```
@@ -741,7 +741,7 @@ npm run docker:logs  # View container logs
 # PostgreSQL: localhost:5432
 # Redis: localhost:6379
 # PgAdmin: http://localhost:5050
-#   - Email: admin@insiderriskindex.com
+#   - Email: admin@insiderisk.io
 #   - Password: admin_dev_password
 ```
 
@@ -764,8 +764,8 @@ npx vercel --prod
 
 # Environment variables needed:
 # DATABASE_URL=postgresql://...
-# NEXT_PUBLIC_SITE_URL=https://insiderriskindex.com
-# PLAUSIBLE_DOMAIN=insiderriskindex.com
+# NEXT_PUBLIC_SITE_URL=https://insiderisk.io
+# PLAUSIBLE_DOMAIN=insiderisk.io
 ```
 
 ## Application Structure

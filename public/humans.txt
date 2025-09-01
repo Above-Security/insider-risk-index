@@ -45,7 +45,7 @@ Security: Modern web security best practices
 
 /* CONTACT */
 
-General: hello@insiderriskindex.com
+General: hello@insiderisk.io
 Above Security: https://abovesec.com
 Company LinkedIn: https://www.linkedin.com/company/abovesec/
 

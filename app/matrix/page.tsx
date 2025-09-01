@@ -297,7 +297,7 @@ export default async function MatrixPage() {
             "@type": "Dataset",
             name: "Insider Threat Matrix",
             description: "Comprehensive threat intelligence framework with 350+ insider threat techniques, prevention strategies, and detection methods",
-            url: "https://insiderriskindex.com/matrix",
+            url: "https://insiderisk.io/matrix",
             creator: {
               "@type": "Organization",
               name: "ForScie Community",

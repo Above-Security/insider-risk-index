@@ -52,9 +52,9 @@ export function ShareResults({
 
   const resultsUrl = typeof window !== 'undefined' ? 
     `${window.location.origin}/results/${assessmentId}` : 
-    `https://insiderriskindex.com/results/${assessmentId}`;
+    `https://insiderisk.io/results/${assessmentId}`;
 
-  const shareText = `Our organization scored ${totalScore}/100 (Level ${level}) on the Insider Risk Index assessment. Check out your organization's insider risk posture at insiderriskindex.com`;
+  const shareText = `Our organization scored ${totalScore}/100 (Level ${level}) on the Insider Risk Index assessment. Check out your organization's insider risk posture at insiderisk.io`;
 
   const copyToClipboard = async (text: string) => {
     try {

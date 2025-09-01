@@ -175,9 +175,9 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
   });
 
   const breadcrumbJsonLd = getBreadcrumbJsonLd([
-    { name: "Home", url: "https://insiderriskindex.com" },
-    { name: "Matrix", url: "https://insiderriskindex.com/matrix" },
-    { name: technique.title, url: `https://insiderriskindex.com/matrix/technique/${id}` }
+    { name: "Home", url: "https://insiderisk.io" },
+    { name: "Matrix", url: "https://insiderisk.io/matrix" },
+    { name: technique.title, url: `https://insiderisk.io/matrix/technique/${id}` }
   ]);
 
   return (

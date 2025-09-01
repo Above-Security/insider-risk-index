@@ -249,7 +249,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Documentation**: Check `/docs` directory
 - **Issues**: Open GitHub issue for bugs
 - **Discussions**: Use GitHub Discussions for questions
-- **Email**: hello@insiderriskindex.com
+- **Email**: hello@insiderisk.io
 - **Community**: Join our Discord server
 
 ## 🙏 Acknowledgments
@@ -271,4 +271,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Built with ❤️ by the Insider Risk Index team. Making insider threat management accessible to all organizations.
 
-For more information, visit [insiderriskindex.com](https://insiderriskindex.com)
+For more information, visit [insiderisk.io](https://insiderisk.io)

@@ -14,7 +14,7 @@ export default function PlaybooksPage() {
     "@type": "CreativeWorkSeries",
     name: "Insider Risk Management Implementation Playbooks",
     description: "Comprehensive collection of step-by-step implementation guides for building effective insider risk management programs across all security pillars.",
-    url: "https://insiderriskindex.com/playbooks",
+    url: "https://insiderisk.io/playbooks",
     inLanguage: "en-US",
     audience: {
       "@type": "Audience",
@@ -29,14 +29,14 @@ export default function PlaybooksPage() {
       "@type": "HowTo",
       name: playbook.frontmatter.title,
       description: playbook.frontmatter.description,
-      url: `https://insiderriskindex.com/playbooks/${playbook.slug}`,
+      url: `https://insiderisk.io/playbooks/${playbook.slug}`,
       educationalLevel: playbook.frontmatter.difficulty,
       timeRequired: playbook.frontmatter.timeToImplement,
     })),
     publisher: {
       "@type": "Organization",
       name: "Insider Risk Index",
-      url: "https://insiderriskindex.com"
+      url: "https://insiderisk.io"
     },
   });
 

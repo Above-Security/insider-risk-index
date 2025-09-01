@@ -20,7 +20,7 @@ export async function GET() {
   <channel>
     <title>Insider Risk Index</title>
     <description>Insider threat research and insights</description>
-    <link>https://insiderriskindex.com</link>
+    <link>https://insiderisk.io</link>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
   </channel>
 </rss>`;

@@ -19,13 +19,13 @@ export async function GET() {
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Insider Risk Index</title>
   <subtitle>Insider threat research and insights</subtitle>
-  <link href="https://insiderriskindex.com/atom.xml" rel="self" />
-  <link href="https://insiderriskindex.com" />
-  <id>https://insiderriskindex.com/</id>
+  <link href="https://insiderisk.io/atom.xml" rel="self" />
+  <link href="https://insiderisk.io" />
+  <id>https://insiderisk.io/</id>
   <updated>${new Date().toISOString()}</updated>
   <author>
     <name>Insider Risk Index Team</name>
-    <email>hello@insiderriskindex.com</email>
+    <email>hello@insiderisk.io</email>
   </author>
 </feed>`;
     

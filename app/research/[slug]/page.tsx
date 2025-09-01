@@ -73,7 +73,7 @@ export default async function ResearchArticlePage({ params }: Props) {
   
 
   // Generate JSON-LD for the article
-  const articleUrl = `https://insiderriskindex.com/research/${slug}`;
+  const articleUrl = `https://insiderisk.io/research/${slug}`;
   const jsonLd = getResearchArticleJsonLd({
     title: frontmatter.title,
     description: frontmatter.description,

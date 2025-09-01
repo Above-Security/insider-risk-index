@@ -104,9 +104,9 @@ export default async function PlaybookPage({ params }: Props) {
   });
 
   const breadcrumbJsonLd = getBreadcrumbJsonLd([
-    { name: "Home", url: "https://insiderriskindex.com" },
-    { name: "Playbooks", url: "https://insiderriskindex.com/playbooks" },
-    { name: frontmatter.title, url: `https://insiderriskindex.com/playbooks/${slug}` }
+    { name: "Home", url: "https://insiderisk.io" },
+    { name: "Playbooks", url: "https://insiderisk.io/playbooks" },
+    { name: frontmatter.title, url: `https://insiderisk.io/playbooks/${slug}` }
   ]);
 
   return (

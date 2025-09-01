@@ -2,7 +2,7 @@ import { getAllContent } from '@/lib/content';
 
 export async function GET() {
   const articles = getAllContent('research');
-  const siteUrl = 'https://insiderriskindex.com';
+  const siteUrl = 'https://insiderisk.io';
 
   const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -12,8 +12,8 @@ export async function GET() {
     <description>Latest research and insights on insider threat management, cybersecurity trends, and risk assessment.</description>
     <language>en-US</language>
     <copyright>© 2024 Insider Risk Index</copyright>
-    <managingEditor>research@insiderriskindex.com (Insider Risk Index Team)</managingEditor>
-    <webMaster>webmaster@insiderriskindex.com (Web Team)</webMaster>
+    <managingEditor>research@insiderisk.io (Insider Risk Index Team)</managingEditor>
+    <webMaster>webmaster@insiderisk.io (Web Team)</webMaster>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/research/feed.xml" rel="self" type="application/rss+xml" />
     <image>
@@ -32,7 +32,7 @@ export async function GET() {
       <guid isPermaLink="true">${siteUrl}/research/${article.slug}</guid>
       <description><![CDATA[${article.description}]]></description>
       <pubDate>${new Date(article.publishedAt).toUTCString()}</pubDate>
-      <author>research@insiderriskindex.com (${article.author || 'Insider Risk Index Team'})</author>
+      <author>research@insiderisk.io (${article.author || 'Insider Risk Index Team'})</author>
       <category>Cybersecurity Research</category>
       ${article.tags?.map(tag => `<category>${tag}</category>`).join('\n      ') || ''}
     </item>`

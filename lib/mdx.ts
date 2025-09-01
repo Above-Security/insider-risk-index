@@ -146,7 +146,7 @@ export function getContentTypes() {
 
 export function generateContentSitemap(): { url: string; lastModified: Date }[] {
   const sitemap: { url: string; lastModified: Date }[] = [];
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://insiderriskindex.com";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://insiderisk.io";
   
   try {
     // Get all playbooks

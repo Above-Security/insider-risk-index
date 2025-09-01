@@ -913,8 +913,8 @@ export function getAssessmentResultJsonLd({
  */
 export const pageMetadata = {
   home: () => ({
-    title: "Free Insider Risk Assessment for Organizations - Calculate Your Insider Threat Score",
-    description: "Free insider risk assessment tool for organizations. Calculate your insider threat vulnerability score in 8 minutes. Based on $17.4M average costs (Ponemon 2025) and Gartner research. Get actionable recommendations across 5 security pillars for small businesses, healthcare, financial services, and enterprise organizations.",
+    title: "Free Insider Risk Assessment Tool - Calculate Your Score",
+    description: "Calculate your insider threat vulnerability score in 8 minutes. Based on $17.4M average costs (Ponemon 2025). Get actionable insights across 5 pillars.",
     keywords: ["insider risk assessment for organizations", "insider threat detection tools for small businesses", "how to calculate insider risk index score", "insider threat cost calculator", "organization security posture assessment", "insider risk management framework", "ponemon institute insider threat cost 2025", "insider threat prevention tools", "employee security risk assessment", "insider threat vulnerability scanner"],
   }),
 

@@ -1,6 +1,7 @@
 'use server';
 
 import { submitUrlToIndexNow, submitUrlsToIndexNow, notifyContentUpdate } from '@/lib/indexnow';
+import { bingSubmission } from '@/lib/bing-submission';
 import { revalidatePath } from 'next/cache';
 
 /**
@@ -116,5 +117,71 @@ export async function bulkIndexNowSubmissionAction() {
   } catch (error) {
     console.error('Bulk IndexNow submission error:', error);
     return { success: false, error: 'Failed to perform bulk submission' };
+  }
+}
+
+/**
+ * Comprehensive URL submission to both Bing and IndexNow
+ */
+export async function submitUrlsToAllServices(
+  urls: string[],
+  options: {
+    type?: 'new' | 'updated' | 'core';
+    priority?: 'high' | 'normal' | 'low';
+  } = {}
+) {
+  try {
+    const { type = 'updated', priority = 'normal' } = options;
+    const results: {
+      indexnow: boolean;
+      bing: boolean;
+      urls: number;
+    } = {
+      indexnow: false,
+      bing: false,
+      urls: urls.length
+    };
+
+    // Submit to IndexNow
+    if (process.env.INDEXNOW_ENABLED === 'true') {
+      results.indexnow = await submitUrlsToIndexNow(urls);
+    }
+
+    // Submit to Bing URL Submission API
+    if (process.env.BING_WEBMASTER_API_KEY) {
+      switch (type) {
+        case 'new':
+          results.bing = await bingSubmission.submitNewContent(urls);
+          break;
+        case 'updated':
+          results.bing = await bingSubmission.submitUpdatedContent(urls);
+          break;
+        case 'core':
+          results.bing = await bingSubmission.submitCorePages();
+          break;
+      }
+    }
+
+    // Revalidate Next.js cache
+    urls.forEach(url => {
+      try {
+        const path = new URL(url).pathname;
+        revalidatePath(path);
+      } catch (e) {
+        console.warn(`Failed to revalidate ${url}:`, e);
+      }
+    });
+
+    console.log('Comprehensive URL submission completed:', results);
+    return results;
+
+  } catch (error) {
+    console.error('Comprehensive URL submission error:', error);
+    return { 
+      indexnow: false, 
+      bing: false, 
+      urls: urls.length, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    };
   }
 }

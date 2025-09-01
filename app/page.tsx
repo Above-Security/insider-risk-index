@@ -242,10 +242,8 @@ export default function HomePage() {
               </Badge>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-              The 5 Pillars of 
-              <span className="bg-gradient-to-r from-above-rose-600 to-above-blue-700 bg-clip-text text-transparent"> 
-                Insider Risk
-              </span>
+              The 5 Pillars of
+              <span className="bg-gradient-to-r from-above-rose-600 to-above-blue-700 bg-clip-text text-transparent"> Insider Risk</span>
             </h2>
             <p className="text-xl text-slate-600 leading-relaxed">
               A comprehensive framework that evaluates your organization's defenses across 

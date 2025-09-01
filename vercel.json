@@ -6,7 +6,9 @@
   "framework": "nextjs",
   "regions": ["iad1"],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "INDEXNOW_ENABLED": "true",
+    "INDEXNOW_KEY": "34842cf7adc727f3a275f5a6020aaadb43bff83cb3951b3a07ca3009a232f79b"
   },
   "build": {
     "env": {

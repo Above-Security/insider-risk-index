@@ -275,7 +275,6 @@ export function generateMetaTags({
       title,
       description,
       images: [ogImage],
-      creator: "@insiderriskindex",
     },
     other: jsonLd ? {
       "script:ld+json": JSON.stringify(jsonLd)

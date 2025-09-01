@@ -519,16 +519,16 @@ Allow: /humans.txt           # Team information
 
 ```
 # Sitemap locations
-Sitemap: https://insiderriskindex.com/sitemap.xml
-Sitemap: https://insiderriskindex.com/rss.xml
+Sitemap: https://insiderisk.io/sitemap.xml
+Sitemap: https://insiderisk.io/rss.xml
 
 # AI optimization files
-# llms.txt: https://insiderriskindex.com/llms.txt
-# ai.txt: https://insiderriskindex.com/ai.txt
+# llms.txt: https://insiderisk.io/llms.txt
+# ai.txt: https://insiderisk.io/ai.txt
 
 # Contact for crawling issues
-# Email: hello@insiderriskindex.com
-# Website: https://insiderriskindex.com
+# Email: hello@insiderisk.io
+# Website: https://insiderisk.io
 ```
 
 ---

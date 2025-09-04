@@ -60,6 +60,16 @@ export default function HomePage() {
     author: "Insider Risk Index Research Team"
   });
 
+  const employeeHardJsonLd = getResearchArticleJsonLd({
+    title: "Being an Insider is Fucking Hard in 2025: Why Every Employee is Walking a Security Tightrope",
+    description: "The brutal truth about being an employee in 2025: unclear policies, AI compliance confusion, and accidentally becoming an insider threat. 74% of breaches involve human error, yet only 50% understand their company's AI policies.",
+    slug: "being-insider-is-hard-2025",
+    publishDate: "2025-01-20",
+    lastModified: "2025-01-20",
+    tags: ["employee challenges", "workplace security", "accidental insider threats", "policy confusion", "AI compliance", "human error"],
+    author: "Insider Risk Index Research Team"
+  });
+
   // Enhanced Schema.org markup for comprehensive AI/LLM visibility
   const webAppJsonLd = getWebApplicationSchema();
   const howToJsonLd = getHowToAssessmentSchema();
@@ -154,6 +164,10 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(shadowAiJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(employeeHardJsonLd) }}
       />
       <script
         type="application/ld+json"
@@ -606,7 +620,125 @@ export default function HomePage() {
           {/* Featured Research Articles */}
           <div className="space-y-8 mb-12">
             
-            {/* Latest Article - Shadow AI */}
+            {/* Newest Article - Being an Insider is Hard */}
+            <Card className="bg-white/90 border-above-rose-200 shadow-xl hover:shadow-2xl transition-all duration-300 ring-2 ring-above-rose-100">
+              <CardHeader className="pb-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Users className="h-5 w-5 text-above-rose-600" />
+                      <Badge variant="outline" className="bg-above-rose-50 text-above-rose-700 border-above-rose-200 font-semibold">
+                        🆕 Latest Research
+                      </Badge>
+                      <Badge variant="outline" className="text-slate-600">
+                        14 min read
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-2xl font-bold text-slate-900 leading-tight">
+                      <Link 
+                        href="/research/being-insider-is-hard-2025"
+                        className="hover:text-above-rose-700 transition-colors"
+                      >
+                        Being an Insider is Fucking Hard in 2025: Why Every Employee is Walking a Security Tightrope
+                      </Link>
+                    </CardTitle>
+                    <p className="mt-3 text-slate-700 leading-relaxed">
+                      The brutal truth about being an employee in 2025: unclear policies, AI compliance confusion, 
+                      and accidentally becoming an insider threat. 74% of breaches involve human error, yet only 50% understand their company's AI policies.
+                    </p>
+                  </div>
+                  <div className="ml-6 flex-shrink-0">
+                    <div className="w-20 h-20 bg-gradient-to-br from-above-rose-100 to-above-peach-100 rounded-lg flex items-center justify-center">
+                      <Users className="h-10 w-10 text-above-rose-700" />
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0">
+                {/* Key Statistics */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-above-rose-50/30 rounded-lg">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-above-rose-700">74%</div>
+                    <div className="text-xs text-slate-600">Breaches Include Human Error</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-above-rose-700">57%</div>
+                    <div className="text-xs text-slate-600">Use AI Violating Policies</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-above-rose-700">50%</div>
+                    <div className="text-xs text-slate-600">Make Mistakes When Rushed</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-above-rose-700">68%</div>
+                    <div className="text-xs text-slate-600">Error-Related Breaches</div>
+                  </div>
+                </div>
+
+                {/* Research Sources */}
+                <div className="mb-6">
+                  <div className="text-sm font-medium text-slate-900 mb-2">Employee-Focused Research Sources:</div>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline" className="bg-red-50 text-red-800 border-red-200">
+                      Resume Now 2025
+                    </Badge>
+                    <Badge variant="outline" className="bg-blue-50 text-blue-800 border-blue-200">
+                      HR Dive Research
+                    </Badge>
+                    <Badge variant="outline" className="bg-green-50 text-green-800 border-green-200">
+                      McKinsey Workplace AI
+                    </Badge>
+                    <Badge variant="outline" className="bg-purple-50 text-purple-800 border-purple-200">
+                      Varonis Security Report
+                    </Badge>
+                    <Badge variant="outline" className="bg-orange-50 text-orange-800 border-orange-200">
+                      Mimecast Human Risk
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* Key Findings */}
+                <div className="mb-6">
+                  <div className="text-sm font-medium text-slate-900 mb-3">Employee Reality:</div>
+                  <div className="space-y-2">
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-sm text-slate-700">
+                        <strong>Policy confusion crisis:</strong> 57% of employees admit to using AI in ways that may violate company policies
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-sm text-slate-700">
+                        <strong>Training gap nightmare:</strong> 43% need more AI training, 47% feel underprepared for employer-provided tools
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-above-rose-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-sm text-slate-700">
+                        <strong>Honest mistakes punished:</strong> When something goes wrong, employees get blamed even when systems set them up to fail
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4 text-sm text-slate-500">
+                    <span>Published January 20, 2025</span>
+                    <span>•</span>
+                    <span>Employee Experience Analysis</span>
+                  </div>
+                  <AboveButton variant="outline" size="sm" asChild>
+                    <Link href="/research/being-insider-is-hard-2025">
+                      Read Employee Perspective
+                      <ExternalLink className="ml-2 h-4 w-4" />
+                    </Link>
+                  </AboveButton>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Second Article - Shadow AI */}
             <Card className="bg-white/80 border-above-blue-200 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between">
@@ -614,7 +746,7 @@ export default function HomePage() {
                     <div className="flex items-center gap-2 mb-3">
                       <AlertTriangle className="h-5 w-5 text-above-blue-600" />
                       <Badge variant="outline" className="bg-above-blue-50 text-above-blue-700 border-above-blue-200">
-                        Latest Intelligence
+                        AI Threat Intelligence
                       </Badge>
                       <Badge variant="outline" className="text-slate-600">
                         18 min read

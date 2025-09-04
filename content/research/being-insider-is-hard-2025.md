@@ -204,13 +204,9 @@ Companies promise AI will make employees more productive. **The reality for empl
 **If you're trying to do your job without accidentally becoming an insider threat, here's how to survive:**
 
 1. **Ask Questions Aggressively**: Better to ask "stupid" questions than make costly mistakes. Document the answers for future reference.
-
 2. **Keep Records of Guidance**: Save emails, policy documents, and training materials. If something goes wrong, you'll need proof you were following available guidance.
-
 3. **Push for Clarity**: When policies are unclear, push back and ask for specific examples. Don't accept vague answers.
-
 4. **Build Relationships with IT/Security**: Cultivate friendly relationships with people who can give you quick answers to policy questions.
-
 5. **Stay Conservative When in Doubt**: If you're not sure whether something is allowed, choose the more restrictive option until you can get clarification.
 
 ### For Organizations
@@ -218,15 +214,10 @@ Companies promise AI will make employees more productive. **The reality for empl
 **If you want employees who don't accidentally become insider threats:**
 
 1. **Write Clear, Specific Policies**: Stop using vague legal language. Use examples, scenarios, and plain English.
-
 2. **Provide Role-Specific Training**: Generic security training doesn't work. Train people based on their actual job functions and tools.
-
 3. **Create Safe Reporting Channels**: Employees need to feel safe asking questions and reporting mistakes without fear of punishment.
-
 4. **Keep Policies Current**: If you're using AI tools, have AI policies. If people work remotely, have remote work security guidelines.
-
 5. **Measure Policy Effectiveness**: Don't just measure compliance—measure understanding. Survey employees about policy clarity.
-
 6. **Implement Contextual Guidance**: Consider [solutions that provide real-time coaching](https://abovesec.com) to guide employees in the moment rather than punishing mistakes after they happen.
 
 ---

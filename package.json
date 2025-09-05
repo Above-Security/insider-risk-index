@@ -21,9 +21,7 @@
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs",
     "format": "prettier --write .",
-    "prepare": "husky",
-    "og:generate": "tsx scripts/generate-og-image-custom.ts",
-    "og:generate:live": "tsx scripts/generate-og-image.ts"
+    "prepare": "husky"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

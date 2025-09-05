@@ -67,13 +67,21 @@ export function generateMetadata({
   const fullDescription = description || seoConfig.description;
   const url = `${seoConfig.siteUrl}${path}`;
   
-  // Default OG image
+  // Default OG images with multiple sizes for better social media support
   const defaultImages = [
     {
       url: `${seoConfig.siteUrl}/og-image.png`,
       width: 1200,
       height: 630,
-      alt: seoConfig.siteName,
+      alt: `${seoConfig.siteName} - Free Insider Risk Assessment for Organizations`,
+      type: 'image/png',
+    },
+    {
+      url: `${seoConfig.siteUrl}/og-image-2x.png`,
+      width: 2400,
+      height: 1260,
+      alt: `${seoConfig.siteName} - Measure Your Organization's Security Posture`,
+      type: 'image/png',
     },
   ];
 

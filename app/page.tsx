@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { AboveButton } from "@/components/ui/above-components";
-import { AboveLogo, AboveLogoWithText } from "@/components/ui/above-logo";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -254,142 +253,6 @@ export default function HomePage() {
             <p className="mt-4 text-sm text-slate-600">
               ✓ No registration required  ✓ Takes 5-10 minutes  ✓ Immediate results
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Above Security Sponsorship - Prominent Section */}
-      <section className="bg-gradient-to-r from-above-blue-50 via-above-lavender-50 to-above-blue-50 py-12 border-y-2 border-above-blue-200">
-        <div className={getPageLayout()}>
-          <div className="mx-auto max-w-4xl">
-            <div className="text-center">
-              {/* Main Sponsorship Block */}
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border-2 border-above-blue-200 p-8 relative overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-5">
-                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-above-blue-600 to-transparent"></div>
-                </div>
-                
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Badge */}
-                  <div className="flex items-center justify-center mb-6">
-                    <Badge className="bg-above-blue-100 text-above-blue-900 border-above-blue-300 px-4 py-1 text-sm font-semibold">
-                      🏆 OFFICIAL RESEARCH PARTNER
-                    </Badge>
-                  </div>
-                  
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                    Powered by Industry-Leading Security Intelligence
-                  </h3>
-                  
-                  {/* Above Security Logo - Large and Prominent */}
-                  <div className="mb-6">
-                    <a 
-                      href="https://abovesec.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer sponsored"
-                      className="inline-block group"
-                      aria-label="Above Security - Official Research Sponsor"
-                    >
-                      <div className="flex items-center justify-center gap-4 transform transition-all duration-300 group-hover:scale-105">
-                        <AboveLogo 
-                          size="lg" 
-                          className="text-above-blue-800 opacity-100 w-12 h-10"
-                          style={{ width: '48px', height: '38px' }}
-                        />
-                        <span className="text-3xl font-bold bg-gradient-to-r from-above-blue-800 to-above-blue-600 bg-clip-text text-transparent">
-                          Above Security
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm text-slate-600 font-medium">
-                        Enterprise Insider Threat Intelligence Platform
-                      </p>
-                    </a>
-                  </div>
-                  
-                  {/* Description */}
-                  <p className="text-lg text-slate-700 mb-6 max-w-2xl mx-auto leading-relaxed">
-                    <strong>Above Security</strong> sponsors our research and provides the threat intelligence data 
-                    that powers this assessment. Their platform helps Fortune 500 companies detect and prevent 
-                    insider threats before they cause damage.
-                  </p>
-                  
-                  {/* Key Features */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-above-blue-50 rounded-lg p-4">
-                      <div className="text-above-blue-800 font-semibold mb-1">Real-Time Detection</div>
-                      <div className="text-sm text-slate-600">AI-powered threat monitoring</div>
-                    </div>
-                    <div className="bg-above-lavender-50 rounded-lg p-4">
-                      <div className="text-above-blue-800 font-semibold mb-1">Behavioral Analytics</div>
-                      <div className="text-sm text-slate-600">Advanced user risk scoring</div>
-                    </div>
-                    <div className="bg-above-rose-50 rounded-lg p-4">
-                      <div className="text-above-blue-800 font-semibold mb-1">Incident Response</div>
-                      <div className="text-sm text-slate-600">Automated threat remediation</div>
-                    </div>
-                  </div>
-                  
-                  {/* CTA Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                    <AboveButton variant="default" size="lg" asChild>
-                      <a 
-                        href="https://abovesec.com/demo" 
-                        target="_blank" 
-                        rel="noopener noreferrer sponsored"
-                        className="font-semibold"
-                      >
-                        Request Above Security Demo
-                        <ExternalLink className="ml-2 h-5 w-5" />
-                      </a>
-                    </AboveButton>
-                    <AboveButton variant="outline" size="lg" asChild>
-                      <a 
-                        href="https://abovesec.com/resources" 
-                        target="_blank" 
-                        rel="noopener noreferrer sponsored"
-                      >
-                        Learn About Their Platform
-                      </a>
-                    </AboveButton>
-                  </div>
-                  
-                  {/* Trust Indicators */}
-                  <div className="mt-6 pt-6 border-t border-slate-200">
-                    <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-600">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-above-blue-600" />
-                        <span>Trusted by Fortune 500</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Shield className="h-4 w-4 text-above-blue-600" />
-                        <span>SOC 2 Type II Certified</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <TrendingUp className="h-4 w-4 text-above-blue-600" />
-                        <span>90% Threat Reduction</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Secondary Sponsorship Note */}
-              <p className="mt-6 text-center text-sm text-slate-600">
-                This free assessment tool is made possible through the generous sponsorship of 
-                <a 
-                  href="https://abovesec.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer sponsored"
-                  className="font-semibold text-above-blue-700 hover:text-above-blue-600 ml-1"
-                >
-                  Above Security
-                </a>
-                , supporting open security research and education.
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -1082,28 +945,33 @@ export default function HomePage() {
                 </p>
                 
                 {/* Enhanced Above Security Sponsorship */}
-                <div className="bg-white/80 rounded-xl p-6 mb-6 border border-above-blue-200">
-                  <div className="text-sm font-semibold text-slate-700 mb-3">
-                    SPONSORED BY
+                <div className="bg-white rounded-xl p-6 mb-6 border-2 border-slate-200 shadow-sm">
+                  <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">
+                    Sponsored By
                   </div>
                   <a 
                     href="https://abovesec.com" 
                     target="_blank" 
                     rel="noopener noreferrer sponsored"
-                    className="inline-block group"
+                    className="block group"
                     aria-label="Above Security - Research Sponsor"
                   >
-                    <div className="flex items-center justify-center gap-3 transform transition-all duration-300 group-hover:scale-105">
-                      <AboveLogo 
-                        size="lg" 
-                        className="text-above-blue-800 opacity-100"
-                        style={{ width: '36px', height: '29px' }}
-                      />
-                      <span className="text-2xl font-bold text-above-blue-800 group-hover:text-above-blue-600 transition-colors">
+                    <div className="flex items-center justify-center gap-4 transform transition-transform duration-200 group-hover:scale-105">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="48"
+                        viewBox="0 0 300 239"
+                        fill="currentColor"
+                        className="text-slate-900"
+                      >
+                        <path d="m138.2 162.976-11.093.02c-5.566-.015-11.228.473-14.736-5.711-3.117-5.498-5.658-12-8.661-17.507-5.7669-10.576-1.322-15.218 3.965-24.195l7.866-13.451 6.672-11.4593c1.353-2.3235 2.655-4.7378 4.177-6.9307 1.02-1.4705 2.242-2.8031 3.653-3.8103 1.661-1.1865 3.636-2.0682 5.58-2.4349 3.621-.684 23.259-.6862 26.824.1468 4.174.9755 7.271 3.4391 9.553 7.3564 5.039 8.6514 9.826 18.059 14.672 26.852l5.173 9.39c2.231 4.053 5.246 8.863 3.758 13.986-1.51 5.201-4.84 10.299-7.05 15.236-1.431 3.192-3.261 6.456-4.839 9.581-1.228 2.302-3.009 3.429-5.388 2.697-2.428-.748-4.488-5.472-5.705-7.702l-25.493-46.374c-1.936-3.516-8.637-16.7884-10.63-18.6714-.803-.7585-1.95-1.1178-2.993-1.0182-1.36.1299-2.22 1.0426-3.038 2.1604-1.504 2.0542-2.746 4.4847-4.063 6.6998l-8.097 13.6894-6.042 10.134c-1.676 2.796-5.356 7.482-3.711 10.832 3.17 6.46 5.762 11.057 8.946 17.508.988 2.003 2.651 5.197 4.781 4.901 3.069-.382 4.983-5.344 6.498-8.106l7.975-14.524c1.423-2.588 2.78-5.067 4.322-7.598 1.335-2.195 5.293-2.56 6.924-.673 2.706 3.356 4.306 7.175 6.5 11 1.594 2.778 4.638 7.587 2.764 10.937-2.453 4.381-4.696 9.395-7.693 13.277-2.896 3.75-7.364 3.73-11.371 3.762Z" />
+                      </svg>
+                      <span className="text-3xl font-bold text-slate-900 group-hover:text-slate-700 transition-colors">
                         Above Security
                       </span>
                     </div>
-                    <p className="mt-2 text-xs text-slate-600">
+                    <p className="mt-3 text-sm text-slate-600 text-center">
                       Enterprise Insider Threat Intelligence Platform
                     </p>
                   </a>

@@ -27,17 +27,17 @@ import {
 import { cn } from "@/lib/utils";
 
 interface ShareResultsProps {
-  assessmentId: string;
-  totalScore: number;
-  level: number;
+  result: {
+    totalScore: number;
+    level: number;
+    levelDescription: string;
+  };
   organizationName: string;
   className?: string;
 }
 
 export function ShareResults({ 
-  assessmentId, 
-  totalScore, 
-  level, 
+  result, 
   organizationName,
   className 
 }: ShareResultsProps) {
@@ -46,14 +46,14 @@ export function ShareResults({
   const [emailData, setEmailData] = useState({
     to: "",
     subject: `${organizationName} - Insider Risk Assessment Results`,
-    message: `Hi,\n\nI wanted to share our organization's insider risk assessment results with you.\n\nOverall Score: ${totalScore}/100 (Level ${level})\nOrganization: ${organizationName}\n\nYou can view the full results at: ${window?.location?.origin}/results/${assessmentId}\n\nBest regards`
+    message: `Hi,\n\nI wanted to share our organization's insider risk assessment results with you.\n\nOverall Score: ${result.totalScore}/100 (Level ${result.level})\nOrganization: ${organizationName}\n\nWe achieved "${result.levelDescription}" maturity level. Learn more about insider risk assessment at insiderisk.io\n\nBest regards`
   });
 
   const resultsUrl = typeof window !== 'undefined' ? 
-    `${window.location.origin}/results/${assessmentId}` : 
-    `https://insiderisk.io/results/${assessmentId}`;
+    `${window.location.origin}/assessment/results` : 
+    `https://insiderisk.io/assessment/results`;
 
-  const shareText = `Our organization scored ${totalScore}/100 (Level ${level}) on the Insider Risk Index assessment. Check out your organization's insider risk posture at insiderisk.io`;
+  const shareText = `Our organization scored ${result.totalScore}/100 (Level ${result.level}) on the Insider Risk Index assessment. Check out your organization's insider risk posture at insiderisk.io`;
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -76,9 +76,8 @@ export function ShareResults({
   };
 
   const generatePDFShare = () => {
-    // This would trigger PDF generation
-    const pdfUrl = `/api/pdf/board-brief/${assessmentId}`;
-    window.open(pdfUrl, '_blank');
+    // This would trigger PDF generation - for now, link to assessment page
+    window.open('/assessment', '_blank');
   };
 
   return (
@@ -104,14 +103,14 @@ export function ShareResults({
             <h4 className="font-semibold text-above-blue-900 mb-2">{organizationName}</h4>
             <div className="flex items-center gap-4">
               <div>
-                <div className="text-2xl font-bold text-above-blue-800">{totalScore}</div>
+                <div className="text-2xl font-bold text-above-blue-800">{result.totalScore}</div>
                 <div className="text-sm text-above-blue-800">Overall Score</div>
               </div>
               <div>
                 <Badge className="bg-above-blue-100 text-above-blue-800 border-above-blue-200">
-                  Level {level}
+                  Level {result.level}
                 </Badge>
-                <div className="text-sm text-above-blue-800 mt-1">Maturity Level</div>
+                <div className="text-sm text-above-blue-800 mt-1">{result.levelDescription}</div>
               </div>
             </div>
           </div>
@@ -146,19 +145,33 @@ export function ShareResults({
             {/* Social Media Sharing */}
             <div>
               <Label className="text-sm font-medium mb-3 block">
-                Share on Social Media
+                Share Professional Achievement
               </Label>
-              <div className="flex gap-2">
+              <div className="grid grid-cols-1 gap-3">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={shareOnLinkedIn}
-                  className="flex-1"
+                  className="justify-start bg-[#0A66C2] hover:bg-[#004182] text-white border-[#0A66C2] hover:border-[#004182]"
                 >
                   <Linkedin className="h-4 w-4 mr-2" />
-                  LinkedIn
+                  Share on LinkedIn
+                  <div className="ml-auto text-xs opacity-75">Professional</div>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => copyToClipboard(`🎯 Just completed our insider risk assessment! Scored ${result.totalScore}/100 (Level ${result.level}) - ${result.levelDescription}. \n\nEvery organization should understand their insider risk posture. Check out insiderisk.io to assess yours! \n\n#CyberSecurity #InsiderThreat #RiskManagement`)}
+                  className="justify-start"
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy Social Post
+                  <div className="ml-auto text-xs opacity-75">Any platform</div>
                 </Button>
               </div>
+              <p className="text-xs text-slate-500 mt-2">
+                💡 Share your security leadership and raise awareness about insider risk management
+              </p>
             </div>
 
             {/* Email Sharing */}

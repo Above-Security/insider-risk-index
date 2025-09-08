@@ -66,11 +66,18 @@ export default function AssessmentPage() {
 
       console.log("✅ Score calculated:", result.totalScore);
 
+      // Convert answers Map to object for saving and sharing
+      const answersObject: Record<string, number> = {};
+      answers.forEach((answer) => {
+        answersObject[answer.questionId] = answer.value;
+      });
+
       // Save to localStorage for results page
       const assessmentData = {
         organizationData,
         result,
         completedAt: new Date().toISOString(),
+        answers: answersObject, // Include original answers for sharing
       };
       
       if (typeof window !== "undefined") {

@@ -2,7 +2,7 @@
 title: "Shadow AI and the Evolution of Insider Threats: A Critical Intelligence Assessment"
 description: "83% of organizations reported insider attacks in 2024 as AI amplifies threat capabilities. Analysis of recent incidents including Mercedes-Benz GitHub exposure, Marks & Spencer breach, and North Korean infiltration of AI companies. Evidence-based examination of shadow AI risks and next-generation defense strategies."
 author: "Insider Risk Index Research Team"
-publishedAt: "2025-08-27"
+publishedAt: "2025-09-02"
 category: "research"
 tags: ["shadow AI", "insider threats", "artificial intelligence security", "threat intelligence", "malicious insiders", "data breaches", "AI security"]
 methodology: "Multi-source intelligence analysis with real-world incident examination"

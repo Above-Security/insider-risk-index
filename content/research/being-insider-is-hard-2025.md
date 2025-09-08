@@ -2,7 +2,7 @@
 title: "Being an Insider is Fucking Hard in 2025: Why Every Employee is Walking a Security Tightrope"
 description: "The brutal truth about being an employee in 2025: unclear policies, AI compliance confusion, and accidentally becoming an insider threat. 74% of breaches involve human error, yet only 50% understand their company's AI policies."
 author: "Insider Risk Index Research Team"
-publishedAt: "2025-01-20"
+publishedAt: "2025-09-05"
 category: "analysis"
 tags: ["employee challenges", "workplace security", "accidental insider threats", "policy confusion", "AI compliance", "human error"]
 methodology: "Employee survey analysis and workplace security research synthesis"

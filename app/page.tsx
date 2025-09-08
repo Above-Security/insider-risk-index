@@ -221,7 +221,7 @@ export default function HomePage() {
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-700">
                 Calculate your organization's insider threat vulnerability in 8 minutes. Based on $17.4M average annual costs (Ponemon 2025) and 
-                48% increase in insider attacks (Gartner G00805757). Get your Insider Risk Index score with actionable recommendations 
+                48% of organizations report insider attacks became more frequent in 2024 (Gartner G00805757). Get your Insider Risk Index score with actionable recommendations 
                 from <Link href="/research" className="text-above-rose-700 hover:text-above-rose-800 font-medium underline underline-offset-2">evidence-based threat intelligence</Link>.
               </p>
             </div>
@@ -1087,7 +1087,7 @@ export default function HomePage() {
               <dd className="text-3xl font-bold text-white">
                 48%
               </dd>
-              <dd className="text-xs text-above-blue-200">Organizations report more frequent attacks (Gartner)</dd>
+              <dd className="text-xs text-above-blue-200">Report attacks became more frequent in 2024 (Gartner)</dd>
             </div>
             
             <div className="flex flex-col items-center">

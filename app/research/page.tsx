@@ -1,9 +1,11 @@
 import { getAllContent } from "@/lib/mdx";
+import type { ResearchFrontmatter } from "@/lib/mdx";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AboveButton, AboveBadge } from "@/components/ui/above-components";
-import { Calendar, Clock, User, TrendingUp, FileText, BarChart3, BookOpen } from "lucide-react";
+import { AboveBadge } from "@/components/ui/above-components";
+import { TrendingUp, FileText, BarChart3, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
+import { ResearchCard } from "@/components/research/research-card";
 
 export const metadata = {
   title: "Research & Insights | Insider Risk Index",
@@ -16,9 +18,14 @@ export const metadata = {
 };
 
 export default function ResearchPage() {
-  const researchArticles = getAllContent('research').filter(article => 
-    article && article.frontmatter && article.frontmatter.title
-  );
+  // Load and sort research articles by date (newest first)
+  const researchArticles = getAllContent<ResearchFrontmatter>('research')
+    .filter(article => article && article.frontmatter && article.frontmatter.title)
+    .sort((a, b) => {
+      const dateA = new Date(a.frontmatter.publishedAt || a.frontmatter.publishDate || '');
+      const dateB = new Date(b.frontmatter.publishedAt || b.frontmatter.publishDate || '');
+      return dateB.getTime() - dateA.getTime(); // Sort by newest first
+    });
 
   return (
     <div className="min-h-screen bg-above-gradient-light">
@@ -123,91 +130,14 @@ export default function ResearchPage() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {researchArticles.map((article, index) => {
-                const cardColors = [
-                  { bg: 'bg-above-rose-50', border: 'border-above-rose-200', accent: 'border-l-above-rose-700' },
-                  { bg: 'bg-above-blue-50', border: 'border-above-blue-200', accent: 'border-l-above-blue-700' },
-                  { bg: 'bg-above-peach-50', border: 'border-above-peach-200', accent: 'border-l-above-peach-700' },
-                  { bg: 'bg-above-lavender-50', border: 'border-above-lavender-200', accent: 'border-l-above-lavender-700' },
-                ];
-                const cardColor = cardColors[index % cardColors.length];
-                
-                return (
-                <Card key={article.slug} className={`group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ${cardColor.bg} ${cardColor.border} border-l-4 ${cardColor.accent} ${index === 0 ? 'lg:col-span-2' : ''}`}>
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <AboveBadge variant="secondary">Research</AboveBadge>
-                          {index === 0 && <AboveBadge variant="default">Latest</AboveBadge>}
-                        </div>
-                        <CardTitle className="text-xl group-hover:text-above-rose-700 transition-colors line-clamp-2">
-                          {article.frontmatter.title}
-                        </CardTitle>
-                      </div>
-                    </div>
-                    <CardDescription className="text-base leading-relaxed">
-                      {article.frontmatter.description}
-                    </CardDescription>
-                  </CardHeader>
-                  
-                  <CardContent className="pt-0">
-                    <div className="flex items-center justify-between text-sm text-slate-500 mb-4">
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          {new Date(article.frontmatter.publishedAt || article.frontmatter.publishDate || Date.now()).toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'long' 
-                          })}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
-                          {article.frontmatter.readingTime || '15'} min read
-                        </div>
-                        {article.frontmatter.author && (
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            {article.frontmatter.author}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {article.frontmatter.dataSources && (
-                      <div className="mb-4">
-                        <p className="text-sm font-medium text-slate-700 mb-2">Data Sources:</p>
-                        <div className="flex flex-wrap gap-1">
-                          {article.frontmatter.dataSources.map((source: string, i: number) => (
-                            <AboveBadge key={i} variant="outline" className="text-xs">
-                              {source}
-                            </AboveBadge>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    
-                    {article.frontmatter.tags && (
-                      <div className="mb-4">
-                        <div className="flex flex-wrap gap-1">
-                          {article.frontmatter.tags.map((tag: string, i: number) => (
-                            <AboveBadge key={i} variant="secondary" className="text-xs">
-                              {tag}
-                            </AboveBadge>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    
-                    <Link href={`/research/${article.slug}`}>
-                      <AboveButton className="w-full" variant="default">
-                        Read Full Report
-                      </AboveButton>
-                    </Link>
-                  </CardContent>
-                </Card>
-                );
-              })}
+              {researchArticles.map((article, index) => (
+                <ResearchCard 
+                  key={article.slug} 
+                  article={article} 
+                  index={index}
+                  featured={false}
+                />
+              ))}
             </div>
           )}
         </div>

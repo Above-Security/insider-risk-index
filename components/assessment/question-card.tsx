@@ -89,8 +89,21 @@ export function QuestionCard({
     }
   };
   
-  const handleNext = () => {
-    if (selectedValue === undefined) return;
+  const handleNext = (e?: React.MouseEvent) => {
+    console.log("🔘 QuestionCard handleNext called", { selectedValue, isNavigating });
+    
+    // Prevent default form submission behavior
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    if (selectedValue === undefined) {
+      console.log("❌ No value selected, returning");
+      return;
+    }
+    
+    console.log("✅ Calling onNext callback");
     setIsNavigating(true);
     onNext?.();
   };
@@ -255,15 +268,15 @@ export function QuestionCard({
             </div>
           </div>
           
-          <AboveButton
+          <Button
             ref={nextButtonRef}
             onClick={handleNext}
             disabled={selectedValue === undefined || isNavigating}
-            variant="default"
-            className="focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            type="button"
+            className="bg-above-rose-600 hover:bg-above-rose-700 text-white focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLast ? "Complete Assessment" : "Next"}
-          </AboveButton>
+          </Button>
         </div>
       </CardContent>
     </Card>

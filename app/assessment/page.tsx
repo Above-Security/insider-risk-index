@@ -43,10 +43,19 @@ export default function AssessmentPage() {
   };
 
   const handleCompleteAssessment = useCallback(async () => {
-    if (!organizationData) return;
+    console.log("🔍 Starting assessment completion...");
+    console.log("Organization data:", organizationData);
+    console.log("Answers count:", answers.size);
+    console.log("Expected questions:", ASSESSMENT_QUESTIONS.length);
+
+    if (!organizationData) {
+      console.error("❌ No organization data found");
+      return;
+    }
 
     try {
       const answersArray = Array.from(answers.values());
+      console.log("📊 Calculating score with", answersArray.length, "answers");
       
       // Calculate the score
       const result = calculateInsiderRiskIndex({
@@ -55,6 +64,7 @@ export default function AssessmentPage() {
         companySize: organizationData.employeeCount,
       });
 
+      console.log("✅ Score calculated:", result.totalScore);
 
       // Save to localStorage for results page
       const assessmentData = {
@@ -65,20 +75,27 @@ export default function AssessmentPage() {
       
       if (typeof window !== "undefined") {
         localStorage.setItem("assessment-result", JSON.stringify(assessmentData));
+        console.log("💾 Data saved to localStorage");
       }
 
+      console.log("🚀 Navigating to results...");
       // Navigate to results
-      router.push("/assessment/results");
+      await router.push("/assessment/results");
+      console.log("✅ Navigation complete");
     } catch (error) {
-      console.error("Error completing assessment:", error);
-      // Handle error - could show an error message
+      console.error("❌ Error completing assessment:", error);
+      alert("There was an error processing your assessment. Please try again.");
     }
   }, [organizationData, answers, router]);
 
   const handleNext = useCallback(() => {
+    console.log(`📍 handleNext called - current index: ${currentQuestionIndex}/${ASSESSMENT_QUESTIONS.length - 1}`);
+    
     if (currentQuestionIndex < ASSESSMENT_QUESTIONS.length - 1) {
+      console.log("➡️ Moving to next question");
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
+      console.log("🏁 Reached final question, completing assessment");
       handleCompleteAssessment();
     }
   }, [currentQuestionIndex, handleCompleteAssessment]);

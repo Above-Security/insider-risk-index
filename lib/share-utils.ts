@@ -57,7 +57,7 @@ export function decodeAssessmentData(encoded: string): ShareableAssessmentData {
  */
 export function generateShareableUrl(data: ShareableAssessmentData, baseUrl?: string): string {
   const encoded = encodeAssessmentData(data);
-  const base = baseUrl || (typeof window !== 'undefined' ? window.location.origin : 'https://insiderisk.io');
+  const base = baseUrl || (typeof window !== 'undefined' ? window.location.origin : 'https://abovesec.com');
   return `${base}/results/share?data=${encoded}`;
 }
 

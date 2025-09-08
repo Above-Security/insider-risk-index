@@ -12,20 +12,26 @@ interface RadarChartProps {
 }
 
 export function InsiderRiskRadarChart({ pillarBreakdown, title = "Risk Assessment Overview", className }: RadarChartProps) {
+  console.log("🎯 RadarChart received pillarBreakdown:", pillarBreakdown);
+  
   // Transform data for radar chart
   const chartData = PILLARS.map(pillar => {
     const breakdown = pillarBreakdown.find(p => p.pillarId === pillar.id);
-    return {
+    const transformed = {
       pillar: pillar.name.split(" ")[0], // First word for cleaner display
       fullName: pillar.name,
       score: breakdown?.score || 0,
       maxScore: 100,
       color: pillar.color,
     };
+    console.log(`🎯 Pillar ${pillar.id}:`, { breakdown, transformed });
+    return transformed;
   });
+  
+  console.log("🎯 Final chartData:", chartData);
 
   return (
-    <Card className={`bg-above-white border-above-rose-100/30 shadow-soft ${className}`}>
+    <Card className={`bg-white border-above-rose-200 shadow-lg ${className}`}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
@@ -33,18 +39,16 @@ export function InsiderRiskRadarChart({ pillarBreakdown, title = "Risk Assessmen
         <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <RadarChart data={chartData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-              <PolarGrid className="stroke-muted" />
+              <PolarGrid stroke="#e2e8f0" />
               <PolarAngleAxis 
                 dataKey="pillar" 
-                tick={{ fontSize: 12, fill: 'currentColor' }}
-                className="text-muted-foreground"
+                tick={{ fontSize: 12, fill: '#64748b' }}
               />
               <PolarRadiusAxis 
                 angle={90} 
                 domain={[0, 100]} 
-                tick={{ fontSize: 10, fill: 'currentColor' }}
+                tick={{ fontSize: 10, fill: '#64748b' }}
                 tickCount={6}
-                className="text-muted-foreground"
               />
               <Radar
                 name="Score"
@@ -66,7 +70,7 @@ export function InsiderRiskRadarChart({ pillarBreakdown, title = "Risk Assessmen
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: item.color }}
               />
-              <span className="text-muted-foreground">{item.fullName}</span>
+              <span className="text-slate-600">{item.fullName}</span>
               <span className="ml-auto font-medium">{item.score}%</span>
             </div>
           ))}

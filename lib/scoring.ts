@@ -24,6 +24,15 @@ export function calculateInsiderRiskIndex({
   industry,
   companySize,
 }: ScoringInput): AssessmentResult {
+  // Validate input: Warn if not all questions answered (but allow processing)
+  const totalQuestions = PILLARS.reduce((total, pillar) => {
+    return total + getQuestionsByPillar(pillar.id).length;
+  }, 0);
+  
+  if (answers.length !== totalQuestions) {
+    console.warn(`Partial assessment detected: ${answers.length}/${totalQuestions} questions answered. Results may not be fully accurate.`);
+  }
+  
   // Create answer lookup map
   const answerMap = new Map<string, AssessmentAnswer>();
   answers.forEach(answer => {

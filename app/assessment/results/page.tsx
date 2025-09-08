@@ -25,6 +25,8 @@ interface AssessmentData {
 }
 
 export default function AssessmentResultsPage() {
+  console.log("🎯 AssessmentResultsPage component started loading");
+  
   const router = useRouter();
   const [assessmentData, setAssessmentData] = useState<AssessmentData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -33,6 +35,8 @@ export default function AssessmentResultsPage() {
   const [fadeIn, setFadeIn] = useState(false);
   
   const resultsRef = useRef<HTMLDivElement>(null);
+  
+  console.log("🎯 AssessmentResultsPage state initialized");
 
   useEffect(() => {
     // Load assessment data from localStorage with smooth loading

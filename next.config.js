@@ -63,11 +63,6 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/assessment/results',
-        destination: '/assessment',
-        permanent: false,
-      },
-      {
         source: '/matrix/techniques',
         destination: '/matrix',
         permanent: false,

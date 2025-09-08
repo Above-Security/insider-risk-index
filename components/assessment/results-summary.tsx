@@ -251,9 +251,11 @@ export function ResultsSummary({
         
         {assessmentId && (
           <ShareResults
-            assessmentId={assessmentId}
-            totalScore={result.totalScore}
-            level={result.level}
+            result={{
+              totalScore: result.totalScore,
+              level: result.level,
+              levelDescription: riskLevel.name
+            }}
             organizationName={organizationInfo.organizationName}
           />
         )}

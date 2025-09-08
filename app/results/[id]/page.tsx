@@ -142,9 +142,11 @@ export default async function ResultsPage({ params }: Props) {
                 Completed: {assessment.createdAt.toLocaleDateString()}
               </div>
               <ShareResults
-                assessmentId={id}
-                totalScore={Math.round(assessment.iri)}
-                level={assessment.level}
+                result={{
+                  totalScore: Math.round(assessment.iri),
+                  level: assessment.level,
+                  levelDescription: result.levelDescription
+                }}
                 organizationName={organizationInfo.organizationName}
                 className="sm"
               />

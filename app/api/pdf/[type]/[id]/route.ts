@@ -16,8 +16,11 @@ export async function GET(
   try {
     const { type, id } = await params;
 
+    console.log("🔍 PDF Generation Request:", { type, id });
+
     // Validate PDF type
     if (type !== "board-brief" && type !== "detailed-plan") {
+      console.error("❌ Invalid PDF type:", type);
       return NextResponse.json(
         { error: "Invalid PDF type" },
         { status: 400 }
@@ -25,9 +28,17 @@ export async function GET(
     }
 
     // Get assessment results
+    console.log("🔍 Fetching assessment results for ID:", id);
     const response = await getAssessmentResults(id);
     
+    console.log("🔍 Assessment response:", { 
+      success: response.success, 
+      hasAssessment: !!response.assessment,
+      error: response.error
+    });
+    
     if (!response.success || !response.assessment) {
+      console.error("❌ Assessment not found:", response.error);
       return NextResponse.json(
         { error: "Assessment not found" },
         { status: 404 }
@@ -42,7 +53,7 @@ export async function GET(
       level: assessment.level,
       levelDescription: getRiskLevel(assessment.iri).description,
       pillarBreakdown: assessment.pillarBreakdown.map(pb => ({
-        pillarId: pb.pillar,
+        pillarId: pb.pillar,  // This is correct - pb.pillar contains the pillar ID string
         score: pb.score,
         maxScore: 100,
         weight: pb.weight,
@@ -60,11 +71,11 @@ export async function GET(
 
     const organizationData = {
       organizationName: assessment.industry ? 
-        `${assessment.industry.replace('_', ' ')} Organization` : 
+        `${assessment.industry.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} Organization` : 
         "Organization",
-      industry: assessment.industry || "Unknown",
+      industry: assessment.industry?.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) || "Unknown",
       employeeCount: assessment.size ? 
-        assessment.size.replace('_', '-') : 
+        assessment.size.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 
         "Unknown",
     };
 
@@ -74,10 +85,20 @@ export async function GET(
       generatedAt: new Date(),
     };
 
+    console.log("🔍 Organization data:", organizationData);
+    console.log("🔍 Result structure:", {
+      totalScore: result.totalScore,
+      level: result.level,
+      pillarCount: result.pillarBreakdown.length,
+      hasRecommendations: result.recommendations.length > 0
+    });
+
     // Generate HTML
     let html: string;
     let filename: string;
 
+    console.log("🔍 Generating HTML for type:", type);
+    
     if (type === "board-brief") {
       html = generateBoardBriefHTML(pdfData);
       filename = `${organizationData.organizationName}-Board-Brief-${new Date().toISOString().split("T")[0]}.pdf`;
@@ -86,22 +107,29 @@ export async function GET(
       filename = `${organizationData.organizationName}-Detailed-Plan-${new Date().toISOString().split("T")[0]}.pdf`;
     }
 
+    console.log("✅ HTML generated, length:", html.length);
+    console.log("🔍 Filename:", filename);
+
     // Generate PDF using Playwright
     let browser;
     try {
+      console.log("🔍 Launching Chromium browser...");
       browser = await chromium.launch({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
       });
 
+      console.log("✅ Browser launched, creating new page...");
       const page = await browser.newPage();
       
+      console.log("🔍 Setting HTML content and waiting for network idle...");
       // Set content and wait for any resources to load
       await page.setContent(html, { 
         waitUntil: 'networkidle',
         timeout: 30000 
       });
 
+      console.log("🔍 Generating PDF...");
       // Generate PDF
       const pdf = await page.pdf({
         format: 'A4',
@@ -115,8 +143,10 @@ export async function GET(
         preferCSSPageSize: true,
       });
 
+      console.log("✅ PDF generated, size:", pdf.length, "bytes");
       await browser.close();
 
+      console.log("🔍 Returning PDF response with headers...");
       // Return PDF
       return new Response(pdf as BodyInit, {
         headers: {
@@ -128,6 +158,7 @@ export async function GET(
       });
 
     } catch (pdfError) {
+      console.error("❌ Playwright PDF Error:", pdfError);
       if (browser) {
         await browser.close();
       }
@@ -135,9 +166,13 @@ export async function GET(
     }
 
   } catch (error) {
-    console.error("Error generating PDF:", error);
+    console.error("❌ Overall PDF Generation Error:", error);
+    console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
     return NextResponse.json(
-      { error: "Failed to generate PDF" },
+      { 
+        error: "Failed to generate PDF",
+        details: error instanceof Error ? error.message : "Unknown error"
+      },
       { status: 500 }
     );
   }

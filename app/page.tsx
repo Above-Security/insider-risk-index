@@ -53,8 +53,8 @@ export default function HomePage() {
     title: "Shadow AI and the Evolution of Insider Threats: A Critical Intelligence Assessment",
     description: "83% of organizations reported insider attacks in 2024 as AI amplifies threat capabilities. Analysis of recent incidents including Mercedes-Benz GitHub exposure, Marks & Spencer breach, and North Korean infiltration of AI companies.",
     slug: "shadow-ai-insider-threats-2025",
-    publishDate: "2025-08-27",
-    lastModified: "2025-08-27",
+    publishDate: "2025-09-02",
+    lastModified: "2025-09-02",
     tags: ["shadow AI", "insider threats", "artificial intelligence security", "threat intelligence", "malicious insiders"],
     author: "Insider Risk Index Research Team"
   });
@@ -63,8 +63,8 @@ export default function HomePage() {
     title: "Being an Insider is Fucking Hard in 2025: Why Every Employee is Walking a Security Tightrope",
     description: "The brutal truth about being an employee in 2025: unclear policies, AI compliance confusion, and accidentally becoming an insider threat. 74% of breaches involve human error, yet only 50% understand their company's AI policies.",
     slug: "being-insider-is-hard-2025",
-    publishDate: "2025-01-20",
-    lastModified: "2025-01-20",
+    publishDate: "2025-09-05",
+    lastModified: "2025-09-05",
     tags: ["employee challenges", "workplace security", "accidental insider threats", "policy confusion", "AI compliance", "human error"],
     author: "Insider Risk Index Research Team"
   });
@@ -750,7 +750,7 @@ export default function HomePage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4 text-sm text-slate-500">
-                    <span>Published January 20, 2025</span>
+                    <span>Published September 5, 2025</span>
                     <span>•</span>
                     <span>Employee Experience Analysis</span>
                   </div>
@@ -865,7 +865,7 @@ export default function HomePage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4 text-sm text-slate-500">
-                    <span>Published August 27, 2025</span>
+                    <span>Published September 2, 2025</span>
                     <span>•</span>
                     <span>Intelligence Assessment</span>
                   </div>

@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { AboveButton } from "@/components/ui/above-components";
+import { getAllContent } from "@/lib/mdx";
+import type { ResearchFrontmatter } from "@/lib/mdx";
+import { FeaturedResearch } from "@/components/home/featured-research";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -29,6 +32,15 @@ import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-util
 export const metadata = pageMetadata.home();
 
 export default function HomePage() {
+  // Load research articles dynamically
+  const researchArticles = getAllContent<ResearchFrontmatter>('research')
+    .sort((a, b) => {
+      const dateA = new Date(a.frontmatter.publishedAt || a.frontmatter.publishDate || '');
+      const dateB = new Date(b.frontmatter.publishedAt || b.frontmatter.publishDate || '');
+      return dateB.getTime() - dateA.getTime(); // Sort by newest first
+    })
+    .slice(0, 3); // Take the 3 most recent articles
+
   const productJsonLd = getProductJsonLd({
     name: "Insider Risk Index Assessment",
     description: "Free comprehensive assessment tool measuring organizational insider risk posture across 5 critical pillars. Get actionable insights and industry benchmarks based on Ponemon Institute and Gartner research.",
@@ -39,35 +51,18 @@ export default function HomePage() {
 
   const organizationJsonLd = getOrganizationJsonLd();
 
-  const researchJsonLd = getResearchArticleJsonLd({
-    title: "The Hidden Enemy: 2025 Insider Threat Intelligence Report",
-    description: "Critical findings from 1,400+ organizations reveal the $17.4M annual cost of insider threats. Comprehensive analysis of attack patterns, detection failures, and defense strategies based on Verizon DBIR, Ponemon Institute, and Gartner research.",
-    slug: "insider-threat-trends-2025",
-    publishDate: "2025-08-26",
-    lastModified: "2025-08-26",
-    tags: ["insider threats", "cybersecurity research", "threat intelligence", "data security", "risk management"],
-    author: "Insider Risk Index Research Team"
-  });
-
-  const shadowAiJsonLd = getResearchArticleJsonLd({
-    title: "Shadow AI and the Evolution of Insider Threats: A Critical Intelligence Assessment",
-    description: "83% of organizations reported insider attacks in 2024 as AI amplifies threat capabilities. Analysis of recent incidents including Mercedes-Benz GitHub exposure, Marks & Spencer breach, and North Korean infiltration of AI companies.",
-    slug: "shadow-ai-insider-threats-2025",
-    publishDate: "2025-09-02",
-    lastModified: "2025-09-02",
-    tags: ["shadow AI", "insider threats", "artificial intelligence security", "threat intelligence", "malicious insiders"],
-    author: "Insider Risk Index Research Team"
-  });
-
-  const employeeHardJsonLd = getResearchArticleJsonLd({
-    title: "Being an Insider is Fucking Hard in 2025: Why Every Employee is Walking a Security Tightrope",
-    description: "The brutal truth about being an employee in 2025: unclear policies, AI compliance confusion, and accidentally becoming an insider threat. 74% of breaches involve human error, yet only 50% understand their company's AI policies.",
-    slug: "being-insider-is-hard-2025",
-    publishDate: "2025-09-05",
-    lastModified: "2025-09-05",
-    tags: ["employee challenges", "workplace security", "accidental insider threats", "policy confusion", "AI compliance", "human error"],
-    author: "Insider Risk Index Research Team"
-  });
+  // Generate JSON-LD for research articles dynamically
+  const researchJsonLds = researchArticles.map(article => 
+    getResearchArticleJsonLd({
+      title: article.frontmatter.title,
+      description: article.frontmatter.description,
+      slug: article.slug,
+      publishDate: article.frontmatter.publishedAt || article.frontmatter.publishDate || "",
+      lastModified: article.frontmatter.publishedAt || article.frontmatter.publishDate || "",
+      tags: article.frontmatter.tags || [],
+      author: article.frontmatter.author || "Insider Risk Index Research Team"
+    })
+  );
 
   // Enhanced Schema.org markup for comprehensive AI/LLM visibility
   const webAppJsonLd = getWebApplicationSchema();
@@ -179,18 +174,14 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(researchJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(shadowAiJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(employeeHardJsonLd) }}
-      />
+      {/* Dynamically generate JSON-LD for each research article */}
+      {researchJsonLds.map((jsonLd, index) => (
+        <script
+          key={`research-jsonld-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      ))}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -643,10 +634,13 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Featured Research Articles */}
-          <div className="space-y-8 mb-12">
-            
-            {/* Newest Article - Being an Insider is Hard */}
+          {/* Featured Research Articles - Dynamic */}
+          <div className="mb-12">
+            <FeaturedResearch articles={researchArticles} />
+          </div>
+
+          {/* Note: All hardcoded articles removed - now loading dynamically from content/research/ */}
+          <div className="hidden" aria-hidden="true">{/* Placeholder for removed hardcoded content */}
             <Card className="bg-white/90 border-above-rose-200 shadow-xl hover:shadow-2xl transition-all duration-300 ring-2 ring-above-rose-100">
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between">

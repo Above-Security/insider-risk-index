@@ -42,7 +42,7 @@ export default function AssessmentPage() {
     setAnsweredQuestions(newAnsweredQuestions);
   };
 
-  const handleCompleteAssessment = useCallback(async () => {
+  const handleCompleteAssessment = useCallback(() => {
     console.log("🔍 Starting assessment completion...");
     console.log("Organization data:", organizationData);
     console.log("Answers count:", answers.size);
@@ -79,14 +79,14 @@ export default function AssessmentPage() {
       }
 
       console.log("🚀 Navigating to results...");
-      // Navigate to results
-      await router.push("/assessment/results");
-      console.log("✅ Navigation complete");
+      // Navigate to results - use window.location.href for reliable navigation
+      window.location.href = "/assessment/results";
+      console.log("✅ Navigation initiated");
     } catch (error) {
       console.error("❌ Error completing assessment:", error);
       alert("There was an error processing your assessment. Please try again.");
     }
-  }, [organizationData, answers, router]);
+  }, [organizationData, answers]);
 
   const handleNext = useCallback(() => {
     console.log(`📍 handleNext called - current index: ${currentQuestionIndex}/${ASSESSMENT_QUESTIONS.length - 1}`);

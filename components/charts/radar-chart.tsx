@@ -13,6 +13,7 @@ interface RadarChartProps {
 
 export function InsiderRiskRadarChart({ pillarBreakdown, title = "Risk Assessment Overview", className }: RadarChartProps) {
   console.log("🎯 RadarChart received pillarBreakdown:", pillarBreakdown);
+  console.log("🎯 PILLARS array:", PILLARS);
   
   // Transform data for radar chart
   const chartData = PILLARS.map(pillar => {
@@ -24,42 +25,58 @@ export function InsiderRiskRadarChart({ pillarBreakdown, title = "Risk Assessmen
       maxScore: 100,
       color: pillar.color,
     };
-    console.log(`🎯 Pillar ${pillar.id}:`, { breakdown, transformed });
+    console.log(`🎯 Pillar ${pillar.id}:`, { 
+      pillarBreakdown_found: breakdown, 
+      transformed,
+      pillar_name: pillar.name,
+      pillar_color: pillar.color
+    });
     return transformed;
   });
   
   console.log("🎯 Final chartData:", chartData);
+  console.log("🎯 chartData has items:", chartData.length);
+  console.log("🎯 chartData sample scores:", chartData.map(d => ({ pillar: d.pillar, score: d.score })));
 
   return (
-    <Card className={`bg-white border-above-rose-200 shadow-lg ${className}`}>
+    <Card className={`bg-white border-rose-200 shadow-lg ${className}`}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="h-[400px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <RadarChart data={chartData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-              <PolarGrid stroke="#e2e8f0" />
-              <PolarAngleAxis 
-                dataKey="pillar" 
-                tick={{ fontSize: 12, fill: '#64748b' }}
-              />
-              <PolarRadiusAxis 
-                angle={90} 
-                domain={[0, 100]} 
-                tick={{ fontSize: 10, fill: '#64748b' }}
-                tickCount={6}
-              />
-              <Radar
-                name="Score"
-                dataKey="score"
-                stroke="#7AB7FF"
-                fill="#7AB7FF"
-                fillOpacity={0.1}
-                strokeWidth={2}
-              />
-            </RadarChart>
-          </ResponsiveContainer>
+        <div className="h-[400px] w-full" style={{ minHeight: '400px', width: '100%' }}>
+          {chartData && chartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <RadarChart data={chartData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                <PolarGrid stroke="#e2e8f0" />
+                <PolarAngleAxis 
+                  dataKey="pillar" 
+                  tick={{ fontSize: 12, fill: '#64748b' }}
+                />
+                <PolarRadiusAxis 
+                  angle={90} 
+                  domain={[0, 100]} 
+                  tick={{ fontSize: 10, fill: '#64748b' }}
+                  tickCount={6}
+                />
+                <Radar
+                  name="Score"
+                  dataKey="score"
+                  stroke="#3b82f6"
+                  fill="#3b82f6"
+                  fillOpacity={0.1}
+                  strokeWidth={2}
+                />
+              </RadarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full w-full flex items-center justify-center text-gray-500">
+              <div className="text-center">
+                <p>No chart data available</p>
+                <p className="text-sm">chartData: {JSON.stringify(chartData)}</p>
+              </div>
+            </div>
+          )}
         </div>
         
         {/* Legend */}

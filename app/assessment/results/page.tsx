@@ -42,14 +42,27 @@ export default function AssessmentResultsPage() {
         await new Promise(resolve => setTimeout(resolve, 300));
         
         const storedData = localStorage.getItem("assessment-result");
+        console.log("🔍 Results page loading data:", storedData ? "Found data" : "No data");
+        
         if (storedData) {
-          const data = JSON.parse(storedData) as AssessmentData;
-          setAssessmentData(data);
-          
-          
-          // Trigger fade-in animation
-          setTimeout(() => setFadeIn(true), 100);
+          try {
+            const data = JSON.parse(storedData) as AssessmentData;
+            console.log("✅ Parsed assessment data:", {
+              hasOrgData: !!data.organizationData,
+              hasResult: !!data.result,
+              resultScore: data.result?.totalScore,
+              completedAt: data.completedAt
+            });
+            setAssessmentData(data);
+            
+            // Trigger fade-in animation
+            setTimeout(() => setFadeIn(true), 100);
+          } catch (parseError) {
+            console.error("❌ Error parsing stored data:", parseError);
+            setError("Error loading assessment results. Please try again.");
+          }
         } else {
+          console.log("❌ No stored data found");
           setError("No assessment results found. Please take the assessment first.");
         }
       } catch (err) {
@@ -137,6 +150,8 @@ export default function AssessmentResultsPage() {
   }
 
   if (error || !assessmentData) {
+    console.log("🚨 Results page showing error state:", { error, hasAssessmentData: !!assessmentData });
+    
     return (
       <div className="min-h-screen bg-above-blue-50 py-12">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -147,7 +162,13 @@ export default function AssessmentResultsPage() {
           </Alert>
           
           <div className="mt-8 text-center space-y-4">
-            <Button onClick={handleRetakeAssessment} size="lg">
+            <Button 
+              onClick={() => {
+                console.log("🔄 Retake Assessment button clicked");
+                handleRetakeAssessment();
+              }} 
+              size="lg"
+            >
               Take Assessment
             </Button>
             <div>

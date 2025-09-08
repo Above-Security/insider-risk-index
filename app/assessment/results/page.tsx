@@ -22,6 +22,7 @@ interface AssessmentData {
   };
   result: AssessmentResult;
   completedAt: string;
+  answers?: Record<string, number>; // Original answers for sharing
 }
 
 export default function AssessmentResultsPage() {
@@ -219,6 +220,7 @@ export default function AssessmentResultsPage() {
             organizationInfo={assessmentData.organizationData}
             onGeneratePDF={handleGeneratePDF}
             pdfGenerating={pdfGenerating}
+            answers={assessmentData.answers}
           />
         </div>
 

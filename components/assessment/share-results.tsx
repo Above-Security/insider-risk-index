@@ -25,6 +25,7 @@ import {
   Linkedin
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { generateShareableUrl, createShareableData } from "@/lib/share-utils";
 
 interface ShareResultsProps {
   result: {
@@ -33,12 +34,19 @@ interface ShareResultsProps {
     levelDescription: string;
   };
   organizationName: string;
+  organizationInfo?: {
+    industry: string;
+    employeeCount: string;
+  };
+  answers?: Record<string, number>;
   className?: string;
 }
 
 export function ShareResults({ 
   result, 
   organizationName,
+  organizationInfo,
+  answers,
   className 
 }: ShareResultsProps) {
   const [open, setOpen] = useState(false);
@@ -49,9 +57,28 @@ export function ShareResults({
     message: `Hi,\n\nI wanted to share our organization's insider risk assessment results with you.\n\nOverall Score: ${result.totalScore}/100 (Level ${result.level})\nOrganization: ${organizationName}\n\nWe achieved "${result.levelDescription}" maturity level. Learn more about insider risk assessment at insiderisk.io\n\nBest regards`
   });
 
-  const resultsUrl = typeof window !== 'undefined' ? 
-    `${window.location.origin}/assessment/results` : 
-    `https://insiderisk.io/assessment/results`;
+  // Generate shareable URL if we have the necessary data
+  const resultsUrl = (() => {
+    if (answers && organizationInfo) {
+      try {
+        const shareableData = createShareableData(
+          answers,
+          organizationName,
+          organizationInfo.industry,
+          organizationInfo.employeeCount
+        );
+        return generateShareableUrl(shareableData);
+      } catch (error) {
+        console.error('Error generating shareable URL:', error);
+        // Fallback to generic URL
+      }
+    }
+    
+    // Fallback URL when answers aren't available
+    return typeof window !== 'undefined' ? 
+      `${window.location.origin}/assessment` : 
+      `https://insiderisk.io/assessment`;
+  })();
 
   const shareText = `Our organization scored ${result.totalScore}/100 (Level ${result.level}) on the Insider Risk Index assessment. Check out your organization's insider risk posture at insiderisk.io`;
 

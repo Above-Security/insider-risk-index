@@ -32,6 +32,7 @@ interface ResultsSummaryProps {
   onGeneratePDF: (type: "board-brief" | "detailed-plan") => void;
   pdfGenerating?: string | null;
   assessmentId?: string;
+  answers?: Record<string, number>; // Original answers for sharing
   className?: string;
 }
 
@@ -41,6 +42,7 @@ export function ResultsSummary({
   onGeneratePDF,
   pdfGenerating,
   assessmentId,
+  answers,
   className 
 }: ResultsSummaryProps) {
   const riskLevel = getRiskLevel(result.totalScore);
@@ -257,6 +259,11 @@ export function ResultsSummary({
               levelDescription: riskLevel.name
             }}
             organizationName={organizationInfo.organizationName}
+            organizationInfo={{
+              industry: organizationInfo.industry,
+              employeeCount: organizationInfo.employeeCount
+            }}
+            answers={answers}
           />
         )}
       </div>

@@ -54,7 +54,7 @@ export function ShareResults({
   const [emailData, setEmailData] = useState({
     to: "",
     subject: `${organizationName} - Insider Risk Assessment Results`,
-    message: `Hi,\n\nI wanted to share our organization's insider risk assessment results with you.\n\nOverall Score: ${result.totalScore}/100 (Level ${result.level})\nOrganization: ${organizationName}\n\nWe achieved "${result.levelDescription}" maturity level. Learn more about insider risk assessment at insiderisk.io\n\nBest regards`
+    message: `Hi,\n\nI wanted to share our organization's insider risk assessment results with you.\n\nOverall Score: ${result.totalScore}/100 (Level ${result.level})\nOrganization: ${organizationName}\n\nWe achieved "${result.levelDescription}" maturity level. Learn more about insider risk assessment at abovesec.com\n\nBest regards`
   });
 
   // Generate shareable URL if we have the necessary data
@@ -77,10 +77,10 @@ export function ShareResults({
     // Fallback URL when answers aren't available
     return typeof window !== 'undefined' ? 
       `${window.location.origin}/assessment` : 
-      `https://insiderisk.io/assessment`;
+      `https://abovesec.com/assessment`;
   })();
 
-  const shareText = `Our organization scored ${result.totalScore}/100 (Level ${result.level}) on the Insider Risk Index assessment. Check out your organization's insider risk posture at insiderisk.io`;
+  const shareText = `Our organization scored ${result.totalScore}/100 (Level ${result.level}) on the Insider Risk Index assessment. Check out your organization's insider risk posture at abovesec.com`;
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -188,7 +188,7 @@ export function ShareResults({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => copyToClipboard(`🎯 Just completed our insider risk assessment! Scored ${result.totalScore}/100 (Level ${result.level}) - ${result.levelDescription}. \n\nEvery organization should understand their insider risk posture. Check out insiderisk.io to assess yours! \n\n#CyberSecurity #InsiderThreat #RiskManagement`)}
+                  onClick={() => copyToClipboard(`🎯 Just completed our insider risk assessment! Scored ${result.totalScore}/100 (Level ${result.level}) - ${result.levelDescription}. \n\nEvery organization should understand their insider risk posture. Check out abovesec.com to assess yours! \n\n#CyberSecurity #InsiderThreat #RiskManagement`)}
                   className="justify-start"
                 >
                   <Copy className="h-4 w-4 mr-2" />

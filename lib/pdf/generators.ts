@@ -104,28 +104,18 @@ export function generateBoardBriefHTML(data: PDFData): string {
             background: linear-gradient(135deg, #FF89A1 0%, #C8B3FF 50%, #7AB7FF 100%);
             color: white;
             padding: 30px;
-            margin: -20px -20px 30px -20px;
+            margin: 0 0 30px 0;
             border-radius: 0 0 16px 16px;
-            position: relative;
-            overflow: visible;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
-            border-radius: 0 0 16px 16px;
-            pointer-events: none;
-            z-index: 1;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .logo-container {
-            position: relative;
-            z-index: 10;
             display: flex;
             align-items: center;
             gap: 12px;
+            margin-bottom: 20px;
         }
         
         .logo-image {
@@ -380,12 +370,10 @@ export function generateBoardBriefHTML(data: PDFData): string {
         <h1 class="company-name">${organizationData.organizationName}</h1>
         <p class="subtitle">Executive Board Report • Insider Risk Assessment</p>
         <p class="subtitle">${organizationData.industry.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} • ${organizationData.employeeCount} employees • ${formatDate(data.generatedAt)}</p>
-        <div style="position: absolute; top: 30px; right: 30px; z-index: 1;">
-            <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; text-align: center;">
-                <div style="font-size: 10px; color: rgba(255,255,255,0.8); margin-bottom: 4px;">RISK LEVEL</div>
-                <div style="font-size: 24px; font-weight: 800; color: white;">${result.level}</div>
-                <div style="font-size: 11px; color: rgba(255,255,255,0.9); font-weight: 600;">${riskLevel.name.toUpperCase()}</div>
-            </div>
+        <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; text-align: center; display: inline-block; margin-top: 15px;">
+            <div style="font-size: 10px; color: rgba(255,255,255,0.8); margin-bottom: 4px;">RISK LEVEL</div>
+            <div style="font-size: 24px; font-weight: 800; color: white;">${result.level}</div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.9); font-weight: 600;">${riskLevel.name.toUpperCase()}</div>
         </div>
     </div>
 
@@ -519,9 +507,29 @@ export function generateDetailedPlanHTML(data: PDFData): string {
         }
         
         .header {
-            border-bottom: 3px solid #3b82f6;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            background: linear-gradient(135deg, #FF89A1 0%, #C8B3FF 50%, #7AB7FF 100%);
+            color: white;
+            padding: 30px;
+            margin: 0 0 30px 0;
+            border-radius: 0 0 16px 16px;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            display: block;
+            object-fit: contain;
+            flex-shrink: 0;
         }
         
         .company-name {
@@ -717,6 +725,15 @@ export function generateDetailedPlanHTML(data: PDFData): string {
 </head>
 <body>
     <div class="header">
+        <div class="logo-container">
+            ${insiderRiskLogo ? `<img src="${insiderRiskLogo}" alt="InsiderRisk Logo" class="logo-image">` : ''}
+            <div>
+                <div class="logo-text" style="color: white; font-weight: bold; font-size: 18px;">
+                    <span>InsiderRisk</span>
+                </div>
+                <div style="font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 600; letter-spacing: 0.1em;">INDEX</div>
+            </div>
+        </div>
         <h1 class="company-name">${organizationData.organizationName}</h1>
         <p class="subtitle">Insider Risk Assessment - Detailed Action Plan</p>
         <p class="subtitle">${organizationData.industry.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} • ${organizationData.employeeCount} employees • ${formatDate(data.generatedAt)}</p>

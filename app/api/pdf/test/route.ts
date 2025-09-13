@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
       result: {
         totalScore: 72,
         level: 4,
+        levelDescription: "Proactive",
         pillarBreakdown: [
           { pillarId: "visibility", score: 85, weight: 0.25, contributionToTotal: 21.25, maxScore: 100 },
           { pillarId: "prevention-coaching", score: 70, weight: 0.25, contributionToTotal: 17.5, maxScore: 100 },

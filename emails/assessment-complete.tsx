@@ -87,9 +87,10 @@ export function AssessmentCompleteEmail({
                               src={`${process.env.NEXT_PUBLIC_SITE_URL}/logo.png`}
                               alt="InsiderRisk Index" 
                               style={{
-                                width: '32px',
                                 height: '32px',
+                                width: 'auto',
                                 display: 'block',
+                                maxWidth: '40px',
                               }}
                             />
                           </td>
@@ -427,14 +428,32 @@ export function AssessmentCompleteEmail({
                 padding: '32px 20px 24px',
                 textAlign: 'center',
               }}>
-                <div style={{
-                  fontSize: '24px',
-                  fontWeight: '800',
-                  color: '#FF89A1',
-                  marginBottom: '8px',
-                }}>
-                  Above
-                </div>
+                <table cellPadding="0" cellSpacing="0" style={{ margin: '0 auto 8px auto' }}>
+                  <tr>
+                    <td style={{ verticalAlign: 'middle', paddingRight: '8px' }}>
+                      <img 
+                        src={`${process.env.NEXT_PUBLIC_SITE_URL}/above-logo.png`}
+                        alt="Above" 
+                        style={{
+                          height: '24px',
+                          width: 'auto',
+                          display: 'block',
+                          filter: 'brightness(0) invert(1)',
+                          maxWidth: '32px',
+                        }}
+                      />
+                    </td>
+                    <td style={{ verticalAlign: 'middle' }}>
+                      <div style={{
+                        fontSize: '24px',
+                        fontWeight: '800',
+                        color: '#FF89A1',
+                      }}>
+                        Above
+                      </div>
+                    </td>
+                  </tr>
+                </table>
                 <div style={{
                   color: '#94a3b8',
                   fontSize: '14px',

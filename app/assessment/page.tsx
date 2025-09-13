@@ -83,12 +83,20 @@ export default function AssessmentPage() {
       if (typeof window !== "undefined") {
         localStorage.setItem("assessment-result", JSON.stringify(assessmentData));
         console.log("💾 Data saved to localStorage");
-      }
 
-      console.log("🚀 Navigating to results...");
-      // Navigate to results - use window.location.href for reliable navigation
-      window.location.href = "/assessment/results";
-      console.log("✅ Navigation initiated");
+        // Verify data was saved
+        const savedData = localStorage.getItem("assessment-result");
+        if (savedData) {
+          console.log("✅ Data verified in localStorage, navigating to results...");
+          // Small delay to ensure localStorage is fully written
+          setTimeout(() => {
+            router.push("/assessment/results");
+          }, 100);
+        } else {
+          console.error("❌ Failed to save data to localStorage");
+          alert("There was an error saving your assessment. Please try again.");
+        }
+      }
     } catch (error) {
       console.error("❌ Error completing assessment:", error);
       alert("There was an error processing your assessment. Please try again.");

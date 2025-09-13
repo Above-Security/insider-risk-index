@@ -636,7 +636,7 @@ export default function AssessmentResultsPage() {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white/10 font-semibold px-8 py-4 text-lg"
+                className="border-white text-white hover:bg-white hover:text-above-rose-600 font-semibold px-8 py-4 text-lg"
                 onClick={() => router.push('/contact')}
               >
                 💬 Contact Our Experts

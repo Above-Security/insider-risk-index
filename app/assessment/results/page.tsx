@@ -240,7 +240,7 @@ export default function AssessmentResultsPage() {
               🎯 Your Insider Risk Journey Starts Now
             </h2>
             <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-              Join <strong className="text-above-rose-600">14,170+ organizations</strong> using evidence-based insights to strengthen their insider risk posture. Your personalized roadmap awaits.
+              Use evidence-based insights from industry research to strengthen your insider risk posture. Your personalized roadmap awaits.
             </p>
             
             {/* Share Section */}
@@ -483,17 +483,17 @@ export default function AssessmentResultsPage() {
                   <Badge className="w-fit bg-above-lavender-100 text-above-lavender-800 border-above-lavender-200 mb-2">
                     📈 Market Analysis
                   </Badge>
-                  <CardTitle className="text-lg leading-tight">Gartner Market Guide for Insider Risk Management Solutions</CardTitle>
+                  <CardTitle className="text-lg leading-tight">The Hidden Enemy: 2025 Insider Threat Intelligence Report</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-slate-600 mb-4">
-                    Comprehensive analysis of 48% attack frequency increase and the "Rule of Three" framework for insider threat management.
+                    Critical findings from 1,400+ organizations reveal the $17.4M annual cost of insider threats and comprehensive attack pattern analysis.
                   </p>
                   <Button 
                     size="sm" 
                     variant="outline" 
                     className="w-full border-above-lavender-300 hover:bg-above-lavender-50"
-                    onClick={() => router.push('/research/gartner-market-guide-2025')}
+                    onClick={() => router.push('/research/insider-threat-trends-2025')}
                   >
                     Read Analysis →
                   </Button>
@@ -506,17 +506,17 @@ export default function AssessmentResultsPage() {
                   <Badge className="w-fit bg-above-peach-100 text-above-peach-800 border-above-peach-200 mb-2">
                     💰 Cost Analysis
                   </Badge>
-                  <CardTitle className="text-lg leading-tight">2025 Cost of Insider Threats Report</CardTitle>
+                  <CardTitle className="text-lg leading-tight">Being an Insider is F***ing Hard in 2025</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-slate-600 mb-4">
-                    Ponemon Institute reveals $17.4M average annual cost and 81-day containment time. Essential for ROI calculations.
+                    The brutal truth about being an employee in 2025: unclear policies, AI compliance confusion, and accidentally becoming an insider threat.
                   </p>
                   <Button 
                     size="sm" 
                     variant="outline" 
                     className="w-full border-above-peach-300 hover:bg-above-peach-50"
-                    onClick={() => router.push('/research/ponemon-cost-2025')}
+                    onClick={() => router.push('/research/being-insider-is-hard-2025')}
                   >
                     Explore Costs →
                   </Button>
@@ -538,17 +538,17 @@ export default function AssessmentResultsPage() {
                     {assessmentData.result.totalScore < 50 ? '🚨 Improvement' : '🔧 Enhancement'}
                   </Badge>
                   <CardTitle className="text-lg leading-tight">
-                    {assessmentData.result.totalScore < 50 
-                      ? 'Building Your First Insider Risk Program' 
-                      : 'Advanced Insider Risk Strategies'
+                    {assessmentData.result.totalScore < 50
+                      ? 'Being an Insider is F***ing Hard in 2025'
+                      : 'Shadow AI and the Evolution of Insider Threats'
                     }
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-slate-600 mb-4">
-                    {assessmentData.result.totalScore < 50 
-                      ? 'Step-by-step guide to establishing foundational controls and detection capabilities for emerging programs.'
-                      : 'Advanced techniques for mature programs including AI-driven detection and behavioral analytics.'
+                    {assessmentData.result.totalScore < 50
+                      ? 'Understanding why employees struggle with security compliance and accidentally become insider threats.'
+                      : '83% of organizations reported insider attacks in 2024 as AI amplifies threat capabilities and shadow AI risks.'
                     }
                   </p>
                   <Button 
@@ -560,9 +560,9 @@ export default function AssessmentResultsPage() {
                         : 'border-above-blue-300 hover:bg-above-blue-50'
                     }`}
                     onClick={() => router.push(
-                      assessmentData.result.totalScore < 50 
-                        ? '/research/building-first-program'
-                        : '/research/advanced-strategies'
+                      assessmentData.result.totalScore < 50
+                        ? '/research/being-insider-is-hard-2025'
+                        : '/research/shadow-ai-insider-threats-2025'
                     )}
                   >
                     {assessmentData.result.totalScore < 50 ? 'Get Started →' : 'Learn More →'}
@@ -629,7 +629,7 @@ export default function AssessmentResultsPage() {
               <Button 
                 size="lg"
                 className="bg-white text-above-rose-600 hover:bg-gray-100 font-semibold px-8 py-4 text-lg"
-                onClick={() => window.open('https://abovesecurity.ai', '_blank')}
+                onClick={() => window.open('https://abovesec.com', '_blank')}
               >
                 🔗 Learn About Above Security
               </Button>

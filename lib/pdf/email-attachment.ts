@@ -1,5 +1,4 @@
-import { chromium } from "playwright";
-import { generateDetailedPlanHTML } from "@/lib/pdf/generators";
+import { generatePDFBuffer } from "@/lib/pdf/generators";
 import { getRiskLevel } from "@/lib/pillars";
 import { Assessment, PillarScore } from "@prisma/client";
 
@@ -9,7 +8,7 @@ interface AssessmentWithPillars extends Assessment {
 
 interface PDFAttachmentOptions {
   assessment: AssessmentWithPillars;
-  type?: 'detailed' | 'board-brief';
+  type?: 'detailed-plan' | 'board-brief';
 }
 
 /**
@@ -17,7 +16,7 @@ interface PDFAttachmentOptions {
  */
 export async function generatePDFAttachment({
   assessment,
-  type = 'detailed'
+  type = 'detailed-plan'
 }: PDFAttachmentOptions): Promise<{
   buffer: Buffer;
   filename: string;
@@ -78,66 +77,8 @@ export async function generatePDFAttachment({
     generatedAt: new Date(),
   };
 
-  // Generate HTML content
-  const html = generateDetailedPlanHTML(pdfData);
-  
-  // Generate filename
-  const orgName = organizationData.organizationName.replace(/[^a-zA-Z0-9]/g, '-');
-  const date = new Date().toISOString().split("T")[0];
-  const filename = `${orgName}-InsiderRisk-Assessment-${date}.pdf`;
-
-  let browser;
-  try {
-    console.log("🔍 Launching Chromium for PDF generation...");
-    browser = await chromium.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
-    });
-
-    const page = await browser.newPage();
-    
-    // Set content and wait for resources
-    await page.setContent(html, { 
-      waitUntil: 'networkidle',
-      timeout: 30000 
-    });
-    
-    // Wait for any embedded images to load
-    await page.waitForLoadState('networkidle');
-
-    console.log("🔍 Generating PDF buffer...");
-    // Generate PDF as buffer
-    const pdfBuffer = await page.pdf({
-      format: 'A4',
-      margin: {
-        top: '20mm',
-        right: '15mm',
-        bottom: '20mm',
-        left: '15mm'
-      },
-      printBackground: true,
-      preferCSSPageSize: true
-    });
-
-    await browser.close();
-
-    console.log("✅ PDF generated successfully:", {
-      filename,
-      size: `${(pdfBuffer.length / 1024).toFixed(1)}KB`
-    });
-
-    return {
-      buffer: Buffer.from(pdfBuffer),
-      filename
-    };
-
-  } catch (error) {
-    console.error("❌ PDF generation error:", error);
-    if (browser) {
-      await browser.close();
-    }
-    throw new Error(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-  }
+  // Use unified PDF generation function
+  return await generatePDFBuffer(pdfData, type);
 }
 
 /**

@@ -19,14 +19,18 @@ export class MatrixAPI {
     try {
       // Fetching fresh Matrix data from API
       const response = await fetch(MATRIX_API_URL, {
-        next: { 
+        next: {
           revalidate: 86400, // 24 hours
           tags: ['matrix-data']
         },
         headers: {
           'Accept': 'application/json',
-          'User-Agent': 'InsiderRiskIndex/1.0'
-        }
+          'Accept-Encoding': 'gzip, deflate, br',
+          'User-Agent': 'InsiderRiskIndex/1.0',
+          'Cache-Control': 'public, max-age=86400'
+        },
+        // Use edge runtime for faster fetching
+        cache: 'force-cache'
       });
 
       if (!response.ok) {

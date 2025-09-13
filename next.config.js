@@ -1,23 +1,44 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable experimental features
+  // Enable experimental features for build performance
   experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+    // Optimize CSS compilation
+    optimizeCss: true,
+    // Optimize package imports for faster builds
+    optimizePackageImports: [
+      'lucide-react',
+      'recharts',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-tooltip',
+      '@radix-ui/react-progress',
+      'react-hook-form',
+      'zod'
+    ],
+  },
+
+  // Enable Turbopack for faster builds
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
 
-  // Compiler options
+  // External packages for server components
+  serverExternalPackages: ['pdfkit'],
+
+  // Compiler options for faster builds
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? {
       exclude: ['error', 'warn', 'log'],
     } : false,
+    styledComponents: true,
   },
+
+  // Build performance optimizations
+  poweredByHeader: false,
 
   // Bundle analysis
   env: {
@@ -93,7 +114,7 @@ const nextConfig = {
   },
 
   // Webpack configuration
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config, { isServer }) => {
     // Bundle analyzer
     if (process.env.ANALYZE === 'true') {
       const { BundleAnalyzerPlugin } = require('@next/bundle-analyzer');

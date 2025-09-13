@@ -1,4 +1,4 @@
-import { generatePDFBuffer } from "@/lib/pdf/generators";
+import { generatePDFWithPDFKit } from "@/lib/pdf/pdfkit-generator";
 import { getRiskLevel } from "@/lib/pillars";
 import { Assessment, PillarScore } from "@prisma/client";
 
@@ -77,8 +77,8 @@ export async function generatePDFAttachment({
     generatedAt: new Date(),
   };
 
-  // Use unified PDF generation function
-  return await generatePDFBuffer(pdfData, type);
+  // Use production-grade PDFKit instead of Chromium
+  return await generatePDFWithPDFKit(pdfData, type);
 }
 
 /**

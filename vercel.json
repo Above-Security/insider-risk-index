@@ -118,13 +118,6 @@
       ]
     }
   ],
-  "redirects": [
-    {
-      "source": "/assessment/results",
-      "destination": "/assessment",
-      "permanent": false
-    }
-  ],
   "rewrites": [
     {
       "source": "/sitemap.xml",

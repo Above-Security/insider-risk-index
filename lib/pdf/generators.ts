@@ -48,17 +48,29 @@ export function generateBoardBriefHTML(data: PDFData): string {
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             line-height: 1.6;
-            color: #1f2937;
+            color: #0F172A;
             max-width: 210mm;
             margin: 0 auto;
             padding: 20px;
-            background: white;
+            background: linear-gradient(135deg, #FFFAF8 0%, #FAF8FF 100%);
         }
         
         .header {
-            border-bottom: 3px solid #3b82f6;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            background: linear-gradient(135deg, #FF89A1 0%, #C8B3FF 50%, #7AB7FF 100%);
+            color: white;
+            padding: 30px;
+            margin: -20px -20px 30px -20px;
+            border-radius: 0 0 16px 16px;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+            border-radius: 0 0 16px 16px;
+            pointer-events: none;
         }
         
         .company-name {
@@ -123,9 +135,11 @@ export function generateBoardBriefHTML(data: PDFData): string {
         }
         
         .finding-box {
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 20px;
+            background: linear-gradient(135deg, #FFFAF8 0%, #F8FBFF 100%);
+            border: 1px solid #FFE0EC;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(255, 137, 161, 0.1);
         }
         
         .finding-title {
@@ -135,7 +149,7 @@ export function generateBoardBriefHTML(data: PDFData): string {
         }
         
         .pillar-name {
-            color: #3b82f6;
+            color: #C8B3FF;
             font-weight: 600;
         }
         
@@ -145,11 +159,21 @@ export function generateBoardBriefHTML(data: PDFData): string {
         }
         
         .recommendations {
-            background: #fef3c7;
-            border: 1px solid #f59e0b;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
+            background: linear-gradient(135deg, #FAF8FF 0%, #F8FBFF 100%);
+            border: 2px solid #C8B3FF;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            position: relative;
+        }
+        
+        .recommendations::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            border-radius: 12px;
+            pointer-events: none;
         }
         
         .recommendation-item {
@@ -163,7 +187,7 @@ export function generateBoardBriefHTML(data: PDFData): string {
             position: absolute;
             left: 0;
             font-weight: bold;
-            color: #f59e0b;
+            color: #FF89A1;
         }
         
         .rec-header {
@@ -281,9 +305,22 @@ export function generateBoardBriefHTML(data: PDFData): string {
 </head>
 <body>
     <div class="header">
+        <div class="logo">
+            <div class="logo-text">
+                <span style="color: white;">Insider</span><span class="logo-risk">Risk</span>
+            </div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 600; letter-spacing: 0.1em;">INDEX</div>
+        </div>
         <h1 class="company-name">${organizationData.organizationName}</h1>
-        <p class="subtitle">Insider Risk Assessment - Board Brief</p>
+        <p class="subtitle">Executive Board Report • Insider Risk Assessment</p>
         <p class="subtitle">${organizationData.industry.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} • ${organizationData.employeeCount} employees • ${formatDate(data.generatedAt)}</p>
+        <div style="position: absolute; top: 30px; right: 30px; z-index: 1;">
+            <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 10px; color: rgba(255,255,255,0.8); margin-bottom: 4px;">RISK LEVEL</div>
+                <div style="font-size: 24px; font-weight: 800; color: white;">${result.level}</div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.9); font-weight: 600;">${riskLevel.name.toUpperCase()}</div>
+            </div>
+        </div>
     </div>
 
     <div class="score-section">
@@ -370,8 +407,13 @@ export function generateBoardBriefHTML(data: PDFData): string {
     </div>
 
     <div class="footer">
-        <p>Generated by Insider Risk Index • insiderisk.io • ${formatDate(data.generatedAt)}</p>
-        <p>This assessment provides a baseline for your insider risk management program. Regular reassessment recommended.</p>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px;">
+            <span style="font-weight: 700; color: #FF89A1;">Above</span>
+            <span style="color: #6b7280;">Enterprise Insider Risk Intelligence</span>
+        </div>
+        <p>Generated by InsiderRisk Index • Powered by Above • ${formatDate(data.generatedAt)}</p>
+        <p>This executive assessment provides strategic insights for board-level risk management decisions.</p>
+        <p style="font-size: 12px; color: #9ca3af; margin-top: 12px;">Based on Ponemon Institute 2025 ($17.4M avg. cost), Gartner G00805757, and Verizon DBIR 2024 research</p>
     </div>
 </body>
 </html>`;

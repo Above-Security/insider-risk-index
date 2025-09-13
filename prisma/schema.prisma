@@ -33,6 +33,8 @@ model Assessment {
   // Optional contact
   emailOptIn            Boolean             @default(false)
   contactEmail          String?
+  emailSent             Boolean             @default(false)
+  emailSentAt           DateTime?
   
   // Related data
   pillarBreakdown       PillarScore[]

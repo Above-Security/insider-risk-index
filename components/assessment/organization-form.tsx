@@ -11,6 +11,7 @@ import { Checkbox } from "@radix-ui/react-checkbox";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Building2, Users, Mail, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
+import posthog from "posthog-js";
 
 interface OrganizationFormProps {
   onSubmit: (data: {
@@ -126,6 +127,38 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
     setIsSubmitting(true);
     
     try {
+      // Track assessment start in PostHog
+      if (typeof window !== 'undefined' && posthog.__loaded) {
+        // If email was provided, ensure user is identified
+        if (formData.contactEmail && isValidEmail(formData.contactEmail)) {
+          let userId = localStorage.getItem('iri_user_id');
+          if (!userId) {
+            userId = `user_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+            localStorage.setItem('iri_user_id', userId);
+          }
+          
+          posthog.identify(userId, {
+            email: formData.contactEmail,
+            organization_name: formData.organizationName,
+            industry: formData.industry,
+            company_size: formData.employeeCount,
+            assessment_started: true,
+            include_in_benchmarks: formData.includeInBenchmarks,
+            identified_at: new Date().toISOString(),
+          });
+        }
+        
+        // Track assessment start event
+        posthog.capture('assessment_started', {
+          organization_name: formData.organizationName,
+          industry: formData.industry,
+          company_size: formData.employeeCount,
+          has_email: !!formData.contactEmail,
+          include_in_benchmarks: formData.includeInBenchmarks,
+          form_step: 'organization_complete',
+        });
+      }
+      
       // Add small delay for better UX
       await new Promise(resolve => setTimeout(resolve, 500));
       onSubmit(formData);
@@ -263,7 +296,39 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               value={formData.contactEmail}
               onChange={(e) => updateField("contactEmail", e.target.value)}
               onFocus={() => handleFieldFocus("contactEmail")}
-              onBlur={handleFieldBlur}
+              onBlur={(e) => {
+                handleFieldBlur();
+                // PostHog identify when a valid email is entered
+                const email = e.target.value.trim();
+                if (email && isValidEmail(email) && typeof window !== 'undefined' && posthog.__loaded) {
+                  console.log('[PostHog] Identifying user with email:', email);
+                  
+                  // Get or create user ID
+                  let userId = localStorage.getItem('iri_user_id');
+                  if (!userId) {
+                    userId = `user_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+                    localStorage.setItem('iri_user_id', userId);
+                  }
+                  
+                  // Identify with email and organization data
+                  posthog.identify(userId, {
+                    email: email,
+                    organization_name: formData.organizationName || undefined,
+                    industry: formData.industry || undefined,
+                    company_size: formData.employeeCount || undefined,
+                    assessment_started: true,
+                    identified_at: new Date().toISOString(),
+                  });
+                  
+                  // Track email provided event
+                  posthog.capture('assessment_email_provided', {
+                    has_organization: !!formData.organizationName,
+                    has_industry: !!formData.industry,
+                    has_size: !!formData.employeeCount,
+                    form_step: 'organization_info',
+                  });
+                }
+              }}
               className={cn(
                 "transition-all duration-200 focus:ring-2 focus:ring-above-rose-500 focus:ring-offset-2",
                 errors.contactEmail 

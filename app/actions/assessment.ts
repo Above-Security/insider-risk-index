@@ -6,6 +6,11 @@ import { calculateInsiderRiskIndex } from "@/lib/scoring";
 import { AssessmentAnswer } from "@/lib/zod-schemas";
 import { Industry, CompanySize, Region } from "@prisma/client";
 import crypto from "crypto";
+import { sendEmail } from "@/lib/email/client";
+import { render } from "@react-email/render";
+import { AssessmentCompleteEmail } from "@/emails/assessment-complete";
+import { PILLARS } from "@/lib/pillars";
+import { generatePDFAttachment } from "@/lib/pdf/email-attachment";
 
 // Validation schema for assessment submission
 const AssessmentSubmissionSchema = z.object({
@@ -98,6 +103,92 @@ export async function submitAssessment(data: AssessmentSubmission) {
         iri: scoringResult.totalScore,
         pillarScores: scoringResult.pillarBreakdown,
       }).catch(console.error);
+    }
+    
+    // Send email if email address was provided
+    if (validated.contactEmail && validated.emailOptIn) {
+      try {
+        console.log('Sending assessment email to:', validated.contactEmail);
+        
+        // Get pillar scores for email
+        const pillarScores = scoringResult.pillarBreakdown.map(pb => ({
+          name: PILLARS.find(p => p.id === pb.pillarId)?.name || pb.pillarId,
+          score: Math.round(pb.score)
+        }));
+        
+        // Get top strengths and key risks
+        const sortedPillars = [...scoringResult.pillarBreakdown].sort((a, b) => b.score - a.score);
+        const topStrengths = sortedPillars.slice(0, 3).map(p => 
+          PILLARS.find(pillar => pillar.id === p.pillarId)?.name || p.pillarId
+        );
+        const keyRisks = sortedPillars.slice(-3).map(p => 
+          PILLARS.find(pillar => pillar.id === p.pillarId)?.name || p.pillarId
+        );
+        
+        // Render email HTML
+        const emailHtml = await render(
+          AssessmentCompleteEmail({
+            organizationName: validated.industry ? 
+              validated.industry.split('_').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+              ).join(' ') : undefined,
+            iriScore: Math.round(scoringResult.totalScore),
+            maturityLevel: scoringResult.levelDescription,
+            maturityLevelNumber: scoringResult.level,
+            pillarScores,
+            topStrengths,
+            keyRisks,
+            resultsUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/results/${assessment.id}`,
+            pdfUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/pdf/detailed-plan/${assessment.id}`
+          })
+        );
+        
+        // Generate PDF attachment
+        let pdfAttachment = null;
+        try {
+          console.log('Generating PDF attachment for email...');
+          const pdfData = await generatePDFAttachment({
+            assessment: {
+              ...assessment,
+              pillarBreakdown: assessment.pillarBreakdown
+            }
+          });
+          
+          pdfAttachment = {
+            filename: pdfData.filename,
+            content: pdfData.buffer.toString('base64')
+          };
+          console.log('PDF attachment generated:', pdfData.filename);
+        } catch (pdfError) {
+          console.error('Failed to generate PDF attachment:', pdfError);
+          // Continue without attachment if PDF generation fails
+        }
+        
+        // Send the email (with or without PDF attachment)
+        const emailResult = await sendEmail({
+          to: validated.contactEmail,
+          subject: `Your Insider Risk Assessment Score: ${Math.round(scoringResult.totalScore)}/100`,
+          html: emailHtml,
+          attachments: pdfAttachment ? [pdfAttachment] : undefined,
+        });
+        
+        if (emailResult.success) {
+          console.log('Assessment email sent successfully');
+          // Update assessment record to track email was sent
+          await prisma.assessment.update({
+            where: { id: assessment.id },
+            data: { 
+              emailSent: true,
+              emailSentAt: new Date()
+            }
+          }).catch(console.error);
+        } else {
+          console.error('Failed to send assessment email:', emailResult.error);
+        }
+      } catch (emailError) {
+        console.error('Error sending assessment email:', emailError);
+        // Don't fail the assessment submission if email fails
+      }
     }
     
     return {

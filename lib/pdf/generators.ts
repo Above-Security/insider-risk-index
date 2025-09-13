@@ -57,6 +57,81 @@ function getImageBase64(imagePath: string): string {
 }
 
 /**
+ * Unified PDF generation function for both email and direct download
+ */
+export async function generatePDFBuffer(
+  pdfData: PDFData,
+  type: 'board-brief' | 'detailed-plan'
+): Promise<{ buffer: Buffer; filename: string }> {
+  const { chromium } = await import('playwright');
+
+  // Generate HTML content based on type
+  const html = type === 'board-brief'
+    ? generateBoardBriefHTML(pdfData)
+    : generateDetailedPlanHTML(pdfData);
+
+  // Generate filename
+  const orgName = pdfData.organizationData.organizationName.replace(/[^a-zA-Z0-9]/g, '-');
+  const date = new Date().toISOString().split("T")[0];
+  const filename = type === 'board-brief'
+    ? `${orgName}-Board-Brief-${date}.pdf`
+    : `${orgName}-Detailed-Plan-${date}.pdf`;
+
+  let browser;
+  try {
+    console.log("🔍 Launching Chromium for unified PDF generation...");
+    browser = await chromium.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    });
+
+    const page = await browser.newPage();
+
+    // Set content and wait for resources
+    await page.setContent(html, {
+      waitUntil: 'networkidle',
+      timeout: 30000
+    });
+
+    // Wait for any embedded images to load
+    await page.waitForLoadState('networkidle');
+
+    console.log("🔍 Generating PDF buffer...");
+    // Generate PDF as buffer
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      margin: {
+        top: '20mm',
+        right: '15mm',
+        bottom: '20mm',
+        left: '15mm'
+      },
+      printBackground: true,
+      preferCSSPageSize: true
+    });
+
+    await browser.close();
+
+    console.log("✅ PDF generated successfully:", {
+      filename,
+      size: `${(pdfBuffer.length / 1024).toFixed(1)}KB`
+    });
+
+    return {
+      buffer: Buffer.from(pdfBuffer),
+      filename
+    };
+
+  } catch (error) {
+    console.error("❌ PDF generation error:", error);
+    if (browser) {
+      await browser.close();
+    }
+    throw new Error(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+/**
  * Generate Board Brief PDF content
  * Executive summary focused on high-level insights
  */
@@ -418,6 +493,22 @@ export function generateBoardBriefHTML(data: PDFData): string {
             <div style="background: #fff7ed; border-left: 4px solid #f59e0b; padding: 20px; margin: 16px 0; border-radius: 8px;">
                 <div style="margin-bottom: 16px;">
                     <h4 style="margin: 0 0 8px 0; color: #92400e; font-size: 15px;">Critical Industry Statistics (2024-2025)</h4>
+                    <div style="background: white; border-radius: 8px; padding: 16px; margin: 12px 0; border: 1px solid #fed7aa;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; font-size: 12px;">
+                            <div style="border-right: 1px solid #fed7aa; padding-right: 12px;">
+                                <div style="font-weight: bold; color: #dc2626; font-size: 16px;">48%</div>
+                                <div style="color: #6b7280;">Organizations report insider attacks became <strong>more frequent</strong> (Gartner 2025)</div>
+                            </div>
+                            <div style="border-right: 1px solid #fed7aa; padding-right: 12px;">
+                                <div style="font-weight: bold; color: #dc2626; font-size: 16px;">$17.4M</div>
+                                <div style="color: #6b7280;"><strong>Average annual cost</strong> of insider threats globally (Ponemon 2025)</div>
+                            </div>
+                            <div>
+                                <div style="font-weight: bold; color: #dc2626; font-size: 16px;">81 days</div>
+                                <div style="color: #6b7280;"><strong>Average containment time</strong> per incident worldwide</div>
+                            </div>
+                        </div>
+                    </div>
                     <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #92400e; line-height: 1.6;">
                         <li><strong>48% of organizations</strong> report insider attacks became more frequent in 2024</li>
                         <li><strong>71% of security leaders</strong> feel moderately to extremely vulnerable to insider threats</li>

@@ -41,7 +41,7 @@ export function generateBoardBriefHTML(data: PDFData): string {
   const riskLevel = getRiskLevel(result.totalScore);
   
   // Get base64 encoded logos for PDF embedding
-  const insiderRiskLogo = getImageBase64('logo-small.png');
+  const insiderRiskLogo = getImageBase64('icon-192x192.png');
   const aboveLogo = getImageBase64('above-logo.png');
   
   
@@ -454,7 +454,7 @@ export function generateDetailedPlanHTML(data: PDFData): string {
   const riskLevel = getRiskLevel(result.totalScore);
   
   // Get base64 encoded logos for PDF embedding
-  const insiderRiskLogo = getImageBase64('logo-small.png');
+  const insiderRiskLogo = getImageBase64('icon-192x192.png');
   const aboveLogo = getImageBase64('above-logo.png');
   
 

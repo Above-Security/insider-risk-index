@@ -10,6 +10,7 @@ import { AssessmentAnswer } from "@/lib/zod-schemas";
 import { useRouter } from "next/navigation";
 import { getAssessmentJsonLd } from "@/lib/seo";
 import Script from "next/script";
+import { submitAssessment } from "@/app/actions/assessment";
 
 interface OrganizationData {
   organizationName: string;
@@ -79,7 +80,47 @@ export default function AssessmentPage() {
         completedAt: new Date().toISOString(),
         answers: answersObject, // Include original answers for sharing
       };
-      
+
+      // Submit to server (saves to database and sends email if opted in)
+      try {
+        console.log("📤 Submitting assessment to server...");
+
+        // Map the string values to proper enum values
+        const industryMap: Record<string, string> = {
+          'technology': 'TECHNOLOGY',
+          'financial-services': 'FINANCIAL_SERVICES',
+          'healthcare': 'HEALTHCARE',
+          'retail': 'RETAIL',
+          'manufacturing': 'MANUFACTURING',
+          'government': 'GOVERNMENT',
+          'education': 'EDUCATION',
+          'energy': 'ENERGY',
+          'telecommunications': 'TELECOMMUNICATIONS',
+          'media-entertainment': 'MEDIA_ENTERTAINMENT',
+        };
+
+        const sizeMap: Record<string, string> = {
+          '1-50': 'STARTUP_1_50',
+          '51-250': 'SMALL_51_250',
+          '251-1000': 'MID_251_1000',
+          '1001-5000': 'LARGE_1001_5000',
+          '5000+': 'ENTERPRISE_5000_PLUS',
+        };
+
+        const serverResult = await submitAssessment({
+          industry: industryMap[organizationData.industry] ? industryMap[organizationData.industry] : undefined,
+          size: sizeMap[organizationData.employeeCount] ? sizeMap[organizationData.employeeCount] : undefined,
+          region: undefined,
+          answers: answersObject,
+          emailOptIn: organizationData.includeInBenchmarks && !!organizationData.contactEmail,
+          contactEmail: organizationData.contactEmail,
+        });
+        console.log("✅ Assessment submitted to server, ID:", serverResult.id);
+      } catch (serverError) {
+        console.error("⚠️ Server submission failed (continuing anyway):", serverError);
+        // Continue even if server submission fails - we still have local results
+      }
+
       if (typeof window !== "undefined") {
         localStorage.setItem("assessment-result", JSON.stringify(assessmentData));
         console.log("💾 Data saved to localStorage");

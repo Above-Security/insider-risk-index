@@ -43,7 +43,7 @@ export default function AssessmentPage() {
     setAnsweredQuestions(newAnsweredQuestions);
   };
 
-  const handleCompleteAssessment = useCallback(() => {
+  const handleCompleteAssessment = useCallback(async () => {
     console.log("🔍 Starting assessment completion...");
     console.log("Organization data:", organizationData);
     console.log("Answers count:", answers.size);
@@ -86,7 +86,10 @@ export default function AssessmentPage() {
         console.log("📤 Submitting assessment to server...");
 
         // Map the string values to proper enum values
-        const industryMap: Record<string, string> = {
+        const industryEnums = ['TECHNOLOGY', 'FINANCIAL_SERVICES', 'HEALTHCARE', 'RETAIL', 'MANUFACTURING', 'GOVERNMENT', 'EDUCATION', 'ENERGY', 'TELECOMMUNICATIONS', 'MEDIA_ENTERTAINMENT'] as const;
+        const sizeEnums = ['STARTUP_1_50', 'SMALL_51_250', 'MID_251_1000', 'LARGE_1001_5000', 'ENTERPRISE_5000_PLUS'] as const;
+
+        const industryMap: Record<string, typeof industryEnums[number]> = {
           'technology': 'TECHNOLOGY',
           'financial-services': 'FINANCIAL_SERVICES',
           'healthcare': 'HEALTHCARE',
@@ -99,7 +102,7 @@ export default function AssessmentPage() {
           'media-entertainment': 'MEDIA_ENTERTAINMENT',
         };
 
-        const sizeMap: Record<string, string> = {
+        const sizeMap: Record<string, typeof sizeEnums[number]> = {
           '1-50': 'STARTUP_1_50',
           '51-250': 'SMALL_51_250',
           '251-1000': 'MID_251_1000',
@@ -108,14 +111,14 @@ export default function AssessmentPage() {
         };
 
         const serverResult = await submitAssessment({
-          industry: industryMap[organizationData.industry] ? industryMap[organizationData.industry] : undefined,
-          size: sizeMap[organizationData.employeeCount] ? sizeMap[organizationData.employeeCount] : undefined,
+          industry: industryMap[organizationData.industry] || undefined,
+          size: sizeMap[organizationData.employeeCount] || undefined,
           region: undefined,
           answers: answersObject,
           emailOptIn: organizationData.includeInBenchmarks && !!organizationData.contactEmail,
           contactEmail: organizationData.contactEmail,
         });
-        console.log("✅ Assessment submitted to server, ID:", serverResult.id);
+        console.log("✅ Assessment submitted to server, ID:", serverResult.assessmentId);
       } catch (serverError) {
         console.error("⚠️ Server submission failed (continuing anyway):", serverError);
         // Continue even if server submission fails - we still have local results

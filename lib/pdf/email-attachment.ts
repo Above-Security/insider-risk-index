@@ -66,10 +66,9 @@ export async function generatePDFAttachment({
       "Some gaps identified in prevention and coaching programs"
     ],
     benchmark: {
-      industry: assessment.industry || 'TECHNOLOGY',
-      iriAverage: 66.4,
-      yourScore: assessment.iri,
-      percentile: Math.min(95, Math.max(5, Math.round((assessment.iri / 100) * 95)))
+      industry: 66.4, // Industry average score
+      companySize: 64.2, // Company size average score  
+      overall: 66.4, // Overall average score
     }
   };
 

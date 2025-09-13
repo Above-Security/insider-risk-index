@@ -61,6 +61,7 @@ export async function GET(request: Request) {
           const mockAssessment = {
             id: "test-123",
             createdAt: new Date(),
+            updatedAt: new Date(),
             industry: "TECHNOLOGY" as any,
             size: "MID_251_1000" as any,
             region: null,

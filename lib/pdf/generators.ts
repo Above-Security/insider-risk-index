@@ -101,14 +101,15 @@ export function generateBoardBriefHTML(data: PDFData): string {
         }
         
         .header {
-            background: linear-gradient(135deg, #FF89A1 0%, #C8B3FF 50%, #7AB7FF 100%);
+            background: linear-gradient(135deg, #E91E63 0%, #9C27B0 50%, #3F51B5 100%);
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             margin: 0 0 30px 0;
             border-radius: 0 0 16px 16px;
             display: block;
             width: 100%;
             box-sizing: border-box;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
         
         .logo-container {
@@ -386,23 +387,65 @@ export function generateBoardBriefHTML(data: PDFData): string {
     <div class="section">
         <h2 class="section-title">Executive Summary</h2>
         <p>
-            ${organizationData.organizationName} achieved an Insider Risk Index score of <strong>${result.totalScore}/100</strong>, 
-            placing the organization at <strong>Risk Level ${result.level}</strong>. This assessment evaluates your security 
-            posture across five critical pillars of insider threat management.
+            <strong>${organizationData.organizationName}</strong> achieved an Insider Risk Index score of <strong>${result.totalScore}/100</strong>, 
+            placing the organization at <strong>Risk Level ${result.level}: ${riskLevel.name}</strong>. This assessment evaluates your security 
+            posture across five critical pillars of insider threat management based on industry frameworks from Gartner, Ponemon Institute, 
+            and the ForScie Insider Threat Matrix.
         </p>
+        
+        <div class="threat-landscape">
+            <h3 style="color: #1f2937; font-size: 16px; margin: 20px 0 10px 0;">Current Threat Landscape</h3>
+            <div style="background: #fff7ed; border-left: 4px solid #f59e0b; padding: 16px; margin: 16px 0; border-radius: 4px;">
+                <p style="margin: 0; font-size: 14px; color: #92400e;">
+                    <strong>Industry Context:</strong> Organizations face an average of <strong>13.5 insider incidents per year</strong> 
+                    with costs reaching <strong>$17.4M annually</strong> (Ponemon Institute 2025). Your current maturity level indicates 
+                    ${result.level <= 2 ? 'significant exposure to these risks' : result.level <= 3 ? 'moderate risk exposure with room for improvement' : 'strong defensive posture with optimization opportunities'}.
+                </p>
+            </div>
+        </div>
         
         <div class="key-findings">
             <div class="finding-box">
                 <div class="finding-title">Strongest Area</div>
                 <div class="pillar-name">${strongestPillarInfo?.name}</div>
                 <div class="score-value">${Math.round(strongestPillar.score)}%</div>
+                <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">
+                    ${strongestPillar.score >= 80 ? 'Exemplary implementation' : strongestPillar.score >= 65 ? 'Strong foundation established' : 'Basic controls in place'}
+                </div>
             </div>
             
             <div class="finding-box">
                 <div class="finding-title">Primary Concern</div>
                 <div class="pillar-name">${weakestPillarInfo?.name}</div>
                 <div class="score-value">${Math.round(weakestPillar.score)}%</div>
+                <div style="font-size: 12px; color: #dc2626; margin-top: 8px;">
+                    ${weakestPillar.score < 45 ? 'Critical gaps identified' : weakestPillar.score < 65 ? 'Immediate attention required' : 'Enhancement opportunities'}
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Detailed Score Analysis</h2>
+        <div class="pillar-breakdown" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+            ${result.pillarBreakdown.map(pillar => {
+              const pillarInfo = PILLARS.find(p => p.id === pillar.pillarId);
+              const scoreColor = pillar.score >= 80 ? '#059669' : pillar.score >= 65 ? '#0891b2' : pillar.score >= 50 ? '#d97706' : '#dc2626';
+              return `
+                <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; background: #fafafa;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3 style="color: ${pillarInfo?.color}; font-size: 16px; margin: 0; font-weight: 600;">${pillarInfo?.name}</h3>
+                        <div style="font-size: 24px; font-weight: bold; color: ${scoreColor};">${Math.round(pillar.score)}%</div>
+                    </div>
+                    <div style="background: #e5e7eb; height: 8px; border-radius: 4px; overflow: hidden;">
+                        <div style="background: ${scoreColor}; height: 100%; width: ${pillar.score}%; transition: width 0.3s ease;"></div>
+                    </div>
+                    <p style="font-size: 13px; color: #6b7280; margin: 12px 0 0 0; line-height: 1.4;">
+                        ${pillarInfo?.description.substring(0, 120)}...
+                    </p>
+                </div>
+              `;
+            }).join('')}
         </div>
     </div>
 
@@ -433,11 +476,56 @@ export function generateBoardBriefHTML(data: PDFData): string {
     </div>
 
     <div class="section">
-        <h2 class="section-title">Priority Actions</h2>
+        <h2 class="section-title">Priority Actions & Strategic Guidance</h2>
+        
+        <div class="matrix-insight" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 1px solid #0891b2; border-radius: 12px; padding: 20px; margin: 20px 0;">
+            <h3 style="color: #0c4a6e; margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px;">
+                <span style="width: 6px; height: 6px; background: #0891b2; border-radius: 50%;"></span>
+                Insider Threat Matrix Insights
+            </h3>
+            <p style="margin: 0; font-size: 14px; color: #0c4a6e; line-height: 1.5;">
+                <strong>Critical Threat Vectors:</strong> Based on the ForScie Insider Threat Matrix, your organization is most vulnerable to 
+                <strong>${weakestPillarInfo?.id === 'visibility' ? 'undetected lateral movement and data exfiltration' : 
+                        weakestPillarInfo?.id === 'coaching' ? 'social engineering and manipulation techniques' :
+                        weakestPillarInfo?.id === 'evidence' ? 'evidence destruction and forensic evasion' :
+                        weakestPillarInfo?.id === 'identity' ? 'privilege escalation and unauthorized access' :
+                        'phishing campaigns and credential harvesting'}</strong> attacks. 
+                <a href="https://insiderthreatmatrix.org" style="color: #0891b2; text-decoration: underline;">Learn more about threat techniques</a>.
+            </p>
+        </div>
+
+        <div class="playbook-quote" style="background: #f8fafc; border-left: 4px solid #6366f1; padding: 20px; margin: 20px 0; border-radius: 0 8px 8px 0;">
+            <h3 style="color: #4f46e5; margin: 0 0 12px 0; font-size: 16px;">Implementation Playbook Extract</h3>
+            <blockquote style="margin: 0; font-style: italic; color: #4b5563; line-height: 1.6;">
+                ${weakestPillarInfo?.id === 'visibility' ? 
+                  '"Effective insider threat detection requires comprehensive logging across all critical systems. Organizations should implement behavioral analytics that establish baseline user activities and alert on anomalous patterns. The key is not just collecting data, but having the analytical capability to identify meaningful deviations from normal behavior."' :
+                  weakestPillarInfo?.id === 'coaching' ?
+                  '"Prevention through education remains the most cost-effective insider threat mitigation strategy. Regular security awareness training should include realistic scenarios specific to the organization\'s risk profile. The most successful programs combine formal training with just-in-time coaching during security events."' :
+                  weakestPillarInfo?.id === 'evidence' ?
+                  '"Forensic readiness is not optional in modern insider threat programs. Organizations must have the capability to quickly preserve, collect, and analyze digital evidence when incidents occur. This requires both technical infrastructure and trained personnel who understand legal requirements."' :
+                  weakestPillarInfo?.id === 'identity' ?
+                  '"Zero-trust architecture principles are essential for modern identity management. Every access request should be verified, regardless of location or previous authentication. Implement least-privilege access controls and regular access reviews to minimize insider threat exposure."' :
+                  '"Anti-phishing measures must extend beyond email security to include comprehensive user education and technical controls. Organizations should implement DMARC, SPF, and DKIM protocols while training users to identify and report suspicious communications."'
+                }
+            </blockquote>
+            <div style="margin-top: 12px; font-size: 12px; color: #6b7280;">
+                — From our <a href="https://abovesec.com/playbooks" style="color: #6366f1; text-decoration: underline;">Implementation Playbook Series</a>
+            </div>
+        </div>
+        
         <div class="recommendations">
-            ${topRecommendations.map((rec, index) => {
+            <h3 style="color: #1f2937; font-size: 18px; margin: 24px 0 16px 0;">Immediate Action Items</h3>
+            ${topRecommendations.map((rec) => {
               if (typeof rec === 'string') {
-                return `<div class="recommendation-item">${rec}</div>`;
+                return `<div class="recommendation-item">
+                  <div class="rec-header">
+                    <span class="rec-priority high">PRIORITY</span>
+                    <span class="rec-title">${rec}</span>
+                  </div>
+                  <div style="margin-top: 8px; font-size: 13px; color: #6b7280;">
+                    Estimated impact: High | Timeline: 30-60 days | <a href="https://abovesec.com/playbooks" style="color: #3b82f6;">View implementation guide</a>
+                  </div>
+                </div>`;
               }
               // Matrix recommendation object
               return `
@@ -450,14 +538,102 @@ export function generateBoardBriefHTML(data: PDFData): string {
                   <div class="rec-meta">
                     <span>Timeline: ${rec.timeToImplement}</span>
                     <span>Impact: ${rec.estimatedImpact}/10</span>
-                    ${rec.matrixTechniques.length > 0 ? `<span>Addresses ${rec.matrixTechniques.length} threat techniques</span>` : ''}
+                    ${rec.matrixTechniques.length > 0 ? `<span>Addresses <strong>${rec.matrixTechniques.length}</strong> threat techniques</span>` : ''}
+                    <span>•</span>
+                    <a href="https://abovesec.com/playbooks" style="color: #3b82f6; text-decoration: underline;">Implementation guide</a>
                   </div>
                 </div>
               `;
             }).join('')}
         </div>
-        ${matrixRecommendations ? '<p><em>Recommendations enhanced with Insider Threat Matrix intelligence from the ForScie community.</em></p>' : ''}
-        <p><em>See detailed action plan for complete recommendations and implementation guidance.</em></p>
+        
+        <div style="background: #f9fafb; padding: 16px; border-radius: 8px; margin-top: 20px;">
+            <p style="margin: 0; font-size: 13px; color: #6b7280; text-align: center;">
+                💡 <strong>Need implementation support?</strong> Our expert team provides comprehensive insider risk program development. 
+                <a href="https://abovesec.com/contact" style="color: #3b82f6; text-decoration: underline;">Schedule a consultation</a> | 
+                <a href="https://abovesec.com/matrix" style="color: #3b82f6; text-decoration: underline;">Explore the Insider Threat Matrix</a>
+            </p>
+        </div>
+        
+        ${matrixRecommendations ? '<p style="font-size: 12px; color: #6b7280; margin-top: 16px;"><em>Recommendations enhanced with Insider Threat Matrix intelligence from the ForScie community.</em></p>' : ''}
+    </div>
+
+    <div class="page-break"></div>
+    
+    <div class="section">
+        <h2 class="section-title">90-Day Implementation Roadmap</h2>
+        
+        <div class="roadmap" style="margin: 20px 0;">
+            <div class="roadmap-phase" style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; margin: 16px 0; background: linear-gradient(135deg, #fef7f0 0%, #fefaf8 100%);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                    <div style="width: 32px; height: 32px; background: #f59e0b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">1</div>
+                    <h3 style="margin: 0; color: #92400e; font-size: 18px;">Days 1-30: Foundation & Quick Wins</h3>
+                </div>
+                <ul style="margin: 0; padding-left: 20px; color: #6b7280; line-height: 1.6;">
+                    <li><strong>Week 1-2:</strong> Conduct comprehensive risk assessment and gap analysis for ${weakestPillarInfo?.name}</li>
+                    <li><strong>Week 2-3:</strong> Implement basic logging and monitoring for critical systems</li>
+                    <li><strong>Week 3-4:</strong> Deploy emergency response procedures and incident playbooks</li>
+                    <li><strong>Deliverable:</strong> Risk assessment report and initial monitoring capability</li>
+                </ul>
+                <div style="background: rgba(245, 158, 11, 0.1); padding: 12px; border-radius: 6px; margin-top: 12px;">
+                    <p style="margin: 0; font-size: 13px; color: #92400e;">
+                        <strong>Success Metric:</strong> Achieve ${Math.min(result.totalScore + 15, 100)}% overall score improvement
+                    </p>
+                </div>
+            </div>
+
+            <div class="roadmap-phase" style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; margin: 16px 0; background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                    <div style="width: 32px; height: 32px; background: #0891b2; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">2</div>
+                    <h3 style="margin: 0; color: #0c4a6e; font-size: 18px;">Days 31-60: Core Implementation</h3>
+                </div>
+                <ul style="margin: 0; padding-left: 20px; color: #6b7280; line-height: 1.6;">
+                    <li><strong>Week 5-6:</strong> Deploy behavioral analytics and anomaly detection systems</li>
+                    <li><strong>Week 6-7:</strong> Implement comprehensive user access reviews and controls</li>
+                    <li><strong>Week 7-8:</strong> Launch organization-wide security awareness program</li>
+                    <li><strong>Deliverable:</strong> Fully operational insider threat detection platform</li>
+                </ul>
+                <div style="background: rgba(8, 145, 178, 0.1); padding: 12px; border-radius: 6px; margin-top: 12px;">
+                    <p style="margin: 0; font-size: 13px; color: #0c4a6e;">
+                        <strong>Success Metric:</strong> Reach Level ${Math.min(result.level + 1, 5)} maturity (${riskLevel.name} → ${result.level >= 5 ? 'Optimized+' : result.level === 4 ? 'Optimized' : result.level === 3 ? 'Proactive' : result.level === 2 ? 'Managed' : 'Emerging'})
+                    </p>
+                </div>
+            </div>
+
+            <div class="roadmap-phase" style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; margin: 16px 0; background: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 100%);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                    <div style="width: 32px; height: 32px; background: #059669; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">3</div>
+                    <h3 style="margin: 0; color: #047857; font-size: 18px;">Days 61-90: Optimization & Maturity</h3>
+                </div>
+                <ul style="margin: 0; padding-left: 20px; color: #6b7280; line-height: 1.6;">
+                    <li><strong>Week 9-10:</strong> Fine-tune detection algorithms and reduce false positives</li>
+                    <li><strong>Week 10-11:</strong> Implement advanced threat hunting and forensic capabilities</li>
+                    <li><strong>Week 11-12:</strong> Conduct tabletop exercises and program assessment</li>
+                    <li><strong>Deliverable:</strong> Mature, optimized insider threat program</li>
+                </ul>
+                <div style="background: rgba(5, 150, 105, 0.1); padding: 12px; border-radius: 6px; margin-top: 12px;">
+                    <p style="margin: 0; font-size: 13px; color: #047857;">
+                        <strong>Success Metric:</strong> Achieve industry-leading capabilities with 85%+ overall score
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border: 2px solid #d1d5db; border-radius: 12px; padding: 20px; margin: 24px 0;">
+            <h3 style="color: #374151; margin: 0 0 16px 0; text-align: center; font-size: 18px;">🎯 Expected ROI & Business Impact</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 32px; font-weight: bold; color: #059669;">$${Math.round((17.4 * 0.6) * 10) / 10}M</div>
+                    <div style="font-size: 14px; color: #6b7280;">Potential Annual Savings</div>
+                    <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Based on 60% risk reduction</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 32px; font-weight: bold; color: #0891b2;">18x</div>
+                    <div style="font-size: 14px; color: #6b7280;">Average ROI Multiple</div>
+                    <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Industry benchmark</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="footer">
@@ -466,10 +642,21 @@ export function generateBoardBriefHTML(data: PDFData): string {
             <span style="font-weight: 700; color: #FF89A1;">Above</span>
             <span style="color: #6b7280;">Enterprise Insider Risk Intelligence</span>
         </div>
-        <p>Generated by InsiderRisk Index • Powered by Above • ${formatDate(data.generatedAt)}</p>
+        <div style="text-align: center; margin: 16px 0;">
+            <a href="https://abovesec.com/assessment" style="background: #3b82f6; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; margin: 0 8px;">Retake Assessment</a>
+            <a href="https://abovesec.com/contact" style="background: white; color: #3b82f6; border: 2px solid #3b82f6; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; margin: 0 8px;">Get Expert Support</a>
+        </div>
+        <p>Generated by <strong>InsiderRisk Index</strong> • Powered by <strong>Above</strong> • ${formatDate(data.generatedAt)}</p>
         <p>This executive assessment provides strategic insights for board-level risk management decisions.</p>
-        <p style="font-size: 12px; color: #9ca3af; margin-top: 12px;">Based on Ponemon Institute 2025 ($17.4M avg. cost), Gartner G00805757, and Verizon DBIR 2024 research</p>
-        <p style="font-size: 11px; color: #9ca3af; margin-top: 8px;">© 2025 Above, Inc. • Visit <strong>abovesec.com</strong> for implementation support</p>
+        <p style="font-size: 12px; color: #9ca3af; margin-top: 12px;">
+            <strong>Research Foundation:</strong> Based on Ponemon Institute 2025 ($17.4M avg. cost), 
+            <a href="https://www.gartner.com" style="color: #3b82f6; text-decoration: underline;">Gartner G00805757</a>, 
+            Verizon DBIR 2024, and <a href="https://insiderthreatmatrix.org" style="color: #3b82f6; text-decoration: underline;">ForScie Insider Threat Matrix</a>
+        </p>
+        <p style="font-size: 11px; color: #9ca3af; margin-top: 8px;">
+            © 2025 Above, Inc. • Visit <a href="https://abovesec.com" style="color: #3b82f6; text-decoration: underline;"><strong>abovesec.com</strong></a> for implementation support • 
+            <a href="https://abovesec.com/privacy" style="color: #9ca3af; text-decoration: underline;">Privacy Policy</a>
+        </p>
     </div>
 </body>
 </html>`;
@@ -507,14 +694,15 @@ export function generateDetailedPlanHTML(data: PDFData): string {
         }
         
         .header {
-            background: linear-gradient(135deg, #FF89A1 0%, #C8B3FF 50%, #7AB7FF 100%);
+            background: linear-gradient(135deg, #E91E63 0%, #9C27B0 50%, #3F51B5 100%);
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             margin: 0 0 30px 0;
             border-radius: 0 0 16px 16px;
             display: block;
             width: 100%;
             box-sizing: border-box;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
         
         .logo-container {

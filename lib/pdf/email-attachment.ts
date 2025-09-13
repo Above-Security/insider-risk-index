@@ -116,8 +116,7 @@ export async function generatePDFAttachment({
         left: '15mm'
       },
       printBackground: true,
-      preferCSSPageSize: true,
-      deviceScaleFactor: 2, // Higher quality rendering
+      preferCSSPageSize: true
     });
 
     await browser.close();

@@ -326,11 +326,11 @@ export function generateBoardBriefHTML(data: PDFData): string {
 </head>
 <body>
     <div class="header">
-        <div class="logo" style="display: flex; align-items: center; gap: 12px;">
-            ${insiderRiskLogo ? `<img src="${insiderRiskLogo}" alt="InsiderRisk Logo" style="width: 40px; height: 40px;">` : ''}
+        <div class="logo" style="display: flex; align-items: center; gap: 12px; position: relative; z-index: 10;">
+            ${insiderRiskLogo ? `<img src="${insiderRiskLogo}" alt="InsiderRisk Logo" style="width: 40px; height: 40px; display: block; border: 3px solid yellow; background: red;">` : '<div style="width: 40px; height: 40px; background: red; color: white; display: flex; align-items: center; justify-content: center; font-size: 8px;">NO LOGO</div>'}
             <div>
-                <div class="logo-text">
-                    <span style="color: white;">Insider</span><span class="logo-risk">Risk</span>
+                <div class="logo-text" style="color: white; font-weight: bold; font-size: 18px;">
+                    <span>InsiderRisk</span>
                 </div>
                 <div style="font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 600; letter-spacing: 0.1em;">INDEX</div>
             </div>

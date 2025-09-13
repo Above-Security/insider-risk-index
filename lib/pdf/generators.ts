@@ -18,14 +18,38 @@ interface PDFData {
   matrixRecommendations?: Recommendation[];
 }
 
-// Helper function to convert images to base64 for PDF embedding
+// Helper function to convert images to base64 for PDF embedding with PDF best practices
 function getImageBase64(imagePath: string): string {
   try {
     const fullPath = path.join(process.cwd(), 'public', imagePath);
+    
+    // Check if file exists
+    if (!fs.existsSync(fullPath)) {
+      console.warn(`Image not found: ${fullPath}`);
+      return '';
+    }
+    
     const imageBuffer = fs.readFileSync(fullPath);
+    
+    // Check file size (PDF engines may have limits)
+    if (imageBuffer.length > 1024 * 1024) { // 1MB limit
+      console.warn(`Image too large for PDF embedding: ${imageBuffer.length} bytes`);
+      return '';
+    }
+    
     const base64 = imageBuffer.toString('base64');
-    const ext = path.extname(imagePath).substring(1);
-    return `data:image/${ext};base64,${base64}`;
+    const ext = path.extname(imagePath).substring(1).toLowerCase();
+    
+    // Validate image format
+    if (!['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext)) {
+      console.warn(`Unsupported image format: ${ext}`);
+      return '';
+    }
+    
+    const dataUrl = `data:image/${ext === 'jpg' ? 'jpeg' : ext};base64,${base64}`;
+    
+    // Successfully loaded image for PDF embedding
+    return dataUrl;
   } catch (error) {
     console.warn(`Failed to load image ${imagePath}:`, error);
     return '';
@@ -83,6 +107,7 @@ export function generateBoardBriefHTML(data: PDFData): string {
             margin: -20px -20px 30px -20px;
             border-radius: 0 0 16px 16px;
             position: relative;
+            overflow: visible;
         }
         
         .header::before {
@@ -92,6 +117,23 @@ export function generateBoardBriefHTML(data: PDFData): string {
             background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
             border-radius: 0 0 16px 16px;
             pointer-events: none;
+            z-index: 1;
+        }
+        
+        .logo-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            display: block;
+            object-fit: contain;
+            flex-shrink: 0;
         }
         
         .company-name {
@@ -326,8 +368,8 @@ export function generateBoardBriefHTML(data: PDFData): string {
 </head>
 <body>
     <div class="header">
-        <div class="logo" style="display: flex; align-items: center; gap: 12px; position: relative; z-index: 10;">
-            ${insiderRiskLogo ? `<img src="${insiderRiskLogo}" alt="InsiderRisk Logo" style="width: 40px; height: 40px; display: block; border: 3px solid yellow; background: red;">` : '<div style="width: 40px; height: 40px; background: red; color: white; display: flex; align-items: center; justify-content: center; font-size: 8px;">NO LOGO</div>'}
+        <div class="logo-container">
+            ${insiderRiskLogo ? `<img src="${insiderRiskLogo}" alt="InsiderRisk Logo" class="logo-image">` : ''}
             <div>
                 <div class="logo-text" style="color: white; font-weight: bold; font-size: 18px;">
                     <span>InsiderRisk</span>

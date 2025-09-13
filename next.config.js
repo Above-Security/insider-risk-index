@@ -2,8 +2,6 @@
 const nextConfig = {
   // Enable experimental features for build performance
   experimental: {
-    // Optimize CSS compilation
-    optimizeCss: true,
     // Optimize package imports for faster builds
     optimizePackageImports: [
       'lucide-react',

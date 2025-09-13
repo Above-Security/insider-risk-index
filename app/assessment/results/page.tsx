@@ -633,10 +633,9 @@ export default function AssessmentResultsPage() {
               >
                 🔗 Learn About Above Security
               </Button>
-              <Button 
+              <Button
                 size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-above-rose-600 font-semibold px-8 py-4 text-lg"
+                className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-above-rose-600 hover:border-white font-semibold px-8 py-4 text-lg transition-colors duration-200"
                 onClick={() => router.push('/contact')}
               >
                 💬 Contact Our Experts

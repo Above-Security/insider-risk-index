@@ -101,7 +101,7 @@ export function generateBoardBriefHTML(data: PDFData): string {
         }
         
         .header {
-            background: linear-gradient(135deg, #E91E63 0%, #9C27B0 50%, #3F51B5 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: white;
             padding: 40px 30px;
             margin: 0 0 30px 0;
@@ -109,7 +109,7 @@ export function generateBoardBriefHTML(data: PDFData): string {
             display: block;
             width: 100%;
             box-sizing: border-box;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.7);
         }
         
         .logo-container {
@@ -130,14 +130,16 @@ export function generateBoardBriefHTML(data: PDFData): string {
         .company-name {
             font-size: 28px;
             font-weight: bold;
-            color: #1f2937;
+            color: white;
             margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.7);
         }
         
         .subtitle {
-            color: #6b7280;
+            color: rgba(255,255,255,0.9);
             margin: 5px 0 0 0;
             font-size: 16px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
         
         .score-section {
@@ -481,35 +483,88 @@ export function generateBoardBriefHTML(data: PDFData): string {
         <div class="matrix-insight" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 1px solid #0891b2; border-radius: 12px; padding: 20px; margin: 20px 0;">
             <h3 style="color: #0c4a6e; margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px;">
                 <span style="width: 6px; height: 6px; background: #0891b2; border-radius: 50%;"></span>
-                Insider Threat Matrix Insights
+                Insider Threat Matrix Intelligence
             </h3>
-            <p style="margin: 0; font-size: 14px; color: #0c4a6e; line-height: 1.5;">
-                <strong>Critical Threat Vectors:</strong> Based on the ForScie Insider Threat Matrix, your organization is most vulnerable to 
-                <strong>${weakestPillarInfo?.id === 'visibility' ? 'undetected lateral movement and data exfiltration' : 
-                        weakestPillarInfo?.id === 'coaching' ? 'social engineering and manipulation techniques' :
-                        weakestPillarInfo?.id === 'evidence' ? 'evidence destruction and forensic evasion' :
-                        weakestPillarInfo?.id === 'identity' ? 'privilege escalation and unauthorized access' :
-                        'phishing campaigns and credential harvesting'}</strong> attacks. 
-                <a href="https://insiderthreatmatrix.org" style="color: #0891b2; text-decoration: underline;">Learn more about threat techniques</a>.
+            <p style="margin: 0 0 12px 0; font-size: 14px; color: #0c4a6e; line-height: 1.5;">
+                <strong>Critical Threat Analysis:</strong> Our comprehensive matrix analysis of <strong>365 insider threat techniques</strong> 
+                across 5 categories (Motive, Means, Preparation, Infringement, Anti-forensics) indicates your organization faces elevated risk from:
             </p>
+            <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #0c4a6e; line-height: 1.5;">
+                <li><strong>${weakestPillarInfo?.id === 'visibility' ? 'MT113.002 - Undetected Data Exfiltration' : 
+                            weakestPillarInfo?.id === 'coaching' ? 'MT012.004 - Emotional Vulnerability Exploitation' :
+                            weakestPillarInfo?.id === 'evidence' ? 'MT062.008 - Digital Evidence Destruction' :
+                            weakestPillarInfo?.id === 'identity' ? 'MT069.015 - Privilege Escalation Techniques' :
+                            'MT022.003 - Advanced Phishing Campaigns'}</strong></li>
+                <li><strong>${weakestPillarInfo?.id === 'visibility' ? 'MT086.012 - Lateral Movement Techniques' : 
+                            weakestPillarInfo?.id === 'coaching' ? 'MT035.007 - Social Engineering Manipulation' :
+                            weakestPillarInfo?.id === 'evidence' ? 'MT045.011 - Forensic Evasion Methods' :
+                            weakestPillarInfo?.id === 'identity' ? 'MT058.004 - Unauthorized Access Patterns' :
+                            'MT067.009 - Credential Harvesting Operations'}</strong></li>
+            </ul>
+            <div style="margin-top: 12px; font-size: 13px; color: #0c4a6e;">
+                🔗 <strong>Deep Dive Resources:</strong> 
+                <a href="https://insiderisk.io/matrix" style="color: #0891b2; text-decoration: underline;">Interactive Threat Matrix</a> • 
+                <a href="https://insiderisk.io/matrix/heatmap" style="color: #0891b2; text-decoration: underline;">Risk Heatmap</a> • 
+                <a href="https://insiderthreatmatrix.org" style="color: #0891b2; text-decoration: underline;">ForScie Community</a>
+            </div>
         </div>
 
-        <div class="playbook-quote" style="background: #f8fafc; border-left: 4px solid #6366f1; padding: 20px; margin: 20px 0; border-radius: 0 8px 8px 0;">
-            <h3 style="color: #4f46e5; margin: 0 0 12px 0; font-size: 16px;">Implementation Playbook Extract</h3>
-            <blockquote style="margin: 0; font-style: italic; color: #4b5563; line-height: 1.6;">
-                ${weakestPillarInfo?.id === 'visibility' ? 
-                  '"Effective insider threat detection requires comprehensive logging across all critical systems. Organizations should implement behavioral analytics that establish baseline user activities and alert on anomalous patterns. The key is not just collecting data, but having the analytical capability to identify meaningful deviations from normal behavior."' :
-                  weakestPillarInfo?.id === 'coaching' ?
-                  '"Prevention through education remains the most cost-effective insider threat mitigation strategy. Regular security awareness training should include realistic scenarios specific to the organization\'s risk profile. The most successful programs combine formal training with just-in-time coaching during security events."' :
-                  weakestPillarInfo?.id === 'evidence' ?
-                  '"Forensic readiness is not optional in modern insider threat programs. Organizations must have the capability to quickly preserve, collect, and analyze digital evidence when incidents occur. This requires both technical infrastructure and trained personnel who understand legal requirements."' :
-                  weakestPillarInfo?.id === 'identity' ?
-                  '"Zero-trust architecture principles are essential for modern identity management. Every access request should be verified, regardless of location or previous authentication. Implement least-privilege access controls and regular access reviews to minimize insider threat exposure."' :
-                  '"Anti-phishing measures must extend beyond email security to include comprehensive user education and technical controls. Organizations should implement DMARC, SPF, and DKIM protocols while training users to identify and report suspicious communications."'
-                }
-            </blockquote>
-            <div style="margin-top: 12px; font-size: 12px; color: #6b7280;">
-                — From our <a href="https://abovesec.com/playbooks" style="color: #6366f1; text-decoration: underline;">Implementation Playbook Series</a>
+        <div class="playbook-comprehensive" style="background: #f8fafc; border-left: 4px solid #6366f1; padding: 24px; margin: 20px 0; border-radius: 0 8px 8px 0;">
+            <h3 style="color: #4f46e5; margin: 0 0 16px 0; font-size: 18px;">📚 Comprehensive Implementation Playbooks</h3>
+            
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 12px 0;">
+                <h4 style="margin: 0 0 8px 0; color: #374151; font-size: 16px;">
+                    ${weakestPillarInfo?.id === 'visibility' ? 
+                      '🔍 Visibility Pillar Implementation Playbook' :
+                      weakestPillarInfo?.id === 'coaching' ?
+                      '🎯 Building a Comprehensive Prevention & Coaching Program' :
+                      weakestPillarInfo?.id === 'evidence' ?
+                      '🔬 Building a Comprehensive Investigation & Evidence Framework' :
+                      weakestPillarInfo?.id === 'identity' ?
+                      '🔐 Building a Comprehensive Identity & SaaS Security Framework' :
+                      '🛡️ Building Comprehensive Phishing Resilience Program'
+                    }
+                </h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0;">
+                    <div style="font-size: 13px; color: #6b7280;">
+                        <strong>Difficulty:</strong> ${weakestPillarInfo?.id === 'evidence' ? 'Advanced' : 'Intermediate'}
+                    </div>
+                    <div style="font-size: 13px; color: #6b7280;">
+                        <strong>Timeline:</strong> ${weakestPillarInfo?.id === 'visibility' ? '4-8 weeks' :
+                                                  weakestPillarInfo?.id === 'coaching' ? '6-10 weeks' :
+                                                  weakestPillarInfo?.id === 'evidence' ? '10-16 weeks' :
+                                                  weakestPillarInfo?.id === 'identity' ? '10-14 weeks' :
+                                                  '8-12 weeks'}
+                    </div>
+                </div>
+                <blockquote style="margin: 12px 0; font-style: italic; color: #4b5563; line-height: 1.6; border-left: 3px solid #6366f1; padding-left: 12px;">
+                    ${weakestPillarInfo?.id === 'visibility' ? 
+                      '"Establish comprehensive user activity monitoring systems with behavioral analytics. Deploy endpoint detection, network monitoring, and privileged access management tools. Create automated alerting for anomalous user behaviors and establish incident response protocols."' :
+                      weakestPillarInfo?.id === 'coaching' ?
+                      '"Develop organization-wide security awareness programs with role-specific training modules. Implement phishing simulations, security culture assessments, and continuous education frameworks. Build coaching systems for real-time security guidance."' :
+                      weakestPillarInfo?.id === 'evidence' ?
+                      '"Build forensic investigation capabilities with digital evidence collection, legal hold procedures, and chain of custody protocols. Deploy forensic tools, establish incident response teams, and create documentation standards for legal compliance."' :
+                      weakestPillarInfo?.id === 'identity' ?
+                      '"Implement zero-trust identity architecture with multi-factor authentication, privileged access management, and continuous access review processes. Deploy SaaS security controls and identity governance frameworks."' :
+                      '"Create multi-layered phishing defense with email security, user training, and incident response procedures. Deploy advanced email filtering, domain authentication, and security awareness programs specifically targeting social engineering."'
+                    }
+                </blockquote>
+            </div>
+
+            <div style="background: #f0f9ff; border: 1px solid #c7d2fe; border-radius: 8px; padding: 16px; margin: 16px 0;">
+                <h4 style="margin: 0 0 12px 0; color: #4f46e5; font-size: 14px;">🎯 All 5 Implementation Playbooks Available:</h4>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 8px; font-size: 13px;">
+                    <div>• <a href="https://insiderisk.io/playbooks/visibility" style="color: #6366f1; text-decoration: underline;">Visibility Pillar Implementation</a> <span style="color: #6b7280;">(4-8 weeks, Intermediate)</span></div>
+                    <div>• <a href="https://insiderisk.io/playbooks/prevention-coaching" style="color: #6366f1; text-decoration: underline;">Prevention & Coaching Program</a> <span style="color: #6b7280;">(6-10 weeks, Beginner)</span></div>
+                    <div>• <a href="https://insiderisk.io/playbooks/investigation-evidence" style="color: #6366f1; text-decoration: underline;">Investigation & Evidence Framework</a> <span style="color: #6b7280;">(10-16 weeks, Advanced)</span></div>
+                    <div>• <a href="https://insiderisk.io/playbooks/identity-saas" style="color: #6366f1; text-decoration: underline;">Identity & SaaS Security</a> <span style="color: #6b7280;">(10-14 weeks, Intermediate)</span></div>
+                    <div>• <a href="https://insiderisk.io/playbooks/phishing-resilience" style="color: #6366f1; text-decoration: underline;">Phishing Resilience Program</a> <span style="color: #6b7280;">(8-12 weeks, Intermediate)</span></div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 16px; font-size: 12px; color: #6b7280; text-align: center;">
+                📖 <strong>Access Complete Library:</strong> <a href="https://insiderisk.io/playbooks" style="color: #6366f1; text-decoration: underline;">InsiderRisk.io Implementation Playbooks</a> • 
+                Sponsored by <a href="https://abovesec.com" style="color: #6366f1; text-decoration: underline;">Above Security</a>
             </div>
         </div>
         
@@ -547,12 +602,29 @@ export function generateBoardBriefHTML(data: PDFData): string {
             }).join('')}
         </div>
         
-        <div style="background: #f9fafb; padding: 16px; border-radius: 8px; margin-top: 20px;">
-            <p style="margin: 0; font-size: 13px; color: #6b7280; text-align: center;">
-                💡 <strong>Need implementation support?</strong> Our expert team provides comprehensive insider risk program development. 
-                <a href="https://abovesec.com/contact" style="color: #3b82f6; text-decoration: underline;">Schedule a consultation</a> | 
-                <a href="https://abovesec.com/matrix" style="color: #3b82f6; text-decoration: underline;">Explore the Insider Threat Matrix</a>
-            </p>
+        <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border: 1px solid #d1d5db; padding: 20px; border-radius: 8px; margin-top: 20px;">
+            <h4 style="margin: 0 0 12px 0; font-size: 16px; color: #374151; text-align: center;">🚀 Take Action Today</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;">
+                <div style="text-align: center;">
+                    <h5 style="margin: 0 0 8px 0; color: #4f46e5; font-size: 14px;">📊 Free Assessment</h5>
+                    <p style="margin: 0 0 8px 0; font-size: 12px; color: #6b7280;">Retake for progress tracking</p>
+                    <a href="https://insiderisk.io/assessment" style="color: #3b82f6; text-decoration: underline; font-size: 13px;">Start New Assessment</a>
+                </div>
+                <div style="text-align: center;">
+                    <h5 style="margin: 0 0 8px 0; color: #4f46e5; font-size: 14px;">🎯 Expert Support</h5>
+                    <p style="margin: 0 0 8px 0; font-size: 12px; color: #6b7280;">Implementation guidance</p>
+                    <a href="https://abovesec.com/contact" style="color: #3b82f6; text-decoration: underline; font-size: 13px;">Schedule Consultation</a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid #d1d5db;">
+                <p style="margin: 0; font-size: 12px; color: #6b7280;">
+                    <strong>Additional Resources:</strong> 
+                    <a href="https://insiderisk.io/matrix" style="color: #3b82f6; text-decoration: underline;">Threat Matrix</a> • 
+                    <a href="https://insiderisk.io/benchmarks" style="color: #3b82f6; text-decoration: underline;">Industry Benchmarks</a> • 
+                    <a href="https://insiderisk.io/research" style="color: #3b82f6; text-decoration: underline;">Research Reports</a> • 
+                    <a href="https://insiderisk.io/glossary" style="color: #3b82f6; text-decoration: underline;">Security Glossary</a>
+                </p>
+            </div>
         </div>
         
         ${matrixRecommendations ? '<p style="font-size: 12px; color: #6b7280; margin-top: 16px;"><em>Recommendations enhanced with Insider Threat Matrix intelligence from the ForScie community.</em></p>' : ''}
@@ -643,19 +715,21 @@ export function generateBoardBriefHTML(data: PDFData): string {
             <span style="color: #6b7280;">Enterprise Insider Risk Intelligence</span>
         </div>
         <div style="text-align: center; margin: 16px 0;">
-            <a href="https://abovesec.com/assessment" style="background: #3b82f6; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; margin: 0 8px;">Retake Assessment</a>
+            <a href="https://insiderisk.io/assessment" style="background: #3b82f6; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; margin: 0 8px;">Retake Assessment</a>
             <a href="https://abovesec.com/contact" style="background: white; color: #3b82f6; border: 2px solid #3b82f6; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; margin: 0 8px;">Get Expert Support</a>
         </div>
-        <p>Generated by <strong>InsiderRisk Index</strong> • Powered by <strong>Above</strong> • ${formatDate(data.generatedAt)}</p>
-        <p>This executive assessment provides strategic insights for board-level risk management decisions.</p>
+        <p>Generated by <a href="https://insiderisk.io" style="color: #3b82f6; text-decoration: underline;"><strong>InsiderRisk Index</strong></a> • Sponsored by <a href="https://abovesec.com" style="color: #3b82f6; text-decoration: underline;"><strong>Above Security</strong></a> • ${formatDate(data.generatedAt)}</p>
+        <p>This executive assessment provides strategic insights for board-level risk management decisions based on comprehensive threat intelligence and industry research.</p>
         <p style="font-size: 12px; color: #9ca3af; margin-top: 12px;">
             <strong>Research Foundation:</strong> Based on Ponemon Institute 2025 ($17.4M avg. cost), 
             <a href="https://www.gartner.com" style="color: #3b82f6; text-decoration: underline;">Gartner G00805757</a>, 
             Verizon DBIR 2024, and <a href="https://insiderthreatmatrix.org" style="color: #3b82f6; text-decoration: underline;">ForScie Insider Threat Matrix</a>
         </p>
         <p style="font-size: 11px; color: #9ca3af; margin-top: 8px;">
-            © 2025 Above, Inc. • Visit <a href="https://abovesec.com" style="color: #3b82f6; text-decoration: underline;"><strong>abovesec.com</strong></a> for implementation support • 
-            <a href="https://abovesec.com/privacy" style="color: #9ca3af; text-decoration: underline;">Privacy Policy</a>
+            © 2025 Above Security, Inc. • 
+            Resources: <a href="https://insiderisk.io" style="color: #3b82f6; text-decoration: underline;"><strong>InsiderRisk.io</strong></a> • 
+            Sponsor: <a href="https://abovesec.com" style="color: #3b82f6; text-decoration: underline;">AboveSec.com</a> • 
+            <a href="https://insiderisk.io/privacy" style="color: #9ca3af; text-decoration: underline;">Privacy Policy</a>
         </p>
     </div>
 </body>
@@ -694,7 +768,7 @@ export function generateDetailedPlanHTML(data: PDFData): string {
         }
         
         .header {
-            background: linear-gradient(135deg, #E91E63 0%, #9C27B0 50%, #3F51B5 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: white;
             padding: 40px 30px;
             margin: 0 0 30px 0;
@@ -702,7 +776,7 @@ export function generateDetailedPlanHTML(data: PDFData): string {
             display: block;
             width: 100%;
             box-sizing: border-box;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.7);
         }
         
         .logo-container {
@@ -723,14 +797,16 @@ export function generateDetailedPlanHTML(data: PDFData): string {
         .company-name {
             font-size: 28px;
             font-weight: bold;
-            color: #1f2937;
+            color: white;
             margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.7);
         }
         
         .subtitle {
-            color: #6b7280;
+            color: rgba(255,255,255,0.9);
             margin: 5px 0 0 0;
             font-size: 16px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
         
         .section {

@@ -101,6 +101,9 @@ export async function generatePDFAttachment({
       waitUntil: 'networkidle',
       timeout: 30000 
     });
+    
+    // Wait for any embedded images to load
+    await page.waitForLoadState('networkidle');
 
     console.log("🔍 Generating PDF buffer...");
     // Generate PDF as buffer
@@ -114,6 +117,7 @@ export async function generatePDFAttachment({
       },
       printBackground: true,
       preferCSSPageSize: true,
+      deviceScaleFactor: 2, // Higher quality rendering
     });
 
     await browser.close();

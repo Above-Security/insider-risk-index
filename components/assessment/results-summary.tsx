@@ -29,21 +29,21 @@ interface ResultsSummaryProps {
     industry: string;
     employeeCount: string;
   };
-  onGeneratePDF: () => void;
+  onGeneratePDF?: () => void;
   pdfGenerating?: string | null;
   assessmentId?: string;
   answers?: Record<string, number>; // Original answers for sharing
   className?: string;
 }
 
-export function ResultsSummary({ 
-  result, 
-  organizationInfo, 
+export function ResultsSummary({
+  result,
+  organizationInfo,
   onGeneratePDF,
   pdfGenerating,
   assessmentId,
   answers,
-  className 
+  className
 }: ResultsSummaryProps) {
   const riskLevel = getRiskLevel(result.totalScore);
   
@@ -235,7 +235,16 @@ export function ResultsSummary({
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <Button
-          onClick={onGeneratePDF}
+          onClick={() => {
+            if (onGeneratePDF) {
+              onGeneratePDF();
+            } else if (assessmentId) {
+              // Default PDF generation logic
+              const pdfUrl = `/api/pdf/${assessmentId}`;
+              console.log(`🔍 Generating comprehensive PDF for assessment ${assessmentId}`);
+              window.open(pdfUrl, '_blank');
+            }
+          }}
           className="flex items-center gap-2"
           size="lg"
         >

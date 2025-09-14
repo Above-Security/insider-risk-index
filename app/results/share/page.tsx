@@ -78,12 +78,12 @@ function ShareableResultsContent() {
     loadSharedData();
   }, [searchParams]);
 
-  const handleGeneratePDF = async (type: "board-brief" | "detailed-plan") => {
+  const handleGeneratePDF = async () => {
     if (!assessmentData) return;
-    
+
     // For shared results, we can't use the database ID, so we'll create a temporary approach
     // In a real implementation, you might want to create a temporary assessment record
-    console.log(`Generating ${type} PDF for shared results...`);
+    console.log('Generating comprehensive PDF for shared results...');
     alert(`PDF generation for shared results is not yet implemented. Please take your own assessment at /assessment to generate PDFs.`);
   };
 

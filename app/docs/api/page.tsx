@@ -124,10 +124,9 @@ export default function ApiDocumentationPage() {
     },
     {
       method: "GET",
-      path: "/api/pdf/[type]/[id]",
-      description: "Generate and download PDF report (RECOMMENDED)",
+      path: "/api/pdf/[id]",
+      description: "Generate and download comprehensive PDF report",
       params: [
-        { name: "type", type: "string", description: "Report type (board-brief/detailed-plan)" },
         { name: "id", type: "string", description: "Assessment ID from database" }
       ],
       response: `Binary PDF data (application/pdf)`,
@@ -386,18 +385,18 @@ export default function ApiDocumentationPage() {
                 <pre className="bg-slate-900 text-slate-100 rounded p-3 text-xs overflow-x-auto">
                   <code>{`import requests
 
-# Generate a board brief PDF using proper endpoint
+# Generate a comprehensive PDF using simplified endpoint
 assessment_id = "clx123abc456def"  # Must be from database
 response = requests.get(
-    f'https://insiderisk.io/api/pdf/board-brief/{assessment_id}'
+    f'https://insiderisk.io/api/pdf/{assessment_id}'
 )
 
 if response.status_code == 200:
-    with open('board_brief.pdf', 'wb') as f:
+    with open('insider_risk_comprehensive.pdf', 'wb') as f:
         f.write(response.content)
-    print('PDF saved successfully')
+    print('Comprehensive PDF saved successfully')
 elif response.status_code == 410:
-    print('Error: Using deprecated PDF endpoint. Use /api/pdf/[type]/[id] instead.')
+    print('Error: Using deprecated PDF endpoint. Use /api/pdf/[id] instead.')
 else:
     print(f'Error: {response.status_code}')`}</code>
                 </pre>

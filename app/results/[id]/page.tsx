@@ -158,10 +158,10 @@ export default async function ResultsPage({ params }: Props) {
             result={result}
             organizationInfo={organizationInfo}
             assessmentId={id}
-            onGeneratePDF={async (type: "board-brief" | "detailed-plan") => {
-              // Use the correct PDF API endpoint with assessment ID
-              const pdfUrl = `/api/pdf/${type}/${id}`;
-              console.log(`🔍 Generating ${type} PDF for assessment ${id}`);
+            onGeneratePDF={async () => {
+              // Use the simplified PDF API endpoint with assessment ID
+              const pdfUrl = `/api/pdf/${id}`;
+              console.log(`🔍 Generating comprehensive PDF for assessment ${id}`);
 
               try {
                 // Open PDF in new tab for download

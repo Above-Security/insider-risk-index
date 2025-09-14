@@ -45,7 +45,7 @@ export default function AssessmentResultsPage() {
     setIsLoading(false)
   }, [])
 
-  const handleGeneratePDF = async (type: 'board-brief' | 'detailed-plan') => {
+  const handleGeneratePDF = async () => {
     if (!assessmentData) {
       console.error('No assessment data available for PDF generation')
       return
@@ -54,10 +54,10 @@ export default function AssessmentResultsPage() {
     setIsGeneratingPDF(true)
 
     try {
-      // If we have an assessment ID from the server, use the new proper API
+      // If we have an assessment ID from the server, use the simplified API
       if (assessmentData.id) {
-        const pdfUrl = `/api/pdf/${type}/${assessmentData.id}`
-        console.log('📄 Opening PDF with proper route:', pdfUrl)
+        const pdfUrl = `/api/pdf/${assessmentData.id}`
+        console.log('📄 Opening comprehensive PDF with simplified route:', pdfUrl)
         window.open(pdfUrl, '_blank')
       } else {
         // Fallback: Show message that assessment needs to be submitted to server for PDF
@@ -239,24 +239,14 @@ View full assessment at: ${window.location.origin}/assessment/results
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Button
-                onClick={() => handleGeneratePDF('board-brief')}
+                onClick={handleGeneratePDF}
                 disabled={isGeneratingPDF}
-                className="flex items-center gap-2"
-              >
-                <FileText className="h-4 w-4" />
-                {isGeneratingPDF ? 'Generating...' : 'Board Brief (2 pages)'}
-              </Button>
-
-              <Button
-                onClick={() => handleGeneratePDF('detailed-plan')}
-                disabled={isGeneratingPDF}
-                variant="outline"
                 className="flex items-center gap-2"
               >
                 <Download className="h-4 w-4" />
-                {isGeneratingPDF ? 'Generating...' : 'Detailed Plan (8+ pages)'}
+                {isGeneratingPDF ? 'Generating...' : 'Download Comprehensive PDF'}
               </Button>
 
               <Button

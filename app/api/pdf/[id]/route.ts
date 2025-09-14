@@ -3,7 +3,6 @@ import { getAssessmentResults } from "@/app/actions/assessment";
 import { chromium } from 'playwright';
 
 interface RouteParams {
-  type: string;
   id: string;
 }
 
@@ -12,18 +11,9 @@ export async function GET(
   { params }: { params: Promise<RouteParams> }
 ) {
   try {
-    const { type, id } = await params;
+    const { id } = await params;
 
-    console.log("🔍 PDF Generation Request:", { type, id });
-
-    // Validate PDF type
-    if (type !== "board-brief" && type !== "detailed-plan") {
-      console.error("❌ Invalid PDF type:", type);
-      return NextResponse.json(
-        { error: "Invalid PDF type" },
-        { status: 400 }
-      );
-    }
+    console.log("🔍 Comprehensive PDF Generation Request for ID:", id);
 
     // Verify assessment exists
     console.log("🔍 Verifying assessment exists for ID:", id);
@@ -37,8 +27,8 @@ export async function GET(
       );
     }
 
-    // Generate PDF using Playwright navigation to React PDF page
-    console.log("🔍 Starting React PDF generation with Playwright");
+    // Generate comprehensive PDF using Playwright navigation to React PDF page
+    console.log("🔍 Starting comprehensive React PDF generation with Playwright");
 
     const browser = await chromium.launch({
       headless: true,
@@ -67,9 +57,9 @@ export async function GET(
 
       const pdfUrl = `${baseUrl}/pdf/${id}`;
 
-      console.log("🔍 Navigating to PDF page:", pdfUrl);
+      console.log("🔍 Navigating to comprehensive PDF page:", pdfUrl);
 
-      // Navigate to the PDF page
+      // Navigate to the comprehensive PDF page
       await page.goto(pdfUrl, {
         waitUntil: 'networkidle',
         timeout: 30000
@@ -79,7 +69,7 @@ export async function GET(
       await page.waitForSelector('.pdf-header', { timeout: 10000 });
       await page.waitForTimeout(2000); // Additional wait for any async content
 
-      console.log("🔍 Generating PDF from React page");
+      console.log("🔍 Generating comprehensive PDF from React page");
 
       // Generate PDF
       const pdfBuffer = await page.pdf({
@@ -100,7 +90,7 @@ export async function GET(
         assessment.industry.replace(/_/g, '-') : 'organization';
       const filename = `insider-risk-assessment-${orgName}-${id.substring(0, 8)}-${Date.now()}.pdf`;
 
-      console.log("✅ React PDF generated successfully");
+      console.log("✅ Comprehensive React PDF generated successfully");
       console.log("🔍 PDF size:", pdfBuffer.length, "bytes");
       console.log("🔍 Filename:", filename);
 
@@ -119,11 +109,11 @@ export async function GET(
 
 
   } catch (error) {
-    console.error("❌ Overall PDF Generation Error:", error);
+    console.error("❌ Comprehensive PDF Generation Error:", error);
     console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
     return NextResponse.json(
       {
-        error: "Failed to generate PDF",
+        error: "Failed to generate comprehensive PDF",
         details: error instanceof Error ? error.message : "Unknown error"
       },
       { status: 500 }

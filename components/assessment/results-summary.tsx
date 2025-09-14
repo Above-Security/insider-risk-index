@@ -29,7 +29,7 @@ interface ResultsSummaryProps {
     industry: string;
     employeeCount: string;
   };
-  onGeneratePDF: (type: "board-brief" | "detailed-plan") => void;
+  onGeneratePDF: () => void;
   pdfGenerating?: string | null;
   assessmentId?: string;
   answers?: Record<string, number>; // Original answers for sharing
@@ -235,7 +235,7 @@ export function ResultsSummary({
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <Button
-          onClick={() => onGeneratePDF("board-brief")}
+          onClick={onGeneratePDF}
           className="flex items-center gap-2"
           size="lg"
         >

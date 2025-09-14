@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAssessmentResults } from "@/app/actions/assessment";
+import { prisma } from "@/lib/db";
 import { chromium } from 'playwright';
 
 interface RouteParams {
@@ -15,17 +15,36 @@ export async function GET(
 
     console.log("🔍 Comprehensive PDF Generation Request for ID:", id);
 
-    // Verify assessment exists
+    // Verify assessment exists - direct Prisma query to avoid server action issues
     console.log("🔍 Verifying assessment exists for ID:", id);
-    const response = await getAssessmentResults(id);
+    const assessment = await prisma.assessment.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        industry: true,
+        size: true,
+        region: true,
+        orgMetaHash: true,
+        answers: true,
+        pillarScores: true,
+        iri: true,
+        level: true,
+        emailOptIn: true,
+        contactEmail: true,
+      },
+    });
 
-    if (!response.success || !response.assessment) {
-      console.error("❌ Assessment not found:", response.error);
+    if (!assessment) {
+      console.error("❌ Assessment not found for ID:", id);
       return NextResponse.json(
         { error: "Assessment not found" },
         { status: 404 }
       );
     }
+
+    console.log("✅ Assessment found:", assessment.id, "| IRI:", assessment.iri);
 
     // Generate comprehensive PDF using Playwright navigation to React PDF page
     console.log("🔍 Starting comprehensive React PDF generation with Playwright");
@@ -51,7 +70,7 @@ export async function GET(
         if (host && host.includes('localhost:')) {
           baseUrl = `http://${host}`;
         } else {
-          baseUrl = 'http://localhost:3002'; // Default dev port
+          baseUrl = 'http://localhost:3000'; // Default dev port (Next.js typically uses 3001 when 3000 is taken)
         }
       }
 
@@ -85,7 +104,6 @@ export async function GET(
       });
 
       // Create filename based on assessment data
-      const assessment = response.assessment!;
       const orgName = assessment.industry ?
         assessment.industry.replace(/_/g, '-') : 'organization';
       const filename = `insider-risk-assessment-${orgName}-${id.substring(0, 8)}-${Date.now()}.pdf`;

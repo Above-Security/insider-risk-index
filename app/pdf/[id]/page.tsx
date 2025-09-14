@@ -1,13 +1,8 @@
-import { Suspense } from 'react';
 import { getAssessmentResults } from '@/app/actions/assessment';
-import { PDFDocument } from '@/lib/pdf/components/PDFDocument';
-import { PDFScore, PDFPillarBreakdown } from '@/lib/pdf/components/PDFScore';
-import { PDFRecommendations } from '@/lib/pdf/components/PDFRecommendations';
-import { PDFBenchmarks } from '@/lib/pdf/components/PDFBenchmarks';
-import { PDFHeader } from '@/lib/pdf/components/PDFHeader';
-import { PDFFooter } from '@/lib/pdf/components/PDFFooter';
 import { PILLARS } from '@/lib/pillars';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import { Shield } from 'lucide-react';
 
 interface PDFPageProps {
   params: Promise<{ id: string }>;
@@ -25,130 +20,344 @@ export default async function PDFPage({ params }: PDFPageProps) {
 
   const { assessment, benchmarks } = response;
 
-  // Transform data for PDF components
-  const organizationInfo = {
-    name: assessment.industry ?
-      assessment.industry.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) :
-      'Organization',
-    industry: assessment.industry || 'UNKNOWN',
-    employeeCount: assessment.size || 'UNKNOWN',
+  // Format data
+  const industry = assessment.industry?.replace(/_/g, ' ') || 'Unknown';
+  const size = assessment.size?.replace(/_/g, '-') || 'Unknown';
+  const level = assessment.level || 1;
+  const iri = Math.round(assessment.iri || 0);
+
+  const levelNames: Record<number, string> = {
+    1: 'Ad Hoc',
+    2: 'Emerging',
+    3: 'Managed',
+    4: 'Proactive',
+    5: 'Optimized'
   };
 
-  const scoreData = {
-    totalScore: assessment.iri,
-    level: assessment.level,
-    levelDescription: getLevelDescription(assessment.level),
-    pillarBreakdown: assessment.pillarBreakdown.map(pb => ({
-      pillarId: pb.pillar,
-      score: pb.score,
-      weight: pb.weight,
-      contributionToTotal: pb.contributionToTotal
-    })),
-    benchmark: {
-      industry: benchmarks?.industry?.iriAverage || 64.2,
-      companySize: benchmarks?.size?.iriAverage || 64.2,
-      overall: benchmarks?.overall?.iriAverage || 64.2
-    }
+  const levelColors: Record<number, string> = {
+    1: '#D13366', // Above rose-950
+    2: '#FF7E54', // Above peach-900
+    3: '#68ADFF', // Above blue-900
+    4: '#22C55E', // Green
+    5: '#10B981'  // Emerald
   };
 
-  // Generate comprehensive recommendations
-  const recommendations = generateRecommendations(scoreData.pillarBreakdown);
-
-  // Get strengths and weaknesses
-  const { strengths, weaknesses } = analyzePerformance(scoreData.pillarBreakdown);
+  // Get pillar scores - convert from pillarScores JSON to expected format
+  const pillarScores = assessment.pillarBreakdown && assessment.pillarBreakdown.length > 0
+    ? assessment.pillarBreakdown
+    : Object.entries(assessment.pillarScores as Record<string, number> || {}).map(([pillar, score]) => ({
+        pillar,
+        score,
+        weight: PILLARS.find(p => p.id === pillar)?.weight || 0.2,
+        contributionToTotal: score * (PILLARS.find(p => p.id === pillar)?.weight || 0.2)
+      }));
 
   return (
-    <PDFDocument
-      title={`Insider Risk Assessment - ${organizationInfo.name}`}
-      className="comprehensive-report"
-    >
-      {/* Header Section */}
-      <PDFHeader
-        organizationName={organizationInfo.name}
-        industry={organizationInfo.industry}
-        employeeCount={organizationInfo.employeeCount}
-        generatedAt={new Date()}
-      />
+    <main className="pdf-page bg-gradient-to-br from-above-peach-50 via-above-white to-above-lavender-50 min-h-screen">
+      {/* Header Section - Fixed layout with overflow protection */}
+      <header className="grainy-gradient-subtle">
+        <div className="w-full max-w-6xl mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
 
-      {/* Executive Summary */}
-      <section className="executive-summary mb-8 page-break-inside-avoid">
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-2xl font-bold mb-4 text-slate-900">Executive Summary</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-2 text-slate-800">Assessment Overview</h3>
-              <p className="text-slate-700 mb-4">
-                This comprehensive insider risk assessment evaluates your organization's security posture
-                across five critical pillars of insider threat management. The assessment provides actionable
-                insights based on industry best practices and benchmarking data.
-              </p>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Industry:</span>
-                  <span className="font-medium">{organizationInfo.industry.replace(/_/g, ' ')}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Company Size:</span>
-                  <span className="font-medium">{organizationInfo.employeeCount.replace(/_/g, '-')}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Assessment Date:</span>
-                  <span className="font-medium">{new Date().toLocaleDateString()}</span>
+            {/* Main Content - 3 columns */}
+            <div className="lg:col-span-3 space-y-4">
+
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-above-rose-100/80 text-above-rose-800 border border-above-rose-200 px-3 py-1.5 rounded-full text-xs font-semibold w-fit">
+                <Shield className="h-3 w-3 text-above-rose-700 flex-shrink-0" />
+                <span className="whitespace-nowrap">Assessment Report</span>
+              </div>
+
+              {/* Title - constrained width */}
+              <div className="space-y-3 max-w-xl">
+                <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 leading-tight break-words">
+                  Insider Risk Assessment
+                </h1>
+                <p className="text-base text-slate-700 leading-relaxed">
+                  Security Posture Analysis
+                </p>
+              </div>
+
+              {/* Organization tags - force wrap */}
+              <div className="flex flex-wrap gap-2 max-w-md">
+                <span className="bg-above-rose-100/80 text-above-rose-900 px-2 py-1 rounded-md font-medium text-xs whitespace-nowrap">
+                  {industry?.substring(0, 15)}
+                </span>
+                <span className="bg-above-blue-100/80 text-above-blue-900 px-2 py-1 rounded-md font-medium text-xs whitespace-nowrap">
+                  {size}
+                </span>
+                <span className="bg-above-peach-100/80 text-above-peach-900 px-2 py-1 rounded-md font-medium text-xs whitespace-nowrap">
+                  Level {level}
+                </span>
+              </div>
+
+              {/* Above Security sponsorship - compact */}
+              <div className="bg-white/95 rounded-lg p-3 border border-above-lavender-200 shadow-soft max-w-xs">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-600 font-medium whitespace-nowrap">Sponsored by</span>
+                  <div className="flex-shrink-0">
+                    <Image
+                      src="/above-logo-with-text.png"
+                      alt="Above Security"
+                      width={100}
+                      height={33}
+                      className="h-6 w-auto object-contain"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-2 text-slate-800">Key Findings</h3>
-              <div className="space-y-3">
-                <div className="p-3 bg-slate-50 rounded-md">
-                  <div className="text-sm text-slate-600">Overall Risk Index</div>
-                  <div className="text-2xl font-bold text-slate-900">{Math.round(scoreData.totalScore)}/100</div>
-                  <div className="text-sm font-medium" style={{ color: getRiskLevelColor(scoreData.totalScore) }}>
-                    {scoreData.levelDescription}
-                  </div>
+
+            {/* Report Card - 2 columns with max width */}
+            <div className="lg:col-span-2">
+              <div className="bg-white/95 border border-above-rose-200 rounded-xl p-4 shadow-soft-lg max-w-xs mx-auto lg:mx-0">
+
+                {/* Card Header - compact */}
+                <div className="text-center mb-4 pb-3 border-b border-above-rose-100">
+                  <h3 className="font-bold text-slate-900 text-sm leading-tight">
+                    Assessment Summary
+                  </h3>
+                  <p className="text-xs text-slate-600">Risk Profile</p>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>
-                    <div className="text-slate-600">Top Strength</div>
-                    <div className="font-medium text-green-700">{strengths[0]}</div>
+
+                {/* Report Details - constrained */}
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-0.5">
+                        Industry
+                      </p>
+                      <p className="font-semibold text-slate-900 text-xs truncate">
+                        {industry}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-0.5">
+                        Size
+                      </p>
+                      <p className="font-semibold text-slate-900 text-xs truncate">
+                        {size}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-0.5">
+                        Level
+                      </p>
+                      <p className="font-semibold text-slate-900 text-xs">
+                        {levelNames[level]}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-0.5">
+                        Date
+                      </p>
+                      <p className="font-semibold text-slate-900 text-xs">
+                        {new Date().toLocaleDateString()}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-slate-600">Priority Area</div>
-                    <div className="font-medium text-orange-600">{weaknesses[0]}</div>
+
+                  <div className="pt-3 border-t border-above-rose-100">
+                    <p className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-0.5">
+                      Report ID
+                    </p>
+                    <p className="font-mono text-xs text-slate-700 break-all">
+                      {id.substring(0, 8)}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </header>
+
+      {/* Executive Summary Section */}
+      <section className="py-12 bg-above-white">
+        <div className="w-full max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Executive Summary</h2>
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+              Assessment results benchmarked against industry peers and global standards
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            {/* Score Card - constrained */}
+            <div className="bg-gradient-to-br from-above-rose-50 to-above-peach-50 border border-above-rose-200 rounded-xl p-6 shadow-lg">
+              <div className="text-center">
+                <h3 className="text-lg font-bold text-slate-900 mb-4">Risk Index Score</h3>
+                <div className="mb-4">
+                  <div className="flex items-baseline justify-center gap-2 mb-3">
+                    <span className="text-5xl font-bold" style={{ color: levelColors[level] }}>
+                      {iri}
+                    </span>
+                    <span className="text-xl text-slate-500">/100</span>
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold mb-1" style={{ color: levelColors[level] }}>
+                      {levelNames[level]}
+                    </p>
+                    <p className="text-sm text-slate-600">Level {level} of 5</p>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  <strong>{levelNames[level].toLowerCase()}</strong> approach to insider risk management.
+                </p>
+              </div>
+            </div>
+
+            {/* Benchmark Comparison - constrained */}
+            <div className="bg-gradient-to-br from-above-blue-50 to-above-lavender-50 border border-above-blue-200 rounded-xl p-6 shadow-lg">
+              <h3 className="text-lg font-bold text-slate-900 mb-4 text-center">Benchmarking</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center p-3 bg-above-white rounded-lg border border-above-blue-200">
+                  <span className="text-slate-700 font-medium text-sm">Your Score</span>
+                  <span className="text-lg font-bold text-above-rose-700">{iri}</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-above-white/70 rounded-lg">
+                  <span className="text-slate-600 text-sm truncate">Industry Avg</span>
+                  <span className="text-base font-semibold text-slate-700">{Math.round(benchmarks?.industry?.iriAverage || 65)}</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-above-white/70 rounded-lg">
+                  <span className="text-slate-600 text-sm">Global Avg</span>
+                  <span className="text-base font-semibold text-slate-700">{Math.round(benchmarks?.overall?.iriAverage || 64)}</span>
+                </div>
+                <div className="mt-3 p-3 rounded-lg border" style={{
+                  borderColor: iri > (benchmarks?.industry?.iriAverage || 65) ? '#22C55E' : '#FF7E54',
+                  backgroundColor: iri > (benchmarks?.industry?.iriAverage || 65) ? '#F0FDF4' : '#FFF8F5'
+                }}>
+                  <p className="text-center font-medium text-sm" style={{
+                    color: iri > (benchmarks?.industry?.iriAverage || 65) ? '#15803D' : '#C2410C'
+                  }}>
+                    {iri > (benchmarks?.industry?.iriAverage || 65)
+                      ? '✓ Above Average'
+                      : '⚠ Below Average'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Key Metrics Dashboard - constrained */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-above-white border-l-4 border-above-rose-700 rounded-lg p-4 shadow-md">
+              <p className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-1">Level</p>
+              <p className="text-xl font-bold text-above-rose-700 truncate">{levelNames[level]}</p>
+            </div>
+            <div className="bg-above-white border-l-4 border-above-blue-700 rounded-lg p-4 shadow-md">
+              <p className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-1">Score</p>
+              <p className="text-xl font-bold text-above-blue-800">{iri}%</p>
+            </div>
+            <div className="bg-above-white border-l-4 border-green-500 rounded-lg p-4 shadow-md">
+              <p className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-1">Strengths</p>
+              <p className="text-xl font-bold text-green-700">{pillarScores.filter(p => p.score > 70).length}</p>
+              <p className="text-xs text-slate-600">Strong</p>
+            </div>
+            <div className="bg-above-white border-l-4 border-above-peach-700 rounded-lg p-4 shadow-md">
+              <p className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-1">Focus</p>
+              <p className="text-xl font-bold text-above-peach-800">{pillarScores.filter(p => p.score < 50).length}</p>
+              <p className="text-xs text-slate-600">Areas</p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Risk Score Section */}
-      <PDFScore
-        scoreData={scoreData}
-        organizationInfo={organizationInfo}
-      />
+      {/* Security Pillars Analysis */}
+      <section className="py-12 bg-gradient-to-br from-above-lavender-50 to-above-blue-50">
+        <div className="w-full max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Pillar Analysis</h2>
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+              Performance across five critical insider risk management pillars
+            </p>
+          </div>
 
-      {/* Detailed Pillar Analysis */}
-      <section className="pillar-analysis mb-8">
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-2xl font-bold mb-6 text-slate-900">Detailed Security Pillar Analysis</h2>
+          <div className="space-y-6">
+            {PILLARS.map((pillar, index) => {
+              const score = pillarScores.find(ps => ps.pillar === pillar.id);
+              const scoreValue = score?.score || 0;
+              const weight = score?.weight || pillar.weight;
+              const contribution = score?.contributionToTotal || 0;
 
-          <PDFPillarBreakdown scoreData={scoreData} />
+              const pillarColor = scoreValue > 70 ? '#22C55E' : scoreValue > 40 ? '#FF7E54' : '#D13366';
 
-          {/* Individual Pillar Insights */}
-          <div className="mt-6 space-y-4">
-            {scoreData.pillarBreakdown.map((pillar, index) => {
-              const pillarInfo = PILLARS.find(p => p.id === pillar.pillarId);
+              const pillarStyles = [
+                { bg: 'bg-above-rose-50', border: 'border-above-rose-200', accent: 'bg-above-rose-100', text: 'text-above-rose-800' },
+                { bg: 'bg-above-blue-50', border: 'border-above-blue-200', accent: 'bg-above-blue-100', text: 'text-above-blue-800' },
+                { bg: 'bg-above-peach-50', border: 'border-above-peach-200', accent: 'bg-above-peach-100', text: 'text-above-peach-800' },
+                { bg: 'bg-above-lavender-50', border: 'border-above-lavender-200', accent: 'bg-above-lavender-100', text: 'text-above-lavender-800' },
+                { bg: 'bg-red-50', border: 'border-red-200', accent: 'bg-red-100', text: 'text-red-800' }
+              ];
+              const style = pillarStyles[index];
+
               return (
-                <div key={pillar.pillarId} className="border-l-4 pl-4"
-                     style={{ borderLeftColor: getPillarColor(pillar.pillarId) }}>
-                  <h4 className="font-semibold text-slate-900">{pillarInfo?.name || pillar.pillarId}</h4>
-                  <p className="text-sm text-slate-600 mb-2">{pillarInfo?.description}</p>
-                  <div className="flex items-center gap-4 text-sm">
-                    <span className="text-slate-700">Score: <strong>{Math.round(pillar.score)}/100</strong></span>
-                    <span className="text-slate-700">Weight: <strong>{Math.round(pillar.weight * 100)}%</strong></span>
-                    <span className="text-slate-700">Contribution: <strong>{pillar.contributionToTotal.toFixed(1)} points</strong></span>
+                <div key={pillar.id} className={`${style.bg} ${style.border} border rounded-xl p-6 shadow-lg`}>
+                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                    <div className="lg:col-span-3">
+                      <div className="flex items-start gap-3 mb-4">
+                        <div className="w-6 h-6 bg-gradient-to-br from-white to-slate-100 rounded-full border border-slate-300 flex items-center justify-center text-xs font-bold text-slate-700 flex-shrink-0">
+                          {index + 1}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-lg font-bold text-slate-900 mb-2 break-words">{pillar.name}</h3>
+                          <div className={`inline-block px-2 py-1 ${style.accent} ${style.text} text-xs font-bold rounded-full border ${style.border} mb-3`}>
+                            {Math.round(weight * 100)}% Weight
+                          </div>
+                          <p className="text-sm text-slate-700 leading-relaxed mb-4 break-words">{pillar.description?.substring(0, 150)}...</p>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar - constrained */}
+                      <div className="mb-3">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-xs font-medium text-slate-600">Performance</span>
+                          <span className="text-sm font-bold" style={{ color: pillarColor }}>
+                            {Math.round(scoreValue)}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-slate-200 rounded-full h-4">
+                          <div
+                            className="h-4 rounded-full"
+                            style={{
+                              width: `${Math.max(scoreValue, 5)}%`,
+                              backgroundColor: pillarColor
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Status Indicator - compact */}
+                      <div>
+                        {scoreValue < 50 && (
+                          <div className="px-2 py-1 bg-red-100 text-red-800 rounded text-xs font-medium border border-red-200 w-fit">
+                            ⚠️ Critical
+                          </div>
+                        )}
+                        {scoreValue >= 50 && scoreValue < 70 && (
+                          <div className="px-2 py-1 bg-orange-100 text-orange-800 rounded text-xs font-medium border border-orange-200 w-fit">
+                            📊 Moderate
+                          </div>
+                        )}
+                        {scoreValue >= 70 && (
+                          <div className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs font-medium border border-green-200 w-fit">
+                            ✅ Strong
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-1 text-center">
+                      <div className="text-3xl font-bold mb-1" style={{ color: pillarColor }}>
+                        {Math.round(scoreValue)}
+                      </div>
+                      <p className="text-xs text-slate-500">
+                        {contribution.toFixed(1)} pts
+                      </p>
+                    </div>
                   </div>
                 </div>
               );
@@ -157,107 +366,79 @@ export default async function PDFPage({ params }: PDFPageProps) {
         </div>
       </section>
 
-      {/* Industry Benchmarking */}
-      <PDFBenchmarks
-        scoreData={scoreData}
-        organizationInfo={organizationInfo}
-      />
+      {/* Threat Intelligence & Matrix Integration - Simplified */}
+      <section className="py-12 bg-gradient-to-br from-above-peach-50 to-above-rose-50">
+        <div className="w-full max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Threat Intelligence</h2>
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+              Assessment mapped to real-world threat techniques and defensive measures
+            </p>
+          </div>
 
-      {/* Comprehensive Recommendations */}
-      <section className="recommendations mb-8">
-        <PDFRecommendations
-          recommendations={recommendations}
-          pillarScores={scoreData.pillarBreakdown}
-        />
-      </section>
-
-      {/* Implementation Roadmap */}
-      <section className="implementation-roadmap mb-8">
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-2xl font-bold mb-6 text-slate-900">90-Day Implementation Roadmap</h2>
-
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-slate-800">Phase 1: Immediate Actions (Days 1-30)</h3>
-              <ul className="space-y-2 text-slate-700">
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Address critical security gaps identified in lowest-scoring pillar</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Implement basic monitoring and alerting mechanisms</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Conduct stakeholder awareness sessions</span>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-slate-800">Phase 2: Foundation Building (Days 31-60)</h3>
-              <ul className="space-y-2 text-slate-700">
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Deploy comprehensive monitoring tools and dashboards</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Establish formal incident response procedures</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Launch employee training and awareness programs</span>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-slate-800">Phase 3: Optimization (Days 61-90)</h3>
-              <ul className="space-y-2 text-slate-700">
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Fine-tune detection algorithms and reduce false positives</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Conduct tabletop exercises and scenario testing</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Establish continuous improvement metrics and KPIs</span>
-                </li>
-              </ul>
-            </div>
+          <div className="bg-white/90 border border-above-rose-200 rounded-xl p-6 shadow-lg">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">Matrix Integration</h3>
+            <p className="text-sm text-slate-600">
+              Your assessment has been mapped to threat intelligence frameworks and implementation playbooks.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Next Steps */}
-      <section className="next-steps mb-8">
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-6">
-          <h2 className="text-2xl font-bold mb-4 text-slate-900">Recommended Next Steps</h2>
-          <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-              <div>
-                <h3 className="font-semibold text-slate-900">Prioritize High-Impact Improvements</h3>
-                <p className="text-slate-700 text-sm">Focus on recommendations that address your lowest-scoring pillars first, as these represent the greatest risk exposure.</p>
-              </div>
+      {/* Additional Resources */}
+      <section className="py-16 bg-above-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">Additional Resources</h2>
+              <p className="text-lg text-slate-600">
+                Comprehensive tools and insights to strengthen your insider risk program
+              </p>
             </div>
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-              <div>
-                <h3 className="font-semibold text-slate-900">Establish Measurement Framework</h3>
-                <p className="text-slate-700 text-sm">Implement regular assessment cycles to track progress and ensure continuous improvement of your insider risk posture.</p>
+
+            <div className="grid md:grid-cols-4 gap-6">
+              <div className="bg-gradient-to-br from-above-rose-50 to-above-peach-50 rounded-xl p-6 border border-above-rose-200 text-center">
+                <div className="w-12 h-12 bg-above-rose-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <span className="text-above-rose-700 font-bold text-lg">📊</span>
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Benchmarks</h3>
+                <p className="text-sm text-slate-600 mb-4">Industry comparisons and peer analysis</p>
+                <div className="bg-white rounded px-3 py-2 text-xs font-mono text-above-rose-700 border">
+                  /benchmarks
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-              <div>
-                <h3 className="font-semibold text-slate-900">Engage Stakeholders</h3>
-                <p className="text-slate-700 text-sm">Share these findings with executive leadership and department heads to ensure organization-wide commitment to improvement initiatives.</p>
+
+              <div className="bg-gradient-to-br from-above-blue-50 to-above-lavender-50 rounded-xl p-6 border border-above-blue-200 text-center">
+                <div className="w-12 h-12 bg-above-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <span className="text-above-blue-700 font-bold text-lg">📚</span>
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Glossary</h3>
+                <p className="text-sm text-slate-600 mb-4">Security terminology and definitions</p>
+                <div className="bg-white rounded px-3 py-2 text-xs font-mono text-above-blue-700 border">
+                  /glossary
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-above-peach-50 to-above-lavender-50 rounded-xl p-6 border border-above-peach-200 text-center">
+                <div className="w-12 h-12 bg-above-peach-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <span className="text-above-peach-700 font-bold text-lg">🔍</span>
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Research</h3>
+                <p className="text-sm text-slate-600 mb-4">Latest insights and threat intelligence</p>
+                <div className="bg-white rounded px-3 py-2 text-xs font-mono text-above-peach-700 border">
+                  /research
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-above-lavender-50 to-above-blue-50 rounded-xl p-6 border border-above-lavender-200 text-center">
+                <div className="w-12 h-12 bg-above-lavender-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <span className="text-above-lavender-700 font-bold text-lg">📞</span>
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Support</h3>
+                <p className="text-sm text-slate-600 mb-4">Contact our security experts</p>
+                <div className="bg-white rounded px-3 py-2 text-xs font-mono text-above-lavender-700 border">
+                  /contact
+                </div>
               </div>
             </div>
           </div>
@@ -265,78 +446,53 @@ export default async function PDFPage({ params }: PDFPageProps) {
       </section>
 
       {/* Footer */}
-      <PDFFooter />
-    </PDFDocument>
+      <footer className="bg-gradient-to-br from-above-lavender-100 to-above-peach-100 py-12 border-t border-above-lavender-200">
+        <div className="container mx-auto px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8">
+              <div>
+                <h3 className="font-bold text-slate-900 mb-3">About This Assessment</h3>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  The Insider Risk Index evaluates organizational security posture across five critical pillars,
+                  providing actionable insights based on industry best practices and peer benchmarking.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 mb-3">Methodology</h3>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  Scores are calculated using weighted algorithms validated against Ponemon Institute research
+                  and Gartner frameworks, ensuring accurate and meaningful risk assessment.
+                </p>
+              </div>
+              <div className="text-center md:text-right">
+                <div className="inline-flex items-center gap-3 mb-4">
+                  <Image
+                    src="/logo.png"
+                    alt="Insider Risk Index"
+                    width={28}
+                    height={28}
+                    className="w-7 h-7 object-contain"
+                  />
+                  <span className="font-bold text-slate-900">Insider Risk Index™</span>
+                </div>
+                <p className="text-sm text-slate-700 mb-1">Sponsored by Above Security</p>
+                <p className="text-sm text-above-blue-700 font-medium mb-4">insiderisk.io</p>
+                <p className="text-xs text-slate-500">
+                  © {new Date().getFullYear()} Above Security. All rights reserved.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-8 border-t border-above-lavender-300 text-center">
+              <p className="text-xs text-slate-600">
+                This report contains confidential security assessment data. Distribution is limited to authorized personnel only.
+                <br />
+                Generated on {new Date().toLocaleString()} • Report ID: {id}
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
   );
-}
-
-// Helper functions
-function getLevelDescription(level: number): string {
-  const levels = {
-    1: 'Ad Hoc - Minimal controls in place',
-    2: 'Emerging - Basic framework established',
-    3: 'Managed - Standard processes implemented',
-    4: 'Proactive - Advanced capabilities deployed',
-    5: 'Optimized - Industry-leading practices'
-  };
-  return levels[level as keyof typeof levels] || 'Unknown Level';
-}
-
-function getRiskLevelColor(score: number): string {
-  if (score <= 24) return '#dc2626'; // red-600
-  if (score <= 44) return '#ea580c'; // orange-600
-  if (score <= 64) return '#ca8a04'; // yellow-600
-  if (score <= 84) return '#16a34a'; // green-600
-  return '#059669'; // emerald-600
-}
-
-function getPillarColor(pillarId: string): string {
-  const colors = {
-    visibility: '#3b82f6',     // blue-500
-    coaching: '#10b981',       // emerald-500
-    evidence: '#f59e0b',       // amber-500
-    identity: '#8b5cf6',       // violet-500
-    phishing: '#ec4899'        // pink-500
-  };
-  return colors[pillarId as keyof typeof colors] || '#6b7280';
-}
-
-function generateRecommendations(pillars: any[]) {
-  const sortedPillars = [...pillars].sort((a, b) => a.score - b.score);
-  const lowestPillar = sortedPillars[0];
-
-  const baseRecommendations = [
-    {
-      id: `${lowestPillar.pillarId}-priority`,
-      pillarId: lowestPillar.pillarId,
-      title: `Strengthen ${getPillarName(lowestPillar.pillarId)} Capabilities`,
-      description: `Address critical gaps in ${getPillarName(lowestPillar.pillarId).toLowerCase()} to improve overall security posture.`,
-      priority: 'high' as const,
-      difficulty: 'moderate' as const,
-      timeToImplement: '4-8 weeks',
-      estimatedImpact: 85
-    }
-  ];
-
-  return baseRecommendations;
-}
-
-function getPillarName(pillarId: string): string {
-  const names = {
-    visibility: 'Visibility & Monitoring',
-    coaching: 'Prevention & Coaching',
-    evidence: 'Investigation & Evidence',
-    identity: 'Identity & SaaS Security',
-    phishing: 'Phishing Resilience'
-  };
-  return names[pillarId as keyof typeof names] || pillarId;
-}
-
-function analyzePerformance(pillars: any[]) {
-  const sorted = [...pillars].sort((a, b) => b.score - a.score);
-
-  const strengths = sorted.slice(0, 2).map(p => getPillarName(p.pillarId));
-  const weaknesses = sorted.slice(-2).map(p => getPillarName(p.pillarId));
-
-  return { strengths, weaknesses };
 }

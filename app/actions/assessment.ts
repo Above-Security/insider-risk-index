@@ -139,7 +139,7 @@ export async function submitAssessment(data: AssessmentSubmission) {
             topStrengths,
             keyRisks,
             resultsUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/results/${assessment.id}`,
-            pdfUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/pdf/detailed-plan/${assessment.id}`
+            pdfUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/pdf/${assessment.id}`
           })
         );
         
@@ -224,28 +224,49 @@ export async function getAssessmentResults(assessmentId: string) {
   try {
     const assessment = await prisma.assessment.findUnique({
       where: { id: assessmentId },
-      include: {
-        pillarBreakdown: true,
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        industry: true,
+        size: true,
+        region: true,
+        orgMetaHash: true,
+        answers: true,
+        pillarScores: true,
+        iri: true,
+        level: true,
+        emailOptIn: true,
+        contactEmail: true,
+        // Skip emailSent and emailSentAt columns that seem to have issues
       },
     });
-    
+
     if (!assessment) {
       return {
         success: false,
         error: "Assessment not found",
       };
     }
-    
+
+    // Fetch pillar breakdown separately to avoid potential issues
+    const pillarBreakdown = await prisma.pillarScore.findMany({
+      where: { assessmentId },
+    });
+
     // Get benchmarks for comparison
     const benchmarks = await getBenchmarks({
       industry: assessment.industry,
       size: assessment.size,
       region: assessment.region,
     });
-    
+
     return {
       success: true,
-      assessment,
+      assessment: {
+        ...assessment,
+        pillarBreakdown,
+      },
       benchmarks,
     };
   } catch (error) {

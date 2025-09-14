@@ -931,7 +931,7 @@ interface AssessmentCompleteEmailProps {
 **Environment Variables (Production Ready):**
 ```bash
 # Email Service Provider
-RESEND_API_KEY="re_Ad4yrgJF_GyMzahAVeDBQ9ySzAKHuGaUX"     ✅ Active Key
+RESEND_API_KEY="your-resend-api-key-here"                   ✅ Configure in production
 
 # Email Branding & Sender Info
 EMAIL_FROM_ADDRESS="results@mail.insiderisk.io"             ✅ Above Security Domain

@@ -118,20 +118,28 @@ export default function AssessmentPage() {
           emailOptIn: organizationData.includeInBenchmarks && !!organizationData.contactEmail,
           contactEmail: organizationData.contactEmail,
         });
-        console.log("✅ Assessment submitted to server, ID:", serverResult.assessmentId);
+
+        if (serverResult.success && serverResult.assessmentId) {
+          console.log("✅ Assessment submitted to server, ID:", serverResult.assessmentId);
+          // Navigate to the proper results page with assessment ID
+          router.push(`/results/${serverResult.assessmentId}`);
+          return; // Exit early on successful server submission
+        } else {
+          console.error("⚠️ Server submission failed:", serverResult.error);
+        }
       } catch (serverError) {
-        console.error("⚠️ Server submission failed (continuing anyway):", serverError);
-        // Continue even if server submission fails - we still have local results
+        console.error("⚠️ Server submission failed:", serverError);
       }
 
+      // Fallback to localStorage-based results only if server submission fails
       if (typeof window !== "undefined") {
         localStorage.setItem("assessment-result", JSON.stringify(assessmentData));
-        console.log("💾 Data saved to localStorage");
+        console.log("💾 Data saved to localStorage as fallback");
 
         // Verify data was saved
         const savedData = localStorage.getItem("assessment-result");
         if (savedData) {
-          console.log("✅ Data verified in localStorage, navigating to results...");
+          console.log("✅ Fallback data verified, navigating to localStorage-based results...");
           // Small delay to ensure localStorage is fully written
           setTimeout(() => {
             router.push("/assessment/results");

@@ -123,27 +123,12 @@ export default function ApiDocumentationPage() {
 }`,
     },
     {
-      method: "POST",
-      path: "/api/generate-pdf",
-      description: "Generate PDF reports from assessment results",
-      body: `{
-  "type": "board-brief | detailed",
-  "assessmentId": "string",
-  "data": {
-    "scores": {...},
-    "recommendations": [...],
-    "organizationData": {...}
-  }
-}`,
-      response: `Binary PDF data (application/pdf)`,
-    },
-    {
       method: "GET",
       path: "/api/pdf/[type]/[id]",
-      description: "Generate and download PDF report",
+      description: "Generate and download PDF report (RECOMMENDED)",
       params: [
-        { name: "type", type: "string", description: "Report type (board-brief/detailed)" },
-        { name: "id", type: "string", description: "Assessment ID" }
+        { name: "type", type: "string", description: "Report type (board-brief/detailed-plan)" },
+        { name: "id", type: "string", description: "Assessment ID from database" }
       ],
       response: `Binary PDF data (application/pdf)`,
     },
@@ -401,15 +386,18 @@ export default function ApiDocumentationPage() {
                 <pre className="bg-slate-900 text-slate-100 rounded p-3 text-xs overflow-x-auto">
                   <code>{`import requests
 
-# Generate a board brief PDF
+# Generate a board brief PDF using proper endpoint
+assessment_id = "clx123abc456def"  # Must be from database
 response = requests.get(
-    'https://insiderisk.io/api/pdf/board-brief/assessment123'
+    f'https://insiderisk.io/api/pdf/board-brief/{assessment_id}'
 )
 
 if response.status_code == 200:
     with open('board_brief.pdf', 'wb') as f:
         f.write(response.content)
     print('PDF saved successfully')
+elif response.status_code == 410:
+    print('Error: Using deprecated PDF endpoint. Use /api/pdf/[type]/[id] instead.')
 else:
     print(f'Error: {response.status_code}')`}</code>
                 </pre>

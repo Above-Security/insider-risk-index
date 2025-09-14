@@ -1,6 +1,6 @@
-import { generatePDFWithPDFKit } from "@/lib/pdf/pdfkit-generator";
 import { getRiskLevel } from "@/lib/pillars";
 import { Assessment, PillarScore } from "@prisma/client";
+import { chromium } from 'playwright';
 
 interface AssessmentWithPillars extends Assessment {
   pillarBreakdown: PillarScore[];
@@ -71,14 +71,54 @@ export async function generatePDFAttachment({
     }
   };
 
-  const pdfData = {
-    organizationData,
-    result,
-    generatedAt: new Date(),
-  };
+  // Data is now fetched directly by the PDF page using the assessment ID
 
-  // Use production-grade PDFKit instead of Chromium
-  return await generatePDFWithPDFKit(pdfData, type);
+  // Use the proper React PDF system with assessment ID
+  const browser = await chromium.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+  });
+
+  try {
+    const page = await browser.newPage();
+    await page.setViewportSize({ width: 794, height: 1123 });
+
+    // Use the proper PDF route with assessment ID (no more query parameters)
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const pdfUrl = `${baseUrl}/pdf/${assessment.id}`;
+
+    console.log("📄 Generating PDF attachment from proper React page:", pdfUrl);
+
+    await page.goto(pdfUrl, {
+      waitUntil: 'networkidle',
+      timeout: 30000
+    });
+
+    await page.waitForSelector('.pdf-header', { timeout: 10000 });
+    await page.waitForTimeout(2000);
+
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      margin: {
+        top: '0.5in',
+        right: '0.5in',
+        bottom: '0.5in',
+        left: '0.5in'
+      },
+      printBackground: true,
+      preferCSSPageSize: true
+    });
+
+    const filename = `insider-risk-assessment-${assessment.id}-${Date.now()}.pdf`;
+
+    return {
+      buffer: Buffer.from(pdfBuffer),
+      filename
+    };
+
+  } finally {
+    await browser.close();
+  }
 }
 
 /**

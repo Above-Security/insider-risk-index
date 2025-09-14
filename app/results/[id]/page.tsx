@@ -158,9 +158,18 @@ export default async function ResultsPage({ params }: Props) {
             result={result}
             organizationInfo={organizationInfo}
             assessmentId={id}
-            onGeneratePDF={async () => {
-              // PDF generation would be handled client-side
-              console.log("PDF generation requested");
+            onGeneratePDF={async (type: "board-brief" | "detailed-plan") => {
+              // Use the correct PDF API endpoint with assessment ID
+              const pdfUrl = `/api/pdf/${type}/${id}`;
+              console.log(`🔍 Generating ${type} PDF for assessment ${id}`);
+
+              try {
+                // Open PDF in new tab for download
+                window.open(pdfUrl, '_blank');
+              } catch (error) {
+                console.error('Failed to generate PDF:', error);
+                alert('Failed to generate PDF. Please try again.');
+              }
             }}
           />
 

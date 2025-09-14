@@ -23,7 +23,7 @@ export async function GET(request: Request) {
     if (type === "simple") {
       // Send simple test email
       result = await sendTestEmail(testEmail);
-    } else if (type === "assessment") {
+    } else if (type === "assessment" || type === "board-brief") {
       // Send sample assessment email
       const emailHtml = await render(
         AssessmentCompleteEmail({
@@ -83,7 +83,11 @@ export async function GET(request: Request) {
             ]
           };
           
-          const pdfData = await generatePDFAttachment({ assessment: mockAssessment });
+          const pdfType = (type === 'board-brief') ? 'board-brief' : 'detailed-plan';
+          const pdfData = await generatePDFAttachment({
+            assessment: mockAssessment,
+            type: pdfType as 'detailed-plan' | 'board-brief'
+          });
           pdfAttachment = {
             filename: pdfData.filename,
             content: pdfData.buffer.toString('base64')

@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { chromium } from "playwright";
 import { getAssessmentResults } from "@/app/actions/assessment";
-import { generateBoardBriefHTML, generateDetailedPlanHTML } from "@/lib/pdf/generators";
-import { getRiskLevel } from "@/lib/pillars";
+import { chromium } from 'playwright';
 
 interface RouteParams {
   type: string;
@@ -27,16 +25,10 @@ export async function GET(
       );
     }
 
-    // Get assessment results
-    console.log("🔍 Fetching assessment results for ID:", id);
+    // Verify assessment exists
+    console.log("🔍 Verifying assessment exists for ID:", id);
     const response = await getAssessmentResults(id);
-    
-    console.log("🔍 Assessment response:", { 
-      success: response.success, 
-      hasAssessment: !!response.assessment,
-      error: response.error
-    });
-    
+
     if (!response.success || !response.assessment) {
       console.error("❌ Assessment not found:", response.error);
       return NextResponse.json(
@@ -45,110 +37,74 @@ export async function GET(
       );
     }
 
-    const { assessment, benchmarks } = response;
-    
-    // Create mock result object for PDF generation
-    const result = {
-      totalScore: assessment.iri,
-      level: assessment.level,
-      levelDescription: getRiskLevel(assessment.iri).description,
-      pillarBreakdown: assessment.pillarBreakdown.map(pb => ({
-        pillarId: pb.pillar,  // This is correct - pb.pillar contains the pillar ID string
-        score: pb.score,
-        maxScore: 100,
-        weight: pb.weight,
-        contributionToTotal: pb.contributionToTotal,
-      })),
-      recommendations: generateRecommendations(assessment),
-      strengths: generateStrengths(assessment),
-      weaknesses: generateWeaknesses(assessment),
-      benchmark: {
-        industry: benchmarks.industry?.iriAverage || 64.2,
-        companySize: benchmarks.size?.iriAverage || 64.2,
-        overall: benchmarks.overall?.iriAverage || 64.2,
-      },
-    };
+    // Generate PDF using Playwright navigation to React PDF page
+    console.log("🔍 Starting React PDF generation with Playwright");
 
-    const organizationData = {
-      organizationName: assessment.industry ? 
-        `${assessment.industry.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} Organization` : 
-        "Organization",
-      industry: assessment.industry?.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) || "Unknown",
-      employeeCount: assessment.size ? 
-        assessment.size.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 
-        "Unknown",
-    };
-
-    const pdfData = {
-      organizationData,
-      result,
-      generatedAt: new Date(),
-    };
-
-    console.log("🔍 Organization data:", organizationData);
-    console.log("🔍 Result structure:", {
-      totalScore: result.totalScore,
-      level: result.level,
-      pillarCount: result.pillarBreakdown.length,
-      hasRecommendations: result.recommendations.length > 0
+    const browser = await chromium.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     });
 
-    // Generate HTML
-    let html: string;
-    let filename: string;
-
-    console.log("🔍 Generating HTML for type:", type);
-    
-    if (type === "board-brief") {
-      html = generateBoardBriefHTML(pdfData);
-      filename = `${organizationData.organizationName}-Board-Brief-${new Date().toISOString().split("T")[0]}.pdf`;
-    } else {
-      html = generateDetailedPlanHTML(pdfData);
-      filename = `${organizationData.organizationName}-Detailed-Plan-${new Date().toISOString().split("T")[0]}.pdf`;
-    }
-
-    console.log("✅ HTML generated, length:", html.length);
-    console.log("🔍 Filename:", filename);
-
-    // Generate PDF using Playwright
-    let browser;
     try {
-      console.log("🔍 Launching Chromium browser...");
-      browser = await chromium.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
-      });
-
-      console.log("✅ Browser launched, creating new page...");
       const page = await browser.newPage();
-      
-      console.log("🔍 Setting HTML content and waiting for network idle...");
-      // Set content and wait for any resources to load
-      await page.setContent(html, { 
+
+      // Set viewport for A4 print
+      await page.setViewportSize({ width: 794, height: 1123 });
+
+      // Get the base URL for navigation - use dev server port if in development
+      let baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+
+      // Check if we're in development and adjust port
+      if (process.env.NODE_ENV === 'development') {
+        // Try to determine the actual dev server port
+        const host = request.headers.get('host');
+        if (host && host.includes('localhost:')) {
+          baseUrl = `http://${host}`;
+        } else {
+          baseUrl = 'http://localhost:3002'; // Default dev port
+        }
+      }
+
+      const pdfUrl = `${baseUrl}/pdf/${id}`;
+
+      console.log("🔍 Navigating to PDF page:", pdfUrl);
+
+      // Navigate to the PDF page
+      await page.goto(pdfUrl, {
         waitUntil: 'networkidle',
-        timeout: 30000 
+        timeout: 30000
       });
 
-      console.log("🔍 Generating PDF...");
+      // Wait for content to fully load
+      await page.waitForSelector('.pdf-header', { timeout: 10000 });
+      await page.waitForTimeout(2000); // Additional wait for any async content
+
+      console.log("🔍 Generating PDF from React page");
+
       // Generate PDF
-      const pdf = await page.pdf({
+      const pdfBuffer = await page.pdf({
         format: 'A4',
         margin: {
-          top: '20mm',
-          right: '15mm',
-          bottom: '20mm',
-          left: '15mm'
+          top: '0.5in',
+          right: '0.5in',
+          bottom: '0.5in',
+          left: '0.5in'
         },
         printBackground: true,
-        preferCSSPageSize: true,
+        preferCSSPageSize: true
       });
 
-      console.log("✅ PDF generated, size:", pdf.length, "bytes");
-      await browser.close();
+      // Create filename based on assessment data
+      const assessment = response.assessment!;
+      const orgName = assessment.industry ?
+        assessment.industry.replace(/_/g, '-') : 'organization';
+      const filename = `insider-risk-assessment-${orgName}-${id.substring(0, 8)}-${Date.now()}.pdf`;
 
-      console.log("🔍 Returning PDF response with headers...");
-      // Return PDF
-      return new Response(pdf as BodyInit, {
+      console.log("✅ React PDF generated successfully");
+      console.log("🔍 PDF size:", pdfBuffer.length, "bytes");
+      console.log("🔍 Filename:", filename);
+
+      return new Response(pdfBuffer as BodyInit, {
         headers: {
           'Content-Type': 'application/pdf',
           'Content-Disposition': `inline; filename="${filename}"`,
@@ -157,79 +113,20 @@ export async function GET(
         }
       });
 
-    } catch (pdfError) {
-      console.error("❌ Playwright PDF Error:", pdfError);
-      if (browser) {
-        await browser.close();
-      }
-      throw pdfError;
+    } finally {
+      await browser.close();
     }
+
 
   } catch (error) {
     console.error("❌ Overall PDF Generation Error:", error);
     console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
     return NextResponse.json(
-      { 
+      {
         error: "Failed to generate PDF",
         details: error instanceof Error ? error.message : "Unknown error"
       },
       { status: 500 }
     );
   }
-}
-
-// Helper functions to generate content based on assessment data
-function generateRecommendations(assessment: any): string[] {
-  const recommendations = [];
-  
-  if (assessment.iri < 40) {
-    recommendations.push("Establish a comprehensive insider risk management program with dedicated resources and executive sponsorship.");
-    recommendations.push("Conduct a thorough risk assessment to identify your organization's most critical vulnerabilities.");
-  } else if (assessment.iri < 60) {
-    recommendations.push("Enhance existing security controls with a focus on the lowest-scoring areas.");
-    recommendations.push("Develop incident response procedures specific to insider threats.");
-  } else if (assessment.iri < 80) {
-    recommendations.push("Fine-tune your insider risk program to address remaining gaps.");
-    recommendations.push("Implement advanced analytics to improve threat detection capabilities.");
-  } else {
-    recommendations.push("Maintain current excellent practices and consider sharing best practices with industry peers.");
-    recommendations.push("Continue regular assessments to ensure sustained performance.");
-  }
-  
-  return recommendations.slice(0, 6);
-}
-
-function generateStrengths(assessment: any): string[] {
-  const strengths = [];
-  const highScoringPillars = assessment.pillarBreakdown
-    .filter((p: any) => p.score >= 70)
-    .sort((a: any, b: any) => b.score - a.score);
-
-  for (const pillar of highScoringPillars) {
-    strengths.push(`Strong ${pillar.pillar.replace('-', ' ')} capabilities with a score of ${Math.round(pillar.score)}%.`);
-  }
-
-  if (assessment.iri >= 80) {
-    strengths.push("Comprehensive insider risk management program with strong controls across all areas.");
-  } else if (assessment.iri >= 70) {
-    strengths.push("Well-established security foundation with good coverage of insider risk controls.");
-  }
-
-  return strengths.slice(0, 5);
-}
-
-function generateWeaknesses(assessment: any): string[] {
-  const weaknesses = [];
-  const lowScoringPillars = assessment.pillarBreakdown
-    .filter((p: any) => p.score < 60)
-    .sort((a: any, b: any) => a.score - b.score);
-
-  for (const pillar of lowScoringPillars) {
-    const severity = pillar.score < 30 ? "Critical gaps" : 
-                    pillar.score < 50 ? "Significant weaknesses" : 
-                    "Areas for improvement";
-    weaknesses.push(`${severity} in ${pillar.pillar.replace('-', ' ')} (${Math.round(pillar.score)}% score).`);
-  }
-
-  return weaknesses.slice(0, 5);
 }

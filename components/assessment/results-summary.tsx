@@ -234,23 +234,15 @@ export function ResultsSummary({
 
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button 
-          onClick={() => onGeneratePDF("board-brief")} 
+        <Button
+          onClick={() => onGeneratePDF("board-brief")}
           className="flex items-center gap-2"
-          variant="outline"
+          size="lg"
         >
-          <FileText className="h-4 w-4" />
-          Board Brief PDF
+          <Download className="h-5 w-5" />
+          Download Comprehensive Report PDF
         </Button>
-        
-        <Button 
-          onClick={() => onGeneratePDF("detailed-plan")}
-          className="flex items-center gap-2"
-        >
-          <Download className="h-4 w-4" />
-          Detailed Action Plan PDF
-        </Button>
-        
+
         {assessmentId && (
           <ShareResults
             result={{

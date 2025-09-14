@@ -1,76 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generatePDFWithPDFKit } from "@/lib/pdf/pdfkit-generator";
-import { AssessmentResult } from "@/lib/zod-schemas";
 
-interface RequestBody {
-  type: "board-brief" | "detailed-plan";
-  organizationData: {
-    organizationName: string;
-    industry: string;
-    employeeCount: string;
-  };
-  result: AssessmentResult;
-}
-
+/**
+ * DEPRECATED ROUTE - This endpoint used a broken query parameter approach
+ *
+ * Use /api/pdf/[type]/[id] instead with proper assessment ID from database.
+ * The old system tried to pass assessment data via URL query parameters to /pdf/dynamic
+ * which caused layout issues and content duplication.
+ */
 export async function POST(request: NextRequest) {
-  let type: string = "";
-  let organizationData: any = null;
-  let result: any = null;
+  console.error("❌ DEPRECATED: /api/generate-pdf route is deprecated.");
+  console.error("This route used broken query parameter approach with /pdf/dynamic.");
+  console.error("Use /api/pdf/[type]/[id] instead with proper assessment ID.");
 
-  try {
-    const body: RequestBody = await request.json();
-    ({ type, organizationData, result } = body);
-
-    // Validate required fields
-    if (!type || !organizationData || !result) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
-
-    const pdfData = {
-      organizationData,
-      result,
-      generatedAt: new Date(),
-    };
-
-    // Validate PDF type
-    if (type !== "board-brief" && type !== "detailed-plan") {
-      return NextResponse.json(
-        { error: "Invalid PDF type" },
-        { status: 400 }
-      );
-    }
-
-    console.log("🔍 Generating PDF with PDFKit (production-grade)...");
-
-    // Use production-grade PDFKit instead of resource-heavy Chromium
-    const { buffer, filename } = await generatePDFWithPDFKit(pdfData, type);
-
-    return new Response(new Uint8Array(buffer), {
-      headers: {
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="${filename}"`,
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
+  return NextResponse.json(
+    {
+      error: "This PDF generation method is deprecated",
+      message: "Use /api/pdf/[type]/[id] with a valid assessment ID instead. The assessment must be saved to the database first.",
+      deprecated: true,
+      correctUsage: {
+        step1: "Submit assessment via server action to save to database",
+        step2: "Use returned assessment ID with /api/pdf/board-brief/{id} or /api/pdf/detailed-plan/{id}",
+        example: "/api/pdf/board-brief/clx123abc456def"
       }
-    });
-
-  } catch (error) {
-    console.error("❌ PDF Generation Error Details:", {
-      error: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined,
-      type,
-      organizationName: organizationData?.organizationName,
-      resultScore: result?.totalScore
-    });
-
-    return NextResponse.json(
-      {
-        error: "Failed to generate PDF",
-        details: error instanceof Error ? error.message : String(error)
-      },
-      { status: 500 }
-    );
-  }
+    },
+    { status: 410 } // Gone - indicates the resource is no longer available
+  );
 }

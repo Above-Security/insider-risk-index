@@ -1,8 +1,8 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npx playwright install chromium && npm run build",
   "outputDirectory": ".next",
   "devCommand": "npm run dev",
-  "installCommand": "npm install && npx playwright install chromium",
+  "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["iad1"],
   "env": {
@@ -14,7 +14,9 @@
     "env": {
       "NEXT_TELEMETRY_DISABLED": "1",
       "INDEXNOW_KEY": "34842cf7adc727f3a275f5a6020aaadb43bff83cb3951b3a07ca3009a232f79b",
-      "INDEXNOW_ENABLED": "true"
+      "INDEXNOW_ENABLED": "true",
+      "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "0",
+      "PLAYWRIGHT_BROWSERS_PATH": "/tmp/ms-playwright"
     }
   },
   "headers": [
@@ -133,8 +135,11 @@
     }
   ],
   "functions": {
+    "app/api/pdf/[id]/route.ts": {
+      "maxDuration": 60
+    },
     "app/api/pdf/[type]/[id]/route.ts": {
-      "maxDuration": 30
+      "maxDuration": 60
     },
     "app/api/og/route.tsx": {
       "maxDuration": 10

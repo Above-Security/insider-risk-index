@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { chromium } from 'playwright';
 
+// Set Playwright browsers path for Vercel
+if (process.env.VERCEL) {
+  process.env.PLAYWRIGHT_BROWSERS_PATH = '/tmp/ms-playwright';
+}
+
 interface RouteParams {
   id: string;
 }

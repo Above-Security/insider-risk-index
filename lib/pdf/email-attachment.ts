@@ -1,3 +1,8 @@
+// Set Playwright browsers path for Vercel BEFORE importing
+if (process.env.VERCEL) {
+  process.env.PLAYWRIGHT_BROWSERS_PATH = '/tmp/ms-playwright';
+}
+
 import { getRiskLevel } from "@/lib/pillars";
 import { Assessment, PillarScore } from "@prisma/client";
 import { chromium } from 'playwright-chromium';

@@ -8,7 +8,8 @@
   "env": {
     "NODE_ENV": "production",
     "INDEXNOW_ENABLED": "true",
-    "INDEXNOW_KEY": "34842cf7adc727f3a275f5a6020aaadb43bff83cb3951b3a07ca3009a232f79b"
+    "INDEXNOW_KEY": "34842cf7adc727f3a275f5a6020aaadb43bff83cb3951b3a07ca3009a232f79b",
+    "PLAYWRIGHT_BROWSERS_PATH": "/tmp/ms-playwright"
   },
   "build": {
     "env": {

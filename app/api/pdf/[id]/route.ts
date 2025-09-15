@@ -103,13 +103,17 @@ export async function GET(
       const pdfBuffer = await page.pdf({
         format: 'A4',
         margin: {
-          top: '0.5in',
-          right: '0.5in',
-          bottom: '0.5in',
-          left: '0.5in'
+          top: '0.3in',
+          right: '0.3in',
+          bottom: '0.3in',
+          left: '0.3in'
         },
         printBackground: true,
-        preferCSSPageSize: true
+        preferCSSPageSize: false,
+        displayHeaderFooter: false,
+        scale: 0.8,
+        width: '8.27in',
+        height: '11.7in'
       });
 
       // Create filename based on assessment data

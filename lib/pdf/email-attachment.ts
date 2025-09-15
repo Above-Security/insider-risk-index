@@ -1,11 +1,7 @@
-// Set Playwright browsers path for Vercel BEFORE importing
-if (process.env.VERCEL) {
-  process.env.PLAYWRIGHT_BROWSERS_PATH = '/tmp/ms-playwright';
-}
-
 import { getRiskLevel } from "@/lib/pillars";
 import { Assessment, PillarScore } from "@prisma/client";
-import { chromium } from 'playwright-chromium';
+import chromium from '@sparticuz/chromium';
+import { chromium as playwrightCore } from 'playwright-core';
 
 interface AssessmentWithPillars extends Assessment {
   pillarBreakdown: PillarScore[];
@@ -79,9 +75,13 @@ export async function generatePDFAttachment({
   // Data is now fetched directly by the PDF page using the assessment ID
 
   // Use the proper React PDF system with assessment ID
-  const browser = await chromium.launch({
+  // Get the executable path for chromium
+  const executablePath = await chromium.executablePath() || undefined;
+
+  const browser = await playwrightCore.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    executablePath,
+    args: chromium.args ? [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] : ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
   });
 
   try {

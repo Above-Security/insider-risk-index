@@ -1,11 +1,7 @@
-// Set Playwright browsers path for Vercel BEFORE importing
-if (process.env.VERCEL) {
-  process.env.PLAYWRIGHT_BROWSERS_PATH = '/tmp/ms-playwright';
-}
-
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { chromium } from 'playwright-chromium';
+import chromium from '@sparticuz/chromium';
+import { chromium as playwrightCore } from 'playwright-core';
 
 interface RouteParams {
   id: string;
@@ -54,9 +50,13 @@ export async function GET(
     // Generate comprehensive PDF using Playwright navigation to React PDF page
     console.log("🔍 Starting comprehensive React PDF generation with Playwright");
 
-    const browser = await chromium.launch({
+    // Get the executable path for chromium
+    const executablePath = await chromium.executablePath() || undefined;
+
+    const browser = await playwrightCore.launch({
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+      executablePath,
+      args: chromium.args ? [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] : ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     });
 
     try {

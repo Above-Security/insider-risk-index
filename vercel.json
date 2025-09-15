@@ -1,5 +1,5 @@
 {
-  "buildCommand": "PLAYWRIGHT_BROWSERS_PATH=/tmp/ms-playwright npx playwright-chromium install && npm run build",
+  "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
@@ -8,16 +8,13 @@
   "env": {
     "NODE_ENV": "production",
     "INDEXNOW_ENABLED": "true",
-    "INDEXNOW_KEY": "34842cf7adc727f3a275f5a6020aaadb43bff83cb3951b3a07ca3009a232f79b",
-    "PLAYWRIGHT_BROWSERS_PATH": "/tmp/ms-playwright"
+    "INDEXNOW_KEY": "34842cf7adc727f3a275f5a6020aaadb43bff83cb3951b3a07ca3009a232f79b"
   },
   "build": {
     "env": {
       "NEXT_TELEMETRY_DISABLED": "1",
       "INDEXNOW_KEY": "34842cf7adc727f3a275f5a6020aaadb43bff83cb3951b3a07ca3009a232f79b",
-      "INDEXNOW_ENABLED": "true",
-      "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "0",
-      "PLAYWRIGHT_BROWSERS_PATH": "/tmp/ms-playwright"
+      "INDEXNOW_ENABLED": "true"
     }
   },
   "headers": [

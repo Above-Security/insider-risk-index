@@ -143,26 +143,9 @@ export async function submitAssessment(data: AssessmentSubmission) {
           })
         );
         
-        // Generate PDF attachment
+        // Skip PDF attachment for performance - user can download from results page
         let pdfAttachment = null;
-        try {
-          console.log('Generating PDF attachment for email...');
-          const pdfData = await generatePDFAttachment({
-            assessment: {
-              ...assessment,
-              pillarBreakdown: assessment.pillarBreakdown
-            }
-          });
-          
-          pdfAttachment = {
-            filename: pdfData.filename,
-            content: pdfData.buffer.toString('base64')
-          };
-          console.log('PDF attachment generated:', pdfData.filename);
-        } catch (pdfError) {
-          console.error('Failed to generate PDF attachment:', pdfError);
-          // Continue without attachment if PDF generation fails
-        }
+        console.log('Skipping PDF attachment for performance - available via download link');
         
         // Send the email (with or without PDF attachment)
         const emailResult = await sendEmail({

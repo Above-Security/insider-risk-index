@@ -249,6 +249,7 @@ export async function getAssessmentResults(assessmentId: string) {
         id: true,
         createdAt: true,
         updatedAt: true,
+        organizationName: true,
         industry: true,
         size: true,
         region: true,
@@ -259,7 +260,8 @@ export async function getAssessmentResults(assessmentId: string) {
         level: true,
         emailOptIn: true,
         contactEmail: true,
-        // Skip emailSent and emailSentAt columns that seem to have issues
+        emailSent: true,
+        emailSentAt: true,
       },
     });
 

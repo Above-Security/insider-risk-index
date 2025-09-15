@@ -2,7 +2,7 @@ import { getAssessmentResults } from '@/app/actions/assessment';
 import { PILLARS } from '@/lib/pillars';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Shield } from 'lucide-react';
+import { Shield, BarChart3, BookOpen, Search, FileText } from 'lucide-react';
 import { mapAssessmentToMatrix, generateThreatIntelligenceSummary } from '@/lib/matrix-mapping';
 
 interface PDFPageProps {
@@ -459,7 +459,7 @@ export default async function PDFPage({ params }: PDFPageProps) {
             <div className="grid md:grid-cols-4 gap-6">
               <div className="bg-gradient-to-br from-above-rose-50 to-above-peach-50 rounded-xl p-6 border border-above-rose-200 text-center">
                 <div className="w-12 h-12 bg-above-rose-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-above-rose-700 font-bold text-lg">📊</span>
+                  <BarChart3 className="w-6 h-6 text-above-rose-700" />
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">Benchmarks</h3>
                 <p className="text-sm text-slate-600 mb-4">Industry comparisons and peer analysis</p>
@@ -471,7 +471,7 @@ export default async function PDFPage({ params }: PDFPageProps) {
 
               <div className="bg-gradient-to-br from-above-blue-50 to-above-lavender-50 rounded-xl p-6 border border-above-blue-200 text-center">
                 <div className="w-12 h-12 bg-above-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-above-blue-700 font-bold text-lg">📚</span>
+                  <BookOpen className="w-6 h-6 text-above-blue-700" />
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">Glossary</h3>
                 <p className="text-sm text-slate-600 mb-4">Security terminology and definitions</p>
@@ -483,7 +483,7 @@ export default async function PDFPage({ params }: PDFPageProps) {
 
               <div className="bg-gradient-to-br from-above-peach-50 to-above-lavender-50 rounded-xl p-6 border border-above-peach-200 text-center">
                 <div className="w-12 h-12 bg-above-peach-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-above-peach-700 font-bold text-lg">🔍</span>
+                  <Search className="w-6 h-6 text-above-peach-700" />
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">Matrix</h3>
                 <p className="text-sm text-slate-600 mb-4">Interactive threat technique database</p>
@@ -495,7 +495,7 @@ export default async function PDFPage({ params }: PDFPageProps) {
 
               <div className="bg-gradient-to-br from-above-lavender-50 to-above-blue-50 rounded-xl p-6 border border-above-lavender-200 text-center">
                 <div className="w-12 h-12 bg-above-lavender-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-above-lavender-700 font-bold text-lg">📖</span>
+                  <FileText className="w-6 h-6 text-above-lavender-700" />
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">Playbooks</h3>
                 <p className="text-sm text-slate-600 mb-4">Implementation guides and frameworks</p>

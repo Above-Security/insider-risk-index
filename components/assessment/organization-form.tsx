@@ -19,7 +19,6 @@ interface OrganizationFormProps {
     industry: string;
     employeeCount: string;
     contactEmail?: string;
-    emailOptIn: boolean;
     includeInBenchmarks: boolean;
   }) => void;
   className?: string;
@@ -57,7 +56,6 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
     industry: "",
     employeeCount: "",
     contactEmail: "",
-    emailOptIn: false,
     includeInBenchmarks: false,
   });
 
@@ -145,7 +143,6 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
             industry: formData.industry,
             company_size: formData.employeeCount,
             assessment_started: true,
-            email_opt_in: formData.emailOptIn,
             include_in_benchmarks: formData.includeInBenchmarks,
             identified_at: new Date().toISOString(),
           });
@@ -157,7 +154,6 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
           industry: formData.industry,
           company_size: formData.employeeCount,
           has_email: !!formData.contactEmail,
-          email_opt_in: formData.emailOptIn,
           include_in_benchmarks: formData.includeInBenchmarks,
           form_step: 'organization_complete',
         });
@@ -298,15 +294,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               type="email"
               placeholder="your.email@company.com"
               value={formData.contactEmail}
-              onChange={(e) => {
-                updateField("contactEmail", e.target.value);
-                // Auto-enable email opt-in when email is provided
-                if (e.target.value.trim() && !formData.emailOptIn) {
-                  updateField("emailOptIn", true);
-                } else if (!e.target.value.trim()) {
-                  updateField("emailOptIn", false);
-                }
-              }}
+              onChange={(e) => updateField("contactEmail", e.target.value)}
               onFocus={() => handleFieldFocus("contactEmail")}
               onBlur={(e) => {
                 handleFieldBlur();
@@ -329,7 +317,6 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
                     industry: formData.industry || undefined,
                     company_size: formData.employeeCount || undefined,
                     assessment_started: true,
-                    email_opt_in: formData.emailOptIn,
                     identified_at: new Date().toISOString(),
                   });
                   
@@ -354,31 +341,9 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               <p className="text-sm text-above-rose-600">{errors.contactEmail}</p>
             )}
             <p className="text-xs text-muted-foreground">
-              Optional: Receive your detailed results and updates on new research
+              Optional: We'll automatically email you your detailed results and recommendations
             </p>
           </div>
-
-          {/* Email opt-in (only show if email provided) */}
-          {formData.contactEmail && (
-            <div className="flex items-start space-x-3 p-4 border rounded-lg bg-above-blue-50 border-above-blue-200">
-              <Checkbox
-                id="emailOptIn"
-                checked={formData.emailOptIn}
-                onCheckedChange={(checked) => updateField("emailOptIn", checked === true)}
-              />
-              <div className="grid gap-1.5 leading-none">
-                <Label
-                  htmlFor="emailOptIn"
-                  className="text-sm font-medium cursor-pointer"
-                >
-                  Email me my results
-                </Label>
-                <p className="text-xs text-muted-foreground">
-                  Automatically enabled - receive your detailed assessment results and recommendations via email
-                </p>
-              </div>
-            </div>
-          )}
 
           {/* Benchmark inclusion */}
           <div className="flex items-start space-x-3 p-4 border rounded-lg">

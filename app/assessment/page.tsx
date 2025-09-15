@@ -17,7 +17,6 @@ interface OrganizationData {
   industry: string;
   employeeCount: string;
   contactEmail?: string;
-  emailOptIn: boolean;
   includeInBenchmarks: boolean;
 }
 
@@ -42,6 +41,10 @@ export default function AssessmentPage() {
     const newAnsweredQuestions = new Set(answeredQuestions);
     newAnsweredQuestions.add(questionId);
     setAnsweredQuestions(newAnsweredQuestions);
+  };
+
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   const handleCompleteAssessment = useCallback(async () => {
@@ -117,7 +120,7 @@ export default function AssessmentPage() {
           size: sizeMap[organizationData.employeeCount] || undefined,
           region: undefined,
           answers: answersObject,
-          emailOptIn: organizationData.emailOptIn,
+          emailOptIn: !!organizationData.contactEmail && isValidEmail(organizationData.contactEmail),
           contactEmail: organizationData.contactEmail,
         });
 

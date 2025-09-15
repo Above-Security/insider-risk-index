@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx playwright-chromium install && npm run build",
+  "buildCommand": "PLAYWRIGHT_BROWSERS_PATH=/tmp/ms-playwright npx playwright-chromium install && npm run build",
   "outputDirectory": ".next",
   "devCommand": "npm run dev",
   "installCommand": "npm install",

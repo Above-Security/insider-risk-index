@@ -62,8 +62,8 @@ export async function GET(
     try {
       const page = await browser.newPage();
 
-      // Set viewport for A4 print
-      await page.setViewportSize({ width: 794, height: 1123 });
+      // Set viewport for full content capture
+      await page.setViewportSize({ width: 1200, height: 1600 });
 
       // Get the base URL for navigation - use dev server port if in development
       let baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
@@ -91,29 +91,30 @@ export async function GET(
 
       // Wait for content to fully load - try multiple selectors
       try {
-        await page.waitForSelector('.pdf-header, #pdf-content, main', { timeout: 30000 });
+        await page.waitForSelector('.pdf-page', { timeout: 30000 });
+        console.log("✅ Found .pdf-page selector");
       } catch (e) {
-        console.log("Warning: Could not find PDF selectors, continuing anyway");
+        console.log("Warning: Could not find .pdf-page selector, continuing anyway");
       }
-      await page.waitForTimeout(3000); // Additional wait for any async content
+      await page.waitForTimeout(5000); // Additional wait for any async content
 
       console.log("🔍 Generating comprehensive PDF from React page");
 
-      // Generate PDF
+      // Generate PDF with proper page sizing
       const pdfBuffer = await page.pdf({
         format: 'A4',
         margin: {
-          top: '0.3in',
-          right: '0.3in',
-          bottom: '0.3in',
-          left: '0.3in'
+          top: '0.5in',
+          right: '0.5in',
+          bottom: '0.5in',
+          left: '0.5in'
         },
         printBackground: true,
         preferCSSPageSize: false,
         displayHeaderFooter: false,
-        scale: 0.8,
-        width: '8.27in',
-        height: '11.7in'
+        scale: 1,
+        pageRanges: '',
+        fullPage: true
       });
 
       // Create filename based on assessment data

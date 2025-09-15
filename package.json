@@ -70,6 +70,7 @@
     "pdfkit": "^0.17.2",
     "plausible-tracker": "^0.3.9",
     "playwright": "^1.55.0",
+    "playwright-chromium": "^1.55.0",
     "posthog-js": "^1.260.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",

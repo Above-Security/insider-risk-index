@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { chromium } from 'playwright';
+import { chromium } from 'playwright-chromium';
 
 // Set Playwright browsers path for Vercel
 if (process.env.VERCEL) {

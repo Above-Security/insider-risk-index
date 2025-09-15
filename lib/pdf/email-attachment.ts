@@ -1,6 +1,6 @@
 import { getRiskLevel } from "@/lib/pillars";
 import { Assessment, PillarScore } from "@prisma/client";
-import { chromium } from 'playwright';
+import { chromium } from 'playwright-chromium';
 
 interface AssessmentWithPillars extends Assessment {
   pillarBreakdown: PillarScore[];

@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx playwright install chromium && npm run build",
+  "buildCommand": "npx playwright-chromium install && npm run build",
   "outputDirectory": ".next",
   "devCommand": "npm run dev",
   "installCommand": "npm install",

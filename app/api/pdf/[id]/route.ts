@@ -86,12 +86,16 @@ export async function GET(
       // Navigate to the comprehensive PDF page
       await page.goto(pdfUrl, {
         waitUntil: 'networkidle',
-        timeout: 30000
+        timeout: 60000
       });
 
-      // Wait for content to fully load
-      await page.waitForSelector('.pdf-header', { timeout: 10000 });
-      await page.waitForTimeout(2000); // Additional wait for any async content
+      // Wait for content to fully load - try multiple selectors
+      try {
+        await page.waitForSelector('.pdf-header, #pdf-content, main', { timeout: 30000 });
+      } catch (e) {
+        console.log("Warning: Could not find PDF selectors, continuing anyway");
+      }
+      await page.waitForTimeout(3000); // Additional wait for any async content
 
       console.log("🔍 Generating comprehensive PDF from React page");
 

@@ -111,6 +111,7 @@ export default function AssessmentPage() {
         };
 
         const serverResult = await submitAssessment({
+          organizationName: organizationData.organizationName || undefined,
           industry: industryMap[organizationData.industry] || undefined,
           size: sizeMap[organizationData.employeeCount] || undefined,
           region: undefined,

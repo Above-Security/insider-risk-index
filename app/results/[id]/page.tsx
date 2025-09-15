@@ -9,6 +9,7 @@ import Link from "next/link";
 import { generateJsonLd, getAssessmentResultJsonLd } from "@/lib/seo";
 import { type RecommendationContext } from "@/lib/recommendations";
 import { AboveLogoWithText } from "@/components/ui/above-logo";
+import { generateAssessmentInsights } from "@/lib/assessment-insights";
 import Script from "next/script";
 
 interface Props {
@@ -54,8 +55,17 @@ export default async function ResultsPage({ params }: Props) {
   }
 
   const { assessment, benchmarks } = response;
-  
-  // Create mock result object for the component
+
+  // Generate dynamic insights based on assessment scores
+  const insights = generateAssessmentInsights({
+    iri: assessment.iri,
+    level: assessment.level,
+    pillarBreakdown: assessment.pillarBreakdown,
+    industry: assessment.industry,
+    size: assessment.size
+  });
+
+  // Create result object for the component with generated insights
   const result = {
     totalScore: assessment.iri,
     level: assessment.level,
@@ -67,9 +77,9 @@ export default async function ResultsPage({ params }: Props) {
       weight: pb.weight,
       contributionToTotal: pb.contributionToTotal,
     })),
-    recommendations: [], // Would be calculated based on scores
-    strengths: [],
-    weaknesses: [],
+    recommendations: insights.recommendations,
+    strengths: insights.strengths,
+    weaknesses: insights.weaknesses,
     benchmark: {
       industry: benchmarks.industry?.iriAverage || 64.2,
       companySize: benchmarks.size?.iriAverage || 64.2,
@@ -78,12 +88,10 @@ export default async function ResultsPage({ params }: Props) {
   };
 
   const organizationInfo = {
-    organizationName: assessment.industry ? 
-      `${assessment.industry.replace('_', ' ')} Organization` : 
-      "Organization",
+    organizationName: (assessment as any).organizationName || "Organization",
     industry: assessment.industry || "Unknown",
-    employeeCount: assessment.size ? 
-      assessment.size.replace('_', '-') : 
+    employeeCount: assessment.size ?
+      assessment.size.replace('_', '-') :
       "Unknown",
   };
 

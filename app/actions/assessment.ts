@@ -14,6 +14,7 @@ import { generatePDFAttachment } from "@/lib/pdf/email-attachment";
 
 // Validation schema for assessment submission
 const AssessmentSubmissionSchema = z.object({
+  organizationName: z.string().optional(),
   industry: z.nativeEnum(Industry).optional(),
   size: z.nativeEnum(CompanySize).optional(),
   region: z.nativeEnum(Region).optional(),
@@ -69,6 +70,7 @@ export async function submitAssessment(data: AssessmentSubmission) {
     // Save assessment to database
     const assessment = await prisma.assessment.create({
       data: {
+        organizationName: validated.organizationName,
         industry: validated.industry,
         size: validated.size,
         region: validated.region,
@@ -128,10 +130,7 @@ export async function submitAssessment(data: AssessmentSubmission) {
         // Render email HTML
         const emailHtml = await render(
           AssessmentCompleteEmail({
-            organizationName: validated.industry ? 
-              validated.industry.split('_').map(word => 
-                word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-              ).join(' ') : undefined,
+            organizationName: validated.organizationName,
             iriScore: Math.round(scoringResult.totalScore),
             maturityLevel: scoringResult.levelDescription,
             maturityLevelNumber: scoringResult.level,

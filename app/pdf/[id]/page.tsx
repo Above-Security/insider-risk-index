@@ -20,7 +20,8 @@ export default async function PDFPage({ params }: PDFPageProps) {
 
   const { assessment, benchmarks } = response;
 
-  // Format data
+  // Format data (organizationName might not exist on the type yet)
+  const organizationName = (assessment as any).organizationName || 'Your Organization';
   const industry = assessment.industry?.replace(/_/g, ' ') || 'Unknown';
   const size = assessment.size?.replace(/_/g, '-') || 'Unknown';
   const level = assessment.level || 1;
@@ -71,7 +72,7 @@ export default async function PDFPage({ params }: PDFPageProps) {
               {/* Title - constrained width */}
               <div className="space-y-3 max-w-xl">
                 <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 leading-tight break-words">
-                  Insider Risk Assessment
+                  {organizationName ? `${organizationName} - Insider Risk Assessment` : 'Insider Risk Assessment'}
                 </h1>
                 <p className="text-base text-slate-700 leading-relaxed">
                   Security Posture Analysis

@@ -66,6 +66,7 @@ export async function GET(request: Request) {
             size: "MID_251_1000" as any,
             region: null,
             orgMetaHash: null,
+            organizationName: "Test Organization",
             answers: {},
             pillarScores: {},
             iri: 72,

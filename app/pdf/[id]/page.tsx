@@ -21,10 +21,25 @@ export default async function PDFPage({ params }: PDFPageProps) {
 
   const { assessment, benchmarks } = response;
 
+  // Helper function to format company size
+  const formatCompanySize = (size: string | null) => {
+    if (!size) return "Unknown";
+
+    const sizeMap: Record<string, string> = {
+      'STARTUP_1_50': '1-50 employees',
+      'SMALL_51_250': '51-250 employees',
+      'MID_251_1000': '251-1,000 employees',
+      'LARGE_1001_5000': '1,001-5,000 employees',
+      'ENTERPRISE_5000_PLUS': '5,000+ employees'
+    };
+
+    return sizeMap[size] || "Unknown";
+  };
+
   // Format data (organizationName might not exist on the type yet)
   const organizationName = (assessment as any).organizationName || 'Your Organization';
   const industry = assessment.industry?.replace(/_/g, ' ') || 'Unknown';
-  const size = assessment.size?.replace(/_/g, '-') || 'Unknown';
+  const size = formatCompanySize(assessment.size);
   const level = assessment.level || 1;
   const iri = Math.round(assessment.iri || 0);
 
@@ -97,17 +112,18 @@ export default async function PDFPage({ params }: PDFPageProps) {
                 </span>
               </div>
 
-              {/* Above Security sponsorship - compact */}
-              <div className="bg-white/95 rounded-lg p-3 border border-above-lavender-200 shadow-soft max-w-xs">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-600 font-medium whitespace-nowrap">Sponsored by</span>
+              {/* Above Security sponsorship - prominent */}
+              <div className="bg-white/95 rounded-lg p-4 border border-above-lavender-200 shadow-soft max-w-md">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-slate-800 font-semibold whitespace-nowrap">Sponsored by</span>
                   <div className="flex-shrink-0">
                     <Image
                       src="/above-logo-with-text.png"
                       alt="Above Security"
-                      width={100}
-                      height={33}
-                      className="h-6 w-auto object-contain"
+                      width={140}
+                      height={46}
+                      className="h-10 w-auto object-contain filter brightness-0"
+                      style={{ filter: 'brightness(0) saturate(1)' }}
                     />
                   </div>
                 </div>

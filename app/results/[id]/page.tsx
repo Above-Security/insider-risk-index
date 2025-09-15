@@ -87,12 +87,25 @@ export default async function ResultsPage({ params }: Props) {
     },
   };
 
+  // Helper function to format company size
+  const formatCompanySize = (size: string | null) => {
+    if (!size) return "Unknown";
+
+    const sizeMap: Record<string, string> = {
+      'STARTUP_1_50': '1-50 employees',
+      'SMALL_51_250': '51-250 employees',
+      'MID_251_1000': '251-1,000 employees',
+      'LARGE_1001_5000': '1,001-5,000 employees',
+      'ENTERPRISE_5000_PLUS': '5,000+ employees'
+    };
+
+    return sizeMap[size] || "Unknown";
+  };
+
   const organizationInfo = {
     organizationName: (assessment as any).organizationName || "Organization",
     industry: assessment.industry || "Unknown",
-    employeeCount: assessment.size ?
-      assessment.size.replace('_', '-') :
-      "Unknown",
+    employeeCount: formatCompanySize(assessment.size),
   };
 
   // Create Matrix recommendations context

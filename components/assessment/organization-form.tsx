@@ -298,7 +298,15 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               type="email"
               placeholder="your.email@company.com"
               value={formData.contactEmail}
-              onChange={(e) => updateField("contactEmail", e.target.value)}
+              onChange={(e) => {
+                updateField("contactEmail", e.target.value);
+                // Auto-enable email opt-in when email is provided
+                if (e.target.value.trim() && !formData.emailOptIn) {
+                  updateField("emailOptIn", true);
+                } else if (!e.target.value.trim()) {
+                  updateField("emailOptIn", false);
+                }
+              }}
               onFocus={() => handleFieldFocus("contactEmail")}
               onBlur={(e) => {
                 handleFieldBlur();
@@ -366,7 +374,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
                   Email me my results
                 </Label>
                 <p className="text-xs text-muted-foreground">
-                  Receive your detailed assessment results and recommendations via email
+                  Automatically enabled - receive your detailed assessment results and recommendations via email
                 </p>
               </div>
             </div>

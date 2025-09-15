@@ -142,9 +142,27 @@ export async function submitAssessment(data: AssessmentSubmission) {
           })
         );
         
-        // Skip PDF attachment for performance - user can download from results page
+        // Generate PDF attachment asynchronously if enabled
         let pdfAttachment = null;
-        console.log('Skipping PDF attachment for performance - available via download link');
+        if (process.env.ENABLE_PDF_EMAIL_ATTACHMENTS === 'true') {
+          try {
+            console.log('Generating PDF attachment for email...');
+            const pdfData = await generatePDFAttachment({
+              assessment: assessment as any,
+              type: 'board-brief'
+            });
+            pdfAttachment = {
+              filename: pdfData.filename,
+              content: pdfData.buffer
+            };
+            console.log('PDF attachment generated successfully:', pdfData.filename);
+          } catch (pdfError) {
+            console.error('Failed to generate PDF attachment:', pdfError);
+            // Continue without attachment - user can still download from results page
+          }
+        } else {
+          console.log('PDF attachments disabled - user can download from results page');
+        }
         
         // Send the email (with or without PDF attachment)
         const emailResult = await sendEmail({

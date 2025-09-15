@@ -3,6 +3,7 @@ import { PILLARS } from '@/lib/pillars';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Shield } from 'lucide-react';
+import { mapAssessmentToMatrix, generateThreatIntelligenceSummary } from '@/lib/matrix-mapping';
 
 interface PDFPageProps {
   params: Promise<{ id: string }>;
@@ -52,6 +53,10 @@ export default async function PDFPage({ params }: PDFPageProps) {
         weight: PILLARS.find(p => p.id === pillar)?.weight || 0.2,
         contributionToTotal: score * (PILLARS.find(p => p.id === pillar)?.weight || 0.2)
       }));
+
+  // Generate Matrix mapping and threat intelligence
+  const matrixMapping = await mapAssessmentToMatrix(pillarScores, iri);
+  const threatIntelligence = generateThreatIntelligenceSummary(matrixMapping, iri);
 
   return (
     <main className="pdf-page bg-gradient-to-br from-above-peach-50 via-above-white to-above-lavender-50 min-h-screen">
@@ -377,11 +382,65 @@ export default async function PDFPage({ params }: PDFPageProps) {
             </p>
           </div>
 
-          <div className="bg-white/90 border border-above-rose-200 rounded-xl p-6 shadow-lg">
-            <h3 className="text-lg font-bold text-slate-900 mb-4">Matrix Integration</h3>
-            <p className="text-sm text-slate-600">
-              Your assessment has been mapped to threat intelligence frameworks and implementation playbooks.
-            </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Risk Level Assessment */}
+            <div className="bg-white/90 border border-above-rose-200 rounded-xl p-6 shadow-lg">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">Risk Assessment</h3>
+              <div className="flex items-center gap-3 mb-3">
+                <div className={`w-4 h-4 rounded-full ${
+                  threatIntelligence.riskLevel === 'High' ? 'bg-red-500' :
+                  threatIntelligence.riskLevel === 'Medium' ? 'bg-yellow-500' :
+                  threatIntelligence.riskLevel === 'Medium-Low' ? 'bg-blue-500' : 'bg-green-500'
+                }`}></div>
+                <span className="font-semibold text-slate-900">{threatIntelligence.riskLevel} Risk</span>
+              </div>
+              <p className="text-sm text-slate-600">{threatIntelligence.summary}</p>
+            </div>
+
+            {/* Top Threat Techniques */}
+            <div className="bg-white/90 border border-above-blue-200 rounded-xl p-6 shadow-lg">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">Relevant Threat Techniques</h3>
+              <div className="space-y-2">
+                {threatIntelligence.topTechniques.length > 0 ? (
+                  threatIntelligence.topTechniques.slice(0, 4).map((technique, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-above-blue-500 rounded-full"></div>
+                      <span className="text-sm text-slate-700">{technique}</span>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-sm text-slate-600">
+                    Your strong security posture mitigates most common insider threat techniques.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Recommended Playbooks */}
+            <div className="bg-white/90 border border-above-peach-200 rounded-xl p-6 shadow-lg">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">Implementation Playbooks</h3>
+              <div className="space-y-2">
+                {matrixMapping.recommendedPlaybooks.map((playbook, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-above-peach-500 rounded-full"></div>
+                    <span className="text-sm text-slate-700">{playbook}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Key Recommendations */}
+            <div className="bg-white/90 border border-above-lavender-200 rounded-xl p-6 shadow-lg">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">Priority Actions</h3>
+              <div className="space-y-2">
+                {threatIntelligence.keyRecommendations.map((recommendation, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-above-lavender-500 rounded-full"></div>
+                    <span className="text-sm text-slate-700">{recommendation}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -404,9 +463,10 @@ export default async function PDFPage({ params }: PDFPageProps) {
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">Benchmarks</h3>
                 <p className="text-sm text-slate-600 mb-4">Industry comparisons and peer analysis</p>
-                <div className="bg-white rounded px-3 py-2 text-xs font-mono text-above-rose-700 border">
-                  /benchmarks
-                </div>
+                <a href="https://insiderisk.io/benchmarks" target="_blank" rel="noopener noreferrer"
+                   className="inline-block bg-white rounded px-3 py-2 text-xs font-mono text-above-rose-700 border hover:bg-above-rose-50 transition-colors">
+                  insiderisk.io/benchmarks
+                </a>
               </div>
 
               <div className="bg-gradient-to-br from-above-blue-50 to-above-lavender-50 rounded-xl p-6 border border-above-blue-200 text-center">
@@ -415,30 +475,74 @@ export default async function PDFPage({ params }: PDFPageProps) {
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">Glossary</h3>
                 <p className="text-sm text-slate-600 mb-4">Security terminology and definitions</p>
-                <div className="bg-white rounded px-3 py-2 text-xs font-mono text-above-blue-700 border">
-                  /glossary
-                </div>
+                <a href="https://insiderisk.io/glossary" target="_blank" rel="noopener noreferrer"
+                   className="inline-block bg-white rounded px-3 py-2 text-xs font-mono text-above-blue-700 border hover:bg-above-blue-50 transition-colors">
+                  insiderisk.io/glossary
+                </a>
               </div>
 
               <div className="bg-gradient-to-br from-above-peach-50 to-above-lavender-50 rounded-xl p-6 border border-above-peach-200 text-center">
                 <div className="w-12 h-12 bg-above-peach-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <span className="text-above-peach-700 font-bold text-lg">🔍</span>
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">Research</h3>
-                <p className="text-sm text-slate-600 mb-4">Latest insights and threat intelligence</p>
-                <div className="bg-white rounded px-3 py-2 text-xs font-mono text-above-peach-700 border">
-                  /research
-                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Matrix</h3>
+                <p className="text-sm text-slate-600 mb-4">Interactive threat technique database</p>
+                <a href="https://insiderisk.io/matrix" target="_blank" rel="noopener noreferrer"
+                   className="inline-block bg-white rounded px-3 py-2 text-xs font-mono text-above-peach-700 border hover:bg-above-peach-50 transition-colors">
+                  insiderisk.io/matrix
+                </a>
               </div>
 
               <div className="bg-gradient-to-br from-above-lavender-50 to-above-blue-50 rounded-xl p-6 border border-above-lavender-200 text-center">
                 <div className="w-12 h-12 bg-above-lavender-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-above-lavender-700 font-bold text-lg">📞</span>
+                  <span className="text-above-lavender-700 font-bold text-lg">📖</span>
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">Support</h3>
-                <p className="text-sm text-slate-600 mb-4">Contact our security experts</p>
-                <div className="bg-white rounded px-3 py-2 text-xs font-mono text-above-lavender-700 border">
-                  /contact
+                <h3 className="font-bold text-slate-900 mb-2">Playbooks</h3>
+                <p className="text-sm text-slate-600 mb-4">Implementation guides and frameworks</p>
+                <a href="https://insiderisk.io/playbooks" target="_blank" rel="noopener noreferrer"
+                   className="inline-block bg-white rounded px-3 py-2 text-xs font-mono text-above-lavender-700 border hover:bg-above-lavender-50 transition-colors">
+                  insiderisk.io/playbooks
+                </a>
+              </div>
+            </div>
+
+            {/* Additional External Resources */}
+            <div className="mt-12 bg-gradient-to-br from-slate-50 to-white rounded-xl p-8 border border-slate-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">External Resources</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-slate-900 mb-3">Industry Research</h4>
+                  <div className="space-y-2">
+                    <a href="https://www.ponemon.org/research/ponemon-library" target="_blank" rel="noopener noreferrer"
+                       className="block text-sm text-blue-600 hover:text-blue-800 hover:underline">
+                      → Ponemon Institute Research Library
+                    </a>
+                    <a href="https://www.verizon.com/business/resources/reports/dbir/" target="_blank" rel="noopener noreferrer"
+                       className="block text-sm text-blue-600 hover:text-blue-800 hover:underline">
+                      → Verizon Data Breach Investigations Report
+                    </a>
+                    <a href="https://www.gartner.com/en/research" target="_blank" rel="noopener noreferrer"
+                       className="block text-sm text-blue-600 hover:text-blue-800 hover:underline">
+                      → Gartner Research & Advisory
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-900 mb-3">Security Frameworks</h4>
+                  <div className="space-y-2">
+                    <a href="https://insiderthreatmatrix.org" target="_blank" rel="noopener noreferrer"
+                       className="block text-sm text-blue-600 hover:text-blue-800 hover:underline">
+                      → ForScie Insider Threat Matrix
+                    </a>
+                    <a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer"
+                       className="block text-sm text-blue-600 hover:text-blue-800 hover:underline">
+                      → MITRE ATT&CK Framework
+                    </a>
+                    <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener noreferrer"
+                       className="block text-sm text-blue-600 hover:text-blue-800 hover:underline">
+                      → NIST Cybersecurity Framework
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

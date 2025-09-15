@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { AboveButton } from "@/components/ui/above-components";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Building2, Users, Mail, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -19,6 +19,7 @@ interface OrganizationFormProps {
     industry: string;
     employeeCount: string;
     contactEmail?: string;
+    emailOptIn: boolean;
     includeInBenchmarks: boolean;
   }) => void;
   className?: string;
@@ -56,6 +57,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
     industry: "",
     employeeCount: "",
     contactEmail: "",
+    emailOptIn: false,
     includeInBenchmarks: false,
   });
 
@@ -143,6 +145,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
             industry: formData.industry,
             company_size: formData.employeeCount,
             assessment_started: true,
+            email_opt_in: formData.emailOptIn,
             include_in_benchmarks: formData.includeInBenchmarks,
             identified_at: new Date().toISOString(),
           });
@@ -154,6 +157,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
           industry: formData.industry,
           company_size: formData.employeeCount,
           has_email: !!formData.contactEmail,
+          email_opt_in: formData.emailOptIn,
           include_in_benchmarks: formData.includeInBenchmarks,
           form_step: 'organization_complete',
         });
@@ -317,6 +321,7 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
                     industry: formData.industry || undefined,
                     company_size: formData.employeeCount || undefined,
                     assessment_started: true,
+                    email_opt_in: formData.emailOptIn,
                     identified_at: new Date().toISOString(),
                   });
                   
@@ -344,6 +349,28 @@ export function OrganizationForm({ onSubmit, className }: OrganizationFormProps)
               Optional: Receive your detailed results and updates on new research
             </p>
           </div>
+
+          {/* Email opt-in (only show if email provided) */}
+          {formData.contactEmail && (
+            <div className="flex items-start space-x-3 p-4 border rounded-lg bg-above-blue-50 border-above-blue-200">
+              <Checkbox
+                id="emailOptIn"
+                checked={formData.emailOptIn}
+                onCheckedChange={(checked) => updateField("emailOptIn", checked === true)}
+              />
+              <div className="grid gap-1.5 leading-none">
+                <Label
+                  htmlFor="emailOptIn"
+                  className="text-sm font-medium cursor-pointer"
+                >
+                  Email me my results
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  Receive your detailed assessment results and recommendations via email
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Benchmark inclusion */}
           <div className="flex items-start space-x-3 p-4 border rounded-lg">

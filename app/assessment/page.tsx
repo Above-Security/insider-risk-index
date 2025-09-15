@@ -17,6 +17,7 @@ interface OrganizationData {
   industry: string;
   employeeCount: string;
   contactEmail?: string;
+  emailOptIn: boolean;
   includeInBenchmarks: boolean;
 }
 
@@ -116,7 +117,7 @@ export default function AssessmentPage() {
           size: sizeMap[organizationData.employeeCount] || undefined,
           region: undefined,
           answers: answersObject,
-          emailOptIn: organizationData.includeInBenchmarks && !!organizationData.contactEmail,
+          emailOptIn: organizationData.emailOptIn,
           contactEmail: organizationData.contactEmail,
         });
 

@@ -112,9 +112,7 @@ export async function GET(
         printBackground: true,
         preferCSSPageSize: false,
         displayHeaderFooter: false,
-        scale: 1,
-        pageRanges: '',
-        fullPage: true
+        scale: 1
       });
 
       // Create filename based on assessment data

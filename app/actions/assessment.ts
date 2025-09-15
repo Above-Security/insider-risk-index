@@ -30,8 +30,21 @@ export type AssessmentSubmission = z.infer<typeof AssessmentSubmissionSchema>;
  */
 export async function submitAssessment(data: AssessmentSubmission) {
   try {
+    console.log("🔍 Starting assessment submission...");
+    console.log("🔍 DATABASE_URL present:", !!process.env.DATABASE_URL);
+
+    // Test database connection
+    try {
+      await prisma.$connect();
+      console.log("✅ Database connection successful");
+    } catch (dbError) {
+      console.error("❌ Database connection failed:", dbError);
+      throw new Error(`Database connection failed: ${dbError instanceof Error ? dbError.message : String(dbError)}`);
+    }
+
     // Validate input
     const validated = AssessmentSubmissionSchema.parse(data);
+    console.log("✅ Data validation successful");
     
     // Convert answers to array format for scoring
     const answersArray: AssessmentAnswer[] = Object.entries(validated.answers).map(
@@ -68,6 +81,7 @@ export async function submitAssessment(data: AssessmentSubmission) {
     }));
     
     // Save assessment to database
+    console.log("🔍 Attempting to save assessment to database...");
     const assessment = await prisma.assessment.create({
       data: {
         organizationName: validated.organizationName,
@@ -95,6 +109,8 @@ export async function submitAssessment(data: AssessmentSubmission) {
         pillarBreakdown: true,
       },
     });
+
+    console.log("✅ Assessment saved successfully with ID:", assessment.id);
     
     // Update benchmark snapshots (in background)
     if (validated.industry || validated.size || validated.region) {
@@ -200,19 +216,24 @@ export async function submitAssessment(data: AssessmentSubmission) {
       },
     };
   } catch (error) {
-    console.error("Assessment submission error:", error);
-    
+    console.error("❌ Assessment submission error:", error);
+    console.error("❌ Error type:", error?.constructor?.name);
+    console.error("❌ Error message:", error instanceof Error ? error.message : String(error));
+    console.error("❌ Error stack:", error instanceof Error ? error.stack : 'No stack trace');
+
     if (error instanceof z.ZodError) {
+      console.error("❌ Zod validation errors:", error.issues);
       return {
         success: false,
         error: "Invalid assessment data",
         details: error.issues,
       };
     }
-    
+
     return {
       success: false,
       error: "Failed to submit assessment",
+      details: error instanceof Error ? error.message : String(error),
     };
   }
 }

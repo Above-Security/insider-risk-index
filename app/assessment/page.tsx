@@ -128,6 +128,7 @@ export default function AssessmentPage() {
           return; // Exit early on successful server submission
         } else {
           console.error("⚠️ Server submission failed:", serverResult.error);
+          console.error("⚠️ Server submission details:", serverResult.details);
         }
       } catch (serverError) {
         console.error("⚠️ Server submission failed:", serverError);

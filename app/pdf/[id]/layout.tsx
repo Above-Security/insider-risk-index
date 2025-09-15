@@ -5,7 +5,7 @@ interface PDFLayoutProps {
 }
 
 /**
- * PDF ID Layout - Simple layout that uses normal Tailwind CSS
+ * PDF ID Layout - Uses normal Next.js nested layout (no html/body tags)
  */
 export default function PDFIdLayout({ children }: PDFLayoutProps) {
   return children;

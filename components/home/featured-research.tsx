@@ -110,7 +110,8 @@ export function FeaturedResearch({ articles }: FeaturedResearchProps) {
   return (
     <div className="space-y-8">
       {articles.map((article, index) => {
-        const isNewest = index === 0;
+        const isFeatured = (article.frontmatter as any).featured || false;
+        const isNewest = index === 0 && !isFeatured; // Only show "Latest" if not featured
         const style = getArticleStyles(index);
         const IconComponent = getArticleIcon(article.frontmatter.title, index);
         
@@ -133,15 +134,23 @@ export function FeaturedResearch({ articles }: FeaturedResearchProps) {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-3">
                     <IconComponent className={`h-5 w-5 ${style.iconColor}`} />
-                    {isNewest && (
-                      <Badge 
-                        variant="outline" 
+                    {isFeatured && (
+                      <Badge
+                        variant="outline"
+                        className={`${style.badgeBg} ${style.badgeText} ${style.badgeBorder} font-semibold`}
+                      >
+                        ⭐ Featured
+                      </Badge>
+                    )}
+                    {isNewest && !isFeatured && (
+                      <Badge
+                        variant="outline"
                         className={`${style.badgeBg} ${style.badgeText} ${style.badgeBorder} font-semibold`}
                       >
                         🆕 Latest Research
                       </Badge>
                     )}
-                    {!isNewest && article.frontmatter.category && (
+                    {!isNewest && !isFeatured && article.frontmatter.category && (
                       <Badge 
                         variant="outline" 
                         className={`${style.badgeBg} ${style.badgeText} ${style.badgeBorder}`}
@@ -206,14 +215,14 @@ export function FeaturedResearch({ articles }: FeaturedResearchProps) {
                     </>
                   )}
                 </div>
-                <AboveButton 
-                  variant={isNewest ? "outline" : "ghost"} 
-                  size="sm" 
+                <AboveButton
+                  variant={(isFeatured || isNewest) ? "outline" : "ghost"}
+                  size="sm"
                   asChild
                 >
                   <Link href={`/research/${article.slug}`}>
-                    Read {isNewest ? 'Latest Report' : 'Report'}
-                    {isNewest ? (
+                    Read {isFeatured ? 'Featured Report' : (isNewest ? 'Latest Report' : 'Report')}
+                    {(isFeatured || isNewest) ? (
                       <ExternalLink className="ml-2 h-4 w-4" aria-hidden="true" />
                     ) : (
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />

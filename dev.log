@@ -1,0 +1,21 @@
+
+> insider-risk-index@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.5.0 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.0.1.148:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Compiled instrumentation Node.js in 86ms
+ ✓ Compiled instrumentation Edge in 28ms
+ ✓ Ready in 2.5s
+ ○ Compiling / ...
+ ✓ Compiled / in 4.1s
+🚀 Insider Risk Index v1.0.9-debug - 2025-09-16T12:38:52.025Z
+🔍 Debug Info: { hasPosthogKey: true, nodeEnv: 'development', userAgent: 'server' }
+ GET / 200 in 6442ms
+[?25h

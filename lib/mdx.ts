@@ -30,6 +30,7 @@ export interface ResearchFrontmatter {
   lastUpdated?: string;
   author: string;
   category: "trends" | "research" | "analysis" | "report";
+  featured?: boolean;
   tags: string[];
   readingTime?: string;
   methodology?: string;
@@ -121,7 +122,14 @@ export function getAllContent<T = any>(
       })
       .filter((item): item is ContentItem<T> => item !== null)
       .sort((a, b) => {
-        // Sort by lastUpdated, publishedAt, or publishDate, newest first
+        // Featured articles always come first
+        const aFeatured = (a.frontmatter as any).featured || false;
+        const bFeatured = (b.frontmatter as any).featured || false;
+
+        if (aFeatured && !bFeatured) return -1;
+        if (!aFeatured && bFeatured) return 1;
+
+        // If both or neither are featured, sort by date (newest first)
         const aDate = (a.frontmatter as any).lastUpdated || (a.frontmatter as any).publishedAt || (a.frontmatter as any).publishDate;
         const bDate = (b.frontmatter as any).lastUpdated || (b.frontmatter as any).publishedAt || (b.frontmatter as any).publishDate;
         return new Date(bDate).getTime() - new Date(aDate).getTime();

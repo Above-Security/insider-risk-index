@@ -32,14 +32,9 @@ import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-util
 export const metadata = pageMetadata.home();
 
 export default function HomePage() {
-  // Load research articles dynamically
+  // Load research articles dynamically (featured articles prioritized)
   const researchArticles = getAllContent<ResearchFrontmatter>('research')
-    .sort((a, b) => {
-      const dateA = new Date(a.frontmatter.publishedAt || a.frontmatter.publishDate || '');
-      const dateB = new Date(b.frontmatter.publishedAt || b.frontmatter.publishDate || '');
-      return dateB.getTime() - dateA.getTime(); // Sort by newest first
-    })
-    .slice(0, 3); // Take the 3 most recent articles
+    .slice(0, 3); // Take the 3 most recent/featured articles
 
   const productJsonLd = getProductJsonLd({
     name: "Insider Risk Index Assessment",

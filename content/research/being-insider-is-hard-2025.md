@@ -4,6 +4,7 @@ description: "The brutal truth about being an employee in 2025: unclear policies
 author: "Insider Risk Index Research Team"
 publishedAt: "2025-09-05"
 category: "analysis"
+featured: true
 tags: ["employee challenges", "workplace security", "accidental insider threats", "policy confusion", "AI compliance", "human error"]
 methodology: "Employee survey analysis and workplace security research synthesis"
 dataSources: ["Resume Now", "HR Dive", "McKinsey", "Varonis", "Mimecast"]

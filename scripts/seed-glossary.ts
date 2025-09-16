@@ -12,8 +12,9 @@ async function main() {
   console.log('📚 Seeding glossary terms...');
   
   for (const term of glossaryTerms) {
-    await prisma.glossaryTerm.create({
-      data: {
+    await prisma.glossaryTerm.upsert({
+      where: { slug: term.slug },
+      create: {
         term: term.term,
         slug: term.slug,
         definition: term.definition,
@@ -25,9 +26,22 @@ async function main() {
         pillarRelevance: term.pillarRelevance,
         sources: term.sources,
         published: true,
-        featured: term.term === "Insider Risk Index (IRI)" || 
-                 term.term === "Insider Risk" || 
+        featured: term.term === "Insider Risk Index (IRI)" ||
+                 term.term === "Insider Risk" ||
                  term.term === "Zero Trust Architecture",
+        lastReviewed: new Date(),
+        reviewedBy: "System"
+      },
+      update: {
+        term: term.term,
+        definition: term.definition,
+        longExplanation: term.longExplanation,
+        category: term.category,
+        tags: term.tags,
+        difficulty: term.difficulty,
+        relatedTerms: term.relatedTerms,
+        pillarRelevance: term.pillarRelevance,
+        sources: term.sources,
         lastReviewed: new Date(),
         reviewedBy: "System"
       }

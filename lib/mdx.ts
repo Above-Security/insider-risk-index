@@ -121,9 +121,9 @@ export function getAllContent<T = any>(
       })
       .filter((item): item is ContentItem<T> => item !== null)
       .sort((a, b) => {
-        // Sort by lastUpdated or publishDate, newest first
-        const aDate = (a.frontmatter as any).lastUpdated || (a.frontmatter as any).publishDate;
-        const bDate = (b.frontmatter as any).lastUpdated || (b.frontmatter as any).publishDate;
+        // Sort by lastUpdated, publishedAt, or publishDate, newest first
+        const aDate = (a.frontmatter as any).lastUpdated || (a.frontmatter as any).publishedAt || (a.frontmatter as any).publishDate;
+        const bDate = (b.frontmatter as any).lastUpdated || (b.frontmatter as any).publishedAt || (b.frontmatter as any).publishDate;
         return new Date(bDate).getTime() - new Date(aDate).getTime();
       });
   } catch (error) {

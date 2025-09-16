@@ -7,7 +7,7 @@ import { generateMetadata as generateSeoMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = generateSeoMetadata({
   title: 'Security Glossary - Insider Risk Terms & Definitions',
-  description: 'Comprehensive glossary of insider risk management, cybersecurity, and threat intelligence terms. Over 75 expertly curated definitions with citations from authoritative sources.',
+  description: 'Comprehensive glossary of insider risk management, cybersecurity, and threat intelligence terms. Over 100 expertly curated definitions with citations from authoritative sources.',
   path: '/glossary',
   keywords: [
     'cybersecurity glossary',

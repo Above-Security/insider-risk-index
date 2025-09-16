@@ -113,17 +113,16 @@ export default async function PDFPage({ params }: PDFPageProps) {
               </div>
 
               {/* Above Security sponsorship - prominent */}
-              <div className="bg-white/95 rounded-lg p-4 border border-above-lavender-200 shadow-soft max-w-md">
+              <div className="bg-white rounded-lg p-4 border-2 border-slate-900 shadow-lg max-w-md">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-slate-800 font-semibold whitespace-nowrap">Sponsored by</span>
+                  <span className="text-sm text-slate-900 font-bold whitespace-nowrap">Sponsored by</span>
                   <div className="flex-shrink-0">
                     <Image
                       src="/above-logo-with-text.png"
                       alt="Above Security"
-                      width={140}
-                      height={46}
-                      className="h-10 w-auto object-contain filter brightness-0"
-                      style={{ filter: 'brightness(0) saturate(1)' }}
+                      width={160}
+                      height={53}
+                      className="h-12 w-auto object-contain"
                     />
                   </div>
                 </div>

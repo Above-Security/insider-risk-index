@@ -20,7 +20,10 @@ const AssessmentSubmissionSchema = z.object({
   region: z.nativeEnum(Region).optional(),
   answers: z.record(z.string(), z.number().min(0).max(100)),
   emailOptIn: z.boolean().default(false),
-  contactEmail: z.string().email().optional(),
+  contactEmail: z.string().refine(
+    (email) => email === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+    "Invalid email format"
+  ).optional(),
 });
 
 export type AssessmentSubmission = z.infer<typeof AssessmentSubmissionSchema>;

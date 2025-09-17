@@ -26,7 +26,10 @@ export const AssessmentSubmissionSchema = z.object({
   industry: z.string().min(1, "Industry is required"),
   employeeCount: z.enum(["1-50", "51-200", "201-1000", "1001-5000", "5000+"]),
   answers: z.array(AssessmentAnswerSchema),
-  contactEmail: z.string().email().optional(),
+  contactEmail: z.string().refine(
+    (email) => email === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+    "Invalid email format"
+  ).optional(),
   includeInBenchmarks: z.boolean().default(false),
 });
 

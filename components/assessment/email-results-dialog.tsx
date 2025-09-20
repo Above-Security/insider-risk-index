@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Mail, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -27,7 +26,7 @@ export function EmailResultsDialog({ assessmentId, className }: EmailResultsDial
   const [loading, setLoading] = useState(false);
   const [recipientEmail, setRecipientEmail] = useState("");
   const [recipientName, setRecipientName] = useState("");
-  const [includeAttachment, setIncludeAttachment] = useState(true);
+  // Always include attachment if environment variable is set
 
   const handleSendEmail = async () => {
     if (!recipientEmail) {
@@ -47,7 +46,6 @@ export function EmailResultsDialog({ assessmentId, className }: EmailResultsDial
           assessmentId,
           recipientEmail,
           recipientName: recipientName || undefined,
-          includeAttachment,
         }),
       });
 
@@ -59,7 +57,6 @@ export function EmailResultsDialog({ assessmentId, className }: EmailResultsDial
         // Reset form
         setRecipientEmail("");
         setRecipientName("");
-        setIncludeAttachment(true);
       } else {
         toast.error(data.error || "Failed to send email");
       }
@@ -122,17 +119,6 @@ export function EmailResultsDialog({ assessmentId, className }: EmailResultsDial
             </p>
           </div>
 
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="include-pdf"
-              checked={includeAttachment}
-              onCheckedChange={(checked) => setIncludeAttachment(checked === true)}
-              disabled={loading}
-            />
-            <Label htmlFor="include-pdf" className="text-sm">
-              Include PDF report attachment
-            </Label>
-          </div>
         </div>
 
         <DialogFooter className="flex gap-2">

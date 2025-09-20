@@ -10,7 +10,6 @@ const EmailResultsSchema = z.object({
   assessmentId: z.string().min(1),
   recipientEmail: z.string().email(),
   recipientName: z.string().optional(),
-  includeAttachment: z.boolean().default(true),
 });
 
 export async function POST(request: NextRequest) {
@@ -21,11 +20,10 @@ export async function POST(request: NextRequest) {
     console.log('📧 Request body received:', {
       assessmentId: body.assessmentId,
       recipientEmail: body.recipientEmail,
-      recipientName: body.recipientName,
-      includeAttachment: body.includeAttachment
+      recipientName: body.recipientName
     });
 
-    const { assessmentId, recipientEmail, recipientName, includeAttachment } = EmailResultsSchema.parse(body);
+    const { assessmentId, recipientEmail, recipientName } = EmailResultsSchema.parse(body);
     console.log('📧 Request validation passed');
 
     // Get assessment results
@@ -127,9 +125,9 @@ export async function POST(request: NextRequest) {
 
     console.log('📧 Email HTML rendered successfully, length:', emailHtml.length);
 
-    // Generate PDF attachment if requested
+    // Generate PDF attachment if environment variable is enabled
     let pdfAttachment;
-    if (includeAttachment && process.env.ENABLE_PDF_EMAIL_ATTACHMENTS === 'true') {
+    if (process.env.ENABLE_PDF_EMAIL_ATTACHMENTS === 'true') {
       try {
         console.log("📄 Generating PDF attachment for manual email send");
         const pdfData = await generatePDFAttachment({ assessment, type: 'board-brief' });
@@ -150,7 +148,6 @@ export async function POST(request: NextRequest) {
       }
     } else {
       console.log('📄 PDF attachment skipped:', {
-        includeAttachment,
         enablePdfAttachments: process.env.ENABLE_PDF_EMAIL_ATTACHMENTS
       });
     }

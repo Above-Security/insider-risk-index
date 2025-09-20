@@ -2,6 +2,20 @@ import { getMatrixData, generatePillarMatrixAnalysis } from './matrix-api';
 import { getAllPillars, getPillarById } from './pillars';
 import { MatrixData } from './matrix-types';
 
+/**
+ * Map pillar IDs to correct playbook slugs
+ */
+function getPlaybookSlugForPillar(pillarId: string): string {
+  const mapping: { [key: string]: string } = {
+    'visibility': 'visibility-pillar-implementation',
+    'prevention-coaching': 'prevention-coaching-program',
+    'investigation-evidence': 'investigation-evidence-framework',
+    'identity-saas': 'identity-saas-framework',
+    'phishing-resilience': 'phishing-resilience-program'
+  };
+  return mapping[pillarId] || pillarId;
+}
+
 interface PillarMatrixAnalysis {
   pillarName: string;
   relatedTechniques: number;
@@ -152,7 +166,7 @@ function generateCriticalRecommendations(
       difficulty: 'moderate',
       timeToImplement: '8-12 weeks',
       estimatedImpact: 9,
-      playbooks: ['visibility-monitoring'],
+      playbooks: ['visibility-pillar-implementation'],
     },
     'prevention-coaching': {
       title: 'Establish Insider Threat Awareness Program',
@@ -161,7 +175,7 @@ function generateCriticalRecommendations(
       difficulty: 'easy',
       timeToImplement: '4-6 weeks',
       estimatedImpact: 8,
-      playbooks: ['prevention-coaching'],
+      playbooks: ['prevention-coaching-program'],
     },
     'investigation-evidence': {
       title: 'Deploy Digital Forensics Capabilities',
@@ -170,7 +184,7 @@ function generateCriticalRecommendations(
       difficulty: 'hard',
       timeToImplement: '12-16 weeks',
       estimatedImpact: 9,
-      playbooks: ['investigation-evidence'],
+      playbooks: ['investigation-evidence-framework'],
     },
     'identity-saas': {
       title: 'Implement Zero Trust Identity Architecture',
@@ -179,7 +193,7 @@ function generateCriticalRecommendations(
       difficulty: 'hard',
       timeToImplement: '16-20 weeks',
       estimatedImpact: 10,
-      playbooks: ['identity-saas'],
+      playbooks: ['identity-saas-framework'],
     },
     'phishing-resilience': {
       title: 'Build Advanced Email Security Stack',
@@ -188,7 +202,7 @@ function generateCriticalRecommendations(
       difficulty: 'moderate',
       timeToImplement: '6-8 weeks',
       estimatedImpact: 8,
-      playbooks: ['phishing-resilience'],
+      playbooks: ['phishing-resilience-program'],
     },
   };
 
@@ -272,7 +286,7 @@ function generateModerateRecommendations(
       matrixTechniques: analysis.elements.map(t => t.id).slice(0, 3),
       preventionStrategies: analysis.recommendations.slice(0, 2),
       detectionMethods: analysis.elements.flatMap(t => t.relevantDetections.map(d => d.description)).slice(0, 2),
-      playbooks: [pillarId.replace('-', '-')],
+      playbooks: [getPlaybookSlugForPillar(pillarId)],
       resources: [
         {
           title: 'Related Matrix Analysis',
@@ -306,7 +320,7 @@ function generateOptimizationRecommendations(
     matrixTechniques: analysis.elements.map(t => t.id).slice(0, 2),
     preventionStrategies: analysis.recommendations.slice(0, 1),
     detectionMethods: analysis.elements.flatMap(t => t.relevantDetections.map(d => d.description)).slice(0, 1),
-    playbooks: [pillarId],
+    playbooks: [getPlaybookSlugForPillar(pillarId)],
     resources: [
       {
         title: 'Advanced Matrix Techniques',
@@ -337,11 +351,11 @@ function getFallbackRecommendations(context: RecommendationContext): Recommendat
     matrixTechniques: [],
     preventionStrategies: [],
     detectionMethods: [],
-    playbooks: [lowestPillar.pillarId],
+    playbooks: [getPlaybookSlugForPillar(lowestPillar.pillarId)],
     resources: [
       {
         title: 'Implementation Playbook',
-        url: '/playbooks/' + lowestPillar.pillarId,
+        url: '/playbooks/' + getPlaybookSlugForPillar(lowestPillar.pillarId),
         type: 'playbook',
       },
     ],
@@ -379,7 +393,7 @@ export function getIndustrySpecificRecommendations(
       matrixTechniques: [],
       preventionStrategies: [],
       detectionMethods: [],
-      playbooks: [score.pillarId],
+      playbooks: [getPlaybookSlugForPillar(score.pillarId)],
       resources: [
         {
           title: 'Industry Best Practices',

@@ -1011,7 +1011,7 @@ export const pageMetadata = {
  * Generate Assessment Tool JSON-LD
  */
 export function getAssessmentToolJsonLd() {
-  return JSON.stringify({
+  return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Insider Risk Assessment Tool",
@@ -1044,7 +1044,7 @@ export function getAssessmentToolJsonLd() {
       bestRating: "5",
       worstRating: "1",
     },
-  });
+  };
 }
 
 
@@ -1068,7 +1068,7 @@ export function getPlaybookHowToJsonLd({
   pillar?: string;
   tags?: string[];
 }) {
-  return JSON.stringify({
+  return {
     "@context": "https://schema.org",
     "@type": "HowTo",
     name: title,
@@ -1098,14 +1098,14 @@ export function getPlaybookHowToJsonLd({
       name: "Insider Risk Management",
       sameAs: "https://en.wikipedia.org/wiki/Insider_threat",
     },
-  });
+  };
 }
 
 /**
  * Generate FAQ JSON-LD for rich snippets
  */
 export function getFAQJsonLd(faqs: Array<{ question: string; answer: string }>) {
-  return JSON.stringify({
+  return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faqs.map(faq => ({
@@ -1116,6 +1116,6 @@ export function getFAQJsonLd(faqs: Array<{ question: string; answer: string }>) 
         text: faq.answer,
       },
     })),
-  });
+  };
 }
 

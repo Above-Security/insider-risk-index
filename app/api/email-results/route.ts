@@ -132,10 +132,14 @@ export async function POST(request: NextRequest) {
     if (includeAttachment && process.env.ENABLE_PDF_EMAIL_ATTACHMENTS === 'true') {
       try {
         console.log("📄 Generating PDF attachment for manual email send");
-        pdfAttachment = await generatePDFAttachment({ assessment, type: 'email' });
+        const pdfData = await generatePDFAttachment({ assessment, type: 'board-brief' });
+        pdfAttachment = {
+          filename: pdfData.filename,
+          content: pdfData.buffer
+        };
         console.log("✅ PDF attachment generated successfully:", {
-          filename: pdfAttachment?.filename,
-          contentLength: pdfAttachment?.content ? pdfAttachment.content.length : 0
+          filename: pdfData.filename,
+          bufferLength: pdfData.buffer.length
         });
       } catch (pdfError) {
         console.error('📄 PDF generation failed for manual email:', {

@@ -126,7 +126,7 @@ export function EmailResultsDialog({ assessmentId, className }: EmailResultsDial
             <Checkbox
               id="include-pdf"
               checked={includeAttachment}
-              onCheckedChange={setIncludeAttachment}
+              onCheckedChange={(checked) => setIncludeAttachment(checked === true)}
               disabled={loading}
             />
             <Label htmlFor="include-pdf" className="text-sm">

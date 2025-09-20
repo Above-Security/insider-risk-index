@@ -1,16 +1,33 @@
 import { Shield, ExternalLink, Users, Calendar, Database, BarChart3, Network, GitCompare, AlertTriangle, Eye } from 'lucide-react';
 import { MatrixAPI } from '@/lib/matrix-api';
-import { MatrixVisualization } from '@/components/matrix/matrix-visualization';
-import { MatrixHeatmap } from '@/components/matrix/matrix-heatmap';
-import { MatrixNetwork } from '@/components/matrix/matrix-network';
-import { TechniqueComparison } from '@/components/matrix/technique-comparison';
-import { MatrixTechniquesPaginated } from '@/components/matrix/matrix-techniques-paginated';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { getPageLayout, getSectionLayout, getGridClass } from '@/lib/layout-utils';
 import { generateJsonLd } from '@/lib/seo';
 import Script from 'next/script';
+import dynamic from 'next/dynamic';
+
+// Dynamic imports for heavy visualization components
+const MatrixVisualization = dynamic(() => import('@/components/matrix/matrix-visualization').then(mod => ({ default: mod.MatrixVisualization })), {
+  loading: () => <div className="animate-pulse bg-slate-200 h-64 rounded-lg" />
+});
+
+const MatrixHeatmap = dynamic(() => import('@/components/matrix/matrix-heatmap').then(mod => ({ default: mod.MatrixHeatmap })), {
+  loading: () => <div className="animate-pulse bg-slate-200 h-64 rounded-lg" />
+});
+
+const MatrixNetwork = dynamic(() => import('@/components/matrix/matrix-network').then(mod => ({ default: mod.MatrixNetwork })), {
+  loading: () => <div className="animate-pulse bg-slate-200 h-64 rounded-lg" />
+});
+
+const TechniqueComparison = dynamic(() => import('@/components/matrix/technique-comparison').then(mod => ({ default: mod.TechniqueComparison })), {
+  loading: () => <div className="animate-pulse bg-slate-200 h-64 rounded-lg" />
+});
+
+const MatrixTechniquesPaginated = dynamic(() => import('@/components/matrix/matrix-techniques-paginated').then(mod => ({ default: mod.MatrixTechniquesPaginated })), {
+  loading: () => <div className="animate-pulse bg-slate-200 h-32 rounded-lg" />
+});
 
 // ISR: Revalidate every hour (3600 seconds) for fresh Matrix data
 export const revalidate = 3600;

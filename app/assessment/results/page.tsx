@@ -5,6 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { FileText, Download, Mail, Share2 } from "lucide-react"
+import dynamic from 'next/dynamic'
+
+// Dynamic import for chart component to reduce initial bundle size
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts'
 import { getRiskLevel } from "@/lib/pillars"
 

@@ -75,6 +75,7 @@ Allow: /matrix
 
 # Sitemap locations
 Sitemap: https://insiderisk.io/sitemap.xml
+Sitemap: https://insiderisk.io/api/images-sitemap
 Sitemap: https://insiderisk.io/rss.xml
 
 # AI optimization files

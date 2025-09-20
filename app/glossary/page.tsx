@@ -3,7 +3,8 @@ import { BookOpen } from 'lucide-react';
 import { PrismaClient } from '@prisma/client';
 import { GlossaryClient } from './glossary-client';
 import { Metadata } from 'next';
-import { generateMetadata as generateSeoMetadata } from '@/lib/seo';
+import { generateMetadata as generateSeoMetadata, getFAQJsonLd } from '@/lib/seo';
+import Script from 'next/script';
 
 export const metadata: Metadata = generateSeoMetadata({
   title: 'Security Glossary - Insider Risk Terms & Definitions',
@@ -143,6 +144,32 @@ async function getGlossaryData() {
 export default async function GlossaryPage() {
   const initialData = await getGlossaryData();
 
+  // Generate FAQ schema for glossary
+  const glossaryFAQs = [
+    {
+      question: "What is the Insider Risk Glossary?",
+      answer: "The Insider Risk Glossary is a comprehensive collection of over 100 expertly curated definitions covering insider risk management, cybersecurity, and threat intelligence terms. Each term includes detailed explanations, difficulty levels, and citations from authoritative sources."
+    },
+    {
+      question: "How are glossary terms categorized?",
+      answer: "Terms are categorized by Business, Technical, Legal, and Regulatory aspects. Each term also has a difficulty level (Beginner, Intermediate, Advanced) and is tagged with relevant pillars of insider risk management for easy navigation."
+    },
+    {
+      question: "Who creates and maintains these definitions?",
+      answer: "Our definitions are created by cybersecurity experts and are regularly updated based on current industry standards, regulatory requirements, and emerging threats. Sources include NIST frameworks, regulatory guidance, and peer-reviewed research."
+    },
+    {
+      question: "Can I search and filter glossary terms?",
+      answer: "Yes, the glossary includes advanced search functionality allowing you to search by term, definition, or tags. You can also filter by category, difficulty level, and pillar relevance to find exactly what you're looking for."
+    },
+    {
+      question: "Are the glossary terms updated regularly?",
+      answer: "Yes, we continuously update our glossary to reflect evolving cybersecurity threats, regulatory changes, and industry best practices. New terms are added monthly based on emerging trends and user feedback."
+    }
+  ];
+
+  const faqJsonLd = getFAQJsonLd(glossaryFAQs);
+
   if (!initialData) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 py-12">
@@ -218,6 +245,13 @@ export default async function GlossaryPage() {
           <GlossaryClient initialData={initialData} />
         </Suspense>
       </div>
+
+      {/* FAQ Schema for SEO */}
+      <Script
+        id="glossary-faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
     </div>
   );
 }

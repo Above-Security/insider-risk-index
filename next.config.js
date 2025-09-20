@@ -10,8 +10,11 @@ const nextConfig = {
       '@radix-ui/react-tooltip',
       '@radix-ui/react-progress',
       'react-hook-form',
-      'zod'
+      'zod',
+      'framer-motion'
     ],
+    // Enable optimizeServerReact for smaller bundles
+    optimizeServerReact: true,
   },
 
   // Enable Turbopack for faster builds

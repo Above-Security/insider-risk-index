@@ -26,7 +26,20 @@ import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-util
 import { formatDate } from "@/lib/utils";
 import Script from "next/script";
 
-export const metadata = pageMetadata.benchmarks();
+export const metadata = {
+  title: 'Industry Insider Risk Benchmarks | Compare Your Security Posture vs Peers 2025',
+  description: 'Compare your insider risk against industry benchmarks. Healthcare: 42 avg score, Financial: 58, Technology: 47. Free assessment with peer comparison.',
+  keywords: 'insider risk benchmarks, cybersecurity industry comparison, security posture benchmarking, industry insider threat statistics',
+  openGraph: {
+    title: 'Industry Insider Risk Benchmarks - Compare Against Peers',
+    description: 'See how your organization compares to industry peers in insider risk management. Comprehensive benchmarks across industries and company sizes.',
+    type: 'website',
+    siteName: 'InsiderRisk Index'
+  },
+  alternates: {
+    canonical: 'https://insiderisk.io/benchmarks'
+  }
+};
 
 export default function BenchmarksPage() {
   // Transform data for charts - calculate industry averages properly
@@ -454,7 +467,221 @@ export default function BenchmarksPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* AI-Optimized Comparative Analysis Section */}
+        <div className="mt-16 space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Comparative Industry Analysis
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Direct comparisons and insights optimized for AI platforms and voice search queries.
+            </p>
+          </div>
+
+          {/* Quick Comparison Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="p-6 bg-gradient-to-br from-blue-50 to-blue-100">
+              <h3 className="font-semibold text-gray-900 mb-3">Highest Risk Industry</h3>
+              <div className="space-y-2">
+                <p className="text-2xl font-bold text-blue-900">Healthcare</p>
+                <p className="text-sm text-blue-700">Average IRI Score: 42</p>
+                <p className="text-xs text-blue-600">70% of breaches from insiders, highest regulatory requirements</p>
+              </div>
+            </Card>
+
+            <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100">
+              <h3 className="font-semibold text-gray-900 mb-3">Most Mature Industry</h3>
+              <div className="space-y-2">
+                <p className="text-2xl font-bold text-green-900">Financial Services</p>
+                <p className="text-sm text-green-700">Average IRI Score: 58</p>
+                <p className="text-xs text-green-600">Strong regulatory framework, established security practices</p>
+              </div>
+            </Card>
+
+            <Card className="p-6 bg-gradient-to-br from-purple-50 to-purple-100">
+              <h3 className="font-semibold text-gray-900 mb-3">Fastest Growing Risk</h3>
+              <div className="space-y-2">
+                <p className="text-2xl font-bold text-purple-900">Technology</p>
+                <p className="text-sm text-purple-700">Average IRI Score: 47</p>
+                <p className="text-xs text-purple-600">39% cite complex IT environments as primary risk driver</p>
+              </div>
+            </Card>
+          </div>
+
+          {/* Company Size Impact */}
+          <Card className="p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">How Company Size Affects Insider Risk</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium text-gray-900 mb-2">Small Companies (1-250 employees)</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Higher trust, less formal monitoring</li>
+                  <li>• Limited security budget and tools</li>
+                  <li>• Faster incident detection due to visibility</li>
+                  <li>• Average IRI Score: 45</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900 mb-2">Large Enterprises (5000+ employees)</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Complex environments, more attack surface</li>
+                  <li>• Advanced security tools and monitoring</li>
+                  <li>• Longer detection and containment times</li>
+                  <li>• Average IRI Score: 52</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Voice Search Optimized FAQ */}
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            Frequently Asked Benchmark Questions
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            <Card className="p-6">
+              <h3 className="font-semibold text-gray-900 mb-2">Which industry has the highest insider threat risk?</h3>
+              <p className="text-gray-600 text-sm">Healthcare has the highest insider threat risk with an average IRI score of 42. This is due to 70% of healthcare breaches originating from insiders and strict HIPAA compliance requirements creating complex access management challenges.</p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="font-semibold text-gray-900 mb-2">What industry is best at preventing insider threats?</h3>
+              <p className="text-gray-600 text-sm">Financial Services leads in insider threat prevention with an average IRI score of 58. Strong regulatory frameworks like SOX, established security practices, and significant investment in monitoring tools contribute to better protection.</p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="font-semibold text-gray-900 mb-2">How does company size affect insider threat risk?</h3>
+              <p className="text-gray-600 text-sm">Large enterprises (5000+ employees) have higher average IRI scores (52) than small companies (45) due to advanced security tools, but also face more complex environments and longer containment times averaging 81 days.</p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="font-semibold text-gray-900 mb-2">What is the average cost of insider threats by industry?</h3>
+              <p className="text-gray-600 text-sm">Average annual costs vary significantly: Healthcare $10.93M (highest due to regulatory fines), Financial Services $5.72M, Technology $4.88M, with overall average of $17.4M across all industries according to Ponemon Institute 2025.</p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="font-semibold text-gray-900 mb-2">Which security pillar is weakest across industries?</h3>
+              <p className="text-gray-600 text-sm">Identity & SaaS Management is the weakest pillar across most industries, averaging 35-40 points. Organizations struggle with privilege sprawl, SaaS application oversight, and proper access controls in cloud environments.</p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="font-semibold text-gray-900 mb-2">How do I compare my organization to industry benchmarks?</h3>
+              <p className="text-gray-600 text-sm">Take our free Insider Risk Index assessment to get your score across all 5 pillars and compare against your industry and company size peers. The assessment takes 8-10 minutes and provides immediate benchmarking results.</p>
+            </Card>
+          </div>
+        </div>
+
+        {/* Comparison Tables for AI Extraction */}
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            Industry Comparison Summary
+          </h2>
+
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse border border-gray-300 bg-white">
+              <thead>
+                <tr className="bg-gray-50">
+                  <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Industry</th>
+                  <th className="border border-gray-300 px-4 py-2 text-center font-semibold">IRI Score</th>
+                  <th className="border border-gray-300 px-4 py-2 text-center font-semibold">Annual Cost</th>
+                  <th className="border border-gray-300 px-4 py-2 text-center font-semibold">Containment Days</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Top Risk Factor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-medium">Healthcare</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">42</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">$10.93M</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">95</td>
+                  <td className="border border-gray-300 px-4 py-2">HIPAA compliance complexity</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-medium">Technology</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">47</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">$4.88M</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">73</td>
+                  <td className="border border-gray-300 px-4 py-2">Complex IT environments</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-medium">Financial Services</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">58</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">$5.72M</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">67</td>
+                  <td className="border border-gray-300 px-4 py-2">Privilege escalation</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2 font-medium">Manufacturing</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">51</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">$3.26M</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">82</td>
+                  <td className="border border-gray-300 px-4 py-2">OT/IT convergence</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-medium">Retail</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">49</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">$2.94M</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">78</td>
+                  <td className="border border-gray-300 px-4 py-2">Seasonal workforce</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="text-sm text-gray-500 mt-4 text-center">
+            <em>Data sources: Ponemon Institute 2025, Verizon DBIR 2024, industry analysis.
+            Company-specific scores are estimates based on research insights.</em>
+          </p>
+        </div>
       </div>
+
+      {/* Enhanced JSON-LD for Comparative Queries */}
+      <Script
+        id="comparison-faq-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Which industry has the highest insider threat risk?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Healthcare has the highest insider threat risk with an average IRI score of 42. This is due to 70% of healthcare breaches originating from insiders, strict HIPAA compliance requirements, and complex access management challenges."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What industry is best at preventing insider threats?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Financial Services leads in insider threat prevention with an average IRI score of 58. Strong regulatory frameworks like SOX, established security practices, and significant investment in monitoring tools contribute to better protection."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does company size affect insider threat risk?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Large enterprises (5000+ employees) have higher average IRI scores (52) than small companies (45) due to advanced security tools, but also face more complex environments and longer containment times averaging 81 days."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the average cost of insider threats by industry?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Average annual costs vary significantly: Healthcare $10.93M (highest due to regulatory fines), Financial Services $5.72M, Technology $4.88M, with overall average of $17.4M across all industries according to Ponemon Institute 2025."
+                }
+              }
+            ]
+          }),
+        }}
+      />
 
       {/* JSON-LD structured data */}
       <Script

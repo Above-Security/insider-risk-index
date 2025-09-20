@@ -83,8 +83,8 @@ export function AssessmentCompleteEmail({
                       <table cellPadding="0" cellSpacing="0" style={{ marginBottom: '4px' }}>
                         <tr>
                           <td style={{ verticalAlign: 'middle', paddingRight: '12px' }}>
-                            <img 
-                              src={`${process.env.NEXT_PUBLIC_SITE_URL}/logo.png`}
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_SITE_URL?.trim()}/logo.png`}
                               alt="InsiderRisk Index" 
                               style={{
                                 height: '32px',
@@ -431,8 +431,8 @@ export function AssessmentCompleteEmail({
                 <table cellPadding="0" cellSpacing="0" style={{ margin: '0 auto 8px auto' }}>
                   <tr>
                     <td style={{ verticalAlign: 'middle', paddingRight: '8px' }}>
-                      <img 
-                        src={`${process.env.NEXT_PUBLIC_SITE_URL}/above-logo.png`}
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_SITE_URL?.trim()}/above-logo.png`}
                         alt="Above" 
                         style={{
                           height: '24px',

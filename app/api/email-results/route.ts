@@ -106,7 +106,11 @@ export async function POST(request: NextRequest) {
       maturityLevelNumber: level,
       pillarScoresCount: pillarScores.length,
       topStrengthsCount: topStrengths.length,
-      keyRisksCount: keyRisks.length
+      keyRisksCount: keyRisks.length,
+      siteUrlRaw: process.env.NEXT_PUBLIC_SITE_URL,
+      siteUrlTrimmed: process.env.NEXT_PUBLIC_SITE_URL?.trim(),
+      resultsUrl: `${process.env.NEXT_PUBLIC_SITE_URL?.trim()}/results/${assessmentId}`,
+      pdfUrl: `${process.env.NEXT_PUBLIC_SITE_URL?.trim()}/api/pdf/${assessmentId}`
     });
 
     const emailHtml = await render(
@@ -118,8 +122,8 @@ export async function POST(request: NextRequest) {
         pillarScores,
         topStrengths,
         keyRisks,
-        resultsUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/results/${assessmentId}`,
-        pdfUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/pdf/${assessmentId}`,
+        resultsUrl: `${process.env.NEXT_PUBLIC_SITE_URL?.trim()}/results/${assessmentId}`,
+        pdfUrl: `${process.env.NEXT_PUBLIC_SITE_URL?.trim()}/api/pdf/${assessmentId}`,
       })
     );
 

@@ -171,8 +171,8 @@ export async function submitAssessment(data: AssessmentSubmission) {
             pillarScores,
             topStrengths,
             keyRisks,
-            resultsUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/results/${assessment.id}`,
-            pdfUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/pdf/${assessment.id}`
+            resultsUrl: `${process.env.NEXT_PUBLIC_SITE_URL?.trim()}/results/${assessment.id}`,
+            pdfUrl: `${process.env.NEXT_PUBLIC_SITE_URL?.trim()}/api/pdf/${assessment.id}`
           })
         );
 

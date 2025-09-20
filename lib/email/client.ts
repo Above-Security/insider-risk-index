@@ -1,7 +1,7 @@
 import { Resend } from 'resend';
 
 // Initialize Resend client with comprehensive logging
-const resendApiKey = process.env.RESEND_API_KEY;
+const resendApiKey = process.env.RESEND_API_KEY?.trim();
 
 console.log('🔧 Email System Initialization:', {
   hasResendApiKey: !!resendApiKey,
@@ -10,9 +10,12 @@ console.log('🔧 Email System Initialization:', {
   enableEmailNotifications: process.env.ENABLE_EMAIL_NOTIFICATIONS,
   enableEmailNotificationsTrimmed: process.env.ENABLE_EMAIL_NOTIFICATIONS?.trim(),
   nodeEnv: process.env.NODE_ENV,
-  fromAddress: process.env.EMAIL_FROM_ADDRESS,
-  fromName: process.env.EMAIL_FROM_NAME,
-  replyTo: process.env.EMAIL_REPLY_TO,
+  fromAddressRaw: process.env.EMAIL_FROM_ADDRESS,
+  fromAddressTrimmed: process.env.EMAIL_FROM_ADDRESS?.trim(),
+  fromNameRaw: process.env.EMAIL_FROM_NAME,
+  fromNameTrimmed: process.env.EMAIL_FROM_NAME?.trim(),
+  replyToRaw: process.env.EMAIL_REPLY_TO,
+  replyToTrimmed: process.env.EMAIL_REPLY_TO?.trim(),
 });
 
 if (!resendApiKey && process.env.ENABLE_EMAIL_NOTIFICATIONS === 'true') {
@@ -24,10 +27,10 @@ export const resend = resendApiKey ? new Resend(resendApiKey) : null;
 // Email configuration
 export const EMAIL_CONFIG = {
   from: {
-    address: process.env.EMAIL_FROM_ADDRESS || 'results@mail.insiderisk.io',
-    name: process.env.EMAIL_FROM_NAME || 'InsiderRisk Index'
+    address: process.env.EMAIL_FROM_ADDRESS?.trim() || 'results@mail.insiderisk.io',
+    name: process.env.EMAIL_FROM_NAME?.trim() || 'InsiderRisk Index'
   },
-  replyTo: process.env.EMAIL_REPLY_TO || 'support@insiderisk.io',
+  replyTo: process.env.EMAIL_REPLY_TO?.trim() || 'support@insiderisk.io',
   enabled: process.env.ENABLE_EMAIL_NOTIFICATIONS?.trim() === 'true' && !!resendApiKey
 };
 

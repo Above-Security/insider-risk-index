@@ -1,10 +1,22 @@
 import { Resend } from 'resend';
 
-// Initialize Resend client
+// Initialize Resend client with comprehensive logging
 const resendApiKey = process.env.RESEND_API_KEY;
 
+console.log('🔧 Email System Initialization:', {
+  hasResendApiKey: !!resendApiKey,
+  resendApiKeyLength: resendApiKey?.length || 0,
+  resendApiKeyPrefix: resendApiKey?.substring(0, 8) || 'none',
+  enableEmailNotifications: process.env.ENABLE_EMAIL_NOTIFICATIONS,
+  enableEmailNotificationsTrimmed: process.env.ENABLE_EMAIL_NOTIFICATIONS?.trim(),
+  nodeEnv: process.env.NODE_ENV,
+  fromAddress: process.env.EMAIL_FROM_ADDRESS,
+  fromName: process.env.EMAIL_FROM_NAME,
+  replyTo: process.env.EMAIL_REPLY_TO,
+});
+
 if (!resendApiKey && process.env.ENABLE_EMAIL_NOTIFICATIONS === 'true') {
-  console.warn('RESEND_API_KEY is not set. Email notifications will not work.');
+  console.warn('⚠️ RESEND_API_KEY is not set. Email notifications will not work.');
 }
 
 export const resend = resendApiKey ? new Resend(resendApiKey) : null;
@@ -18,6 +30,12 @@ export const EMAIL_CONFIG = {
   replyTo: process.env.EMAIL_REPLY_TO || 'support@insiderisk.io',
   enabled: process.env.ENABLE_EMAIL_NOTIFICATIONS?.trim() === 'true' && !!resendApiKey
 };
+
+console.log('📧 Email Configuration:', {
+  ...EMAIL_CONFIG,
+  enabled: EMAIL_CONFIG.enabled,
+  resendClientInitialized: !!resend
+});
 
 // Helper function to format from address
 export function getFromAddress(): string {
@@ -41,12 +59,35 @@ export async function sendEmail({
     content: string | Buffer;
   }>;
 }) {
+  console.log('📧 sendEmail function called with:', {
+    to: Array.isArray(to) ? to : [to],
+    subject,
+    htmlLength: html.length,
+    hasText: !!text,
+    attachmentsCount: attachments?.length || 0,
+    emailConfigEnabled: EMAIL_CONFIG.enabled,
+    hasResendClient: !!resend
+  });
+
   if (!EMAIL_CONFIG.enabled || !resend) {
-    console.log('Email notifications disabled or not configured');
+    console.log('📧 Email notifications disabled or not configured:', {
+      enabled: EMAIL_CONFIG.enabled,
+      hasResend: !!resend,
+      resendApiKey: !!process.env.RESEND_API_KEY
+    });
     return { success: false, error: 'Email notifications not configured' };
   }
 
   try {
+    console.log('📧 Preparing Resend API call with:', {
+      from: getFromAddress(),
+      to: Array.isArray(to) ? to : [to],
+      replyTo: EMAIL_CONFIG.replyTo,
+      subject,
+      htmlPreview: html.substring(0, 100) + '...',
+      hasAttachments: !!attachments && attachments.length > 0
+    });
+
     const result = await resend.emails.send({
       from: getFromAddress(),
       to,
@@ -57,18 +98,39 @@ export async function sendEmail({
       attachments,
     });
 
-    console.log('Email sent successfully:', {
+    console.log('✅ Resend API response received:', {
+      success: true,
+      resultData: result.data,
+      resultError: result.error,
       id: result.data?.id,
       to: Array.isArray(to) ? to : [to],
       subject
     });
 
+    if (result.error) {
+      console.error('❌ Resend returned an error:', {
+        error: result.error,
+        errorMessage: result.error.message,
+        errorName: result.error.name
+      });
+      return {
+        success: false,
+        error: result.error.message || 'Resend API error'
+      };
+    }
+
     return { success: true, data: result.data };
   } catch (error) {
-    console.error('Failed to send email:', error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Unknown error' 
+    console.error('❌ Failed to send email - exception thrown:', {
+      error: error instanceof Error ? error.message : error,
+      errorType: error?.constructor?.name,
+      stack: error instanceof Error ? error.stack : undefined,
+      to: Array.isArray(to) ? to : [to],
+      subject
+    });
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
     };
   }
 }

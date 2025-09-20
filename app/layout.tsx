@@ -9,6 +9,7 @@ import { AccessibilityProvider } from "@/components/accessibility-provider";
 import { WebVitals } from "@/components/web-vitals";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { CSPostHogProvider } from './providers';
+import { Toaster } from 'sonner';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -143,6 +144,7 @@ export default function RootLayout({
                 </main>
                 <Footer />
               </div>
+              <Toaster position="top-right" richColors />
             </CSPostHogProvider>
           </AccessibilityProvider>
         </ErrorBoundary>

@@ -27,6 +27,7 @@ import {
   Briefcase
 } from "lucide-react";
 import { ShareResults } from "./share-results";
+import { EmailResultsDialog } from "./email-results-dialog";
 import { formatPercentage } from "@/lib/utils";
 
 interface ResultsSummaryProps {
@@ -538,7 +539,7 @@ export function ResultsSummary({
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Action Buttons */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Button
               onClick={() => {
                 if (onGeneratePDF) {
@@ -555,6 +556,13 @@ export function ResultsSummary({
               <Download className="h-6 w-6" />
               Download Board Report PDF
             </Button>
+
+            {assessmentId && (
+              <EmailResultsDialog
+                assessmentId={assessmentId}
+                className="h-16"
+              />
+            )}
 
             {assessmentId && (
               <ShareResults

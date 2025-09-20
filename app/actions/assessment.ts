@@ -129,7 +129,14 @@ export async function submitAssessment(data: AssessmentSubmission) {
     // Send email if email address was provided
     if (validated.contactEmail && validated.emailOptIn) {
       try {
-        console.log('Sending assessment email to:', validated.contactEmail);
+        console.log('📧 Assessment email flow started:', {
+          emailOptIn: validated.emailOptIn,
+          contactEmail: validated.contactEmail,
+          organizationName: validated.organizationName,
+          score: Math.round(scoringResult.totalScore),
+          level: scoringResult.level,
+          levelDescription: scoringResult.levelDescription
+        });
         
         // Get pillar scores for email
         const pillarScores = scoringResult.pillarBreakdown.map(pb => ({
@@ -139,13 +146,21 @@ export async function submitAssessment(data: AssessmentSubmission) {
         
         // Get top strengths and key risks
         const sortedPillars = [...scoringResult.pillarBreakdown].sort((a, b) => b.score - a.score);
-        const topStrengths = sortedPillars.slice(0, 3).map(p => 
+        const topStrengths = sortedPillars.slice(0, 3).map(p =>
           PILLARS.find(pillar => pillar.id === p.pillarId)?.name || p.pillarId
         );
-        const keyRisks = sortedPillars.slice(-3).map(p => 
+        const keyRisks = sortedPillars.slice(-3).map(p =>
           PILLARS.find(pillar => pillar.id === p.pillarId)?.name || p.pillarId
         );
-        
+
+        console.log('📧 Email template data prepared:', {
+          pillarScoresCount: pillarScores.length,
+          topStrengthsCount: topStrengths.length,
+          keyRisksCount: keyRisks.length,
+          topStrengths,
+          keyRisks
+        });
+
         // Render email HTML
         const emailHtml = await render(
           AssessmentCompleteEmail({
@@ -160,12 +175,14 @@ export async function submitAssessment(data: AssessmentSubmission) {
             pdfUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/pdf/${assessment.id}`
           })
         );
+
+        console.log('📧 Email HTML rendered, length:', emailHtml.length);
         
         // Generate PDF attachment asynchronously if enabled
         let pdfAttachment = null;
         if (process.env.ENABLE_PDF_EMAIL_ATTACHMENTS === 'true') {
           try {
-            console.log('Generating PDF attachment for email...');
+            console.log('📄 Generating PDF attachment for assessment email...');
             const pdfData = await generatePDFAttachment({
               assessment: assessment as any,
               type: 'board-brief'
@@ -174,40 +191,76 @@ export async function submitAssessment(data: AssessmentSubmission) {
               filename: pdfData.filename,
               content: pdfData.buffer
             };
-            console.log('PDF attachment generated successfully:', pdfData.filename);
+            console.log('✅ PDF attachment generated successfully:', {
+              filename: pdfData.filename,
+              bufferLength: pdfData.buffer.length
+            });
           } catch (pdfError) {
-            console.error('Failed to generate PDF attachment:', pdfError);
+            console.error('❌ Failed to generate PDF attachment:', {
+              error: pdfError instanceof Error ? pdfError.message : pdfError,
+              stack: pdfError instanceof Error ? pdfError.stack : undefined
+            });
             // Continue without attachment - user can still download from results page
           }
         } else {
-          console.log('PDF attachments disabled - user can download from results page');
+          console.log('📄 PDF attachments disabled - user can download from results page');
         }
-        
+
         // Send the email (with or without PDF attachment)
+        console.log('📧 Preparing to send assessment email:', {
+          to: validated.contactEmail,
+          subject: `Your Insider Risk Assessment Score: ${Math.round(scoringResult.totalScore)}/100`,
+          hasAttachment: !!pdfAttachment,
+          htmlLength: emailHtml.length
+        });
+
         const emailResult = await sendEmail({
           to: validated.contactEmail,
           subject: `Your Insider Risk Assessment Score: ${Math.round(scoringResult.totalScore)}/100`,
           html: emailHtml,
           attachments: pdfAttachment ? [pdfAttachment] : undefined,
         });
+
+        console.log('📧 Assessment email send result:', {
+          success: emailResult.success,
+          error: emailResult.error,
+          emailId: emailResult.data?.id
+        });
         
         if (emailResult.success) {
-          console.log('Assessment email sent successfully');
+          console.log('✅ Assessment email sent successfully:', {
+            to: validated.contactEmail,
+            emailId: emailResult.data?.id
+          });
           // Update assessment record to track email was sent
           await prisma.assessment.update({
             where: { id: assessment.id },
-            data: { 
+            data: {
               emailSent: true,
               emailSentAt: new Date()
             }
-          }).catch(console.error);
+          }).catch((updateError) => {
+            console.error('❌ Failed to update assessment email status:', updateError);
+          });
         } else {
-          console.error('Failed to send assessment email:', emailResult.error);
+          console.error('❌ Failed to send assessment email:', {
+            error: emailResult.error,
+            to: validated.contactEmail
+          });
         }
       } catch (emailError) {
-        console.error('Error sending assessment email:', emailError);
+        console.error('❌ Error in assessment email flow:', {
+          error: emailError instanceof Error ? emailError.message : emailError,
+          stack: emailError instanceof Error ? emailError.stack : undefined,
+          contactEmail: validated.contactEmail
+        });
         // Don't fail the assessment submission if email fails
       }
+    } else {
+      console.log('📧 Email notification skipped:', {
+        emailOptIn: validated.emailOptIn,
+        hasContactEmail: !!validated.contactEmail
+      });
     }
     
     return {

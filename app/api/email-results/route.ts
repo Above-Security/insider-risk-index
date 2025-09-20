@@ -4,7 +4,6 @@ import { getAssessmentResults } from "@/app/actions/assessment";
 import { sendEmail } from "@/lib/email/client";
 import { render } from "@react-email/render";
 import AssessmentCompleteEmail from "@/emails/assessment-complete";
-import { generatePDFAttachment } from "@/lib/pdf/email-attachment";
 
 const EmailResultsSchema = z.object({
   assessmentId: z.string().min(1),
@@ -129,33 +128,8 @@ export async function POST(request: NextRequest) {
 
     console.log('📧 Email HTML rendered successfully, length:', emailHtml.length);
 
-    // Generate PDF attachment if environment variable is enabled
-    let pdfAttachment;
-    if (process.env.ENABLE_PDF_EMAIL_ATTACHMENTS?.trim() === 'true') {
-      try {
-        console.log("📄 Generating PDF attachment for manual email send");
-        const pdfData = await generatePDFAttachment({ assessment, type: 'board-brief' });
-        pdfAttachment = {
-          filename: pdfData.filename,
-          content: pdfData.buffer
-        };
-        console.log("✅ PDF attachment generated successfully:", {
-          filename: pdfData.filename,
-          bufferLength: pdfData.buffer.length
-        });
-      } catch (pdfError) {
-        console.error('📄 PDF generation failed for manual email:', {
-          error: pdfError instanceof Error ? pdfError.message : pdfError,
-          stack: pdfError instanceof Error ? pdfError.stack : undefined
-        });
-        // Continue without attachment
-      }
-    } else {
-      console.log('📄 PDF attachment skipped:', {
-        enablePdfAttachmentsRaw: process.env.ENABLE_PDF_EMAIL_ATTACHMENTS,
-        enablePdfAttachmentsTrimmed: process.env.ENABLE_PDF_EMAIL_ATTACHMENTS?.trim()
-      });
-    }
+    // No PDF attachments - users can download via link for faster email delivery
+    console.log('📄 PDF attachments disabled for fast email delivery - users can download via provided links');
 
     // Send email
     const subject = recipientName
@@ -166,14 +140,14 @@ export async function POST(request: NextRequest) {
       to: recipientEmail,
       subject,
       htmlLength: emailHtml.length,
-      hasAttachment: !!pdfAttachment
+      hasAttachment: false
     });
 
     const result = await sendEmail({
       to: recipientEmail,
       subject,
       html: emailHtml,
-      attachments: pdfAttachment ? [pdfAttachment] : undefined,
+      attachments: undefined, // No attachments for fast delivery
     });
 
     console.log('📧 Email send result:', {

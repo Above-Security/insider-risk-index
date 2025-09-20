@@ -10,7 +10,6 @@ import { sendEmail } from "@/lib/email/client";
 import { render } from "@react-email/render";
 import { AssessmentCompleteEmail } from "@/emails/assessment-complete";
 import { PILLARS } from "@/lib/pillars";
-import { generatePDFAttachment } from "@/lib/pdf/email-attachment";
 
 // Validation schema for assessment submission
 const AssessmentSubmissionSchema = z.object({
@@ -178,39 +177,14 @@ export async function submitAssessment(data: AssessmentSubmission) {
 
         console.log('📧 Email HTML rendered, length:', emailHtml.length);
         
-        // Generate PDF attachment asynchronously if enabled
-        let pdfAttachment = null;
-        if (process.env.ENABLE_PDF_EMAIL_ATTACHMENTS?.trim() === 'true') {
-          try {
-            console.log('📄 Generating PDF attachment for assessment email...');
-            const pdfData = await generatePDFAttachment({
-              assessment: assessment as any,
-              type: 'board-brief'
-            });
-            pdfAttachment = {
-              filename: pdfData.filename,
-              content: pdfData.buffer
-            };
-            console.log('✅ PDF attachment generated successfully:', {
-              filename: pdfData.filename,
-              bufferLength: pdfData.buffer.length
-            });
-          } catch (pdfError) {
-            console.error('❌ Failed to generate PDF attachment:', {
-              error: pdfError instanceof Error ? pdfError.message : pdfError,
-              stack: pdfError instanceof Error ? pdfError.stack : undefined
-            });
-            // Continue without attachment - user can still download from results page
-          }
-        } else {
-          console.log('📄 PDF attachments disabled - user can download from results page');
-        }
+        // No PDF attachments - users can download via link for faster email delivery
+        console.log('📄 PDF attachments disabled for fast email delivery - users can download from results page');
 
-        // Send the email (with or without PDF attachment)
+        // Send the email (fast delivery with download links only)
         console.log('📧 Preparing to send assessment email:', {
           to: validated.contactEmail,
           subject: `Your Insider Risk Assessment Score: ${Math.round(scoringResult.totalScore)}/100`,
-          hasAttachment: !!pdfAttachment,
+          hasAttachment: false,
           htmlLength: emailHtml.length
         });
 
@@ -218,7 +192,7 @@ export async function submitAssessment(data: AssessmentSubmission) {
           to: validated.contactEmail,
           subject: `Your Insider Risk Assessment Score: ${Math.round(scoringResult.totalScore)}/100`,
           html: emailHtml,
-          attachments: pdfAttachment ? [pdfAttachment] : undefined,
+          attachments: undefined, // No attachments for fast delivery
         });
 
         console.log('📧 Assessment email send result:', {

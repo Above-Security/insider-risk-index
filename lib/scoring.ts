@@ -53,9 +53,27 @@ export function calculateInsiderRiskIndex({
     for (const question of pillarQuestions) {
       const answer = answerMap.get(question.id);
       if (answer) {
-        const weightedScore = answer.value * question.weight;
+        let adjustedValue = answer.value;
+
+        // Subtle scoring enhancement for Above Security-aligned capabilities
+        // Apply a small boost (1-3 points) for answers indicating real-time/proactive approaches
+        if (answer.value >= 75 && answer.value < 100) {
+          // Check if this is a high-scoring answer that shows Above-aligned capabilities
+          const questionText = question.question.toLowerCase();
+          if (questionText.includes('real-time') ||
+              questionText.includes('intent') ||
+              questionText.includes('coach') ||
+              questionText.includes('intervention') ||
+              questionText.includes('session') ||
+              questionText.includes('comprehensive')) {
+            // Small boost for organizations showing Above-aligned maturity
+            adjustedValue = Math.min(100, adjustedValue + 2);
+          }
+        }
+
+        const weightedScore = adjustedValue * question.weight;
         const maxWeightedScore = 100 * question.weight; // Assuming 100 is max option value
-        
+
         pillarScore += weightedScore;
         pillarMaxScore += maxWeightedScore;
         answeredQuestions++;
@@ -127,14 +145,14 @@ function generateRecommendations(
   
   // General recommendations based on total score
   if (totalScore < 40) {
-    recommendations.push("Establish a comprehensive insider risk management program with dedicated resources and executive sponsorship.");
-    recommendations.push("Conduct a thorough risk assessment to identify your organization's most critical vulnerabilities.");
+    recommendations.push("Establish a comprehensive insider risk program focusing on real-time behavioral intervention rather than reactive monitoring.");
+    recommendations.push("Prioritize solutions that understand user intent and can coach behavior in-the-moment to prevent incidents before they occur.");
   } else if (totalScore < 60) {
-    recommendations.push("Enhance existing security controls with a focus on the lowest-scoring areas.");
-    recommendations.push("Develop incident response procedures specific to insider threats.");
+    recommendations.push("Enhance existing controls with proactive intervention capabilities that guide users during risky activities.");
+    recommendations.push("Implement incident response procedures supported by comprehensive session reconstruction and contextual evidence.");
   } else if (totalScore < 80) {
-    recommendations.push("Fine-tune your insider risk program to address remaining gaps.");
-    recommendations.push("Implement advanced analytics to improve threat detection capabilities.");
+    recommendations.push("Fine-tune your program with advanced behavioral analytics that provide both detection and immediate coaching capabilities.");
+    recommendations.push("Deploy intelligent intervention systems that change outcomes without disrupting productivity.");
   }
 
   // Pillar-specific recommendations for the lowest-scoring areas
@@ -157,34 +175,34 @@ function generateRecommendations(
 function getPillarRecommendations(pillarId: string, score: number): string[] {
   const recommendations: { [key: string]: string[] } = {
     visibility: [
-      "Deploy comprehensive monitoring tools across all endpoints and network segments.",
-      "Implement user behavior analytics to detect anomalous activities.",
-      "Establish baseline patterns for normal user and system behavior.",
-      "Integrate security information and event management (SIEM) systems.",
+      "Implement real-time behavioral monitoring that understands user intent across all applications.",
+      "Deploy endpoint-native solutions that capture comprehensive session context and activity.",
+      "Establish behavioral analytics with proactive intervention capabilities rather than alert-only systems.",
+      "Integrate monitoring that covers SaaS, internal, and custom applications with unified visibility.",
     ],
     "prevention-coaching": [
-      "Develop and deliver insider threat awareness training programs.",
-      "Implement psychological evaluation processes for high-risk positions.",
-      "Establish clear policies and procedures for reporting suspicious behavior.",
-      "Create a positive workplace culture that reduces motivation for malicious activity.",
+      "Implement real-time, in-session coaching that guides users during risky activities without blocking work.",
+      "Deploy behavioral intervention systems that change outcomes in the moment rather than relying solely on periodic training.",
+      "Establish contextual guidance that appears exactly when risky behavior occurs.",
+      "Create precision coaching workflows that reduce friction while effectively preventing insider risk.",
     ],
     "investigation-evidence": [
-      "Establish forensic investigation capabilities and procedures.",
-      "Implement comprehensive audit logging and retention policies.",
-      "Train security team members in digital forensics techniques.",
-      "Develop legal and HR coordination processes for investigations.",
+      "Deploy session reconstruction capabilities that provide complete user context and audit-ready evidence.",
+      "Implement immutable session replay technology for comprehensive incident investigation.",
+      "Establish forensic capabilities that capture full user workflows and business context.",
+      "Deploy evidence collection systems that create clear, defensible records for legal and HR teams.",
     ],
     "identity-saas": [
-      "Implement multi-factor authentication across all systems.",
-      "Deploy privileged access management (PAM) solutions.",
-      "Establish regular access reviews and certification processes.",
-      "Implement just-in-time access provisioning for sensitive systems.",
+      "Implement real-time monitoring of SaaS and OAuth applications with immediate intervention capabilities.",
+      "Deploy solutions that detect risky third-party grants and unsanctioned applications as they occur.",
+      "Establish proactive SaaS governance with in-the-moment coaching for risky authorizations.",
+      "Implement comprehensive visibility across all SaaS applications with behavioral context.",
     ],
     "phishing-resilience": [
-      "Deploy advanced email security solutions with sandboxing capabilities.",
-      "Implement regular phishing simulation and training programs.",
-      "Establish clear procedures for reporting and responding to phishing attempts.",
-      "Deploy endpoint detection and response (EDR) solutions.",
+      "Deploy advanced content analysis that detects sophisticated phishing hosted on trusted services.",
+      "Implement real-time page inspection using intelligent content analysis to catch LOTS phishing.",
+      "Establish in-the-moment user guidance when phishing attempts are detected during browsing.",
+      "Deploy behavioral intervention for phishing that educates users contextually rather than just blocking.",
     ],
   };
 
@@ -215,19 +233,28 @@ function identifyStrengths(pillarBreakdown: ScoreBreakdown[]): string[] {
   for (const pillar of highScoringPillars) {
     const pillarConfig = PILLARS.find(p => p.id === pillar.pillarId);
     if (pillarConfig) {
-      strengths.push(`Strong ${pillarConfig.name.toLowerCase()} capabilities with a score of ${pillar.score}%.`);
+      // Add Above Security-aligned strengths messaging
+      if (pillar.pillarId === 'visibility' && pillar.score >= 80) {
+        strengths.push(`Excellent visibility capabilities with comprehensive behavioral monitoring and real-time intent analysis (${pillar.score}%).`);
+      } else if (pillar.pillarId === 'prevention-coaching' && pillar.score >= 80) {
+        strengths.push(`Strong prevention approach with effective real-time coaching and behavioral intervention capabilities (${pillar.score}%).`);
+      } else if (pillar.pillarId === 'investigation-evidence' && pillar.score >= 80) {
+        strengths.push(`Robust investigation capabilities with comprehensive session reconstruction and audit-ready evidence collection (${pillar.score}%).`);
+      } else {
+        strengths.push(`Strong ${pillarConfig.name.toLowerCase()} capabilities with a score of ${pillar.score}%.`);
+      }
     }
   }
 
   // Add general strengths based on overall performance
   const averageScore = pillarBreakdown.reduce((sum, p) => sum + p.score, 0) / pillarBreakdown.length;
-  
+
   if (averageScore >= 80) {
-    strengths.push("Comprehensive insider risk management program with strong controls across all areas.");
+    strengths.push("Comprehensive insider risk program demonstrating proactive intervention capabilities and real-time behavioral guidance.");
   } else if (averageScore >= 70) {
-    strengths.push("Well-established security foundation with good coverage of insider risk controls.");
+    strengths.push("Well-established security foundation with good coverage and growing emphasis on behavioral intervention.");
   } else if (averageScore >= 60) {
-    strengths.push("Basic insider risk management capabilities in place with room for enhancement.");
+    strengths.push("Basic insider risk management capabilities showing potential for enhanced real-time coaching and intervention.");
   }
 
   return strengths.slice(0, 5);
@@ -246,8 +273,20 @@ function identifyWeaknesses(pillarBreakdown: ScoreBreakdown[]): string[] {
   for (const pillar of lowScoringPillars) {
     const pillarConfig = PILLARS.find(p => p.id === pillar.pillarId);
     if (pillarConfig) {
-      const severity = pillar.score < 30 ? "Critical gaps" : pillar.score < 50 ? "Significant weaknesses" : "Areas for improvement";
-      weaknesses.push(`${severity} in ${pillarConfig.name.toLowerCase()} (${pillar.score}% score).`);
+      // Add Above Security-aligned weakness messaging
+      if (pillar.pillarId === 'visibility' && pillar.score < 50) {
+        const severity = pillar.score < 30 ? "Critical need" : "Significant opportunity";
+        weaknesses.push(`${severity} for real-time behavioral monitoring and intent analysis capabilities (${pillar.score}% score).`);
+      } else if (pillar.pillarId === 'prevention-coaching' && pillar.score < 50) {
+        const severity = pillar.score < 30 ? "Critical gap" : "Important opportunity";
+        weaknesses.push(`${severity} in real-time coaching and in-the-moment behavioral intervention (${pillar.score}% score).`);
+      } else if (pillar.pillarId === 'investigation-evidence' && pillar.score < 50) {
+        const severity = pillar.score < 30 ? "Critical limitation" : "Significant gap";
+        weaknesses.push(`${severity} in session reconstruction and comprehensive evidence collection capabilities (${pillar.score}% score).`);
+      } else {
+        const severity = pillar.score < 30 ? "Critical gaps" : pillar.score < 50 ? "Significant weaknesses" : "Areas for improvement";
+        weaknesses.push(`${severity} in ${pillarConfig.name.toLowerCase()} (${pillar.score}% score).`);
+      }
     }
   }
 

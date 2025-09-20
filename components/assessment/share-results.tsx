@@ -39,26 +39,35 @@ interface ShareResultsProps {
     employeeCount: string;
   };
   answers?: Record<string, number>;
+  assessmentId?: string;
   className?: string;
 }
 
-export function ShareResults({ 
-  result, 
+export function ShareResults({
+  result,
   organizationName,
   organizationInfo,
   answers,
-  className 
+  assessmentId,
+  className
 }: ShareResultsProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [emailData, setEmailData] = useState({
     to: "",
     subject: `${organizationName} - Insider Risk Assessment Results`,
-    message: `Hi,\n\nI wanted to share our organization's insider risk assessment results with you.\n\nOverall Score: ${result.totalScore}/100 (Level ${result.level})\nOrganization: ${organizationName}\n\nWe achieved "${result.levelDescription}" maturity level. Learn more about insider risk assessment at abovesec.com\n\nBest regards`
+    message: `Hi,\n\nI wanted to share our organization's insider risk assessment results with you.\n\nOverall Score: ${result.totalScore}/100 (Level ${result.level})\nOrganization: ${organizationName}\n\nWe achieved "${result.levelDescription}" maturity level. Learn more about insider risk assessment at insiderisk.io\n\nBest regards`
   });
 
-  // Generate shareable URL if we have the necessary data
+  // Generate shareable URL - use assessment results page if we have assessmentId
   const resultsUrl = (() => {
+    if (assessmentId) {
+      // Use direct results URL if we have the assessment ID
+      return typeof window !== 'undefined' ?
+        `${window.location.origin}/results/${assessmentId}` :
+        `https://insiderisk.io/results/${assessmentId}`;
+    }
+
     if (answers && organizationInfo) {
       try {
         const shareableData = createShareableData(
@@ -73,14 +82,14 @@ export function ShareResults({
         // Fallback to generic URL
       }
     }
-    
+
     // Fallback URL when answers aren't available
-    return typeof window !== 'undefined' ? 
-      `${window.location.origin}/assessment` : 
-      `https://abovesec.com/assessment`;
+    return typeof window !== 'undefined' ?
+      `${window.location.origin}/assessment` :
+      `https://insiderisk.io/assessment`;
   })();
 
-  const shareText = `Our organization scored ${result.totalScore}/100 (Level ${result.level}) on the Insider Risk Index assessment. Check out your organization's insider risk posture at abovesec.com`;
+  const shareText = `Our organization scored ${result.totalScore}/100 (Level ${result.level}) on the Insider Risk Index assessment. Check out your organization's insider risk posture at insiderisk.io`;
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -103,8 +112,14 @@ export function ShareResults({
   };
 
   const generatePDFShare = () => {
-    // This would trigger PDF generation - for now, link to assessment page
-    window.open('/assessment', '_blank');
+    if (assessmentId) {
+      // Generate PDF using the assessment ID
+      const pdfUrl = `/api/pdf/${assessmentId}`;
+      window.open(pdfUrl, '_blank');
+    } else {
+      // Fallback to assessment page if no ID available
+      window.open('/assessment', '_blank');
+    }
   };
 
   return (
@@ -188,7 +203,7 @@ export function ShareResults({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => copyToClipboard(`🎯 Just completed our insider risk assessment! Scored ${result.totalScore}/100 (Level ${result.level}) - ${result.levelDescription}. \n\nEvery organization should understand their insider risk posture. Check out abovesec.com to assess yours! \n\n#CyberSecurity #InsiderThreat #RiskManagement`)}
+                  onClick={() => copyToClipboard(`🎯 Just completed our insider risk assessment! Scored ${result.totalScore}/100 (Level ${result.level}) - ${result.levelDescription}. \n\nEvery organization should understand their insider risk posture. Check out insiderisk.io to assess yours! \n\n#CyberSecurity #InsiderThreat #RiskManagement`)}
                   className="justify-start"
                 >
                   <Copy className="h-4 w-4 mr-2" />

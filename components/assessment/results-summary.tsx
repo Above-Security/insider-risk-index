@@ -577,6 +577,7 @@ export function ResultsSummary({
                   employeeCount: organizationInfo.employeeCount
                 }}
                 answers={answers}
+                assessmentId={assessmentId}
                 className="h-16"
               />
             )}

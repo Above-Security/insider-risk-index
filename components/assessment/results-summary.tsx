@@ -290,7 +290,6 @@ export function ResultsSummary({
             <InsiderRiskRadarChart
               pillarBreakdown={result.pillarBreakdown}
               title=""
-              showTitle={false}
             />
           </CardContent>
         </Card>
@@ -316,7 +315,6 @@ export function ResultsSummary({
                 }), {}) : undefined
               }
               title=""
-              showTitle={false}
             />
           </CardContent>
         </Card>

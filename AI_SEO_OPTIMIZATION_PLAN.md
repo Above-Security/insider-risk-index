@@ -175,12 +175,6 @@ Voice-Optimized: "What's the best way to evaluate insider threats at my company?
 - [ ] Optimize for mobile voice search
 - [ ] Add FAQ schema to all major pages
 
-### AI Platform Tracking
-- [ ] Set up GA4 custom channel groupings
-- [ ] Create referral tracking for AI platforms
-- [ ] Implement citation monitoring
-- [ ] Build AI visibility dashboard
-
 ---
 
 ## 🎯 Content Optimization Priorities
@@ -326,6 +320,34 @@ Transform existing headers:
 2. **This Week**: Set up AI traffic tracking in GA4
 3. **Next Week**: Complete assessment page optimization
 4. **Ongoing**: Daily AI prompt monitoring and content refinement
+
+---
+
+## ⚠️ **CRITICAL: NO HALLUCINATION POLICY**
+
+**NEVER hallucinate data, features, or content. ALWAYS use existing sources:**
+
+### ✅ **Approved Data Sources**
+- `/researches/` folder - PDF documents with real research data
+- Existing `.md` files with verified content
+- Current website content and features
+- Real statistics from Ponemon Institute, Gartner, Verizon DBIR
+- Actual Above Security information from `/docs/00-what-is-above.md`
+
+### ❌ **NEVER Create**
+- Fake statistics or percentages
+- Non-existent features (e.g., "Watch Demo" buttons)
+- Imaginary testimonials or customer quotes
+- Fabricated research citations
+- Made-up product capabilities
+
+### 🔍 **Always Verify Before Adding**
+- Check if features actually exist in the codebase
+- Verify all statistics against source documents
+- Confirm all links and buttons lead to real pages
+- Validate that claims match actual capabilities
+
+**When in doubt, omit rather than hallucinate!**
 
 ---
 

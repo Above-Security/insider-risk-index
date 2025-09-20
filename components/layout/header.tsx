@@ -12,6 +12,7 @@ import { LAYOUT_CONSTANTS } from "@/lib/layout-utils";
 
 const navigation = [
   { name: "Assessment", href: "/assessment" },
+  { name: "How It Works", href: "/how-it-works" },
   { name: "Benchmarks", href: "/benchmarks" },
   { name: "Matrix", href: "/matrix" },
   { name: "Resources", href: "/playbooks" },
@@ -20,6 +21,7 @@ const navigation = [
 
 const mobileNavigation = [
   { name: "Assessment", href: "/assessment" },
+  { name: "How It Works", href: "/how-it-works" },
   { name: "Benchmarks", href: "/benchmarks" },
   { name: "Matrix", href: "/matrix" },
   { name: "Playbooks", href: "/playbooks" },

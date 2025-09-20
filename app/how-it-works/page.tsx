@@ -9,8 +9,7 @@ import {
   FileText,
   Users,
   Shield,
-  ArrowRight,
-  PlayCircle
+  ArrowRight
 } from "lucide-react";
 import Link from "next/link";
 import { getPageLayout, getSectionLayout } from "@/lib/layout-utils";
@@ -173,16 +172,12 @@ export default function HowItWorksPage() {
               <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
                 Our free 8-minute assessment evaluates your organization's insider threat posture across 5 research-validated pillars. Learn exactly how it works and what you'll discover.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex justify-center">
                 <Button asChild size="lg" className="text-lg px-8">
                   <Link href="/assessment">
                     Start Your Assessment
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
-                </Button>
-                <Button variant="outline" size="lg" className="text-lg px-8">
-                  <PlayCircle className="mr-2 h-5 w-5" />
-                  Watch Demo
                 </Button>
               </div>
             </div>

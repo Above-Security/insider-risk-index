@@ -33,9 +33,9 @@ resources:
 
 ## Overview
 
-Phishing attacks remain the #1 attack vector for insider risk incidents, with 68% of data breaches involving a human element according to the Verizon 2024 Data Breach Investigations Report. This playbook provides a comprehensive framework for building organizational resilience against phishing and social engineering attacks through layered technical controls, advanced user training, and cultural transformation.
+Phishing attacks remain the #1 attack vector for insider risk incidents, with 68% of data breaches involving a human element according to the Verizon 2024 Data Breach Investigations Report. This playbook provides a comprehensive framework for building organizational resilience against phishing and social engineering attacks through layered technical controls, real-time behavioral intervention, advanced user training, and cultural transformation.
 
-The Phishing Resilience pillar accounts for 15% of your overall insider risk score but serves as the primary gateway for external attackers seeking to exploit internal resources. Organizations with mature phishing resilience programs experience 70% fewer successful social engineering attacks and 45% faster recovery times.
+The Phishing Resilience pillar accounts for 15% of your overall insider risk score but serves as the primary gateway for external attackers seeking to exploit internal resources. Organizations with mature phishing resilience programs that include real-time content analysis and behavioral intervention experience 70% fewer successful social engineering attacks and 45% faster recovery times.
 
 ## Phase 1: Threat Landscape Assessment (Weeks 1-2)
 
@@ -172,10 +172,10 @@ Advanced Threat Protection Features:
     - Continuous model improvement
 
   Real-Time Intelligence:
-    - Threat intelligence feeds
-    - Global threat correlation
-    - Zero-hour attack protection
-    - Reputation database updates
+    - Threat intelligence feeds with behavioral context
+    - Global threat correlation and intent analysis
+    - Zero-hour attack protection with immediate intervention
+    - Reputation database updates with session-level insights
 ```
 
 **Implementation Configuration:**
@@ -198,9 +198,9 @@ Email Gateway Policies:
        - Anomaly detection algorithms
     
     4. User Delivery Decision
-       - Safe delivery to inbox
-       - Quarantine for manual review
-       - Block with detailed logging
+       - Safe delivery to inbox with behavioral monitoring
+       - Quarantine for manual review with context analysis
+       - Block with comprehensive session logging and evidence
 
 Outbound Email Monitoring:
   - Data loss prevention scanning
@@ -263,7 +263,7 @@ Browser Protection Layers:
 
 **Endpoint Detection Enhancement:**
 ```python
-# Advanced phishing detection logic
+# Advanced real-time phishing detection with behavioral intervention
 class PhishingDetectionEngine:
     def __init__(self):
         self.models = {
@@ -300,7 +300,9 @@ class PhishingDetectionEngine:
             'risk_score': min(risk_score, 100),
             'risk_level': self.categorize_risk(risk_score),
             'indicators': indicators,
-            'recommended_action': self.get_recommended_action(risk_score)
+            'recommended_action': self.get_recommended_action(risk_score),
+            'intervention_required': risk_score > 50,
+            'session_context': self.capture_session_context(email)
         }
     
     def detect_social_engineering_tactics(self, message_content):
@@ -463,14 +465,14 @@ def generate_personalized_training(user_profile):
 
 Implement continuous learning reinforcement:
 
-**Micro-Learning Framework:**
+**Real-Time Micro-Learning Framework:**
 ```yaml
 Delivery Methods:
   Email-Based Learning:
-    - Weekly security tips (2-3 minutes)
-    - Real-world attack examples
-    - Interactive quizzes and polls
-    - Success story sharing
+    - Weekly security tips with behavioral insights (2-3 minutes)
+    - Real-world attack examples with intervention strategies
+    - Interactive quizzes and contextual polls
+    - Success story sharing with coaching outcomes
 
   Mobile Push Notifications:
     - Threat alert notifications
@@ -485,10 +487,10 @@ Delivery Methods:
     - Employee recognition
 
 Just-in-Time Training Triggers:
-  - Failed simulation attempts
-  - Suspicious email reporting
-  - New threat intelligence
-  - Role or department changes
+  - Failed simulation attempts with behavioral analysis
+  - Suspicious email reporting with intent context
+  - New threat intelligence requiring immediate coaching
+  - Role or department changes with real-time guidance
 ```
 
 ## Phase 4: Threat Intelligence and Response (Weeks 9-10)

@@ -6,6 +6,8 @@ import { TrendingUp, FileText, BarChart3, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { getPageLayout, getSectionLayout, getGridClass } from "@/lib/layout-utils";
 import { ResearchCard } from "@/components/research/research-card";
+import { getFAQJsonLd } from "@/lib/seo";
+import Script from "next/script";
 
 export const metadata = {
   title: "Research & Insights | Insider Risk Index",
@@ -27,6 +29,32 @@ export default function ResearchPage() {
       return dateB.getTime() - dateA.getTime(); // Sort by newest first
     });
 
+  // FAQ data for research page AI optimization
+  const researchFAQs = [
+    {
+      question: "What do the latest insider threat research findings reveal?",
+      answer: "2025 research shows organizations face $17.4M in annual insider threat costs (Ponemon Institute), but containment times improved to 81 days. 68% of breaches involve human elements (Verizon DBIR), with negligent insiders causing 55% of total costs ($8.8M per organization)."
+    },
+    {
+      question: "Which research sources validate insider risk management strategies?",
+      answer: "Our analysis draws from Ponemon Institute 2025 Global Report (1,400+ organizations), Gartner Market Guide G00805757 (48% attack increase data), Verizon DBIR 2024 (68% human element breaches), and Gurucul behavioral analytics research across multiple industries."
+    },
+    {
+      question: "How much do insider threats cost organizations annually?",
+      answer: "The average organization spends $17.4 million annually on insider threat incidents (Ponemon 2025). North America faces highest costs at $22.2M, while negligent insiders account for $8.8M (55%) of total costs with 13.5 incidents per organization yearly."
+    },
+    {
+      question: "What insider threat prevention strategies show the highest ROI?",
+      answer: "User training delivers the highest ROI at $5.2M in cost savings. Organizations with early detection (under 31 days) save $8.1M compared to delayed response. AI-enhanced detection reduces investigation times by 70% with 99.8% accuracy for email threats."
+    },
+    {
+      question: "How can organizations measure insider risk management success?",
+      answer: "Key metrics include containment time (target: under 31 days), cost per incident (industry average: $676,517), prevention effectiveness (45% reduction through security training), and detection accuracy (99.8% with AI). 65% of organizations with insider risk programs successfully pre-empt breaches."
+    }
+  ];
+
+  const faqJsonLd = getFAQJsonLd(researchFAQs);
+
   return (
     <div className="min-h-screen bg-above-gradient-light">
       {/* Hero Section */}
@@ -39,11 +67,10 @@ export default function ResearchPage() {
               </div>
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-              Research & Insights
+              What do the latest insider threat research findings reveal?
             </h1>
             <p className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-slate-700">
-              Industry-leading research on insider threat trends, costs, and mitigation strategies. 
-              Our analysis is based on comprehensive data from thousands of organizations worldwide.
+              Discover critical insights from Ponemon Institute 2025 ($17.4M cost study), Gartner Market Guide G00805757 (48% attack increase), and Verizon DBIR 2024 (68% breaches involve humans). Get evidence-based strategies from analysis of 1,400+ organizations worldwide.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm">
               <div className="flex items-center gap-2 rounded-lg bg-above-blue-100 px-4 py-2">
@@ -67,8 +94,8 @@ export default function ResearchPage() {
         {/* Key Statistics */}
         <div className="mb-16">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-slate-900">2024 Key Findings</h2>
-            <p className="text-lg text-slate-600 mt-2">Critical insights from our latest research</p>
+            <h2 className="text-3xl font-bold text-slate-900">What are the most critical insider threat statistics for 2025?</h2>
+            <p className="text-lg text-slate-600 mt-2">Key data points from Ponemon Institute, Gartner, and Verizon research</p>
           </div>
           <div className={getGridClass('cards', '1-2-4')}>
             <Card className="text-center border-l-4 border-l-above-rose-700 bg-above-rose-50 hover:shadow-lg transition-all duration-300">
@@ -116,8 +143,8 @@ export default function ResearchPage() {
         {/* Research Articles */}
         <div className="space-y-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-slate-900">Latest Research</h2>
-            <p className="text-lg text-slate-600 mt-2">Comprehensive analysis and industry insights</p>
+            <h2 className="text-3xl font-bold text-slate-900">How can organizations use research to improve insider risk management?</h2>
+            <p className="text-lg text-slate-600 mt-2">Evidence-based analysis with actionable implementation guidance</p>
           </div>
 
           {researchArticles.length === 0 ? (
@@ -155,6 +182,13 @@ export default function ResearchPage() {
           </Link>
         </div>
       </div>
+
+      {/* FAQ Schema for AI platforms */}
+      <Script
+        id="research-faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
     </div>
   );
 }

@@ -111,11 +111,11 @@ export default function AboutPage() {
               Research-Driven Assessment
             </Badge>
             <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
-              About Insider Risk Index
+              What is the Insider Risk Index?
             </h1>
             <p className="mt-6 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">
-              We help organizations understand and improve their insider risk posture through 
-              comprehensive assessments, expert insights, and actionable recommendations.
+              We help organizations understand and improve their insider risk posture through
+              comprehensive assessments, expert insights, and actionable recommendations based on industry research.
             </p>
           </div>
         </div>
@@ -126,10 +126,10 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-              Our Mission
+              What is our mission?
             </h2>
             <p className="mt-6 text-xl text-slate-600">
-              To democratize access to world-class insider threat assessment capabilities, 
+              To democratize access to world-class insider threat assessment capabilities,
               helping organizations of all sizes build more secure and resilient environments.
             </p>
           </div>
@@ -183,10 +183,10 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-              Assessment Methodology
+              How does our assessment methodology work?
             </h2>
             <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-              Our 5-pillar framework is validated by real-world data from the Ponemon Institute, 
+              Our 5-pillar framework is validated by real-world data from the Ponemon Institute,
               Verizon DBIR, and enhanced with threat intelligence from the ForScie Insider Threat Matrix.
             </p>
           </div>
@@ -280,7 +280,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-              Our Principles
+              What principles guide our work?
             </h2>
             <p className="mt-4 text-lg text-slate-600">
               The values that guide everything we do
@@ -312,7 +312,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-              Research Foundation
+              What research supports our methodology?
             </h2>
             <p className="mt-4 text-lg text-slate-600">
               Our assessments are grounded in the latest industry research and threat intelligence
@@ -391,7 +391,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-              Research Foundation
+              How is our research foundation structured?
             </h2>
             <p className="mt-4 text-lg text-slate-600">
               Built on authoritative security research and community-driven threat intelligence
@@ -435,7 +435,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-              Research Support
+              Who supports this research?
             </h2>
             <p className="mt-4 text-lg text-slate-600">
               The Insider Risk Index research and assessment platform is sponsored by Above Security, 

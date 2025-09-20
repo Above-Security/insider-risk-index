@@ -147,24 +147,24 @@ export default async function GlossaryPage() {
   // Generate FAQ schema for glossary
   const glossaryFAQs = [
     {
-      question: "What is the Insider Risk Glossary?",
-      answer: "The Insider Risk Glossary is a comprehensive collection of over 100 expertly curated definitions covering insider risk management, cybersecurity, and threat intelligence terms. Each term includes detailed explanations, difficulty levels, and citations from authoritative sources."
+      question: "What insider risk terms should I know?",
+      answer: "You should know key terms across 5 categories: Visibility (monitoring threats), Coaching (training programs), Evidence (investigation methods), Identity (access controls), and Phishing (social engineering defense). Our glossary covers 100+ expert-curated definitions with NIST framework citations."
     },
     {
-      question: "How are glossary terms categorized?",
-      answer: "Terms are categorized by Business, Technical, Legal, and Regulatory aspects. Each term also has a difficulty level (Beginner, Intermediate, Advanced) and is tagged with relevant pillars of insider risk management for easy navigation."
+      question: "How can I find specific security definitions?",
+      answer: "Use our advanced search to find terms by name, definition, or tags. Filter by Business, Technical, Legal, or Regulatory categories. Each term shows difficulty level (Beginner to Advanced) and relevance to the 5 insider risk pillars."
     },
     {
-      question: "Who creates and maintains these definitions?",
-      answer: "Our definitions are created by cybersecurity experts and are regularly updated based on current industry standards, regulatory requirements, and emerging threats. Sources include NIST frameworks, regulatory guidance, and peer-reviewed research."
+      question: "Who validates these security definitions?",
+      answer: "Cybersecurity experts validate all definitions using NIST frameworks, regulatory guidance, and peer-reviewed research. Sources include Ponemon Institute studies, Verizon DBIR analysis, and current industry standards for accuracy."
     },
     {
-      question: "Can I search and filter glossary terms?",
-      answer: "Yes, the glossary includes advanced search functionality allowing you to search by term, definition, or tags. You can also filter by category, difficulty level, and pillar relevance to find exactly what you're looking for."
+      question: "How often are new terms added?",
+      answer: "New terms are added monthly based on emerging threats, regulatory changes, and user feedback. We continuously update existing definitions to reflect evolving cybersecurity threats and industry best practices."
     },
     {
-      question: "Are the glossary terms updated regularly?",
-      answer: "Yes, we continuously update our glossary to reflect evolving cybersecurity threats, regulatory changes, and industry best practices. New terms are added monthly based on emerging trends and user feedback."
+      question: "Can I learn insider risk terminology by difficulty?",
+      answer: "Yes, each term has a difficulty rating from Beginner to Advanced. Start with foundational concepts like 'insider threat' and 'privileged access,' then progress to advanced topics like 'behavioral analytics' and 'zero trust architecture.'"
     }
   ];
 
@@ -219,12 +219,12 @@ export default async function GlossaryPage() {
           <div className="flex items-center justify-center mb-4">
             <BookOpen className="h-8 w-8 text-above-rose-600 mr-3" />
             <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
-              Insider Risk Glossary
+              What insider risk terms should I know?
             </h1>
           </div>
           <p className="text-lg text-slate-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Comprehensive definitions and explanations of insider risk, cybersecurity, and related terms.
-            Build your knowledge with expert-reviewed content.
+            Explore over 100 expert-curated definitions covering insider risk management, cybersecurity, and threat intelligence.
+            Get clear explanations with sources from NIST frameworks and industry research.
           </p>
           <div className="mt-6 text-sm text-slate-500 dark:text-slate-400">
             {initialData.pagination.total} terms available

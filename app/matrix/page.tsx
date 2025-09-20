@@ -103,11 +103,11 @@ export default async function MatrixPage() {
           <div className="flex items-center justify-center mb-4">
             <Shield className="h-8 w-8 text-above-rose-700 mr-3" />
             <h1 className="text-4xl font-bold text-slate-900">
-              Insider Threat Matrix
+              How can I understand insider threat techniques and prevention methods?
             </h1>
           </div>
           <p className="text-lg text-slate-700 max-w-3xl mx-auto mb-6">
-            Comprehensive threat intelligence covering motivations, capabilities, activities, and techniques from real-world insider threats, with prevention strategies and detection methods from the cybersecurity community.
+            Explore the ForScie Insider Threat Matrix with 350+ documented techniques, motivations, and capabilities. Get actionable prevention strategies and detection methods validated by the cybersecurity community for protecting against real-world insider threats.
           </p>
           <div className="flex items-center justify-center text-sm text-slate-600">
             <Calendar className="h-4 w-4 mr-1" />

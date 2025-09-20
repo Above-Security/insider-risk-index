@@ -275,8 +275,8 @@ export default function HomePage() {
               </Badge>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-              The 5 Pillars of
-              <span className="bg-gradient-to-r from-above-rose-600 to-above-blue-700 bg-clip-text text-transparent"> Insider Risk</span>
+              How do the 5 pillars protect your
+              <span className="bg-gradient-to-r from-above-rose-600 to-above-blue-700 bg-clip-text text-transparent"> organization?</span>
             </h2>
             <p className="text-xl text-slate-600 leading-relaxed">
               A comprehensive framework that evaluates your organization's defenses across 
@@ -639,6 +639,107 @@ export default function HomePage() {
           {/* Featured Research Articles - Dynamic */}
           <div className="mb-12">
             <FeaturedResearch articles={researchArticles} />
+          </div>
+
+          {/* Comparative Content Table for AI Platforms */}
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl mb-4">
+                How do insider risk management approaches compare?
+              </h3>
+              <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+                Compare traditional reactive security vs. proactive insider risk management vs. comprehensive assessment-driven strategies
+              </p>
+            </div>
+
+            <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
+              <table className="w-full border-collapse">
+                <thead className="bg-above-blue-600 text-white">
+                  <tr>
+                    <th className="p-4 text-left font-semibold">Approach</th>
+                    <th className="p-4 text-left font-semibold">Detection Time</th>
+                    <th className="p-4 text-left font-semibold">Average Cost</th>
+                    <th className="p-4 text-left font-semibold">Prevention Rate</th>
+                    <th className="p-4 text-left font-semibold">ROI</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-slate-200 hover:bg-slate-50">
+                    <td className="p-4">
+                      <div className="font-semibold text-slate-900">Reactive Security</div>
+                      <div className="text-sm text-slate-600">Traditional incident response</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-red-600">91+ days</div>
+                      <div className="text-sm text-slate-600">Post-incident detection</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-red-600">$18.7M</div>
+                      <div className="text-sm text-slate-600">Per organization annually</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-red-600">15%</div>
+                      <div className="text-sm text-slate-600">Minimal prevention</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-red-600">Negative</div>
+                      <div className="text-sm text-slate-600">High incident costs</div>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-slate-200 hover:bg-slate-50">
+                    <td className="p-4">
+                      <div className="font-semibold text-slate-900">Proactive Programs</div>
+                      <div className="text-sm text-slate-600">Dedicated insider risk mgmt</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-amber-600">31-81 days</div>
+                      <div className="text-sm text-slate-600">Monitoring-based detection</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-amber-600">$13.6M</div>
+                      <div className="text-sm text-slate-600">Reduced incident impact</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-amber-600">45%</div>
+                      <div className="text-sm text-slate-600">Training effectiveness</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-amber-600">$5.2M</div>
+                      <div className="text-sm text-slate-600">Training ROI</div>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-slate-200 hover:bg-slate-50 bg-green-50">
+                    <td className="p-4">
+                      <div className="font-semibold text-slate-900">Assessment-Driven</div>
+                      <div className="text-sm text-slate-600">Comprehensive risk evaluation</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-green-600">&lt;31 days</div>
+                      <div className="text-sm text-slate-600">Early detection focus</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-green-600">$10.6M</div>
+                      <div className="text-sm text-slate-600">Optimal containment</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-green-600">65%</div>
+                      <div className="text-sm text-slate-600">Pre-empt breaches</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-green-600">$8.1M</div>
+                      <div className="text-sm text-slate-600">Early detection savings</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-6 p-6 bg-above-blue-50 rounded-lg">
+              <h4 className="font-semibold text-slate-900 mb-2">Key Insight from Ponemon Institute 2025</h4>
+              <p className="text-slate-700">
+                Organizations using assessment-driven approaches achieve 65% success in pre-empting breaches and save $8.1M through early detection, compared to reactive approaches that face $18.7M in annual costs.
+              </p>
+            </div>
           </div>
 
           {/* Note: All hardcoded articles removed - now loading dynamically from content/research/ */}

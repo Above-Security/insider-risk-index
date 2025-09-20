@@ -828,13 +828,56 @@ export function getResearchArticleJsonLd({
       "@type": "WebPage",
       "@id": `${seoConfig.siteUrl}/research/${slug}`,
     },
-    about: {
-      "@type": "Thing",
-      name: "Insider Risk Management",
-      description: "Research and insights into insider threat prevention and mitigation strategies",
-    },
+    about: [
+      {
+        "@type": "Thing",
+        name: "Insider Risk Management",
+        description: "Research and insights into insider threat prevention and mitigation strategies",
+      },
+      {
+        "@type": "Thing",
+        name: "Ponemon Institute Research",
+        description: "Analysis based on Ponemon Institute 2025 Global Cost of Insider Risks Report",
+      },
+      {
+        "@type": "Thing",
+        name: "Gartner Market Guide",
+        description: "Insights from Gartner Market Guide for Insider Risk Management Solutions G00805757",
+      }
+    ],
     genre: "cybersecurity research",
     inLanguage: "en-US",
+    isAccessibleForFree: true,
+    creativeWorkStatus: "Published",
+    citation: [
+      {
+        "@type": "CreativeWork",
+        name: "Ponemon Institute 2025 Cost of Insider Risks Global Report",
+        description: "$17.4M average annual cost analysis across 1,400+ organizations",
+      },
+      {
+        "@type": "CreativeWork",
+        name: "Gartner Market Guide for Insider Risk Management Solutions",
+        identifier: "G00805757",
+        description: "March 2025 strategic analysis by Brent Predovich and Deepti Gopal",
+      },
+      {
+        "@type": "CreativeWork",
+        name: "Verizon 2024 Data Breach Investigations Report",
+        description: "68% of breaches involve human element analysis",
+      }
+    ],
+    educationalUse: "Professional cybersecurity training and research",
+    audience: {
+      "@type": "Audience",
+      audienceType: [
+        "Security Professionals",
+        "Risk Managers",
+        "Compliance Officers",
+        "IT Directors",
+        "CISOs"
+      ],
+    },
   });
 }
 

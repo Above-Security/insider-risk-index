@@ -15,6 +15,21 @@ tone: "analytical"
 
 # The $17.4 Million Breakthrough: How Organizations Are Finally Winning Against Insider Threats in 2025
 
+## 📝 TL;DR - Key Takeaways
+
+**Quick Summary:** Organizations face $17.4M in annual insider threat costs (Ponemon 2025), but 2025 marks the first year showing measurable progress. Containment times dropped to 81 days (from 86), and 65% of organizations with insider risk programs successfully pre-empt breaches.
+
+**Top 3 Success Factors:**
+1. **Early Detection**: Organizations containing incidents under 31 days save $8.1M vs. those taking 91+ days
+2. **User Training**: Delivers highest ROI at $5.2M in cost savings
+3. **AI Implementation**: 54% using AI report 70% reduction in investigation times
+
+**Critical Stats:**
+- **Negligent insiders cause 55% of costs** ($8.8M) - highest impact category
+- **Budget allocation doubled** from 8.2% to 16.5% of IT security spending
+- **North America highest costs** at $22.2M annually
+- **AI detection accuracy** reaches 99.8% for email-related threats
+
 ## The Moment Everything Changed
 
 **Something unprecedented happened in 2025.** For the first time since tracking began, organizations are actually winning the war against insider threats. Not in terms of costs—those hit a devastating $17.4 million per organization annually—but in the battles that matter: detection speed, prevention effectiveness, and proactive defense.

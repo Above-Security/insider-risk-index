@@ -237,7 +237,7 @@ export default function HowItWorksPage() {
           <div className={getPageLayout()}>
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                What does the 5-pillar framework evaluate?
+                How do the 5 pillars protect against insider threats?
               </h2>
               <p className="text-lg text-slate-600 max-w-3xl mx-auto">
                 Each pillar represents a critical aspect of insider risk management, weighted by real-world impact and industry research

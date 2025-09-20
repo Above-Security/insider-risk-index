@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
       keyRisksCount: keyRisks.length
     });
 
-    const emailHtml = render(
+    const emailHtml = await render(
       AssessmentCompleteEmail({
         organizationName,
         iriScore: score,

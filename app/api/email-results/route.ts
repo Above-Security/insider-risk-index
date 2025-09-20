@@ -127,7 +127,7 @@ export async function POST(request: NextRequest) {
 
     // Generate PDF attachment if environment variable is enabled
     let pdfAttachment;
-    if (process.env.ENABLE_PDF_EMAIL_ATTACHMENTS === 'true') {
+    if (process.env.ENABLE_PDF_EMAIL_ATTACHMENTS?.trim() === 'true') {
       try {
         console.log("📄 Generating PDF attachment for manual email send");
         const pdfData = await generatePDFAttachment({ assessment, type: 'board-brief' });
@@ -148,7 +148,8 @@ export async function POST(request: NextRequest) {
       }
     } else {
       console.log('📄 PDF attachment skipped:', {
-        enablePdfAttachments: process.env.ENABLE_PDF_EMAIL_ATTACHMENTS
+        enablePdfAttachmentsRaw: process.env.ENABLE_PDF_EMAIL_ATTACHMENTS,
+        enablePdfAttachmentsTrimmed: process.env.ENABLE_PDF_EMAIL_ATTACHMENTS?.trim()
       });
     }
 

@@ -180,7 +180,7 @@ export async function submitAssessment(data: AssessmentSubmission) {
         
         // Generate PDF attachment asynchronously if enabled
         let pdfAttachment = null;
-        if (process.env.ENABLE_PDF_EMAIL_ATTACHMENTS === 'true') {
+        if (process.env.ENABLE_PDF_EMAIL_ATTACHMENTS?.trim() === 'true') {
           try {
             console.log('📄 Generating PDF attachment for assessment email...');
             const pdfData = await generatePDFAttachment({

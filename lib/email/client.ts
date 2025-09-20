@@ -16,7 +16,7 @@ export const EMAIL_CONFIG = {
     name: process.env.EMAIL_FROM_NAME || 'InsiderRisk Index'
   },
   replyTo: process.env.EMAIL_REPLY_TO || 'support@insiderisk.io',
-  enabled: process.env.ENABLE_EMAIL_NOTIFICATIONS === 'true' && !!resendApiKey
+  enabled: process.env.ENABLE_EMAIL_NOTIFICATIONS?.trim() === 'true' && !!resendApiKey
 };
 
 // Helper function to format from address

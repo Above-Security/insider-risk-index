@@ -16,7 +16,7 @@ export default function AssessmentLayout({
         id="assessment-layout-jsonld"
         type="application/ld+json"
         strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: assessmentJsonLd }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(assessmentJsonLd) }}
       />
       {children}
     </>

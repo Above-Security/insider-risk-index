@@ -88,49 +88,57 @@ export default function HomePage() {
     "description": "Above Security sponsors the Insider Risk Index research and assessment platform, providing threat intelligence data and supporting open security education."
   };
 
-  // FAQ Schema for Bing/ChatGPT optimization
+  // Enhanced FAQ Schema for AI/Voice Search optimization
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What is an insider risk assessment for organizations?",
+        "name": "How can I assess my organization's insider risk?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "An insider risk assessment is a comprehensive evaluation tool that measures your organization's vulnerability to insider threats across 5 critical pillars: Visibility & Monitoring, Prevention & Coaching, Investigation & Evidence, Identity & SaaS Management, and Phishing Resilience. Based on Ponemon Institute research showing $17.4M average annual cost of insider threats."
-        }
-      },
-      {
-        "@type": "Question", 
-        "name": "How do I calculate my organization's insider risk index score?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Your Insider Risk Index (IRI) is calculated using a weighted scoring algorithm based on 20 evidence-based questions across 5 security pillars. The assessment takes 8-12 minutes and provides a 0-100 score with maturity levels from Ad Hoc (0-24) to Optimized (85-100), benchmarked against industry data."
+          "text": "You can assess insider risk using our free 8-minute evaluation across 5 critical pillars: Visibility & Monitoring, Prevention & Coaching, Investigation & Evidence, Identity & SaaS Management, and Phishing Resilience. Get immediate results with industry benchmarking and actionable recommendations based on Ponemon Institute research."
         }
       },
       {
         "@type": "Question",
-        "name": "What insider threat detection tools should small businesses use?",
+        "name": "What's the average cost of insider threats to organizations?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Small businesses should focus on foundational insider threat detection: endpoint monitoring (CrowdStrike, SentinelOne), user activity monitoring (Varonis, Forcepoint), email security (Proofpoint, Microsoft Defender), and privileged access management (CyberArk, BeyondTrust). Start with visibility and monitoring as the first pillar."
+          "text": "Insider threats cost organizations $17.4 million annually on average according to Ponemon Institute 2025 research. Individual incidents average $676,517. Healthcare and financial services face higher costs due to regulatory requirements and sensitive data exposure."
         }
       },
       {
         "@type": "Question",
-        "name": "How much do insider threats cost organizations annually?", 
+        "name": "How long does an insider risk assessment take?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "According to Ponemon Institute 2025 research, insider threats cost organizations an average of $17.4M annually, with individual incidents costing $676,517 on average. Healthcare and financial services face higher costs due to regulatory compliance requirements and sensitive data exposure."
+          "text": "Our insider risk assessment takes 8-10 minutes to complete. It includes 20 evidence-based questions across 5 security pillars and provides immediate results with your Insider Risk Index score, maturity level, and personalized recommendations."
         }
       },
       {
         "@type": "Question",
-        "name": "What are the 5 pillars of insider risk management?",
+        "name": "What are the best insider threat detection tools for my business?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The 5 pillars are: 1) Visibility & Monitoring (25% weight) - detecting unusual behavior, 2) Prevention & Coaching (25%) - training and awareness, 3) Investigation & Evidence (20%) - incident response, 4) Identity & SaaS Management (15%) - access controls, 5) Phishing Resilience (15%) - social engineering defense."
+          "text": "Effective insider threat detection requires endpoint monitoring (CrowdStrike, SentinelOne), user activity monitoring (Varonis, Forcepoint), email security (Proofpoint, Microsoft Defender), and privileged access management (CyberArk, BeyondTrust). Start with visibility and monitoring tools first."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why should I use a free insider risk assessment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Free insider risk assessments provide immediate visibility into security gaps, benchmark your organization against industry standards, and deliver actionable recommendations. With 48% of organizations reporting increased insider attacks (Gartner 2025), early assessment helps prevent costly incidents."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What makes an effective insider risk management program?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Effective programs balance 5 pillars: Visibility & Monitoring (25% weight), Prevention & Coaching (25%), Investigation & Evidence (20%), Identity & SaaS Management (15%), and Phishing Resilience (15%). This framework is validated by real-world incident data and industry research."
         }
       }
     ]
@@ -211,13 +219,12 @@ export default function HomePage() {
                 Research-Based Assessment Framework
               </Badge>
               <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
-                Free Insider Risk Assessment{" "}
-                <span className="text-above-rose-700">for Organizations</span>
+                How can I assess my organization's{" "}
+                <span className="text-above-rose-700">insider risk?</span>
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-700">
-                Calculate your organization's insider threat vulnerability in 8 minutes. Based on $17.4M average annual costs (Ponemon 2025) and 
-                48% of organizations report insider attacks became more frequent in 2024 (Gartner G00805757). Get your Insider Risk Index score with actionable recommendations 
-                from <Link href="/research" className="text-above-rose-700 hover:text-above-rose-800 font-medium underline underline-offset-2">evidence-based threat intelligence</Link>.
+                Get a free, comprehensive evaluation in 8 minutes with actionable insights across 5 critical security pillars. Organizations face $17.4M in annual costs from insider threats (Ponemon 2025). 48% report attacks increased in 2024 (Gartner G00805757). Our assessment provides your Insider Risk Index score with
+                <Link href="/research" className="text-above-rose-700 hover:text-above-rose-800 font-medium underline underline-offset-2"> evidence-based recommendations</Link>.
               </p>
             </div>
             
@@ -1155,54 +1162,76 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="space-y-8">
-              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6">
-                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900">
-                  What is an insider risk assessment for organizations?
+            <div className="space-y-8" itemScope itemType="https://schema.org/FAQPage">
+              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900" itemProp="name">
+                  How can I assess my organization's insider risk?
                   <span className="ml-6 flex-shrink-0">+</span>
                 </summary>
-                <div className="mt-4 text-slate-700">
-                  An insider risk assessment is a comprehensive evaluation tool that measures your organization's vulnerability to insider threats across 5 critical pillars: Visibility & Monitoring, Prevention & Coaching, Investigation & Evidence, Identity & SaaS Management, and Phishing Resilience. Based on Ponemon Institute research showing $17.4M average annual cost of insider threats.
+                <div className="mt-4 text-slate-700" itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <div itemProp="text">
+                    You can assess insider risk using our free 8-minute evaluation across 5 critical pillars: Visibility & Monitoring, Prevention & Coaching, Investigation & Evidence, Identity & SaaS Management, and Phishing Resilience. Get immediate results with industry benchmarking and actionable recommendations based on Ponemon Institute research.
+                  </div>
                 </div>
               </details>
 
-              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6">
-                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900">
-                  How do I calculate my organization's insider risk index score?
+              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900" itemProp="name">
+                  What's the average cost of insider threats to organizations?
                   <span className="ml-6 flex-shrink-0">+</span>
                 </summary>
-                <div className="mt-4 text-slate-700">
-                  Your Insider Risk Index (IRI) is calculated using a weighted scoring algorithm based on 20 evidence-based questions across 5 security pillars. The assessment takes 8-12 minutes and provides a 0-100 score with maturity levels from Ad Hoc (0-24) to Optimized (85-100), benchmarked against industry data.
+                <div className="mt-4 text-slate-700" itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <div itemProp="text">
+                    Insider threats cost organizations $17.4 million annually on average according to Ponemon Institute 2025 research. Individual incidents average $676,517. Healthcare and financial services face higher costs due to regulatory requirements and sensitive data exposure.
+                  </div>
                 </div>
               </details>
 
-              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6">
-                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900">
-                  What insider threat detection tools should small businesses use?
+              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900" itemProp="name">
+                  How long does an insider risk assessment take?
                   <span className="ml-6 flex-shrink-0">+</span>
                 </summary>
-                <div className="mt-4 text-slate-700">
-                  Small businesses should focus on foundational insider threat detection: endpoint monitoring (CrowdStrike, SentinelOne), user activity monitoring (Varonis, Forcepoint), email security (Proofpoint, Microsoft Defender), and privileged access management (CyberArk, BeyondTrust). Start with visibility and monitoring as the first pillar.
+                <div className="mt-4 text-slate-700" itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <div itemProp="text">
+                    Our insider risk assessment takes 8-10 minutes to complete. It includes 20 evidence-based questions across 5 security pillars and provides immediate results with your Insider Risk Index score, maturity level, and personalized recommendations.
+                  </div>
                 </div>
               </details>
 
-              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6">
-                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900">
-                  How much do insider threats cost organizations annually?
+              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900" itemProp="name">
+                  What are the best insider threat detection tools for my business?
                   <span className="ml-6 flex-shrink-0">+</span>
                 </summary>
-                <div className="mt-4 text-slate-700">
-                  According to Ponemon Institute 2025 research, insider threats cost organizations an average of $17.4M annually, with individual incidents costing $676,517 on average. Healthcare and financial services face higher costs due to regulatory compliance requirements and sensitive data exposure.
+                <div className="mt-4 text-slate-700" itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <div itemProp="text">
+                    Effective insider threat detection requires endpoint monitoring (CrowdStrike, SentinelOne), user activity monitoring (Varonis, Forcepoint), email security (Proofpoint, Microsoft Defender), and privileged access management (CyberArk, BeyondTrust). Start with visibility and monitoring tools first.
+                  </div>
                 </div>
               </details>
 
-              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6">
-                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900">
-                  What are the 5 pillars of insider risk management?
+              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900" itemProp="name">
+                  Why should I use a free insider risk assessment?
                   <span className="ml-6 flex-shrink-0">+</span>
                 </summary>
-                <div className="mt-4 text-slate-700">
-                  The 5 pillars are: 1) Visibility & Monitoring (25% weight) - detecting unusual behavior, 2) Prevention & Coaching (25%) - training and awareness, 3) Investigation & Evidence (20%) - incident response, 4) Identity & SaaS Management (15%) - access controls, 5) Phishing Resilience (15%) - social engineering defense.
+                <div className="mt-4 text-slate-700" itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <div itemProp="text">
+                    Free insider risk assessments provide immediate visibility into security gaps, benchmark your organization against industry standards, and deliver actionable recommendations. With 48% of organizations reporting increased insider attacks (Gartner 2025), early assessment helps prevent costly incidents.
+                  </div>
+                </div>
+              </details>
+
+              <details className="group bg-above-blue-50 rounded-lg border border-above-blue-200 p-6" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary className="flex items-center justify-between cursor-pointer font-medium text-slate-900" itemProp="name">
+                  What makes an effective insider risk management program?
+                  <span className="ml-6 flex-shrink-0">+</span>
+                </summary>
+                <div className="mt-4 text-slate-700" itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <div itemProp="text">
+                    Effective programs balance 5 pillars: Visibility & Monitoring (25% weight), Prevention & Coaching (25%), Investigation & Evidence (20%), Identity & SaaS Management (15%), and Phishing Resilience (15%). This framework is validated by real-world incident data and industry research.
+                  </div>
                 </div>
               </details>
             </div>

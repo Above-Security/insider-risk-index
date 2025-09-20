@@ -202,9 +202,52 @@ export default async function PDFPage({ params }: PDFPageProps) {
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Executive Summary</h2>
             <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
-              Assessment results benchmarked against industry peers and global standards
+              Strategic insider risk assessment with business impact analysis and ROI projections
             </p>
           </div>
+
+          {/* Business Impact Calculations */}
+          {(() => {
+            const averageAnnualCost = 17400000; // $17.4M from Ponemon 2025
+            const averageIncidentCost = 676517;
+            const averageContainmentDays = 81;
+            const riskMultiplier = Math.max(0.3, (100 - iri) / 100);
+            const estimatedAnnualRisk = Math.round(averageAnnualCost * riskMultiplier / 1000000 * 10) / 10;
+            const estimatedIncidentCost = Math.round(averageIncidentCost * riskMultiplier / 1000);
+            const estimatedContainmentTime = Math.round(averageContainmentDays * riskMultiplier);
+            const potentialSavings = Math.round((averageAnnualCost * (riskMultiplier - 0.3)) / 1000000 * 10) / 10;
+            const implementationCost = Math.round(potentialSavings * 0.15 * 10) / 10;
+
+            return (
+              <div className="mb-8 p-6 bg-gradient-to-r from-above-blue-50 to-above-lavender-50 rounded-xl border border-above-blue-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-4 text-center">Business Impact Analysis</h3>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                  <div className="p-4 bg-white rounded-lg border border-above-rose-200">
+                    <div className="text-2xl font-bold text-above-rose-700 mb-1">${estimatedAnnualRisk}M</div>
+                    <div className="text-sm text-slate-600">Annual Risk Exposure</div>
+                  </div>
+                  <div className="p-4 bg-white rounded-lg border border-above-peach-200">
+                    <div className="text-2xl font-bold text-above-peach-700 mb-1">${estimatedIncidentCost}K</div>
+                    <div className="text-sm text-slate-600">Per Incident Cost</div>
+                  </div>
+                  <div className="p-4 bg-white rounded-lg border border-above-blue-200">
+                    <div className="text-2xl font-bold text-above-blue-700 mb-1">{estimatedContainmentTime}</div>
+                    <div className="text-sm text-slate-600">Containment Days</div>
+                  </div>
+                  <div className="p-4 bg-white rounded-lg border border-green-200">
+                    <div className="text-2xl font-bold text-green-700 mb-1">${potentialSavings}M</div>
+                    <div className="text-sm text-slate-600">Potential Savings</div>
+                  </div>
+                </div>
+                <div className="mt-4 p-4 bg-white rounded-lg border border-green-200 text-center">
+                  <p className="text-sm text-slate-700">
+                    <strong>ROI Projection:</strong> ${implementationCost}M investment could deliver ${potentialSavings}M annual savings
+                    ({potentialSavings > 0 ? Math.round((potentialSavings / Math.max(implementationCost, 0.1)) * 10) / 10 : 0}:1 ROI)
+                  </p>
+                </div>
+              </div>
+            );
+          })()}
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {/* Score Card - constrained */}
@@ -454,6 +497,91 @@ export default async function PDFPage({ params }: PDFPageProps) {
                     <span className="text-sm text-slate-700">{recommendation}</span>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Executive Action Plan */}
+      <section className="py-12 bg-gradient-to-br from-above-blue-50 to-white">
+        <div className="w-full max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Executive Action Plan</h2>
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+              Prioritized recommendations for board-level review and strategic implementation
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            {/* Immediate Actions */}
+            <div className="bg-white rounded-xl border border-above-blue-200 p-6 shadow-lg">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Immediate Actions (0-30 days)</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3 p-3 bg-above-blue-50 rounded-lg">
+                  <span className="text-above-blue-700 font-bold">1.</span>
+                  <span className="text-sm text-slate-700">Present findings to board and executive leadership</span>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-above-blue-50 rounded-lg">
+                  <span className="text-above-blue-700 font-bold">2.</span>
+                  <span className="text-sm text-slate-700">Establish insider risk program budget and timeline</span>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-above-blue-50 rounded-lg">
+                  <span className="text-above-blue-700 font-bold">3.</span>
+                  <span className="text-sm text-slate-700">Begin implementation of critical priority recommendations</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Long-term Strategy */}
+            <div className="bg-white rounded-xl border border-above-peach-200 p-6 shadow-lg">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Strategic Implementation (3-12 months)</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3 p-3 bg-above-peach-50 rounded-lg">
+                  <span className="text-above-peach-700 font-bold">1.</span>
+                  <span className="text-sm text-slate-700">Deploy comprehensive monitoring and analytics solutions</span>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-above-peach-50 rounded-lg">
+                  <span className="text-above-peach-700 font-bold">2.</span>
+                  <span className="text-sm text-slate-700">Implement organization-wide training and awareness programs</span>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-above-peach-50 rounded-lg">
+                  <span className="text-above-peach-700 font-bold">3.</span>
+                  <span className="text-sm text-slate-700">Schedule quarterly assessments to track progress</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Key Insights Summary */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200 p-6">
+              <h3 className="text-lg font-bold text-green-800 mb-4">Organizational Strengths</h3>
+              <div className="space-y-2">
+                {pillarScores.filter(p => p.score > 70).slice(0, 3).map((pillar, index) => {
+                  const pillarInfo = PILLARS.find(p => p.id === pillar.pillar);
+                  return (
+                    <div key={index} className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-sm text-slate-700">{pillarInfo?.name}: {Math.round(pillar.score)}% performance</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-red-50 to-rose-50 rounded-xl border border-red-200 p-6">
+              <h3 className="text-lg font-bold text-red-800 mb-4">Priority Improvements</h3>
+              <div className="space-y-2">
+                {pillarScores.filter(p => p.score < 60).slice(0, 3).map((pillar, index) => {
+                  const pillarInfo = PILLARS.find(p => p.id === pillar.pillar);
+                  return (
+                    <div key={index} className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      <span className="text-sm text-slate-700">{pillarInfo?.name}: {Math.round(pillar.score)}% performance</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
